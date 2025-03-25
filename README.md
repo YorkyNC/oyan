@@ -1,4 +1,4 @@
-# Kepler Vision
+# Oyan
 
 ## Getting Started
 
@@ -13,7 +13,7 @@
 
 1. Clone the repository
 ```bash
-git clone git@gitlab.com:green-eye-ltd/kepler-vision/mobile/mobile.git
+git clone git https://github.com/YorkyNC/oyan.git
 ```
 
 2. Install dependencies
