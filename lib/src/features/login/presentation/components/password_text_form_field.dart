@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:oyan/src/core/extensions/build_context_extension.dart';
 
 class PasswordTextFormField extends StatefulWidget {
   PasswordTextFormField({
@@ -23,72 +25,59 @@ class PasswordTextFormField extends StatefulWidget {
 class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 8,
-        horizontal: 4,
+    return TextFormField(
+      keyboardType: TextInputType.visiblePassword,
+      controller: widget.passwordController,
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return widget.errorText;
+        }
+        return null;
+      },
+      cursorHeight: 24,
+      style: GoogleFonts.openSans(
+        fontSize: 17,
+        fontWeight: FontWeight.w400,
+        color: const Color(0xff323232),
       ),
-      child: TextFormField(
-        keyboardType: TextInputType.visiblePassword,
-        controller: widget.passwordController,
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return widget.errorText;
-          }
-          return null;
-        },
-        cursorHeight: 24,
-        style: const TextStyle(
-          fontFamily: 'Inter',
-          fontSize: 16,
+      obscureText: !widget.isPasswordVisible,
+      obscuringCharacter: '*',
+      cursorColor: context.colors.main,
+      decoration: InputDecoration(
+        errorStyle: GoogleFonts.openSans(fontSize: 17, fontWeight: FontWeight.w400, color: Colors.red),
+        labelText: widget.confirm! ? 'Повторите пароль' : 'Пароль',
+        labelStyle: GoogleFonts.openSans(
+          fontSize: 17,
           fontWeight: FontWeight.w400,
-          color: Colors.black,
+          color: const Color(0xffA2ADD0),
         ),
-        obscureText: !widget.isPasswordVisible,
-        obscuringCharacter: '•',
-        cursorColor: const Color(0xFF2CB1B9),
-        decoration: InputDecoration(
-          errorStyle: const TextStyle(
-            fontFamily: 'Inter',
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            color: Colors.red,
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide(
+            color: context.colors.main,
           ),
-          labelText: widget.confirm! ? 'Повторите пароль' : 'Пароль',
-          labelStyle: const TextStyle(
-            fontFamily: 'Inter',
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-            color: Color(0xFF64748B),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: const BorderSide(color: Colors.red),
+        ),
+        suffixIcon: IconButton(
+          icon: Icon(
+            widget.isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+            color: const Color(0xFF64748B),
           ),
-          floatingLabelBehavior: FloatingLabelBehavior.auto,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Color(0xFF2CB1B9)),
-          ),
-          errorBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: const BorderSide(color: Colors.red),
-          ),
-          suffixIcon: IconButton(
-            icon: Icon(
-              widget.isPasswordVisible
-                  ? Icons.visibility_off
-                  : Icons.visibility,
-              color: const Color(0xFF64748B),
-            ),
-            onPressed: () {
-              widget.onPasswordVisibilityChanged?.call();
-            },
-          ),
+          onPressed: () {
+            widget.onPasswordVisibilityChanged?.call();
+          },
         ),
       ),
     );

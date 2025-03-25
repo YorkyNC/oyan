@@ -1,4 +1,3 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:oyan/src/app/app_navigation_wrapper.dart';
 import 'package:oyan/src/app/imports.dart';
@@ -7,9 +6,9 @@ import 'package:oyan/src/features/class_events/presentation/class_event_page.dar
 import 'package:oyan/src/features/events/presentation/events_page.dart';
 import 'package:oyan/src/features/review/presentation/psychologist_review_page.dart';
 import 'package:oyan/src/features/settings/domain/entities/user_token_entity.dart';
+import 'package:oyan/src/features/welcome/presentation/welcome_page.dart';
 
 import '../../features/forgot_password/presentation/forgot_password_page.dart';
-import '../../features/forgot_password/presentation/set_new_password_page.dart';
 import '../../features/login/presentation/login_page.dart';
 import '../services/auth/role_notifier.dart';
 import '../services/storage/storage_service_impl.dart';
@@ -23,5 +22,11 @@ GoRouter routerProvider() {
   final StorageServiceImpl st = StorageServiceImpl();
   final String? token = st.getToken();
 
-  return GoRouter(refreshListenable: st, initialLocation: '/', debugLogDiagnostics: true, routes: _routes);
+  return GoRouter(
+    refreshListenable: st,
+    // initialLocation: '/',
+    initialLocation: RoutePaths.welcome,
+    debugLogDiagnostics: true,
+    routes: _routes,
+  );
 }

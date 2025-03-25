@@ -163,6 +163,15 @@ List<RouteBase> _routes = [
     },
   ),
   GoRoute(
+    path: RoutePaths.welcome,
+    pageBuilder: (context, state) {
+      return getPage(
+        child: const WelcomePage(),
+        state: state,
+      );
+    },
+  ),
+  GoRoute(
     path: RoutePaths.classEvents,
     pageBuilder: (context, state) {
       return getPage(

@@ -3,7 +3,6 @@ import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/storage/storage_service_impl.dart';
-import 'package:oyan/src/core/theme/colors.dart';
 import 'package:oyan/src/core/theme/typography.dart';
 import 'package:oyan/src/core/utils/loggers/logger.dart';
 import 'package:oyan/src/core/widgets/buttons/custom_button.dart';

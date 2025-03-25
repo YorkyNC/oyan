@@ -499,16 +499,16 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 54ZD6G4C86;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kepler Vision";
+				INFOPLIST_KEY_CFBundleDisplayName = Oyan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "kz.kepler-vision.app";
+				PRODUCT_BUNDLE_IDENTIFIER = kz.oyan.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -932,16 +932,16 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 54ZD6G4C86;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kepler Vision";
+				INFOPLIST_KEY_CFBundleDisplayName = Oyan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "kz.kepler-vision.app";
+				PRODUCT_BUNDLE_IDENTIFIER = kz.oyan.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -966,16 +966,16 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 54ZD6G4C86;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kepler Vision";
+				INFOPLIST_KEY_CFBundleDisplayName = Oyan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "kz.kepler-vision.app";
+				PRODUCT_BUNDLE_IDENTIFIER = kz.oyan.app;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -996,10 +996,10 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54ZD6G4C86;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kepler Vision";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_KEY_CFBundleDisplayName = Oyan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				PRODUCT_BUNDLE_IDENTIFIER = "kz.kepler-vision.app";
+				PRODUCT_BUNDLE_IDENTIFIER = kz.oyan.app;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1017,10 +1017,10 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54ZD6G4C86;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kepler Vision";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_KEY_CFBundleDisplayName = Oyan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				PRODUCT_BUNDLE_IDENTIFIER = "kz.kepler-vision.app";
+				PRODUCT_BUNDLE_IDENTIFIER = kz.oyan.app;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1038,10 +1038,10 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54ZD6G4C86;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kepler Vision";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_KEY_CFBundleDisplayName = Oyan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				PRODUCT_BUNDLE_IDENTIFIER = "kz.kepler-vision.app";
+				PRODUCT_BUNDLE_IDENTIFIER = kz.oyan.app;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1059,10 +1059,10 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54ZD6G4C86;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kepler Vision";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_KEY_CFBundleDisplayName = Oyan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				PRODUCT_BUNDLE_IDENTIFIER = "kz.kepler-vision.app";
+				PRODUCT_BUNDLE_IDENTIFIER = kz.oyan.app;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1080,10 +1080,10 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54ZD6G4C86;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kepler Vision";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_KEY_CFBundleDisplayName = Oyan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				PRODUCT_BUNDLE_IDENTIFIER = "kz.kepler-vision.app";
+				PRODUCT_BUNDLE_IDENTIFIER = kz.oyan.app;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1101,10 +1101,10 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54ZD6G4C86;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kepler Vision";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_KEY_CFBundleDisplayName = Oyan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				PRODUCT_BUNDLE_IDENTIFIER = "kz.kepler-vision.app";
+				PRODUCT_BUNDLE_IDENTIFIER = kz.oyan.app;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1122,10 +1122,10 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54ZD6G4C86;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kepler Vision";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_KEY_CFBundleDisplayName = Oyan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				PRODUCT_BUNDLE_IDENTIFIER = "kz.kepler-vision.app";
+				PRODUCT_BUNDLE_IDENTIFIER = kz.oyan.app;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1143,10 +1143,10 @@
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54ZD6G4C86;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kepler Vision";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_KEY_CFBundleDisplayName = Oyan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				PRODUCT_BUNDLE_IDENTIFIER = "kz.kepler-vision.app";
+				PRODUCT_BUNDLE_IDENTIFIER = kz.oyan.app;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1164,10 +1164,10 @@
 				CODE_SIGN_ENTITLEMENTS = "Runner/RunnerRelease-prod.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 54ZD6G4C86;
-				INFOPLIST_KEY_CFBundleDisplayName = "Kepler Vision";
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_KEY_CFBundleDisplayName = Oyan;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
-				PRODUCT_BUNDLE_IDENTIFIER = "kz.kepler-vision.app";
+				PRODUCT_BUNDLE_IDENTIFIER = kz.oyan.app;
 				PRODUCT_NAME = Runner;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

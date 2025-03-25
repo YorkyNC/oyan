@@ -19,6 +19,20 @@ class AppTheme {
     textTheme: textTheme,
     bottomSheetTheme: const BottomSheetThemeData(constraints: BoxConstraints.expand()),
     iconTheme: IconThemeData(color: colors.black),
+    filledButtonTheme: FilledButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: const WidgetStatePropertyAll(Colors.white),
+        backgroundColor: WidgetStatePropertyAll(colors.main),
+        // padding: const WidgetStatePropertyAll(EdgeInsets.symmetric(vertical: 16)),
+        shape: const WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5)))),
+        textStyle: WidgetStatePropertyAll(
+          GoogleFonts.poppins(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+    ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
         elevation: const WidgetStatePropertyAll(1),

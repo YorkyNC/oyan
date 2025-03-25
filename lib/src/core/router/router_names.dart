@@ -12,7 +12,7 @@ class RouteNames {
   static const String grades = 'grades';
   static const String news = 'news';
   static const String classEvents = 'class-events';
-  static const String test = 'test'; //TODO remove
+  static const String welcome = 'welcome';
 
   static const String cameraPage = 'camera-page';
 }
