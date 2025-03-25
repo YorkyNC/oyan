@@ -45,7 +45,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
       cursorColor: context.colors.main,
       decoration: InputDecoration(
         errorStyle: GoogleFonts.openSans(fontSize: 17, fontWeight: FontWeight.w400, color: Colors.red),
-        labelText: widget.confirm! ? 'Повторите пароль' : 'Пароль',
+        labelText: widget.confirm! ? 'Repeate Password' : 'Password',
         labelStyle: GoogleFonts.openSans(
           fontSize: 17,
           fontWeight: FontWeight.w400,
