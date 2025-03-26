@@ -2999,6 +2999,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Change information`
+  String get changeInformation {
+    return Intl.message(
+      'Change information',
+      name: 'changeInformation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose a photo`
+  String get chooseAPhoto {
+    return Intl.message(
+      'Choose a photo',
+      name: 'chooseAPhoto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About me`
+  String get aboutMe {
+    return Intl.message(
+      'About me',
+      name: 'aboutMe',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

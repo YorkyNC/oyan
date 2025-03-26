@@ -257,5 +257,8 @@
   "sorting": "Сортировка",
   "sort": "Сортировка",
   "sortOptions": "Сортировка",
-  "findClassOrStudent": "Найти класс или ученика"
+  "findClassOrStudent": "Найти класс или ученика",
+  "changeInformation": "Change information",
+  "chooseAPhoto": "Choose a photo",
+  "aboutMe": "About me"
 }

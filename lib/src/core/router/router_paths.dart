@@ -8,12 +8,15 @@ class RoutePaths {
   static const String setNewPassword = '/set-new-password';
   static const String settings = '/settings';
   static const String review = '/review';
+  static const String home = '/home';
   static const String events = '/events';
   static const String insightStory = '/insight-story';
   static const String grades = '/grades';
-  static const String news = '/news';
+  static const String competition = '/competitionPage';
+  static const String books = '/books';
   static const String classEvents = '/class-events';
   static const String welcome = '/welcome';
+  static const String profile = '/profile';
 
   static const String cameraPage = '/camera-page';
 }

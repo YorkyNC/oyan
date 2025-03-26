@@ -72,14 +72,14 @@ List<RouteBase> _routes = [
         routes: [
           GoRoute(
             path: RoutePaths.initial,
-            redirect: (context, state) => RoutePaths.review,
+            redirect: (context, state) => RoutePaths.home,
           ),
           GoRoute(
-            path: RoutePaths.review,
+            path: RoutePaths.home,
             pageBuilder: (context, state) {
               // final roleNotifier = context.watch<RoleNotifier>();
 
-              return getPage(child: const PsychologistReviewPage(), state: state);
+              return getPage(child: const HomePage(), state: state);
 
               // Role-specific page routing
               switch (roleNotifier.currentRole) {
@@ -94,38 +94,43 @@ List<RouteBase> _routes = [
               }
             },
           ),
+        ],
+      ),
+
+      StatefulShellBranch(
+        routes: [
           GoRoute(
-            path: RoutePaths.events,
-            pageBuilder: (context, state) {
-              return getPage(child: const EventsPage(), state: state);
-            },
+            path: RoutePaths.competition,
+            pageBuilder: (context, state) => getPage(
+              child: const CompetitionPage(),
+              state: state,
+            ),
           ),
         ],
       ),
-      // Second Tab - News (Common for all roles)
-      // StatefulShellBranch(
-      //   routes: [
-      //     GoRoute(
-      //       path: RoutePaths.news,
-      //       pageBuilder: (context, state) => getPage(
-      //         child: const NewsPage(),
-      //         state: state,
-      //       ),
-      //     ),
-      //   ],
-      // ),
-      // Third Tab - Chats (Common for all roles)
-      // StatefulShellBranch(
-      //   routes: [
-      //     GoRoute(
-      //       path: RoutePaths.chats,
-      //       pageBuilder: (context, state) => getPage(
-      //         child: const SizedBox(),
-      //         state: state,
-      //       ),
-      //     ),
-      //   ],
-      // ),
+
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: RoutePaths.books,
+            pageBuilder: (context, state) => getPage(
+              child: const SizedBox(),
+              state: state,
+            ),
+          ),
+        ],
+      ),
+      StatefulShellBranch(
+        routes: [
+          GoRoute(
+            path: RoutePaths.profile,
+            pageBuilder: (context, state) => getPage(
+              child: const ProfilePage(),
+              state: state,
+            ),
+          ),
+        ],
+      ),
     ],
   ),
   // GoRoute(

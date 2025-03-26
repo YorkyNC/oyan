@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
+import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/features/login/presentation/components/email_text_form_field.dart';
 import 'package:oyan/src/features/login/presentation/components/password_text_form_field.dart';
 import 'package:oyan/src/features/welcome/presentation/components/forgot_password_bottom_sheet.dart';
@@ -109,11 +110,17 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
         Expanded(
           child: FilledButton(
             onPressed: () {
-              // Handle sign in
+              context.push(RoutePaths.home);
             },
-            child: const Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Text('Sign In'),
+            child: Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                'Sign In',
+                style: GoogleFonts.openSans(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 17,
+                ),
+              ),
             ),
           ),
         ),

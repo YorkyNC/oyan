@@ -23,6 +23,7 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "aboutChild": MessageLookupByLibrary.simpleMessage("About child"),
+        "aboutMe": MessageLookupByLibrary.simpleMessage("About me"),
         "academicAchievements":
             MessageLookupByLibrary.simpleMessage("Academic achievements"),
         "academicDiscipline":
@@ -89,6 +90,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Category Update"),
         "certificate": MessageLookupByLibrary.simpleMessage("Certificate"),
         "certificates": MessageLookupByLibrary.simpleMessage("Certificates"),
+        "changeInformation":
+            MessageLookupByLibrary.simpleMessage("Change information"),
         "changePassword":
             MessageLookupByLibrary.simpleMessage("Change password"),
         "chats": MessageLookupByLibrary.simpleMessage("Chats"),
@@ -97,6 +100,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "childPortraitFromTeachers": MessageLookupByLibrary.simpleMessage(
             "Portrait of a child from teachers"),
         "children": MessageLookupByLibrary.simpleMessage("Children"),
+        "chooseAPhoto": MessageLookupByLibrary.simpleMessage("Choose a photo"),
         "chooseReportLanguage":
             MessageLookupByLibrary.simpleMessage("Select the report language"),
         "classAttendanceLevelRemainsStable":

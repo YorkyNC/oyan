@@ -293,5 +293,8 @@
   "eventsOld": "Старые",
   "noEventForChecking": "Пока нет событий на проверку",
   "noEventYet": "Пока нет событий",
-  "timeOut": "Срок истек"
+  "timeOut": "Срок истек",
+  "changeInformation": "Change information",
+  "chooseAPhoto": "Choose a photo",
+  "aboutMe": "About me"
 }
