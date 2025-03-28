@@ -19,8 +19,9 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   static const String _refreshTokenKey = 'REFRESH_TOKEN';
   static const String _roleKey = 'ROLE';
   static const String _languageCode = 'LANGUAGE_CODE';
-  static const String _qualitiesKey = 'SELECTED_QUALITIES';
-  static const String _subjectsKey = 'SELECTED_SUBJECTS';
+  static const String _csrfTokenKey = 'CSRF_TOKEN';
+  static const String _csrfTokenExpiryKey = 'CSRF_TOKEN_EXPIRY';
+  static const String _csrfCookieKey = 'CSRF_COOKIE';
 
   // Device-related keys
   static const String _clientIdKey = 'CLIENT_ID';
@@ -136,6 +137,74 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   @override
   String? getLanguageCode() {
     return authBox.get(_languageCode);
+  }
+
+  // CSRF Token methods
+  Future<void> setCsrfToken(String? token) async {
+    if (token != null) {
+      log('Storing CSRF token: $token', name: 'CSRF_TOKEN');
+      // Set token with 1 year expiration
+      final expiryDate = DateTime.now().add(const Duration(days: 365));
+      await authBox.put(_csrfTokenKey, token);
+      await authBox.put(_csrfTokenExpiryKey, expiryDate.toIso8601String());
+      log('CSRF token stored successfully with expiry: $expiryDate', name: 'CSRF_TOKEN');
+      notifyListeners();
+    } else {
+      log('Attempted to store null CSRF token', name: 'CSRF_TOKEN');
+    }
+  }
+
+  String? getCsrfToken() {
+    final token = authBox.get(_csrfTokenKey);
+    final expiryStr = authBox.get(_csrfTokenExpiryKey);
+
+    if (token == null || expiryStr == null) {
+      log('No CSRF token found in storage', name: 'CSRF_TOKEN');
+      return null;
+    }
+
+    final expiryDate = DateTime.parse(expiryStr);
+    if (DateTime.now().isAfter(expiryDate)) {
+      log('CSRF token has expired, deleting it', name: 'CSRF_TOKEN');
+      // Token has expired, delete it
+      deleteCsrfToken();
+      return null;
+    }
+
+    log('Retrieved valid CSRF token: $token', name: 'CSRF_TOKEN');
+    return token;
+  }
+
+  void setCsrfCookie(String cookie) {
+    try {
+      // Log the received cookie for debugging
+      log('Received cookie value: $cookie', name: 'CSRF_COOKIE');
+
+      // Store the token value directly since we're now receiving just the value
+      authBox.put(_csrfCookieKey, cookie);
+      log('Stored CSRF cookie value: $cookie', name: 'CSRF_COOKIE');
+      notifyListeners();
+    } catch (e) {
+      log('Error setting CSRF cookie: $e', name: 'CSRF_COOKIE');
+    }
+  }
+
+  String? getCsrfCookie() {
+    try {
+      final cookie = authBox.get(_csrfCookieKey);
+      log('Retrieved CSRF cookie: $cookie', name: 'CSRF_COOKIE');
+      return cookie;
+    } catch (e) {
+      log('Error getting CSRF cookie: $e', name: 'CSRF_COOKIE');
+      return null;
+    }
+  }
+
+  Future<void> deleteCsrfToken() async {
+    await authBox.delete(_csrfTokenKey);
+    await authBox.delete(_csrfTokenExpiryKey);
+    await authBox.delete(_csrfCookieKey);
+    notifyListeners();
   }
 
   // Clear methods

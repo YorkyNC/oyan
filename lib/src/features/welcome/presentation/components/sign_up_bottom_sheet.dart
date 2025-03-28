@@ -1,8 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
+import 'package:oyan/src/core/api/client/rest/dio/dio_client.dart';
+import 'package:oyan/src/core/exceptions/domain_exception.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
+import 'package:oyan/src/features/login/data/models/signup_response.dart';
 import 'package:oyan/src/features/login/presentation/components/email_text_form_field.dart';
 import 'package:oyan/src/features/login/presentation/components/password_text_form_field.dart';
 
@@ -21,6 +25,8 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
   bool isPasswordVisible = false;
   bool isRepeatPasswordVisible = false;
   final _formKey = GlobalKey<FormState>();
+  final DioRestClient _dioClient = DioRestClient();
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -29,6 +35,107 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
     passwordController.dispose();
     repeatPasswordController.dispose();
     super.dispose();
+  }
+
+  Future<void> _handleSignUp() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      if (passwordController.text != repeatPasswordController.text) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Passwords do not match')),
+        );
+        return;
+      }
+
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        // First get CSRF token
+        final tokenResult = await _dioClient.getCsrfToken();
+        await tokenResult.fold(
+          (failure) async {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Failed to get CSRF token: ${failure.message}')),
+            );
+            log('Failed to get CSRF token: ${failure.message}');
+          },
+          (csrfToken) async {
+            // Attempt signup
+            final signupResult = await _dioClient.signup(
+              usernameController.text,
+              emailController.text,
+              passwordController.text,
+              repeatPasswordController.text,
+            );
+
+            signupResult.fold(
+              (failure) {
+                String errorMessage = 'Signup failed';
+                if (failure is NetworkException) {
+                  if (failure.message.contains('403')) {
+                    // Clear the stored CSRF token and try again
+                    _dioClient.st.deleteCsrfToken();
+                    errorMessage = 'Session expired. Please try again.';
+                    // Retry the signup with a fresh token
+                    _handleSignUp();
+                  } else {
+                    errorMessage = failure.message;
+                  }
+                }
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(errorMessage)),
+                );
+                log('Signup failed: $errorMessage');
+              },
+              (response) {
+                try {
+                  log('Signup Response: ${response.data}');
+                  if (response.statusCode == 403) {
+                    // Clear the stored CSRF token and try again
+                    _dioClient.st.deleteCsrfToken();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Session expired. Please try again.')),
+                    );
+                    // Retry the signup with a fresh token
+                    _handleSignUp();
+                    return;
+                  }
+
+                  final signupResponse = SignupResponse.fromJson(response.data);
+                  if (signupResponse.status == 'success') {
+                    // Show success message
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Account created successfully')),
+                    );
+                    log('Account created successfully');
+                    // Navigate to login
+                    context.pop();
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(signupResponse.message ?? 'Signup failed')),
+                    );
+                    log('Signup failed: ${signupResponse.message}');
+                  }
+                } catch (e) {
+                  log('Error parsing signup response: $e');
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Error processing signup response')),
+                  );
+                }
+              },
+            );
+          },
+        );
+      } finally {
+        if (mounted) {
+          setState(() {
+            _isLoading = false;
+          });
+        }
+      }
+    }
   }
 
   @override
@@ -139,20 +246,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
 
   Widget _buildCreateAccountButton() {
     return FilledButton(
-      onPressed: () {
-        if (_formKey.currentState?.validate() ?? false) {
-          // Handle registration logic
-          // You can add password matching validation here
-          if (passwordController.text != repeatPasswordController.text) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Пароли не совпадают')),
-            );
-            return;
-          }
-
-          // Proceed with account creation
-        }
-      },
+      onPressed: _isLoading ? null : _handleSignUp,
       style: FilledButton.styleFrom(
         backgroundColor: const Color(0xff6366F1),
         shape: RoundedRectangleBorder(
@@ -161,13 +255,22 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Text(
-          'Create account',
-          style: GoogleFonts.openSans(
-            fontSize: 17,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
+        child: _isLoading
+            ? const SizedBox(
+                height: 20,
+                width: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              )
+            : Text(
+                'Create account',
+                style: GoogleFonts.openSans(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
       ),
     );
   }

@@ -10,7 +10,7 @@ class LanguageSelector extends StatefulWidget {
 }
 
 class _LanguageSelectorState extends State<LanguageSelector> {
-  String _selectedLanguage = 'EN';
+  String _selectedLanguage = 'en';
 
   final List<String> _languages = ['en', 'ru', 'kz'];
 

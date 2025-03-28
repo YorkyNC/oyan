@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:oyan/src/core/extensions/build_context_extension.dart';
 
 class CustromFilledButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
   const CustromFilledButton({
     super.key,
+    required this.text,
+    required this.onPressed,
   });
 
   @override
@@ -24,9 +27,9 @@ class CustromFilledButton extends StatelessWidget {
         style: FilledButton.styleFrom(
           backgroundColor: Colors.transparent,
         ),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(
-          context.loc.subscribe,
+          text,
           style: GoogleFonts.openSans(
             fontSize: 17,
             fontWeight: FontWeight.w600,

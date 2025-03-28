@@ -5,8 +5,12 @@ import 'package:oyan/src/features/camera/presentation/camera_page.dart';
 import 'package:oyan/src/features/class_events/presentation/class_event_page.dart';
 import 'package:oyan/src/features/competition/presentation/competition_page.dart';
 import 'package:oyan/src/features/home/presentation/home_page.dart';
+import 'package:oyan/src/features/profile/presentation/page/achivement_page.dart';
 import 'package:oyan/src/features/profile/presentation/page/change_information_page.dart';
+import 'package:oyan/src/features/profile/presentation/page/choose_a_photo_page.dart';
+import 'package:oyan/src/features/profile/presentation/page/notification_page.dart';
 import 'package:oyan/src/features/profile/presentation/page/profile_page.dart';
+import 'package:oyan/src/features/profile/presentation/page/support_page.dart';
 import 'package:oyan/src/features/settings/domain/entities/user_token_entity.dart';
 import 'package:oyan/src/features/welcome/presentation/welcome_page.dart';
 
@@ -27,7 +31,7 @@ GoRouter routerProvider() {
   return GoRouter(
     refreshListenable: st,
     // initialLocation: '/',
-    initialLocation: RoutePaths.profile,
+    initialLocation: RoutePaths.welcome,
     debugLogDiagnostics: true,
     routes: _routes,
   );

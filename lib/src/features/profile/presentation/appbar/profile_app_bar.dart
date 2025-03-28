@@ -1,14 +1,46 @@
+import 'dart:io';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/features/profile/domain/menu.dart';
+import 'package:path_provider/path_provider.dart';
 
-class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
+class ProfileAppBar extends StatefulWidget implements PreferredSizeWidget {
   const ProfileAppBar({super.key});
   @override
   Size get preferredSize => const Size.fromHeight(70);
+
+  @override
+  State<ProfileAppBar> createState() => ProfileAppBarState();
+}
+
+class ProfileAppBarState extends State<ProfileAppBar> {
+  String? savedAvatarPath;
+
+  @override
+  void initState() {
+    super.initState();
+    loadSavedAvatar();
+  }
+
+  Future<void> loadSavedAvatar() async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final savedAvatar = File('${directory.path}/selected_avatar.png');
+
+      if (await savedAvatar.exists()) {
+        setState(() {
+          savedAvatarPath = savedAvatar.path;
+        });
+      }
+    } catch (e) {
+      debugPrint('Error loading saved avatar: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,8 +58,16 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
                       height: 50,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.amberAccent,
+                        color: Color(0xFFF0F2FA),
                       ),
+                      child: savedAvatarPath != null
+                          ? ClipOval(
+                              child: Image.file(
+                                File(savedAvatarPath!),
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : const Icon(Icons.person, color: Colors.grey),
                     ),
                     const SizedBox(width: 15),
                     Column(
@@ -141,15 +181,18 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   ),
                 ],
-                onSelected: (Menu item) {
+                onSelected: (Menu item) async {
                   switch (item) {
                     case Menu.changeInformation:
                       context.push(RoutePaths.changeInformation);
                     case Menu.chooseAPhoto:
-                      // TODO: Handle this case.
-                      throw UnimplementedError();
+                      final newAvatarPath = await context.push<String?>(RoutePaths.chooseAPhoto);
+                      if (newAvatarPath != null) {
+                        setState(() {
+                          savedAvatarPath = newAvatarPath;
+                        });
+                      }
                     case Menu.logout:
-                      // TODO: Handle this case.
                       throw UnimplementedError();
                   }
                 },

@@ -15,13 +15,14 @@ class DioInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     final String? accessToken = st.getToken();
-    _log('Raw Token Value: $accessToken'); // Add this to see if token exists
+    final String? csrfToken = st.getCsrfToken();
 
     if (accessToken != null && accessToken.isNotEmpty) {
       options.headers['Authorization'] = 'Bearer $accessToken';
-      // _log('Full Headers After Setting: ${options.headers}'); // Check full headers
-    } else {
-      _log('No token available in storage');
+    }
+
+    if (csrfToken != null && csrfToken.isNotEmpty) {
+      options.headers['X-CSRFToken'] = csrfToken;
     }
 
     _log('Final Headers: ${options.headers}');
@@ -184,8 +185,7 @@ class DioInterceptor extends Interceptor {
     );
   }
 
-  Future<void> _handleRefreshFailure(
-      ErrorInterceptorHandler handler, DioException originalError) async {
+  Future<void> _handleRefreshFailure(ErrorInterceptorHandler handler, DioException originalError) async {
     _log('Token refresh failed, logging out user');
     await _logoutUser();
     _clearQueue();

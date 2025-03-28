@@ -171,7 +171,7 @@ List<RouteBase> _routes = [
     path: RoutePaths.welcome,
     pageBuilder: (context, state) {
       return getPage(
-        child: const WelcomePage(),
+        child: WelcomePage(),
         state: state,
       );
     },
@@ -185,12 +185,7 @@ List<RouteBase> _routes = [
       );
     },
   ),
-  GoRoute(
-    path: RoutePaths.changeInformation,
-    pageBuilder: (context, state) {
-      return getPage(child: const ChangeInformationPage(), state: state);
-    },
-  ),
+
   // GoRoute(
   //   name: RouteNames.setNewPassword,
   //   path: RoutePaths.setNewPassword,
@@ -223,5 +218,36 @@ List<RouteBase> _routes = [
         ),
       ),
     ],
+  ),
+  GoRoute(
+    path: RoutePaths.changeInformation,
+    pageBuilder: (context, state) {
+      return getPage(child: const ChangeInformationPage(), state: state);
+    },
+  ),
+  GoRoute(
+    path: RoutePaths.achievement,
+    pageBuilder: (context, state) {
+      return getPage(child: const AchievementPage(), state: state);
+    },
+  ),
+
+  GoRoute(
+    path: RoutePaths.notification,
+    pageBuilder: (context, state) {
+      return getPage(child: const NotificationPage(), state: state);
+    },
+  ),
+  GoRoute(
+    path: RoutePaths.support,
+    pageBuilder: (context, state) {
+      return getPage(child: const SupportPage(), state: state);
+    },
+  ),
+  GoRoute(
+    path: RoutePaths.chooseAPhoto,
+    pageBuilder: (context, state) {
+      return getPage(child: const ChooseAPhotoPage(), state: state);
+    },
   ),
 ];

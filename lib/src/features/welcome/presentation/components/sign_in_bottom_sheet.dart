@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
+import 'package:oyan/src/core/api/client/rest/dio/dio_client.dart';
+import 'package:oyan/src/core/exceptions/domain_exception.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
+import 'package:oyan/src/features/login/data/models/login_response.dart';
 import 'package:oyan/src/features/login/presentation/components/email_text_form_field.dart';
 import 'package:oyan/src/features/login/presentation/components/password_text_form_field.dart';
 import 'package:oyan/src/features/welcome/presentation/components/forgot_password_bottom_sheet.dart';
@@ -19,12 +24,106 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool isPasswordVisible = false;
+  final DioRestClient _dioClient = DioRestClient();
+  bool _isLoading = false;
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
+  }
+
+  Future<void> _handleSignIn() async {
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter email and password')),
+      );
+      return;
+    }
+
+    setState(() {
+      _isLoading = true;
+    });
+
+    try {
+      // First get CSRF token
+      final tokenResult = await _dioClient.getCsrfToken();
+      await tokenResult.fold(
+        (failure) async {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to get CSRF token: ${failure.message}')),
+          );
+        },
+        (csrfToken) async {
+          // Set CSRF token in headers
+          _dioClient.setCsrfToken(csrfToken);
+
+          // Attempt login
+          final loginResult = await _dioClient.login(
+            emailController.text,
+            passwordController.text,
+          );
+
+          loginResult.fold(
+            (failure) {
+              String errorMessage = 'Login failed';
+              if (failure is NetworkException) {
+                if (failure.message.contains('403')) {
+                  // Clear the stored CSRF token and try again
+                  _dioClient.st.deleteCsrfToken();
+                  errorMessage = 'Session expired. Please try again.';
+                  // Retry the login with a fresh token
+                  _handleSignIn();
+                } else {
+                  errorMessage = failure.message;
+                }
+              }
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text(errorMessage)),
+              );
+              log('Login failed: $errorMessage');
+            },
+            (response) {
+              try {
+                log('Login Response: ${response.data}');
+                if (response.statusCode == 403) {
+                  // Clear the stored CSRF token and try again
+                  _dioClient.st.deleteCsrfToken();
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Session expired. Please try again.')),
+                  );
+                  // Retry the login with a fresh token
+                  _handleSignIn();
+                  return;
+                }
+
+                final loginResponse = LoginResponse.fromJson(response.data);
+                if (loginResponse.status == 'success') {
+                  context.push(RoutePaths.home);
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(loginResponse.message ?? 'Login failed')),
+                  );
+                }
+              } catch (e) {
+                log('Error parsing login response: $e');
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Error processing login response')),
+                );
+              }
+            },
+          );
+        },
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 
   @override
@@ -109,9 +208,7 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
       children: [
         Expanded(
           child: FilledButton(
-            onPressed: () {
-              context.push(RoutePaths.home);
-            },
+            onPressed: _handleSignIn,
             child: Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text(

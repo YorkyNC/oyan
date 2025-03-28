@@ -94,10 +94,10 @@ import 'package:oyan/src/features/review/presentation/bloc/review_bloc.dart'
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
-  Future<_i174.GetIt> init({
+  _i174.GetIt init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) async {
+  }) {
     final gh = _i526.GetItHelper(
       this,
       environment,
@@ -106,13 +106,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i801.RoleNotifier>(() => _i801.RoleNotifier());
     gh.factory<_i459.ReviewBloc>(() => _i459.ReviewBloc());
     gh.factory<_i963.ClassBloc>(() => _i963.ClassBloc());
-    await gh.singletonAsync<_i140.DioRestClient>(
-      () {
-        final i = _i140.DioRestClient();
-        return i.init().then((_) => i);
-      },
-      preResolve: true,
-    );
+    gh.singleton<_i140.DioRestClient>(() => _i140.DioRestClient());
     gh.lazySingleton<_i210.GetEventsCountUseCase>(
         () => _i210.GetEventsCountUseCase());
     gh.lazySingleton<_i967.GetAllEventsUseCase>(

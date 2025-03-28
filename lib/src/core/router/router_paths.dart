@@ -19,4 +19,9 @@ class RoutePaths {
   static const String profile = '/profile';
   static const String changeInformation = '/change-information';
   static const String cameraPage = '/camera-page';
+  static const String chooseAPhoto = '/choose-a-photo';
+  static const String achievement = '/achievement';
+  static const String settingsScreen = '/settings-screen';
+  static const String notification = '/notification';
+  static const String support = '/support';
 }
