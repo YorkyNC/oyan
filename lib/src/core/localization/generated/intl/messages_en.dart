@@ -39,6 +39,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "account": MessageLookupByLibrary.simpleMessage("Account"),
         "accountSettings":
             MessageLookupByLibrary.simpleMessage("Account Settings"),
+        "achievement": MessageLookupByLibrary.simpleMessage("Achievement"),
         "achievements": MessageLookupByLibrary.simpleMessage("Achievements"),
         "active": MessageLookupByLibrary.simpleMessage("Active"),
         "actual": MessageLookupByLibrary.simpleMessage("Fact"),
@@ -269,6 +270,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notDone": MessageLookupByLibrary.simpleMessage("Not Completed"),
         "nothingHereYet":
             MessageLookupByLibrary.simpleMessage("There\'s nothing here yet"),
+        "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
         "notificationsImportantEventsWillArriveAnyway":
             MessageLookupByLibrary.simpleMessage(
@@ -307,6 +309,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "preparingDownload":
             MessageLookupByLibrary.simpleMessage("Preparing download"),
         "previous": MessageLookupByLibrary.simpleMessage("Previous"),
+        "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "profileSubject":
             MessageLookupByLibrary.simpleMessage("Profile Subject"),
@@ -363,6 +366,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hexagon of Subjects"),
         "subjectsJournal":
             MessageLookupByLibrary.simpleMessage("Subjects Journal"),
+        "subscribe": MessageLookupByLibrary.simpleMessage("Subscribe"),
         "summativeAssessments":
             MessageLookupByLibrary.simpleMessage("Summative assessments"),
         "support": MessageLookupByLibrary.simpleMessage("Центр поддержки"),

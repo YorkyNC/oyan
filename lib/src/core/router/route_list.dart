@@ -185,6 +185,12 @@ List<RouteBase> _routes = [
       );
     },
   ),
+  GoRoute(
+    path: RoutePaths.changeInformation,
+    pageBuilder: (context, state) {
+      return getPage(child: const ChangeInformationPage(), state: state);
+    },
+  ),
   // GoRoute(
   //   name: RouteNames.setNewPassword,
   //   path: RoutePaths.setNewPassword,

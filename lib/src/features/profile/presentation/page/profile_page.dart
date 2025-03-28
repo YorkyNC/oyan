@@ -89,7 +89,7 @@ Widget _buildMenuItem({
 }) {
   return Ink(
     decoration: BoxDecoration(
-      color: const Color(0xFFF5F6FA),
+      color: const Color(0xffEBF0FF),
       borderRadius: isFirst
           ? const BorderRadius.only(
               topLeft: Radius.circular(5),
@@ -123,17 +123,17 @@ Widget _buildMenuItem({
             Expanded(
               child: Text(
                 title,
-                style: GoogleFonts.openSans(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w600,
-                  color: const Color(0xff323232),
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF333333),
                 ),
               ),
             ),
             // Chevron icon
             const Icon(
               Icons.chevron_right,
-              color: Color(0xff323232),
+              color: Color(0xFF333333),
               size: 24,
             ),
           ],

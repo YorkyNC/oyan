@@ -260,5 +260,9 @@
   "findClassOrStudent": "Найти класс или ученика",
   "changeInformation": "Change information",
   "chooseAPhoto": "Choose a photo",
-  "aboutMe": "About me"
+  "aboutMe": "About me",
+  "achievement": "Achievement",
+  "notification": "Notification",
+  "privacyPolicy": "Privacy Policy",
+  "subscribe": "Subscribe"
 }

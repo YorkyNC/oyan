@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "account": MessageLookupByLibrary.simpleMessage("Аккаунт"),
         "accountSettings":
             MessageLookupByLibrary.simpleMessage("Настройки аккаунта"),
+        "achievement": MessageLookupByLibrary.simpleMessage("Achievement"),
         "achievements": MessageLookupByLibrary.simpleMessage("Достижения"),
         "active": MessageLookupByLibrary.simpleMessage("Активно"),
         "actual": MessageLookupByLibrary.simpleMessage("Факт"),
@@ -308,6 +309,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notDone": MessageLookupByLibrary.simpleMessage("Не выполнено"),
         "nothingHereYet":
             MessageLookupByLibrary.simpleMessage("Здесь пока ничего нет"),
+        "notification": MessageLookupByLibrary.simpleMessage("Notification"),
         "notifications": MessageLookupByLibrary.simpleMessage("Уведомления"),
         "notificationsImportantEventsWillArriveAnyway":
             MessageLookupByLibrary.simpleMessage(
@@ -349,6 +351,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "preparingDownload":
             MessageLookupByLibrary.simpleMessage("Подготовка к скачиванию"),
         "previous": MessageLookupByLibrary.simpleMessage("Предыдущий"),
+        "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "processed": MessageLookupByLibrary.simpleMessage("Обработано"),
         "profile": MessageLookupByLibrary.simpleMessage("Профиль"),
         "profileSubject":
@@ -413,6 +416,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Шестиугольник предметов"),
         "subjectsJournal":
             MessageLookupByLibrary.simpleMessage("Журнал предметов"),
+        "subscribe": MessageLookupByLibrary.simpleMessage("Subscribe"),
         "summativeAssessments":
             MessageLookupByLibrary.simpleMessage("Суммативные оценивания"),
         "support": MessageLookupByLibrary.simpleMessage("Support"),

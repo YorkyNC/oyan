@@ -1,7 +1,8 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
+import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/features/profile/domain/menu.dart';
 
 class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -67,7 +68,7 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
                     borderRadius: BorderRadius.circular(5),
                   ),
                   child: const Icon(
-                    Icons.settings,
+                    Icons.settings_outlined,
                     color: Colors.black87,
                     size: 24,
                   ),
@@ -143,8 +144,7 @@ class ProfileAppBar extends StatelessWidget implements PreferredSizeWidget {
                 onSelected: (Menu item) {
                   switch (item) {
                     case Menu.changeInformation:
-                      // TODO: Handle this case.
-                      throw UnimplementedError();
+                      context.push(RoutePaths.changeInformation);
                     case Menu.chooseAPhoto:
                       // TODO: Handle this case.
                       throw UnimplementedError();
