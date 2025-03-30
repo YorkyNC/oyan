@@ -20,4 +20,5 @@ class RouteNames {
   static const String settingsScreen = 'settings-screen';
   static const String notification = 'notification';
   static const String support = 'support';
+  static const String myBooks = 'my-books';
 }

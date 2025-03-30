@@ -13,7 +13,6 @@ class RoutePaths {
   static const String insightStory = '/insight-story';
   static const String grades = '/grades';
   static const String competition = '/competitionPage';
-  static const String books = '/books';
   static const String classEvents = '/class-events';
   static const String welcome = '/welcome';
   static const String profile = '/profile';
@@ -24,4 +23,5 @@ class RoutePaths {
   static const String settingsScreen = '/settings-screen';
   static const String notification = '/notification';
   static const String support = '/support';
+  static const String myBooks = '/my-books';
 }

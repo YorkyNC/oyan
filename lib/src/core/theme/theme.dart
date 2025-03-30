@@ -55,7 +55,9 @@ class AppTheme {
     progressIndicatorTheme: ProgressIndicatorThemeData(color: colors.white),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        backgroundColor: WidgetStatePropertyAll(colors.brand400),
+        backgroundColor: const WidgetStatePropertyAll(
+          Color(0xffEBF0FF),
+        ),
         shape: const WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8)))),
         textStyle: WidgetStatePropertyAll(typography.textsmSemibold),
         foregroundColor: WidgetStatePropertyAll(colors.white),

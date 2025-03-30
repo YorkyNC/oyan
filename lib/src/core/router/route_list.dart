@@ -112,9 +112,9 @@ List<RouteBase> _routes = [
       StatefulShellBranch(
         routes: [
           GoRoute(
-            path: RoutePaths.books,
+            path: RoutePaths.myBooks,
             pageBuilder: (context, state) => getPage(
-              child: const SizedBox(),
+              child: const MyBooksPage(),
               state: state,
             ),
           ),

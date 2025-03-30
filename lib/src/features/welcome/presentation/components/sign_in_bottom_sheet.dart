@@ -44,88 +44,41 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
   Widget build(BuildContext context) {
     return BaseBlocWidget<AuthBloc, AuthEvent, AuthState>(
       bloc: authBloc,
+
       builder: (context, state, bloc) {
         return state.maybeWhen(
-          loading: () {
-            return _buildLoadingState(context);
-          },
-          loaded: (viewModel) {
-            debugPrint('Loaded state with viewModel: $viewModel');
-            debugPrint('SignInResponse: ${viewModel.signInResponse}');
+              loading: () {
+                return null;
+              },
+              loaded: (viewModel) {
+                debugPrint('Loaded state with viewModel: $viewModel');
+                debugPrint('SignInResponse: ${viewModel.signInResponse}');
 
-            if (viewModel.signInResponse != null) {
-              // Check if token exists in the response
-              final hasToken = viewModel.signInResponse?.token != null && viewModel.signInResponse!.token!.isNotEmpty;
-
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                if (hasToken) {
-                  // If there's a token, navigate to home
-                  context.push(RoutePaths.home);
-                } else {
-                  // If no token, show an error message
+                if (viewModel.signInResponse != null) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    context.pushReplacement(RoutePaths.home);
+                  });
+                }
+                return null;
+              },
+              error: (message) {
+                // Show error message to the user
+                WidgetsBinding.instance.addPostFrameCallback((_) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('Authentication failed: No token received'),
+                    SnackBar(
+                      content: Text(message),
                       backgroundColor: Colors.red,
                     ),
                   );
-                }
-              });
-            }
-            return _buildLoginForm(context);
-          },
-          error: (message) {
-            // Show error message to the user
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(message),
-                  backgroundColor: Colors.red,
-                ),
-              );
-            });
+                });
 
-            return _buildLoginForm(context);
-          },
-          orElse: () => _buildLoginForm(context),
-        );
+                return null;
+              },
+              orElse: () => null,
+            ) ??
+            _buildLoginForm(context);
       },
-    );
-  }
-
-  Widget _buildLoadingState(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-        left: 20,
-        right: 20,
-        top: 40,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            color: Colors.white,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(height: 40),
-                const CircularProgressIndicator(),
-                const SizedBox(height: 20),
-                Text(
-                  'Signing in...',
-                  style: GoogleFonts.openSans(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-                const SizedBox(height: 40),
-              ],
-            ),
-          ),
-        ],
-      ),
+      // child: _buildLoginForm(context),
     );
   }
 
