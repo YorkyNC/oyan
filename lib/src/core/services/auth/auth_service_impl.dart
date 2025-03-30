@@ -6,6 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:oyan/src/core/services/auth/models/forgot_password_response.dart';
 import 'package:oyan/src/core/services/auth/models/update_password_request.dart';
 import 'package:oyan/src/core/services/auth/models/update_password_response.dart';
+import 'package:oyan/src/features/login/data/models/csrf_token_response.dart';
 
 import '../../api/client/endpoints.dart';
 import '../../api/client/rest/dio/dio_client.dart';
@@ -30,22 +31,141 @@ class AuthServiceImpl implements IAuthService {
   final Map<String, String> headers = {'Content-Type': 'application/json'};
 
   @override
-  Future<Either<DomainException, SignInResponse>> loginUser(SignInRequest request) async {
-    st.clear();
-    final Either<DomainException, Response<dynamic>> response = await client.post(
-      EndPoints.login,
-      data: request,
-      options: Options(method: 'POST', headers: headers),
-    );
+  Future<Either<DomainException, CsrfTokenResponse>> csrfToken() async {
+    try {
+      const fullUrl = '${EndPoints.baseUrl}${EndPoints.csrf}';
+      log('Making CSRF token request to: $fullUrl', name: 'AUTH_SERVICE');
 
-    return response.fold((error) => Left(error), (result) async {
-      log(result.statusCode.toString());
-      if (result.statusCode == 200) {
-        return Right(SignInResponse.fromJson(result.data));
-      } else {
-        return Left(UnknownException(message: result.statusMessage));
+      final response = await client.get(
+        fullUrl,
+        options: Options(
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          validateStatus: (status) => status != null && status < 500,
+          receiveDataWhenStatusError: true,
+          followRedirects: true,
+          responseType: ResponseType.json,
+          sendTimeout: const Duration(seconds: 10),
+          receiveTimeout: const Duration(seconds: 10),
+        ),
+      );
+
+      return response.fold((error) {
+        return Left(error);
+      }, (response) async {
+        if (response.statusCode == 200) {
+          final cookies = response.headers.map['set-cookie'];
+          if (cookies != null && cookies.isNotEmpty) {
+            for (final cookie in cookies) {
+              // Extract CSRF cookie if present
+              if (cookie.contains('csrftoken=')) {
+                final csrfCookie = cookie.split(';')[0];
+                st.setCsrfCookie(csrfCookie);
+              }
+            }
+          }
+
+          // Handle CSRF token from response body
+          if (response.data != null && response.data['csrfToken'] != null) {
+            final csrfToken = response.data['csrfToken'];
+            await st.setCsrfToken(csrfToken);
+
+            return Right(CsrfTokenResponse.fromJson(response.data));
+          } else {
+            return Left(UnknownException(message: 'No CSRF token in response'));
+          }
+        } else {
+          return Left(UnknownException(message: response.statusMessage ?? 'Failed to get CSRF token'));
+        }
+      });
+    } on DioException catch (e) {
+      return Left(NetworkException(message: e.message ?? 'Network error'));
+    } catch (e) {
+      return Left(e is DomainException ? e : UnknownException(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<DomainException, SignInResponse>> loginUser(SignInRequest request) async {
+    try {
+      final formData = {
+        'login': request.login,
+        'password': request.password,
+      };
+      final storedCsrfToken = st.getCsrfToken();
+      final csrfCookie = st.getCsrfCookie();
+
+      final Map<String, String> requestHeaders = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+      };
+      if (storedCsrfToken != null && storedCsrfToken.isNotEmpty) {
+        requestHeaders['X-CSRFToken'] = storedCsrfToken;
       }
-    });
+      if (csrfCookie != null && csrfCookie.isNotEmpty) {
+        requestHeaders['Cookie'] = csrfCookie;
+      }
+
+      final response = await client.post(
+        '${EndPoints.baseUrl}${EndPoints.login}',
+        data: formData,
+        options: Options(
+          method: 'POST',
+          headers: requestHeaders,
+          contentType: Headers.formUrlEncodedContentType,
+          followRedirects: true,
+          validateStatus: (status) => status != null && status < 500,
+          receiveDataWhenStatusError: true,
+        ),
+      );
+
+      return response.fold((error) {
+        return Left(error);
+      }, (result) async {
+        final cookies = result.headers.map['set-cookie'];
+        if (cookies != null && cookies.isNotEmpty) {
+          for (final cookie in cookies) {
+            if (cookie.contains('sessionid=')) {}
+          }
+        }
+
+        if (result.statusCode == 200) {
+          if (result.data is Map && result.data['status'] == 'error') {
+            final errorMessage = result.data['message'] ?? 'Login failed';
+
+            return Left(UnknownException(message: errorMessage));
+          }
+
+          try {
+            final signInResponse = SignInResponse.fromJson(result.data);
+            if (result.data['token'] != null) {
+              await st.setToken(result.data['token']);
+            } else if (result.data['accessToken'] != null) {
+              // Some APIs use accessToken instead of token
+              await st.setToken(result.data['accessToken']);
+            }
+
+            if (result.data['refreshToken'] != null) {
+              await st.setRefreshToken(result.data['refreshToken']);
+            }
+
+            return Right(signInResponse);
+          } catch (e) {
+            return Left(UnknownException(message: 'Error parsing login response: $e'));
+          }
+        } else {
+          final errorMessage = result.data != null && result.data['detail'] != null
+              ? result.data['detail']
+              : (result.statusMessage ?? 'Login failed');
+
+          return Left(UnknownException(message: errorMessage));
+        }
+      });
+    } catch (e) {
+      return Left(e is DomainException ? e : UnknownException(message: e.toString()));
+    }
   }
 
   @override

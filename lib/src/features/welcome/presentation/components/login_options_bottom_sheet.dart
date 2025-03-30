@@ -30,7 +30,10 @@ class LoginOptionsBottomSheet extends StatelessWidget {
             context,
             'assets/app_images/mail.png',
             'Continue with Email',
-            () {},
+            () {
+              context.pop();
+              _showSignInBottomSheet(context);
+            },
           ),
         ],
       ),

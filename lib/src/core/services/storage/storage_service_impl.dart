@@ -142,16 +142,12 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   // CSRF Token methods
   Future<void> setCsrfToken(String? token) async {
     if (token != null) {
-      log('Storing CSRF token: $token', name: 'CSRF_TOKEN');
       // Set token with 1 year expiration
       final expiryDate = DateTime.now().add(const Duration(days: 365));
       await authBox.put(_csrfTokenKey, token);
       await authBox.put(_csrfTokenExpiryKey, expiryDate.toIso8601String());
-      log('CSRF token stored successfully with expiry: $expiryDate', name: 'CSRF_TOKEN');
       notifyListeners();
-    } else {
-      log('Attempted to store null CSRF token', name: 'CSRF_TOKEN');
-    }
+    } else {}
   }
 
   String? getCsrfToken() {
@@ -159,43 +155,36 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
     final expiryStr = authBox.get(_csrfTokenExpiryKey);
 
     if (token == null || expiryStr == null) {
-      log('No CSRF token found in storage', name: 'CSRF_TOKEN');
       return null;
     }
 
     final expiryDate = DateTime.parse(expiryStr);
     if (DateTime.now().isAfter(expiryDate)) {
-      log('CSRF token has expired, deleting it', name: 'CSRF_TOKEN');
       // Token has expired, delete it
       deleteCsrfToken();
       return null;
     }
 
-    log('Retrieved valid CSRF token: $token', name: 'CSRF_TOKEN');
     return token;
   }
 
   void setCsrfCookie(String cookie) {
     try {
       // Log the received cookie for debugging
-      log('Received cookie value: $cookie', name: 'CSRF_COOKIE');
 
       // Store the token value directly since we're now receiving just the value
       authBox.put(_csrfCookieKey, cookie);
-      log('Stored CSRF cookie value: $cookie', name: 'CSRF_COOKIE');
+
       notifyListeners();
-    } catch (e) {
-      log('Error setting CSRF cookie: $e', name: 'CSRF_COOKIE');
-    }
+    } catch (e) {}
   }
 
   String? getCsrfCookie() {
     try {
       final cookie = authBox.get(_csrfCookieKey);
-      log('Retrieved CSRF cookie: $cookie', name: 'CSRF_COOKIE');
+
       return cookie;
     } catch (e) {
-      log('Error getting CSRF cookie: $e', name: 'CSRF_COOKIE');
       return null;
     }
   }

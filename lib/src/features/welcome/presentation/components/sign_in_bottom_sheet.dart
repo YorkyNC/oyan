@@ -1,13 +1,11 @@
-import 'dart:developer';
-
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
-import 'package:oyan/src/core/api/client/rest/dio/dio_client.dart';
-import 'package:oyan/src/core/exceptions/domain_exception.dart';
+import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
-import 'package:oyan/src/features/login/data/models/login_response.dart';
+import 'package:oyan/src/core/services/injectable/injectable_service.dart';
+import 'package:oyan/src/features/login/presentation/bloc/auth_bloc.dart';
 import 'package:oyan/src/features/login/presentation/components/email_text_form_field.dart';
 import 'package:oyan/src/features/login/presentation/components/password_text_form_field.dart';
 import 'package:oyan/src/features/welcome/presentation/components/forgot_password_bottom_sheet.dart';
@@ -24,8 +22,7 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool isPasswordVisible = false;
-  final DioRestClient _dioClient = DioRestClient();
-  bool _isLoading = false;
+  final authBloc = getIt<AuthBloc>();
 
   @override
   void dispose() {
@@ -35,99 +32,104 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
   }
 
   Future<void> _handleSignIn() async {
-    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter email and password')),
-      );
-      return;
-    }
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      // First get CSRF token
-      final tokenResult = await _dioClient.getCsrfToken();
-      await tokenResult.fold(
-        (failure) async {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Failed to get CSRF token: ${failure.message}')),
-          );
-        },
-        (csrfToken) async {
-          // Set CSRF token in headers
-          _dioClient.setCsrfToken(csrfToken);
-
-          // Attempt login
-          final loginResult = await _dioClient.login(
-            emailController.text,
-            passwordController.text,
-          );
-
-          loginResult.fold(
-            (failure) {
-              String errorMessage = 'Login failed';
-              if (failure is NetworkException) {
-                if (failure.message.contains('403')) {
-                  // Clear the stored CSRF token and try again
-                  _dioClient.st.deleteCsrfToken();
-                  errorMessage = 'Session expired. Please try again.';
-                  // Retry the login with a fresh token
-                  _handleSignIn();
-                } else {
-                  errorMessage = failure.message;
-                }
-              }
-
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(errorMessage)),
-              );
-              log('Login failed: $errorMessage');
-            },
-            (response) {
-              try {
-                log('Login Response: ${response.data}');
-                if (response.statusCode == 403) {
-                  // Clear the stored CSRF token and try again
-                  _dioClient.st.deleteCsrfToken();
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Session expired. Please try again.')),
-                  );
-                  // Retry the login with a fresh token
-                  _handleSignIn();
-                  return;
-                }
-
-                final loginResponse = LoginResponse.fromJson(response.data);
-                if (loginResponse.status == 'success') {
-                  context.push(RoutePaths.home);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(loginResponse.message ?? 'Login failed')),
-                  );
-                }
-              } catch (e) {
-                log('Error parsing login response: $e');
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Error processing login response')),
-                );
-              }
-            },
-          );
-        },
-      );
-    } finally {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    }
+    authBloc.add(
+      AuthEvent.login(
+        username: emailController.text,
+        password: passwordController.text,
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    return BaseBlocWidget<AuthBloc, AuthEvent, AuthState>(
+      bloc: authBloc,
+      builder: (context, state, bloc) {
+        return state.maybeWhen(
+          loading: () {
+            return _buildLoadingState(context);
+          },
+          loaded: (viewModel) {
+            debugPrint('Loaded state with viewModel: $viewModel');
+            debugPrint('SignInResponse: ${viewModel.signInResponse}');
+
+            if (viewModel.signInResponse != null) {
+              // Check if token exists in the response
+              final hasToken = viewModel.signInResponse?.token != null && viewModel.signInResponse!.token!.isNotEmpty;
+
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                if (hasToken) {
+                  // If there's a token, navigate to home
+                  context.push(RoutePaths.home);
+                } else {
+                  // If no token, show an error message
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Authentication failed: No token received'),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                }
+              });
+            }
+            return _buildLoginForm(context);
+          },
+          error: (message) {
+            // Show error message to the user
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(message),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            });
+
+            return _buildLoginForm(context);
+          },
+          orElse: () => _buildLoginForm(context),
+        );
+      },
+    );
+  }
+
+  Widget _buildLoadingState(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+        left: 20,
+        right: 20,
+        top: 40,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            color: Colors.white,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 40),
+                const CircularProgressIndicator(),
+                const SizedBox(height: 20),
+                Text(
+                  'Signing in...',
+                  style: GoogleFonts.openSans(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                  ),
+                ),
+                const SizedBox(height: 40),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLoginForm(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,

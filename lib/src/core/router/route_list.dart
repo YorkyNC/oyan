@@ -199,26 +199,7 @@ List<RouteBase> _routes = [
   //     ),
   //   ),
   // ), TODO add some transition for  searching
-  GoRoute(
-    name: RouteNames.login,
-    path: RoutePaths.login,
-    builder: (context, GoRouterState state) {
-      return const LoginPage();
-    },
-    routes: [
-      GoRoute(
-        name: RouteNames.forgotPassword,
-        path: RoutePaths.forgotPassword,
-        pageBuilder: (context, state) => PageTransition.slideAndFade(
-          context: context,
-          state: state,
-          begin: const Offset(1.0, 0),
-          end: Offset.zero,
-          child: const ForgotPasswordPage(),
-        ),
-      ),
-    ],
-  ),
+
   GoRoute(
     path: RoutePaths.changeInformation,
     pageBuilder: (context, state) {

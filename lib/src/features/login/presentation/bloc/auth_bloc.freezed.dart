@@ -21,6 +21,7 @@ mixin _$AuthEvent {
     required TResult Function(String username, String password) login,
     required TResult Function() getUser,
     required TResult Function() refreshToken,
+    required TResult Function() getCsrfToken,
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
@@ -31,6 +32,7 @@ mixin _$AuthEvent {
     TResult? Function(String username, String password)? login,
     TResult? Function()? getUser,
     TResult? Function()? refreshToken,
+    TResult? Function()? getCsrfToken,
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
@@ -41,6 +43,7 @@ mixin _$AuthEvent {
     TResult Function(String username, String password)? login,
     TResult Function()? getUser,
     TResult Function()? refreshToken,
+    TResult Function()? getCsrfToken,
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
@@ -52,6 +55,7 @@ mixin _$AuthEvent {
     required TResult Function(_Login value) login,
     required TResult Function(_GetUser value) getUser,
     required TResult Function(_RefreshToken value) refreshToken,
+    required TResult Function(_GetCsrfToken value) getCsrfToken,
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
@@ -62,6 +66,7 @@ mixin _$AuthEvent {
     TResult? Function(_Login value)? login,
     TResult? Function(_GetUser value)? getUser,
     TResult? Function(_RefreshToken value)? refreshToken,
+    TResult? Function(_GetCsrfToken value)? getCsrfToken,
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
@@ -72,6 +77,7 @@ mixin _$AuthEvent {
     TResult Function(_Login value)? login,
     TResult Function(_GetUser value)? getUser,
     TResult Function(_RefreshToken value)? refreshToken,
+    TResult Function(_GetCsrfToken value)? getCsrfToken,
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
@@ -181,6 +187,7 @@ class _$LoginImpl implements _Login {
     required TResult Function(String username, String password) login,
     required TResult Function() getUser,
     required TResult Function() refreshToken,
+    required TResult Function() getCsrfToken,
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
@@ -194,6 +201,7 @@ class _$LoginImpl implements _Login {
     TResult? Function(String username, String password)? login,
     TResult? Function()? getUser,
     TResult? Function()? refreshToken,
+    TResult? Function()? getCsrfToken,
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
@@ -207,6 +215,7 @@ class _$LoginImpl implements _Login {
     TResult Function(String username, String password)? login,
     TResult Function()? getUser,
     TResult Function()? refreshToken,
+    TResult Function()? getCsrfToken,
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
@@ -224,6 +233,7 @@ class _$LoginImpl implements _Login {
     required TResult Function(_Login value) login,
     required TResult Function(_GetUser value) getUser,
     required TResult Function(_RefreshToken value) refreshToken,
+    required TResult Function(_GetCsrfToken value) getCsrfToken,
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
@@ -237,6 +247,7 @@ class _$LoginImpl implements _Login {
     TResult? Function(_Login value)? login,
     TResult? Function(_GetUser value)? getUser,
     TResult? Function(_RefreshToken value)? refreshToken,
+    TResult? Function(_GetCsrfToken value)? getCsrfToken,
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
@@ -250,6 +261,7 @@ class _$LoginImpl implements _Login {
     TResult Function(_Login value)? login,
     TResult Function(_GetUser value)? getUser,
     TResult Function(_RefreshToken value)? refreshToken,
+    TResult Function(_GetCsrfToken value)? getCsrfToken,
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
@@ -321,6 +333,7 @@ class _$GetUserImpl implements _GetUser {
     required TResult Function(String username, String password) login,
     required TResult Function() getUser,
     required TResult Function() refreshToken,
+    required TResult Function() getCsrfToken,
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
@@ -334,6 +347,7 @@ class _$GetUserImpl implements _GetUser {
     TResult? Function(String username, String password)? login,
     TResult? Function()? getUser,
     TResult? Function()? refreshToken,
+    TResult? Function()? getCsrfToken,
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
@@ -347,6 +361,7 @@ class _$GetUserImpl implements _GetUser {
     TResult Function(String username, String password)? login,
     TResult Function()? getUser,
     TResult Function()? refreshToken,
+    TResult Function()? getCsrfToken,
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
@@ -364,6 +379,7 @@ class _$GetUserImpl implements _GetUser {
     required TResult Function(_Login value) login,
     required TResult Function(_GetUser value) getUser,
     required TResult Function(_RefreshToken value) refreshToken,
+    required TResult Function(_GetCsrfToken value) getCsrfToken,
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
@@ -377,6 +393,7 @@ class _$GetUserImpl implements _GetUser {
     TResult? Function(_Login value)? login,
     TResult? Function(_GetUser value)? getUser,
     TResult? Function(_RefreshToken value)? refreshToken,
+    TResult? Function(_GetCsrfToken value)? getCsrfToken,
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
@@ -390,6 +407,7 @@ class _$GetUserImpl implements _GetUser {
     TResult Function(_Login value)? login,
     TResult Function(_GetUser value)? getUser,
     TResult Function(_RefreshToken value)? refreshToken,
+    TResult Function(_GetCsrfToken value)? getCsrfToken,
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
@@ -450,6 +468,7 @@ class _$RefreshTokenImpl implements _RefreshToken {
     required TResult Function(String username, String password) login,
     required TResult Function() getUser,
     required TResult Function() refreshToken,
+    required TResult Function() getCsrfToken,
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
@@ -463,6 +482,7 @@ class _$RefreshTokenImpl implements _RefreshToken {
     TResult? Function(String username, String password)? login,
     TResult? Function()? getUser,
     TResult? Function()? refreshToken,
+    TResult? Function()? getCsrfToken,
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
@@ -476,6 +496,7 @@ class _$RefreshTokenImpl implements _RefreshToken {
     TResult Function(String username, String password)? login,
     TResult Function()? getUser,
     TResult Function()? refreshToken,
+    TResult Function()? getCsrfToken,
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
@@ -493,6 +514,7 @@ class _$RefreshTokenImpl implements _RefreshToken {
     required TResult Function(_Login value) login,
     required TResult Function(_GetUser value) getUser,
     required TResult Function(_RefreshToken value) refreshToken,
+    required TResult Function(_GetCsrfToken value) getCsrfToken,
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
@@ -506,6 +528,7 @@ class _$RefreshTokenImpl implements _RefreshToken {
     TResult? Function(_Login value)? login,
     TResult? Function(_GetUser value)? getUser,
     TResult? Function(_RefreshToken value)? refreshToken,
+    TResult? Function(_GetCsrfToken value)? getCsrfToken,
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
@@ -519,6 +542,7 @@ class _$RefreshTokenImpl implements _RefreshToken {
     TResult Function(_Login value)? login,
     TResult Function(_GetUser value)? getUser,
     TResult Function(_RefreshToken value)? refreshToken,
+    TResult Function(_GetCsrfToken value)? getCsrfToken,
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
@@ -533,6 +557,141 @@ class _$RefreshTokenImpl implements _RefreshToken {
 
 abstract class _RefreshToken implements AuthEvent {
   const factory _RefreshToken() = _$RefreshTokenImpl;
+}
+
+/// @nodoc
+abstract class _$$GetCsrfTokenImplCopyWith<$Res> {
+  factory _$$GetCsrfTokenImplCopyWith(
+          _$GetCsrfTokenImpl value, $Res Function(_$GetCsrfTokenImpl) then) =
+      __$$GetCsrfTokenImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetCsrfTokenImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$GetCsrfTokenImpl>
+    implements _$$GetCsrfTokenImplCopyWith<$Res> {
+  __$$GetCsrfTokenImplCopyWithImpl(
+      _$GetCsrfTokenImpl _value, $Res Function(_$GetCsrfTokenImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$GetCsrfTokenImpl implements _GetCsrfToken {
+  const _$GetCsrfTokenImpl();
+
+  @override
+  String toString() {
+    return 'AuthEvent.getCsrfToken()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetCsrfTokenImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String username, String password) login,
+    required TResult Function() getUser,
+    required TResult Function() refreshToken,
+    required TResult Function() getCsrfToken,
+    required TResult Function(String usernameOrEmail) forgotPassword,
+    required TResult Function(String newPassword) updatePassword,
+    required TResult Function(String code, String userId) verify,
+  }) {
+    return getCsrfToken();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String username, String password)? login,
+    TResult? Function()? getUser,
+    TResult? Function()? refreshToken,
+    TResult? Function()? getCsrfToken,
+    TResult? Function(String usernameOrEmail)? forgotPassword,
+    TResult? Function(String newPassword)? updatePassword,
+    TResult? Function(String code, String userId)? verify,
+  }) {
+    return getCsrfToken?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String username, String password)? login,
+    TResult Function()? getUser,
+    TResult Function()? refreshToken,
+    TResult Function()? getCsrfToken,
+    TResult Function(String usernameOrEmail)? forgotPassword,
+    TResult Function(String newPassword)? updatePassword,
+    TResult Function(String code, String userId)? verify,
+    required TResult orElse(),
+  }) {
+    if (getCsrfToken != null) {
+      return getCsrfToken();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_GetUser value) getUser,
+    required TResult Function(_RefreshToken value) refreshToken,
+    required TResult Function(_GetCsrfToken value) getCsrfToken,
+    required TResult Function(_ForgotPassword value) forgotPassword,
+    required TResult Function(_UpdatePassword value) updatePassword,
+    required TResult Function(_Verify value) verify,
+  }) {
+    return getCsrfToken(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_GetUser value)? getUser,
+    TResult? Function(_RefreshToken value)? refreshToken,
+    TResult? Function(_GetCsrfToken value)? getCsrfToken,
+    TResult? Function(_ForgotPassword value)? forgotPassword,
+    TResult? Function(_UpdatePassword value)? updatePassword,
+    TResult? Function(_Verify value)? verify,
+  }) {
+    return getCsrfToken?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_GetUser value)? getUser,
+    TResult Function(_RefreshToken value)? refreshToken,
+    TResult Function(_GetCsrfToken value)? getCsrfToken,
+    TResult Function(_ForgotPassword value)? forgotPassword,
+    TResult Function(_UpdatePassword value)? updatePassword,
+    TResult Function(_Verify value)? verify,
+    required TResult orElse(),
+  }) {
+    if (getCsrfToken != null) {
+      return getCsrfToken(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetCsrfToken implements AuthEvent {
+  const factory _GetCsrfToken() = _$GetCsrfTokenImpl;
 }
 
 /// @nodoc
@@ -608,6 +767,7 @@ class _$ForgotPasswordImpl implements _ForgotPassword {
     required TResult Function(String username, String password) login,
     required TResult Function() getUser,
     required TResult Function() refreshToken,
+    required TResult Function() getCsrfToken,
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
@@ -621,6 +781,7 @@ class _$ForgotPasswordImpl implements _ForgotPassword {
     TResult? Function(String username, String password)? login,
     TResult? Function()? getUser,
     TResult? Function()? refreshToken,
+    TResult? Function()? getCsrfToken,
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
@@ -634,6 +795,7 @@ class _$ForgotPasswordImpl implements _ForgotPassword {
     TResult Function(String username, String password)? login,
     TResult Function()? getUser,
     TResult Function()? refreshToken,
+    TResult Function()? getCsrfToken,
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
@@ -651,6 +813,7 @@ class _$ForgotPasswordImpl implements _ForgotPassword {
     required TResult Function(_Login value) login,
     required TResult Function(_GetUser value) getUser,
     required TResult Function(_RefreshToken value) refreshToken,
+    required TResult Function(_GetCsrfToken value) getCsrfToken,
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
@@ -664,6 +827,7 @@ class _$ForgotPasswordImpl implements _ForgotPassword {
     TResult? Function(_Login value)? login,
     TResult? Function(_GetUser value)? getUser,
     TResult? Function(_RefreshToken value)? refreshToken,
+    TResult? Function(_GetCsrfToken value)? getCsrfToken,
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
@@ -677,6 +841,7 @@ class _$ForgotPasswordImpl implements _ForgotPassword {
     TResult Function(_Login value)? login,
     TResult Function(_GetUser value)? getUser,
     TResult Function(_RefreshToken value)? refreshToken,
+    TResult Function(_GetCsrfToken value)? getCsrfToken,
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
@@ -775,6 +940,7 @@ class _$UpdatePasswordImpl implements _UpdatePassword {
     required TResult Function(String username, String password) login,
     required TResult Function() getUser,
     required TResult Function() refreshToken,
+    required TResult Function() getCsrfToken,
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
@@ -788,6 +954,7 @@ class _$UpdatePasswordImpl implements _UpdatePassword {
     TResult? Function(String username, String password)? login,
     TResult? Function()? getUser,
     TResult? Function()? refreshToken,
+    TResult? Function()? getCsrfToken,
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
@@ -801,6 +968,7 @@ class _$UpdatePasswordImpl implements _UpdatePassword {
     TResult Function(String username, String password)? login,
     TResult Function()? getUser,
     TResult Function()? refreshToken,
+    TResult Function()? getCsrfToken,
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
@@ -818,6 +986,7 @@ class _$UpdatePasswordImpl implements _UpdatePassword {
     required TResult Function(_Login value) login,
     required TResult Function(_GetUser value) getUser,
     required TResult Function(_RefreshToken value) refreshToken,
+    required TResult Function(_GetCsrfToken value) getCsrfToken,
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
@@ -831,6 +1000,7 @@ class _$UpdatePasswordImpl implements _UpdatePassword {
     TResult? Function(_Login value)? login,
     TResult? Function(_GetUser value)? getUser,
     TResult? Function(_RefreshToken value)? refreshToken,
+    TResult? Function(_GetCsrfToken value)? getCsrfToken,
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
@@ -844,6 +1014,7 @@ class _$UpdatePasswordImpl implements _UpdatePassword {
     TResult Function(_Login value)? login,
     TResult Function(_GetUser value)? getUser,
     TResult Function(_RefreshToken value)? refreshToken,
+    TResult Function(_GetCsrfToken value)? getCsrfToken,
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
@@ -948,6 +1119,7 @@ class _$VerifyImpl implements _Verify {
     required TResult Function(String username, String password) login,
     required TResult Function() getUser,
     required TResult Function() refreshToken,
+    required TResult Function() getCsrfToken,
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
@@ -961,6 +1133,7 @@ class _$VerifyImpl implements _Verify {
     TResult? Function(String username, String password)? login,
     TResult? Function()? getUser,
     TResult? Function()? refreshToken,
+    TResult? Function()? getCsrfToken,
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
@@ -974,6 +1147,7 @@ class _$VerifyImpl implements _Verify {
     TResult Function(String username, String password)? login,
     TResult Function()? getUser,
     TResult Function()? refreshToken,
+    TResult Function()? getCsrfToken,
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
@@ -991,6 +1165,7 @@ class _$VerifyImpl implements _Verify {
     required TResult Function(_Login value) login,
     required TResult Function(_GetUser value) getUser,
     required TResult Function(_RefreshToken value) refreshToken,
+    required TResult Function(_GetCsrfToken value) getCsrfToken,
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
@@ -1004,6 +1179,7 @@ class _$VerifyImpl implements _Verify {
     TResult? Function(_Login value)? login,
     TResult? Function(_GetUser value)? getUser,
     TResult? Function(_RefreshToken value)? refreshToken,
+    TResult? Function(_GetCsrfToken value)? getCsrfToken,
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
@@ -1017,6 +1193,7 @@ class _$VerifyImpl implements _Verify {
     TResult Function(_Login value)? login,
     TResult Function(_GetUser value)? getUser,
     TResult Function(_RefreshToken value)? refreshToken,
+    TResult Function(_GetCsrfToken value)? getCsrfToken,
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
@@ -2074,9 +2251,11 @@ abstract class _ErrorVerify implements AuthState {
 
 /// @nodoc
 mixin _$AuthStateViewModel {
+  SignInResponse? get signInResponse => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
   String get refreshToken => throw _privateConstructorUsedError;
+  String get csrfToken => throw _privateConstructorUsedError;
   UserEntity get user => throw _privateConstructorUsedError;
 
   /// Create a copy of AuthStateViewModel
@@ -2092,8 +2271,15 @@ abstract class $AuthStateViewModelCopyWith<$Res> {
           AuthStateViewModel value, $Res Function(AuthStateViewModel) then) =
       _$AuthStateViewModelCopyWithImpl<$Res, AuthStateViewModel>;
   @useResult
-  $Res call({int userId, String token, String refreshToken, UserEntity user});
+  $Res call(
+      {SignInResponse? signInResponse,
+      int userId,
+      String token,
+      String refreshToken,
+      String csrfToken,
+      UserEntity user});
 
+  $SignInResponseCopyWith<$Res>? get signInResponse;
   $UserEntityCopyWith<$Res> get user;
 }
 
@@ -2112,12 +2298,18 @@ class _$AuthStateViewModelCopyWithImpl<$Res, $Val extends AuthStateViewModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? signInResponse = freezed,
     Object? userId = null,
     Object? token = null,
     Object? refreshToken = null,
+    Object? csrfToken = null,
     Object? user = null,
   }) {
     return _then(_value.copyWith(
+      signInResponse: freezed == signInResponse
+          ? _value.signInResponse
+          : signInResponse // ignore: cast_nullable_to_non_nullable
+              as SignInResponse?,
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -2130,11 +2322,29 @@ class _$AuthStateViewModelCopyWithImpl<$Res, $Val extends AuthStateViewModel>
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
               as String,
+      csrfToken: null == csrfToken
+          ? _value.csrfToken
+          : csrfToken // ignore: cast_nullable_to_non_nullable
+              as String,
       user: null == user
           ? _value.user
           : user // ignore: cast_nullable_to_non_nullable
               as UserEntity,
     ) as $Val);
+  }
+
+  /// Create a copy of AuthStateViewModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SignInResponseCopyWith<$Res>? get signInResponse {
+    if (_value.signInResponse == null) {
+      return null;
+    }
+
+    return $SignInResponseCopyWith<$Res>(_value.signInResponse!, (value) {
+      return _then(_value.copyWith(signInResponse: value) as $Val);
+    });
   }
 
   /// Create a copy of AuthStateViewModel
@@ -2156,8 +2366,16 @@ abstract class _$$AuthStateViewModelImplCopyWith<$Res>
       __$$AuthStateViewModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int userId, String token, String refreshToken, UserEntity user});
+  $Res call(
+      {SignInResponse? signInResponse,
+      int userId,
+      String token,
+      String refreshToken,
+      String csrfToken,
+      UserEntity user});
 
+  @override
+  $SignInResponseCopyWith<$Res>? get signInResponse;
   @override
   $UserEntityCopyWith<$Res> get user;
 }
@@ -2175,12 +2393,18 @@ class __$$AuthStateViewModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? signInResponse = freezed,
     Object? userId = null,
     Object? token = null,
     Object? refreshToken = null,
+    Object? csrfToken = null,
     Object? user = null,
   }) {
     return _then(_$AuthStateViewModelImpl(
+      signInResponse: freezed == signInResponse
+          ? _value.signInResponse
+          : signInResponse // ignore: cast_nullable_to_non_nullable
+              as SignInResponse?,
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
@@ -2192,6 +2416,10 @@ class __$$AuthStateViewModelImplCopyWithImpl<$Res>
       refreshToken: null == refreshToken
           ? _value.refreshToken
           : refreshToken // ignore: cast_nullable_to_non_nullable
+              as String,
+      csrfToken: null == csrfToken
+          ? _value.csrfToken
+          : csrfToken // ignore: cast_nullable_to_non_nullable
               as String,
       user: null == user
           ? _value.user
@@ -2205,15 +2433,19 @@ class __$$AuthStateViewModelImplCopyWithImpl<$Res>
 
 class _$AuthStateViewModelImpl implements _AuthStateViewModel {
   const _$AuthStateViewModelImpl(
-      {this.userId = 0,
+      {this.signInResponse,
+      this.userId = 0,
       this.token = '',
       this.refreshToken = '',
+      this.csrfToken = '',
       this.user = const UserEntity(
           id: '',
           email: 'email',
           firstName: 'firstName',
           lastName: 'lastName')});
 
+  @override
+  final SignInResponse? signInResponse;
   @override
   @JsonKey()
   final int userId;
@@ -2225,11 +2457,14 @@ class _$AuthStateViewModelImpl implements _AuthStateViewModel {
   final String refreshToken;
   @override
   @JsonKey()
+  final String csrfToken;
+  @override
+  @JsonKey()
   final UserEntity user;
 
   @override
   String toString() {
-    return 'AuthStateViewModel(userId: $userId, token: $token, refreshToken: $refreshToken, user: $user)';
+    return 'AuthStateViewModel(signInResponse: $signInResponse, userId: $userId, token: $token, refreshToken: $refreshToken, csrfToken: $csrfToken, user: $user)';
   }
 
   @override
@@ -2237,16 +2472,20 @@ class _$AuthStateViewModelImpl implements _AuthStateViewModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuthStateViewModelImpl &&
+            (identical(other.signInResponse, signInResponse) ||
+                other.signInResponse == signInResponse) &&
             (identical(other.userId, userId) || other.userId == userId) &&
             (identical(other.token, token) || other.token == token) &&
             (identical(other.refreshToken, refreshToken) ||
                 other.refreshToken == refreshToken) &&
+            (identical(other.csrfToken, csrfToken) ||
+                other.csrfToken == csrfToken) &&
             (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, userId, token, refreshToken, user);
+  int get hashCode => Object.hash(runtimeType, signInResponse, userId, token,
+      refreshToken, csrfToken, user);
 
   /// Create a copy of AuthStateViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -2260,17 +2499,23 @@ class _$AuthStateViewModelImpl implements _AuthStateViewModel {
 
 abstract class _AuthStateViewModel implements AuthStateViewModel {
   const factory _AuthStateViewModel(
-      {final int userId,
+      {final SignInResponse? signInResponse,
+      final int userId,
       final String token,
       final String refreshToken,
+      final String csrfToken,
       final UserEntity user}) = _$AuthStateViewModelImpl;
 
+  @override
+  SignInResponse? get signInResponse;
   @override
   int get userId;
   @override
   String get token;
   @override
   String get refreshToken;
+  @override
+  String get csrfToken;
   @override
   UserEntity get user;
 

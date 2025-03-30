@@ -4,6 +4,7 @@ import 'package:oyan/src/core/services/injectable/service_register_proxy.dart';
 import 'package:oyan/src/features/chat/domain/usecases/get_chats_use_case.dart';
 import 'package:oyan/src/features/chat/domain/usecases/get_messages_use_case.dart';
 import 'package:oyan/src/features/chat/presentation/bloc/chat_bloc.dart';
+import 'package:oyan/src/features/login/domain/usecases/csrf_token_use_case.dart';
 import 'package:oyan/src/features/news/domain/usecases/add_feed_use_case.dart';
 import 'package:oyan/src/features/news/domain/usecases/get_feed_use_case.dart';
 import 'package:oyan/src/features/news/presentation/bloc/news_bloc.dart';
@@ -58,6 +59,7 @@ void manualRegisterServices() {
       getIt<ForgotPasswordUseCase>(),
       getIt<UpdatePasswordUseCase>(),
       getIt<RefreshTokenUseCase>(),
+      getIt<CsrfTokenUseCase>(),
     ),
   );
 

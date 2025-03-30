@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:oyan/src/features/login/data/models/csrf_token_response.dart';
 
 import '../../../../core/exceptions/domain_exception.dart';
 import '../../../../core/services/auth/entities/user_entity.dart';
@@ -12,6 +13,8 @@ abstract class IAuthRepository {
   Future<Either<DomainException, SignInResponse>> loginUser(
     SignInRequest body,
   );
+  Future<Either<DomainException, CsrfTokenResponse>> csrfToken();
+
   Future<Either<DomainException, VerifyResponse>> verifyUser(
     VerifyRequest body,
   );

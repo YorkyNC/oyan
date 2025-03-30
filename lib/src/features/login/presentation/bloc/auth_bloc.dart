@@ -1,6 +1,3 @@
-import 'dart:developer';
-
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:oyan/main_prod.dart';
@@ -9,8 +6,9 @@ import 'package:oyan/src/core/services/auth/models/forgot_password_response.dart
 import 'package:oyan/src/core/services/auth/models/refresh_token_response.dart';
 import 'package:oyan/src/core/services/auth/models/update_password_request.dart';
 import 'package:oyan/src/core/services/auth/models/update_password_response.dart';
-import 'package:oyan/src/core/services/firebase/firebase_manager.dart';
 import 'package:oyan/src/core/services/storage/storage_service_impl.dart';
+import 'package:oyan/src/features/login/data/models/csrf_token_response.dart';
+import 'package:oyan/src/features/login/domain/usecases/csrf_token_use_case.dart';
 
 import '../../../../core/base/base_bloc/bloc/base_bloc.dart';
 import '../../../../core/base/base_usecase/result.dart';
@@ -36,6 +34,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     this._forgotPasswordUseCase,
     this._updatePasswordUseCase,
     this._refreshTokenUseCase,
+    this._csrfTokenUseCase,
   ) : super(const _Initial());
 
   final LoginUseCase _loginUseCase;
@@ -44,7 +43,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   final ForgotPasswordUseCase _forgotPasswordUseCase;
   final UpdatePasswordUseCase _updatePasswordUseCase;
   final RefreshTokenUseCase _refreshTokenUseCase;
-
+  final CsrfTokenUseCase _csrfTokenUseCase;
   final AuthStateViewModel _viewModel = const AuthStateViewModel();
 
   final StorageServiceImpl st = StorageServiceImpl();
@@ -58,39 +57,36 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
       login: (username, password) => _login(event as _Login, emit as Emitter<AuthState>),
       verify: (_, __) => _verify(event as _Verify, emit as Emitter<AuthState>),
       refreshToken: () => _refreshToken(event as _RefreshToken, emit as Emitter<AuthState>),
+      getCsrfToken: () => _getCsrfToken(event as _GetCsrfToken, emit as Emitter<AuthState>),
     );
   }
 
   Future<void> _login(_Login event, Emitter<AuthState> emit) async {
     emit(const _Loading());
 
-    final SignInRequest request = SignInRequest(email: event.username, password: event.password);
+    final SignInRequest request = SignInRequest(login: event.username, password: event.password);
     final result = await _loginUseCase.call(request);
-
-    log(result.toString());
-
     if (result.isSuccessful) {
-      try {
-        // Store tokens first
-        await st.setToken(result.data!.accessToken);
-        await st.setRefreshToken(result.data!.refreshToken);
-
-        final fcmToken = await FirebaseMessaging.instance.getToken();
-        if (fcmToken != null) {
-          await FirebaseManager.handleToken();
-        }
-      } catch (e) {
-        debugPrint('Error during login token operations: $e');
-      }
+      final updatedViewModel = _viewModel.copyWith(signInResponse: result.data);
 
       return emit(
         AuthState.loaded(
-          viewModel: _viewModel.copyWith(token: result.data!.accessToken, refreshToken: result.data!.refreshToken),
+          viewModel: updatedViewModel,
         ),
       );
     }
 
     return emit(const AuthState.error('Введенные данные неверны, попробуйте снова'));
+  }
+
+  Future<void> _getCsrfToken(_GetCsrfToken event, Emitter<AuthState> emit) async {
+    emit(const AuthState.loading());
+    final Result<CsrfTokenResponse, DomainException> result = await _csrfTokenUseCase.call();
+    if (result.isSuccessful) {
+      return emit(_Loaded(viewModel: _viewModel.copyWith(csrfToken: result.data?.csrfToken ?? '')));
+    }
+
+    return emit(const _Error("Failed to get CSRF token"));
   }
 
   Future<void> _refreshToken(_RefreshToken event, Emitter<AuthState> emit) async {
@@ -113,7 +109,6 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
         emit(AuthState.loaded(viewModel: _mapUserEntityToViewModel(result.data!)));
       }
     } catch (e) {
-      log('Error in _getUser: $e');
       return emit(AuthState.error(e is DomainException ? e.message : 'An unexpected error occurred'));
     }
   }

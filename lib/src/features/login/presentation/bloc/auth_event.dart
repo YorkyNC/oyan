@@ -11,6 +11,8 @@ class AuthEvent with _$AuthEvent {
 
   const factory AuthEvent.refreshToken() = _RefreshToken;
 
+  const factory AuthEvent.getCsrfToken() = _GetCsrfToken;
+
   const factory AuthEvent.forgotPassword({
     required String usernameOrEmail,
   }) = _ForgotPassword;
@@ -19,6 +21,5 @@ class AuthEvent with _$AuthEvent {
     required String newPassword,
   }) = _UpdatePassword;
 
-  const factory AuthEvent.verify(
-      {required String code, required String userId}) = _Verify;
+  const factory AuthEvent.verify({required String code, required String userId}) = _Verify;
 }

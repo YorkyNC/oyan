@@ -119,7 +119,6 @@ class DioInterceptor extends Interceptor {
         if (data.accessToken.isNotEmpty && data.refreshToken.isNotEmpty) {
           await st.setToken(data.accessToken);
           await st.setRefreshToken(data.refreshToken);
-          roleNotifier.notify();
 
           _log('Token refresh successful');
           return true;
@@ -203,8 +202,6 @@ class DioInterceptor extends Interceptor {
   Future<void> _logoutUser() async {
     await st.deleteToken();
     await st.clear();
-
-    RoleNotifier().notify();
   }
 
   void _log(String message) {

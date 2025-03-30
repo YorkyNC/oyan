@@ -8,12 +8,12 @@ part of 'sign_in_request.dart';
 
 _$SignInRequestImpl _$$SignInRequestImplFromJson(Map<String, dynamic> json) =>
     _$SignInRequestImpl(
-      email: json['email'] as String,
+      login: json['login'] as String,
       password: json['password'] as String,
     );
 
 Map<String, dynamic> _$$SignInRequestImplToJson(_$SignInRequestImpl instance) =>
     <String, dynamic>{
-      'email': instance.email,
+      'login': instance.login,
       'password': instance.password,
     };

@@ -57,6 +57,8 @@ import 'package:oyan/src/features/login/data/repositories/i_auth_repository.dart
     as _i913;
 import 'package:oyan/src/features/login/domain/repositories/auth_repository_impl.dart'
     as _i871;
+import 'package:oyan/src/features/login/domain/usecases/csrf_token_use_case.dart'
+    as _i377;
 import 'package:oyan/src/features/login/domain/usecases/forgot_password_use_case.dart'
     as _i189;
 import 'package:oyan/src/features/login/domain/usecases/get_user_use_case.dart'
@@ -94,10 +96,10 @@ import 'package:oyan/src/features/review/presentation/bloc/review_bloc.dart'
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
-  _i174.GetIt init({
+  Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i526.GetItHelper(
       this,
       environment,
@@ -106,7 +108,13 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i801.RoleNotifier>(() => _i801.RoleNotifier());
     gh.factory<_i459.ReviewBloc>(() => _i459.ReviewBloc());
     gh.factory<_i963.ClassBloc>(() => _i963.ClassBloc());
-    gh.singleton<_i140.DioRestClient>(() => _i140.DioRestClient());
+    await gh.singletonAsync<_i140.DioRestClient>(
+      () {
+        final i = _i140.DioRestClient();
+        return i.init().then((_) => i);
+      },
+      preResolve: true,
+    );
     gh.lazySingleton<_i210.GetEventsCountUseCase>(
         () => _i210.GetEventsCountUseCase());
     gh.lazySingleton<_i967.GetAllEventsUseCase>(
@@ -171,6 +179,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i189.ForgotPasswordUseCase>(() =>
         _i189.ForgotPasswordUseCase(
             gh<_i913.IAuthRepository>(instanceName: 'AuthRepositoryImpl')));
+    gh.lazySingleton<_i377.CsrfTokenUseCase>(() => _i377.CsrfTokenUseCase(
+        gh<_i913.IAuthRepository>(instanceName: 'AuthRepositoryImpl')));
     gh.lazySingleton<_i231.AddPostUseCase>(() => _i231.AddPostUseCase(
         gh<_i1002.INewsRepository>(instanceName: 'NewsRepositoryImpl')));
     gh.lazySingleton<_i644.AddFeedUseCase>(() => _i644.AddFeedUseCase(
