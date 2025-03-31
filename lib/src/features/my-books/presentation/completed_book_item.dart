@@ -2,27 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 
-class ReadingBookItem extends StatefulWidget {
+class CompletedBookItem extends StatefulWidget {
   final String title;
   final String author;
   final String coverUrl;
-  final double progress;
-  final VoidCallback? onContinuePressed;
+  final VoidCallback? onReadAgainPressed;
 
-  const ReadingBookItem({
+  const CompletedBookItem({
     Key? key,
     required this.title,
     required this.author,
     required this.coverUrl,
-    required this.progress,
-    this.onContinuePressed,
+    this.onReadAgainPressed,
   }) : super(key: key);
 
   @override
-  State<ReadingBookItem> createState() => _BookItemState();
+  State<CompletedBookItem> createState() => _CompletedBookItemState();
 }
 
-class _BookItemState extends State<ReadingBookItem> with SingleTickerProviderStateMixin {
+class _CompletedBookItemState extends State<CompletedBookItem> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _expandAnimation;
   bool _isExpanded = false;
@@ -111,14 +109,18 @@ class _BookItemState extends State<ReadingBookItem> with SingleTickerProviderSta
                             ),
                           ),
                         ),
-                        GestureDetector(
-                          onTap: _toggleExpand,
-                          child: AnimatedIcon(
-                            icon: AnimatedIcons.menu_close,
-                            progress: _expandAnimation,
-                            color: Colors.black,
-                            size: 24,
-                          ),
+                        Row(
+                          children: [
+                            GestureDetector(
+                              onTap: _toggleExpand,
+                              child: AnimatedIcon(
+                                icon: AnimatedIcons.menu_close,
+                                progress: _expandAnimation,
+                                color: Colors.black,
+                                size: 24,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -135,7 +137,7 @@ class _BookItemState extends State<ReadingBookItem> with SingleTickerProviderSta
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
-                          '${(widget.progress * 100).toInt()}%',
+                          '100%',
                           style: GoogleFonts.openSans(
                             fontWeight: FontWeight.w500,
                             fontSize: 15,
@@ -149,7 +151,7 @@ class _BookItemState extends State<ReadingBookItem> with SingleTickerProviderSta
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
                                 child: LinearProgressIndicator(
-                                  value: widget.progress,
+                                  value: 1.0,
                                   backgroundColor: const Color(0xffEBF0FF),
                                   color: context.colors.main,
                                   minHeight: 8,
@@ -177,7 +179,7 @@ class _BookItemState extends State<ReadingBookItem> with SingleTickerProviderSta
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: widget.onContinuePressed,
+                      onPressed: widget.onReadAgainPressed,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 12),
                         shape: RoundedRectangleBorder(
@@ -185,7 +187,7 @@ class _BookItemState extends State<ReadingBookItem> with SingleTickerProviderSta
                         ),
                       ),
                       child: Text(
-                        'Continue',
+                        'Read it Again',
                         style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 17, color: Colors.black),
                       ),
                     ),
@@ -196,36 +198,6 @@ class _BookItemState extends State<ReadingBookItem> with SingleTickerProviderSta
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildInfoItem({
-    required IconData icon,
-    required String title,
-    required String value,
-  }) {
-    return Column(
-      children: [
-        Icon(icon, size: 20, color: Colors.black54),
-        const SizedBox(height: 4),
-        Text(
-          title,
-          style: GoogleFonts.openSans(
-            fontSize: 12,
-            color: Colors.black54,
-            fontWeight: FontWeight.w400,
-          ),
-        ),
-        const SizedBox(height: 2),
-        Text(
-          value,
-          style: GoogleFonts.openSans(
-            fontSize: 14,
-            color: Colors.black,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-      ],
     );
   }
 }

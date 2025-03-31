@@ -79,7 +79,7 @@ List<RouteBase> _routes = [
             pageBuilder: (context, state) {
               // final roleNotifier = context.watch<RoleNotifier>();
 
-              return getPage(child: const HomePage(), state: state);
+              return getPage(child: HomePage(), state: state);
 
               // Role-specific page routing
               switch (roleNotifier.currentRole) {

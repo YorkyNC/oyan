@@ -1,10 +1,88 @@
+// File: lib/src/presentation/pages/home/home_page.dart
 import 'package:flutter/material.dart';
+import 'package:oyan/src/features/home/presentation/components/audiobook_grid_widget.dart';
+import 'package:oyan/src/features/home/presentation/components/book_grid_widget.dart';
+import 'package:oyan/src/features/home/presentation/components/category_tabs_widget.dart';
+import 'package:oyan/src/features/home/presentation/components/search_bar_widget.dart';
+import 'package:oyan/src/features/home/presentation/components/section_header_widget.dart';
+import 'package:oyan/src/features/home/presentation/components/tab_bar_widget.dart';
+import 'package:oyan/src/features/home/presentation/model/example_model.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _selectedTabIndex = 0;
+
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      backgroundColor: Colors.grey[50],
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: CustomScrollView(
+            slivers: [
+              SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(height: 16),
+                    SearchBarWidget(
+                      hintText: _selectedTabIndex == 0 ? 'Search book or author' : 'Search audiobook or narrator',
+                    ),
+                    const SizedBox(height: 16),
+                    TabBarWidget(
+                      selectedTabIndex: _selectedTabIndex,
+                      onTabSelected: (index) {
+                        setState(() {
+                          _selectedTabIndex = index;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    CategoryTabsWidget(
+                      selectedTabIndex: _selectedTabIndex,
+                    ),
+                    const SizedBox(height: 24),
+                    SectionHeaderWidget(
+                      title: _selectedTabIndex == 0 ? 'Recommendation' : 'Featured Audiobooks',
+                      showSeeAll: true,
+                    ),
+                    const SizedBox(height: 14),
+                    _selectedTabIndex == 0
+                        ? BookGridWidget(books: recommendedBooks, height: 180)
+                        : AudiobookGridWidget(audiobooks: recommendedAudiobooks, height: 180),
+                    const SizedBox(height: 24),
+                    SectionHeaderWidget(
+                      title: _selectedTabIndex == 0 ? 'Popular books' : 'Popular audiobooks',
+                      showSeeAll: true,
+                    ),
+                    const SizedBox(height: 16),
+                    _selectedTabIndex == 0
+                        ? BookGridWidget(books: popularBooks, height: 180)
+                        : AudiobookGridWidget(audiobooks: popularAudiobooks, height: 180),
+                    const SizedBox(height: 24),
+                    SectionHeaderWidget(
+                      title: _selectedTabIndex == 0 ? 'New books' : 'New audiobooks',
+                      showSeeAll: true,
+                    ),
+                    const SizedBox(height: 16),
+                    _selectedTabIndex == 0
+                        ? BookGridWidget(books: newBooks, height: 180)
+                        : AudiobookGridWidget(audiobooks: newAudiobooks, height: 180),
+                    const SizedBox(height: 24),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

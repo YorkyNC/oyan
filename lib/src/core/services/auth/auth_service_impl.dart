@@ -59,7 +59,6 @@ class AuthServiceImpl implements IAuthService {
           final cookies = response.headers.map['set-cookie'];
           if (cookies != null && cookies.isNotEmpty) {
             for (final cookie in cookies) {
-              // Extract CSRF cookie if present
               if (cookie.contains('csrftoken=')) {
                 final csrfCookie = cookie.split(';')[0];
                 st.setCsrfCookie(csrfCookie);
@@ -143,7 +142,6 @@ class AuthServiceImpl implements IAuthService {
             if (result.data['token'] != null) {
               await st.setToken(result.data['token']);
             } else if (result.data['accessToken'] != null) {
-              // Some APIs use accessToken instead of token
               await st.setToken(result.data['accessToken']);
             }
 
