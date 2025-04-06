@@ -4,7 +4,9 @@ import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/features/camera/presentation/camera_page.dart';
 import 'package:oyan/src/features/class_events/presentation/class_event_page.dart';
 import 'package:oyan/src/features/competition/presentation/competition_page.dart';
+import 'package:oyan/src/features/competition/presentation/result_page.dart';
 import 'package:oyan/src/features/home/presentation/home_page.dart';
+import 'package:oyan/src/features/my-books/presentation/book_information_page.dart';
 import 'package:oyan/src/features/my-books/presentation/my_books_page.dart';
 import 'package:oyan/src/features/profile/presentation/page/achivement_page.dart';
 import 'package:oyan/src/features/profile/presentation/page/change_information_page.dart';
@@ -13,6 +15,9 @@ import 'package:oyan/src/features/profile/presentation/page/notification_page.da
 import 'package:oyan/src/features/profile/presentation/page/profile_page.dart';
 import 'package:oyan/src/features/profile/presentation/page/support_page.dart';
 import 'package:oyan/src/features/settings/domain/entities/user_token_entity.dart';
+import 'package:oyan/src/features/story/page/competitons_story_page.dart';
+import 'package:oyan/src/features/story/page/daily_story_page.dart';
+import 'package:oyan/src/features/story/page/new_hits_story_page.dart';
 import 'package:oyan/src/features/welcome/presentation/welcome_page.dart';
 
 import '../services/auth/role_notifier.dart';

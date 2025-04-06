@@ -1,6 +1,8 @@
 // File: lib/src/presentation/pages/home/home_page.dart
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/features/home/presentation/components/image_widget.dart';
 import 'package:oyan/src/features/home/presentation/model/example_model.dart';
 
@@ -32,9 +34,16 @@ class BookGridWidget extends StatelessWidget {
                 Expanded(
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(5),
-                    child: ImageWidget(
-                      imageUrl: book.coverUrl,
-                      width: 114,
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () {
+                        context.push(RoutePaths.booksDetails);
+                      },
+                      child: ImageWidget(
+                        imageUrl: book.coverUrl,
+                        width: 114,
+                      ),
                     ),
                   ),
                 ),

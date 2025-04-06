@@ -79,7 +79,7 @@ List<RouteBase> _routes = [
             pageBuilder: (context, state) {
               // final roleNotifier = context.watch<RoleNotifier>();
 
-              return getPage(child: HomePage(), state: state);
+              return getPage(child: const HomePage(), state: state);
 
               // Role-specific page routing
               switch (roleNotifier.currentRole) {
@@ -229,6 +229,36 @@ List<RouteBase> _routes = [
     path: RoutePaths.chooseAPhoto,
     pageBuilder: (context, state) {
       return getPage(child: const ChooseAPhotoPage(), state: state);
+    },
+  ),
+  GoRoute(
+    path: RoutePaths.booksDetails,
+    pageBuilder: (context, state) {
+      return getPage(child: const BookInformationPage(), state: state);
+    },
+  ),
+  GoRoute(
+    path: RoutePaths.tournamentResult,
+    pageBuilder: (context, state) {
+      return getPage(child: const ResultPage(), state: state);
+    },
+  ),
+  GoRoute(
+    path: RoutePaths.newHitsStrory,
+    pageBuilder: (context, state) {
+      return getPage(child: const NewHitsStoryPage(), state: state);
+    },
+  ),
+  GoRoute(
+    path: RoutePaths.competitionStory,
+    pageBuilder: (context, state) {
+      return getPage(child: const CompetitonsStoryPage(), state: state);
+    },
+  ),
+  GoRoute(
+    path: RoutePaths.dailyStory,
+    pageBuilder: (context, state) {
+      return getPage(child: const DailyStoryPage(), state: state);
     },
   ),
 ];

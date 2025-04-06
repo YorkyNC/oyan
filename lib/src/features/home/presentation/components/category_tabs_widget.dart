@@ -1,7 +1,9 @@
 // File: lib/src/presentation/pages/home/home_page.dart
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oyan/src/core/router/router.dart';
 
 class CategoryTabsWidget extends StatelessWidget {
   final int selectedTabIndex;
@@ -55,18 +57,33 @@ class CategoryTabsWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
-              child: Image.asset(
-            'assets/app_images/Frame 125.png',
+              child: InkWell(
+            onTap: () {
+              context.push(RoutePaths.dailyStory);
+            },
+            child: Image.asset(
+              'assets/app_images/Frame 125.png',
+            ),
           )),
           const SizedBox(width: 8),
           Expanded(
-              child: Image.asset(
-            'assets/app_images/Frame 273.png',
+              child: InkWell(
+            onTap: () {
+              context.push(RoutePaths.competitionStory);
+            },
+            child: Image.asset(
+              'assets/app_images/Frame 273.png',
+            ),
           )),
           const SizedBox(width: 8),
           Expanded(
-              child: Image.asset(
-            'assets/app_images/Frame 127.png',
+              child: InkWell(
+            onTap: () {
+              context.push(RoutePaths.newHitsStrory);
+            },
+            child: Image.asset(
+              'assets/app_images/Frame 127.png',
+            ),
           )),
         ],
       ),

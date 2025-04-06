@@ -21,4 +21,9 @@ class RouteNames {
   static const String notification = 'notification';
   static const String support = 'support';
   static const String myBooks = 'my-books';
+  static const String booksDetails = 'my-books-details';
+  static const String tournamentResult = 'tournament-result';
+  static const String dailyStory = 'daily-story';
+  static const String competitionStory = 'competition-story';
+  static const String newHitsStrory = 'new-hits-story';
 }
