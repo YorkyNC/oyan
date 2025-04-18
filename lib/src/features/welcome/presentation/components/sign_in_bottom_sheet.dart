@@ -44,45 +44,39 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
   Widget build(BuildContext context) {
     return BaseBlocWidget<AuthBloc, AuthEvent, AuthState>(
       bloc: authBloc,
-
       builder: (context, state, bloc) {
         return state.maybeWhen(
-              loading: () {
-                return null;
-              },
-              loaded: (viewModel) {
-                debugPrint('Loaded state with viewModel: $viewModel');
-                debugPrint('SignInResponse: ${viewModel.signInResponse}');
+          loading: () => _buildLoginForm(context, isLoading: true),
+          loaded: (viewModel) {
+            debugPrint('Loaded state with viewModel: $viewModel');
+            debugPrint('SignInResponse: ${viewModel.signInResponse}');
 
-                if (viewModel.signInResponse != null) {
-                  WidgetsBinding.instance.addPostFrameCallback((_) {
-                    context.pushReplacement(RoutePaths.home);
-                  });
-                }
-                return null;
-              },
-              error: (message) {
-                // Show error message to the user
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text(message),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                });
-
-                return null;
-              },
-              orElse: () => null,
-            ) ??
-            _buildLoginForm(context);
+            if (viewModel.signInResponse != null) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                context.pushReplacement(RoutePaths.home);
+              });
+            }
+            return _buildLoginForm(context);
+          },
+          error: (message) {
+            // Show error message to the user
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(message),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            });
+            return _buildLoginForm(context);
+          },
+          orElse: () => _buildLoginForm(context),
+        );
       },
-      // child: _buildLoginForm(context),
     );
   }
 
-  Widget _buildLoginForm(BuildContext context) {
+  Widget _buildLoginForm(BuildContext context, {bool isLoading = false}) {
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -101,6 +95,7 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
               children: [
                 EmailTextFormField(
                   emailController: emailController,
+                  enabled: !isLoading,
                 ),
                 const SizedBox(height: 20),
                 PasswordTextFormField(
@@ -111,11 +106,12 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
                       isPasswordVisible = !isPasswordVisible;
                     });
                   },
+                  enabled: !isLoading,
                 ),
                 const SizedBox(height: 20),
                 _buildForgotPasswordButton(context),
                 const SizedBox(height: 24),
-                _buildSignInButton(),
+                _buildSignInButton(isLoading: isLoading),
                 const SizedBox(height: 24),
                 _buildSignUpText(context),
                 const SizedBox(height: 40),
@@ -158,21 +154,30 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
     );
   }
 
-  Widget _buildSignInButton() {
+  Widget _buildSignInButton({bool isLoading = false}) {
     return Row(
       children: [
         Expanded(
           child: FilledButton(
-            onPressed: _handleSignIn,
+            onPressed: isLoading ? null : _handleSignIn,
             child: Padding(
               padding: const EdgeInsets.all(12.0),
-              child: Text(
-                'Sign In',
-                style: GoogleFonts.openSans(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 17,
-                ),
-              ),
+              child: isLoading
+                  ? const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    )
+                  : Text(
+                      'Sign In',
+                      style: GoogleFonts.openSans(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 17,
+                      ),
+                    ),
             ),
           ),
         ),

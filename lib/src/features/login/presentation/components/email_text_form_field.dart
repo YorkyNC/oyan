@@ -7,13 +7,16 @@ class EmailTextFormField extends StatelessWidget {
   const EmailTextFormField({
     super.key,
     required this.emailController,
+    this.enabled = true,
   });
 
   final TextEditingController emailController;
+  final bool enabled;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: enabled,
       keyboardType: TextInputType.visiblePassword,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'[ -~]')),

@@ -1,9 +1,10 @@
-import 'package:dio/dio.dart';
 import 'package:oyan/src/core/api/websocket/web_socket_service.dart';
 import 'package:oyan/src/core/services/injectable/service_register_proxy.dart';
 import 'package:oyan/src/features/chat/domain/usecases/get_chats_use_case.dart';
 import 'package:oyan/src/features/chat/domain/usecases/get_messages_use_case.dart';
 import 'package:oyan/src/features/chat/presentation/bloc/chat_bloc.dart';
+import 'package:oyan/src/features/home/domain/usecases/get_book_use_case.dart';
+import 'package:oyan/src/features/home/presentation/bloc/book_bloc.dart';
 import 'package:oyan/src/features/login/domain/usecases/csrf_token_use_case.dart';
 import 'package:oyan/src/features/news/domain/usecases/add_feed_use_case.dart';
 import 'package:oyan/src/features/news/domain/usecases/get_feed_use_case.dart';
@@ -29,21 +30,6 @@ import 'injectable_service.dart';
 
 void manualRegisterServices() {
   getIt.registerLazySingleton<WebSocketService>(() => WebSocketService());
-  getIt.registerLazySingleton<Dio>(() {
-    final dio = Dio(
-      BaseOptions(
-        baseUrl: 'https://education.greeneye.kz/api',
-        headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-        connectTimeout: const Duration(seconds: 5),
-        receiveTimeout: const Duration(seconds: 3),
-      ),
-    );
-
-    // Add logging interceptor if needed
-    dio.interceptors.add(LogInterceptor(requestBody: true, responseBody: true));
-
-    return dio;
-  });
 
   // getIt.registerLazySingleton<ChatService>(
   //   () => ChatService(),
@@ -63,7 +49,10 @@ void manualRegisterServices() {
     ),
   );
 
-  getIt.registerBloc<SettingsBloc>(factory: true, () => SettingsBloc());
+  getIt.registerBloc<SettingsBloc>(
+    factory: true,
+    () => SettingsBloc(),
+  );
 
   getIt.registerBloc<ChatBloc>(
     factory: true,
@@ -73,6 +62,13 @@ void manualRegisterServices() {
       getIt<GetMessageUseCase>(),
       getIt<SendMessageUseCase>(),
       getIt<ViewMessageUseCase>(),
+    ),
+  );
+
+  getIt.registerBloc<BookBloc>(
+    factory: true,
+    () => BookBloc(
+      getIt<GetBookUseCase>(),
     ),
   );
 

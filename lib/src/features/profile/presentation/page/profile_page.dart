@@ -31,7 +31,10 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: ProfileAppBar(key: _appBarKey),
+      appBar: ProfileAppBar(
+        key: _appBarKey,
+        savedAvatarPath: null,
+      ),
       body: RefreshIndicator(
         key: _refreshIndicatorKey,
         onRefresh: _handleRefresh,

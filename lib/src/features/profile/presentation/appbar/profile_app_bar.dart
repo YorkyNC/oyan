@@ -1,28 +1,41 @@
 import 'dart:io';
 
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
+import 'package:oyan/src/core/services/auth/i_auth_service.dart';
+import 'package:oyan/src/core/services/storage/storage_service_impl.dart';
 import 'package:oyan/src/features/profile/domain/menu.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ProfileAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const ProfileAppBar({super.key});
-  @override
-  Size get preferredSize => const Size.fromHeight(70);
+  ProfileAppBar({
+    super.key,
+    required this.savedAvatarPath,
+  });
+
+  final String? savedAvatarPath;
 
   @override
   State<ProfileAppBar> createState() => ProfileAppBarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(70);
 }
 
 class ProfileAppBarState extends State<ProfileAppBar> {
-  String? savedAvatarPath;
+  bool _isLoggingOut = false;
+  final _authService = GetIt.I<IAuthService>(instanceName: 'AuthServiceImpl');
+  final st = StorageServiceImpl();
+  String? _currentAvatarPath;
 
   @override
   void initState() {
     super.initState();
+    _currentAvatarPath = widget.savedAvatarPath;
     loadSavedAvatar();
   }
 
@@ -33,7 +46,7 @@ class ProfileAppBarState extends State<ProfileAppBar> {
 
       if (await savedAvatar.exists()) {
         setState(() {
-          savedAvatarPath = savedAvatar.path;
+          _currentAvatarPath = savedAvatar.path;
         });
       }
     } catch (e) {
@@ -60,10 +73,10 @@ class ProfileAppBarState extends State<ProfileAppBar> {
                         shape: BoxShape.circle,
                         color: Color(0xFFF0F2FA),
                       ),
-                      child: savedAvatarPath != null
+                      child: _currentAvatarPath != null
                           ? ClipOval(
                               child: Image.file(
-                                File(savedAvatarPath!),
+                                File(_currentAvatarPath!),
                                 fit: BoxFit.cover,
                               ),
                             )
@@ -176,6 +189,17 @@ class ProfileAppBarState extends State<ProfileAppBar> {
                               color: const Color(0xff323232),
                             ),
                           ),
+                          if (_isLoggingOut) ...[
+                            const SizedBox(width: 8),
+                            const SizedBox(
+                              width: 16,
+                              height: 16,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2,
+                                valueColor: AlwaysStoppedAnimation<Color>(Color(0xff323232)),
+                              ),
+                            ),
+                          ],
                         ],
                       ),
                     ),
@@ -189,11 +213,25 @@ class ProfileAppBarState extends State<ProfileAppBar> {
                       final newAvatarPath = await context.push<String?>(RoutePaths.chooseAPhoto);
                       if (newAvatarPath != null) {
                         setState(() {
-                          savedAvatarPath = newAvatarPath;
+                          _currentAvatarPath = newAvatarPath;
                         });
                       }
                     case Menu.logout:
-                      throw UnimplementedError();
+                      setState(() {
+                        _isLoggingOut = true;
+                      });
+                      try {
+                        await _authService.logout();
+                        if (context.mounted) {
+                          context.pushReplacement(RoutePaths.welcome);
+                        }
+                      } finally {
+                        if (mounted) {
+                          setState(() {
+                            _isLoggingOut = false;
+                          });
+                        }
+                      }
                   }
                 },
               )

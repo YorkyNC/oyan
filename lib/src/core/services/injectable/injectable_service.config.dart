@@ -53,6 +53,16 @@ import 'package:oyan/src/features/events/domain/use_cases/get_events_count_use_c
     as _i210;
 import 'package:oyan/src/features/events/presentation/bloc/events_bloc.dart'
     as _i277;
+import 'package:oyan/src/features/home/data/datasources/remote/book_remote_impl.dart'
+    as _i994;
+import 'package:oyan/src/features/home/data/datasources/remote/i_book_remote.dart'
+    as _i966;
+import 'package:oyan/src/features/home/data/repositories/book_repository_impl.dart'
+    as _i908;
+import 'package:oyan/src/features/home/domain/repositories/i_book_repository.dart'
+    as _i842;
+import 'package:oyan/src/features/home/domain/usecases/get_book_use_case.dart'
+    as _i446;
 import 'package:oyan/src/features/login/data/repositories/i_auth_repository.dart'
     as _i913;
 import 'package:oyan/src/features/login/domain/repositories/auth_repository_impl.dart'
@@ -127,6 +137,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i47.NewsRemoteImpl(gh<_i140.DioRestClient>()),
       instanceName: 'NewsRemoteImpl',
     );
+    gh.lazySingleton<_i966.IBookRemote>(
+      () => _i994.BookRemoteImpl(gh<_i140.DioRestClient>()),
+      instanceName: 'BookRemoteImpl',
+    );
     gh.lazySingleton<_i773.IAttachmentRepository>(
       () => _i141.AttachmentRepositoryImpl(
           gh<_i594.IAttachmentRemote>(instanceName: 'AttachmentRemoteImpl')),
@@ -144,6 +158,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i877.IAuthService>(
       () => _i161.AuthServiceImpl(gh<_i140.DioRestClient>()),
       instanceName: 'AuthServiceImpl',
+    );
+    gh.lazySingleton<_i842.IBookRepository>(
+      () => _i908.BookRepositoryImpl(
+          gh<_i966.IBookRemote>(instanceName: 'BookRemoteImpl')),
+      instanceName: 'BookRepositoryImpl',
     );
     gh.lazySingleton<_i201.GetAttachmentUseCase>(() =>
         _i201.GetAttachmentUseCase(gh<_i773.IAttachmentRepository>(
@@ -181,6 +200,8 @@ extension GetItInjectableX on _i174.GetIt {
             gh<_i913.IAuthRepository>(instanceName: 'AuthRepositoryImpl')));
     gh.lazySingleton<_i377.CsrfTokenUseCase>(() => _i377.CsrfTokenUseCase(
         gh<_i913.IAuthRepository>(instanceName: 'AuthRepositoryImpl')));
+    gh.lazySingleton<_i446.GetBookUseCase>(() => _i446.GetBookUseCase(
+        gh<_i842.IBookRepository>(instanceName: 'BookRepositoryImpl')));
     gh.lazySingleton<_i231.AddPostUseCase>(() => _i231.AddPostUseCase(
         gh<_i1002.INewsRepository>(instanceName: 'NewsRepositoryImpl')));
     gh.lazySingleton<_i644.AddFeedUseCase>(() => _i644.AddFeedUseCase(

@@ -34,8 +34,7 @@ GoRouter routerProvider() {
 
   return GoRouter(
     refreshListenable: st,
-    // initialLocation: '/',
-    initialLocation: RoutePaths.home,
+    initialLocation: st.isLoggedIn ? RoutePaths.home : RoutePaths.welcome,
     debugLogDiagnostics: true,
     routes: _routes,
   );

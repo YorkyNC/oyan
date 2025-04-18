@@ -14,7 +14,6 @@ class VerifyUseCase extends UseCase<VerifyResponse, VerifyRequest> {
   VerifyUseCase(@Named.from(AuthRepositoryImpl) this._authRepository);
 
   @override
-  Future<Either<DomainException, VerifyResponse>> execute(
-          VerifyRequest requestModel) async =>
+  Future<Either<DomainException, VerifyResponse>> execute(VerifyRequest requestModel) async =>
       _authRepository.verifyUser(requestModel);
 }

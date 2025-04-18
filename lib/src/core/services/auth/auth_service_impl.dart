@@ -33,6 +33,12 @@ class AuthServiceImpl implements IAuthService {
   @override
   Future<Either<DomainException, CsrfTokenResponse>> csrfToken() async {
     try {
+      // Check if we already have a valid CSRF token
+      final existingToken = st.getCsrfToken();
+      if (existingToken != null) {
+        return Right(CsrfTokenResponse(csrfToken: existingToken));
+      }
+
       const fullUrl = '${EndPoints.baseUrl}${EndPoints.csrf}';
       log('Making CSRF token request to: $fullUrl', name: 'AUTH_SERVICE');
 
@@ -56,22 +62,23 @@ class AuthServiceImpl implements IAuthService {
         return Left(error);
       }, (response) async {
         if (response.statusCode == 200) {
-          final cookies = response.headers.map['set-cookie'];
-          if (cookies != null && cookies.isNotEmpty) {
-            for (final cookie in cookies) {
-              if (cookie.contains('csrftoken=')) {
-                final csrfCookie = cookie.split(';')[0];
-                st.setCsrfCookie(csrfCookie);
-              }
-            }
-          }
-
           // Handle CSRF token from response body
           if (response.data != null && response.data['csrfToken'] != null) {
-            final csrfToken = response.data['csrfToken'];
+            final csrfToken = response.data['csrfToken'].toString();
             await st.setCsrfToken(csrfToken);
 
-            return Right(CsrfTokenResponse.fromJson(response.data));
+            // Handle CSRF cookie if present
+            final cookies = response.headers.map['set-cookie'];
+            if (cookies != null && cookies.isNotEmpty) {
+              for (final cookie in cookies) {
+                if (cookie.contains('csrftoken=')) {
+                  final csrfCookie = cookie.split(';')[0];
+                  st.setCsrfCookie(csrfCookie);
+                }
+              }
+            }
+
+            return Right(CsrfTokenResponse(csrfToken: csrfToken));
           } else {
             return Left(UnknownException(message: 'No CSRF token in response'));
           }
@@ -89,23 +96,30 @@ class AuthServiceImpl implements IAuthService {
   @override
   Future<Either<DomainException, SignInResponse>> loginUser(SignInRequest request) async {
     try {
-      final formData = {
+      // Get fresh CSRF token before login
+      final csrfResult = await csrfToken();
+      if (csrfResult.isLeft()) {
+        return Left(csrfResult.fold((l) => l, (r) => UnknownException(message: 'CSRF token error')));
+      }
+
+      final storedCsrfToken = st.getCsrfToken();
+      final storedCsrfCookie = st.getCsrfCookie();
+
+      if (storedCsrfToken == null || storedCsrfCookie == null) {
+        return Left(UnknownException(message: 'CSRF token or cookie not found'));
+      }
+
+      final formData = FormData.fromMap({
         'login': request.login,
         'password': request.password,
-      };
-      final storedCsrfToken = st.getCsrfToken();
-      final csrfCookie = st.getCsrfCookie();
+      });
 
       final Map<String, String> requestHeaders = {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
+        'X-CSRFToken': storedCsrfToken,
+        'Cookie': storedCsrfCookie,
       };
-      if (storedCsrfToken != null && storedCsrfToken.isNotEmpty) {
-        requestHeaders['X-CSRFToken'] = storedCsrfToken;
-      }
-      if (csrfCookie != null && csrfCookie.isNotEmpty) {
-        requestHeaders['Cookie'] = csrfCookie;
-      }
 
       final response = await client.post(
         '${EndPoints.baseUrl}${EndPoints.login}',
@@ -120,47 +134,49 @@ class AuthServiceImpl implements IAuthService {
         ),
       );
 
-      return response.fold((error) {
-        return Left(error);
-      }, (result) async {
-        final cookies = result.headers.map['set-cookie'];
-        if (cookies != null && cookies.isNotEmpty) {
-          for (final cookie in cookies) {
-            if (cookie.contains('sessionid=')) {}
-          }
-        }
+      return response.fold(
+        (error) => Left(error),
+        (result) async {
+          if (result.statusCode == 200) {
+            try {
+              final signInResponse = SignInResponse.fromJson(result.data);
 
-        if (result.statusCode == 200) {
-          if (result.data is Map && result.data['status'] == 'error') {
-            final errorMessage = result.data['message'] ?? 'Login failed';
+              // Handle tokens from response
+              if (result.data['token'] != null) {
+                await st.setToken(result.data['token']);
+              } else if (result.data['accessToken'] != null) {
+                await st.setToken(result.data['accessToken']);
+              }
 
-            return Left(UnknownException(message: errorMessage));
-          }
+              if (result.data['refreshToken'] != null) {
+                await st.setRefreshToken(result.data['refreshToken']);
+              }
 
-          try {
-            final signInResponse = SignInResponse.fromJson(result.data);
-            if (result.data['token'] != null) {
-              await st.setToken(result.data['token']);
-            } else if (result.data['accessToken'] != null) {
-              await st.setToken(result.data['accessToken']);
+              // Handle session ID if present
+              final cookies = result.headers.map['set-cookie'];
+              if (cookies != null) {
+                for (final cookie in cookies) {
+                  if (cookie.contains('sessionid=')) {
+                    final sessionId = cookie.split(';')[0];
+                    await st.setSessionId(sessionId);
+                    break;
+                  }
+                }
+              }
+
+              return Right(signInResponse);
+            } catch (e) {
+              return Left(UnknownException(message: 'Error parsing login response: $e'));
             }
-
-            if (result.data['refreshToken'] != null) {
-              await st.setRefreshToken(result.data['refreshToken']);
-            }
-
-            return Right(signInResponse);
-          } catch (e) {
-            return Left(UnknownException(message: 'Error parsing login response: $e'));
+          } else if (result.statusCode == 403) {
+            // Clear CSRF data on 403 to force a fresh token next time
+            await st.deleteCsrfToken();
+            return Left(AuthenticationException.invalidCredentials());
+          } else {
+            return Left(UnknownException(message: result.statusMessage ?? 'Failed to login'));
           }
-        } else {
-          final errorMessage = result.data != null && result.data['detail'] != null
-              ? result.data['detail']
-              : (result.statusMessage ?? 'Login failed');
-
-          return Left(UnknownException(message: errorMessage));
-        }
-      });
+        },
+      );
     } catch (e) {
       return Left(e is DomainException ? e : UnknownException(message: e.toString()));
     }
@@ -269,6 +285,23 @@ class AuthServiceImpl implements IAuthService {
     } catch (e) {
       log('Exception caught during refreshing token: $e');
       return Left(e is DomainException ? e : UnknownException(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<void> logout() async {
+    try {
+      // Clear all auth data
+      await st.clearAuth();
+      await st.clearDeviceData();
+      await st.deleteSessionId();
+      await st.deleteCsrfToken();
+      await st.deleteToken();
+      await st.deleteRefreshToken();
+      await st.setRole(null);
+    } catch (e) {
+      log('Error during logout: $e');
+      rethrow;
     }
   }
 }

@@ -26,4 +26,6 @@ abstract class IAuthService {
   Future<Either<DomainException, ForgotPasswordResponse>> forgotPassword(ForgotPasswordRequest request);
 
   Future<Either<DomainException, UpdatePasswordResponse>> updatePassword(UpdatePasswordRequest request);
+
+  Future<void> logout();
 }

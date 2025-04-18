@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'dart:math' show min;
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'storage_service.dart';
@@ -13,7 +15,7 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   }
 
   StorageServiceImpl._internal();
-
+  final _secureStorage = const FlutterSecureStorage();
   // Auth-related keys
   static const String _tokenKey = 'TOKEN';
   static const String _refreshTokenKey = 'REFRESH_TOKEN';
@@ -22,6 +24,7 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   static const String _csrfTokenKey = 'CSRF_TOKEN';
   static const String _csrfTokenExpiryKey = 'CSRF_TOKEN_EXPIRY';
   static const String _csrfCookieKey = 'CSRF_COOKIE';
+  static const String _sessionIdKey = 'session_id';
 
   // Device-related keys
   static const String _clientIdKey = 'CLIENT_ID';
@@ -31,8 +34,94 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   late Box deviceBox;
 
   String? _cachedLastSentFcmToken;
+  String? _cachedSessionId;
 
-  // Device-related methods
+  // IMPROVED SESSION ID HANDLING
+  String? getSessionId() {
+    try {
+      // First try to return the cached value
+      if (_cachedSessionId != null) {
+        log('Returning cached session ID: ${_cachedSessionId!.substring(0, min(5, _cachedSessionId!.length))}...');
+        return _cachedSessionId;
+      }
+
+      // Try to get from Hive box
+      final sessionId = authBox.get(_sessionIdKey);
+      if (sessionId != null) {
+        _cachedSessionId = sessionId;
+        log('Got session ID from Hive: ${sessionId.substring(0, min<int>(5, sessionId.length))}...');
+        return sessionId;
+      }
+
+      // Didn't find it
+      log('Session ID not found in cache or Hive');
+      return null;
+    } catch (e) {
+      log('Error getting session ID: $e');
+      return null;
+    }
+  }
+
+  Future<String?> getSessionIdAsync() async {
+    try {
+      // Use cached value if available
+      if (_cachedSessionId != null) return _cachedSessionId;
+
+      // Try Hive first
+      final sessionId = authBox.get(_sessionIdKey);
+      if (sessionId != null) {
+        _cachedSessionId = sessionId;
+        log('Got session ID async from Hive: ${sessionId.substring(0, min<int>(5, sessionId.length))}...');
+        return sessionId;
+      }
+
+      // As a fallback, try secure storage
+      final secureSessionId = await _secureStorage.read(key: _sessionIdKey);
+      if (secureSessionId != null) {
+        // If found in secure storage but not in Hive, migrate it
+        _cachedSessionId = secureSessionId;
+        await authBox.put(_sessionIdKey, secureSessionId);
+        log('Migrated session ID from secure storage to Hive');
+        return secureSessionId;
+      }
+
+      log('Session ID not found anywhere in async check');
+      return null;
+    } catch (e) {
+      log('Error getting session ID async: $e');
+      return null;
+    }
+  }
+
+  Future<void> deleteSessionId() async {
+    try {
+      log('Deleting session ID');
+      _cachedSessionId = null;
+
+      // Delete from Hive
+      await authBox.delete(_sessionIdKey);
+
+      // Also try to delete from secure storage as cleanup
+      try {
+        await _secureStorage.delete(key: _sessionIdKey);
+      } catch (e) {
+        // Non-critical if this fails
+        log('Non-critical: Failed to delete session ID from secure storage: $e');
+      }
+    } catch (e) {
+      log('Error deleting session ID: $e');
+    }
+  }
+
+  Future<void> setSessionId(String sessionId) async {
+    if (authBox.isOpen) {
+      _cachedSessionId = sessionId;
+      await authBox.put(_sessionIdKey, sessionId);
+      notifyListeners();
+    }
+  }
+
+  // Rest of the class remains the same...
 
   Future<void> setLastSentFcmToken(String? token) async {
     try {
@@ -83,9 +172,10 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   // Auth-related methods
   @override
   Future<void> setToken(String? token) async {
-    log('$token', name: 'ACCESS_TOKEN');
-    await authBox.put(_tokenKey, token);
-    notifyListeners();
+    if (authBox.isOpen) {
+      await authBox.put(_tokenKey, token);
+      notifyListeners();
+    }
   }
 
   @override
@@ -146,8 +236,9 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
       final expiryDate = DateTime.now().add(const Duration(days: 365));
       await authBox.put(_csrfTokenKey, token);
       await authBox.put(_csrfTokenExpiryKey, expiryDate.toIso8601String());
+      log('CSRF token set: $token');
       notifyListeners();
-    } else {}
+    }
   }
 
   String? getCsrfToken() {
@@ -155,41 +246,49 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
     final expiryStr = authBox.get(_csrfTokenExpiryKey);
 
     if (token == null || expiryStr == null) {
+      log('CSRF token not found or missing expiry');
       return null;
     }
 
     final expiryDate = DateTime.parse(expiryStr);
     if (DateTime.now().isAfter(expiryDate)) {
       // Token has expired, delete it
+      log('CSRF token expired, deleting');
       deleteCsrfToken();
       return null;
     }
 
+    log('CSRF token retrieved: $token');
     return token;
   }
 
   void setCsrfCookie(String cookie) {
     try {
       // Log the received cookie for debugging
+      log('Setting CSRF cookie: $cookie');
 
       // Store the token value directly since we're now receiving just the value
       authBox.put(_csrfCookieKey, cookie);
 
       notifyListeners();
-    } catch (e) {}
+    } catch (e) {
+      log('Error setting CSRF cookie: $e');
+    }
   }
 
   String? getCsrfCookie() {
     try {
       final cookie = authBox.get(_csrfCookieKey);
-
+      log('Retrieved CSRF cookie: $cookie');
       return cookie;
     } catch (e) {
+      log('Error getting CSRF cookie: $e');
       return null;
     }
   }
 
   Future<void> deleteCsrfToken() async {
+    log('Deleting CSRF tokens');
     await authBox.delete(_csrfTokenKey);
     await authBox.delete(_csrfTokenExpiryKey);
     await authBox.delete(_csrfCookieKey);
@@ -199,6 +298,7 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   // Clear methods
   Future<void> clearAuth() async {
     if (authBox.isOpen) {
+      log('Clearing all auth data');
       await authBox.clear();
       notifyListeners();
     }
@@ -207,6 +307,7 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   // Clear only device data
   Future<void> clearDeviceData() async {
     if (deviceBox.isOpen) {
+      log('Clearing device data');
       _cachedLastSentFcmToken = null;
       await deviceBox.clear();
     }
@@ -216,13 +317,16 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   @override
   Future<void> clear() async {
     if (authBox.isOpen) {
+      log('Clearing auth data');
       await authBox.clear();
+      _cachedSessionId = null;
       notifyListeners();
     }
   }
 
   // Clear all data
   Future<void> clearAll() async {
+    log('Clearing all data');
     await clearAuth();
     await clearDeviceData();
   }
@@ -244,12 +348,32 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   }
 
   void _initializeCachedValues() {
-    _cachedLastSentFcmToken = deviceBox.get(_lastSentFcmTokenKey);
+    try {
+      _cachedLastSentFcmToken = deviceBox.get(_lastSentFcmTokenKey);
+
+      // Initialize session ID from Hive
+      _cachedSessionId = authBox.get(_sessionIdKey);
+      if (_cachedSessionId != null) {
+        log('Initialized cached session ID: ${_cachedSessionId!.substring(0, min(5, _cachedSessionId!.length))}...');
+      } else {
+        log('No session ID found during initialization');
+      }
+    } catch (e) {
+      log('Error initializing cached values: $e');
+    }
+  }
+
+  bool hasSessionId() {
+    return _cachedSessionId != null && _cachedSessionId!.isNotEmpty;
   }
 
   @override
   bool checkLoggedIn() {
-    return getToken() != null;
+    final hasToken = getCsrfToken() != null && getCsrfToken()!.isNotEmpty;
+    // final hasSession = hasSessionId();
+    // log('Authentication check - Token: $hasToken, Session: $hasSession');
+    // return hasToken || hasSession;
+    return hasToken;
   }
 
   @override

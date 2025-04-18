@@ -8,13 +8,11 @@ import '../../data/repositories/i_auth_repository.dart';
 import '../repositories/auth_repository_impl.dart';
 
 @lazySingleton
-class RefreshTokenUseCase
-    extends NoneInputBoundaryUseCase<RefreshTokenResponse> {
+class RefreshTokenUseCase extends NoneInputBoundaryUseCase<RefreshTokenResponse> {
   final IAuthRepository _authRepository;
 
   RefreshTokenUseCase(@Named.from(AuthRepositoryImpl) this._authRepository);
 
   @override
-  Future<Either<DomainException, RefreshTokenResponse>> execute() async =>
-      _authRepository.refreshToken();
+  Future<Either<DomainException, RefreshTokenResponse>> execute() async => _authRepository.refreshToken();
 }

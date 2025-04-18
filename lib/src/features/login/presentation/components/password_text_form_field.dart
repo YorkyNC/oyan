@@ -10,6 +10,7 @@ class PasswordTextFormField extends StatefulWidget {
     this.onPasswordVisibilityChanged,
     this.errorText = 'Пожалуйста, введите пароль',
     this.confirm = false,
+    this.enabled = true,
   });
 
   final TextEditingController passwordController;
@@ -17,6 +18,7 @@ class PasswordTextFormField extends StatefulWidget {
   final VoidCallback? onPasswordVisibilityChanged;
   final bool? confirm;
   final String? errorText;
+  final bool enabled;
 
   @override
   State<PasswordTextFormField> createState() => _PasswordTextFormFieldState();
@@ -26,6 +28,7 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      enabled: widget.enabled,
       keyboardType: TextInputType.visiblePassword,
       controller: widget.passwordController,
       validator: (value) {

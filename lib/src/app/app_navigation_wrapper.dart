@@ -52,7 +52,7 @@ class AppNavigationWrapper extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
-              context.assetImages.trophy,
+              context.assetImages.trophySvg,
               colorFilter: ColorFilter.mode(
                 currentIndex == 1 ? context.colors.main : context.colors.gray500,
                 BlendMode.srcIn,

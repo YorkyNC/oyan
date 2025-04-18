@@ -8,6 +8,6 @@ final GetIt getIt = GetIt.instance;
 
 @InjectableInit()
 Future<void> configureDependencies() async {
-  getIt.init();
+  await getIt.init();
   manualRegisterServices();
 }
