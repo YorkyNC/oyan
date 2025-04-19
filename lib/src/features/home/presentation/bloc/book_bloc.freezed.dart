@@ -820,7 +820,10 @@ abstract class _Error implements BookState {
 
 /// @nodoc
 mixin _$BookViewModel {
-  GetBooksEntity? get books => throw _privateConstructorUsedError;
+  entity.GetBooksEntity? get recommendedBooks =>
+      throw _privateConstructorUsedError;
+  entity.GetBooksEntity? get popularBooks => throw _privateConstructorUsedError;
+  entity.GetBooksEntity? get newBooks => throw _privateConstructorUsedError;
 
   /// Create a copy of BookViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -835,9 +838,14 @@ abstract class $BookViewModelCopyWith<$Res> {
           BookViewModel value, $Res Function(BookViewModel) then) =
       _$BookViewModelCopyWithImpl<$Res, BookViewModel>;
   @useResult
-  $Res call({GetBooksEntity? books});
+  $Res call(
+      {entity.GetBooksEntity? recommendedBooks,
+      entity.GetBooksEntity? popularBooks,
+      entity.GetBooksEntity? newBooks});
 
-  $GetBooksEntityCopyWith<$Res>? get books;
+  $GetBooksEntityCopyWith<$Res>? get recommendedBooks;
+  $GetBooksEntityCopyWith<$Res>? get popularBooks;
+  $GetBooksEntityCopyWith<$Res>? get newBooks;
 }
 
 /// @nodoc
@@ -855,13 +863,23 @@ class _$BookViewModelCopyWithImpl<$Res, $Val extends BookViewModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? books = freezed,
+    Object? recommendedBooks = freezed,
+    Object? popularBooks = freezed,
+    Object? newBooks = freezed,
   }) {
     return _then(_value.copyWith(
-      books: freezed == books
-          ? _value.books
-          : books // ignore: cast_nullable_to_non_nullable
-              as GetBooksEntity?,
+      recommendedBooks: freezed == recommendedBooks
+          ? _value.recommendedBooks
+          : recommendedBooks // ignore: cast_nullable_to_non_nullable
+              as entity.GetBooksEntity?,
+      popularBooks: freezed == popularBooks
+          ? _value.popularBooks
+          : popularBooks // ignore: cast_nullable_to_non_nullable
+              as entity.GetBooksEntity?,
+      newBooks: freezed == newBooks
+          ? _value.newBooks
+          : newBooks // ignore: cast_nullable_to_non_nullable
+              as entity.GetBooksEntity?,
     ) as $Val);
   }
 
@@ -869,13 +887,41 @@ class _$BookViewModelCopyWithImpl<$Res, $Val extends BookViewModel>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $GetBooksEntityCopyWith<$Res>? get books {
-    if (_value.books == null) {
+  $GetBooksEntityCopyWith<$Res>? get recommendedBooks {
+    if (_value.recommendedBooks == null) {
       return null;
     }
 
-    return $GetBooksEntityCopyWith<$Res>(_value.books!, (value) {
-      return _then(_value.copyWith(books: value) as $Val);
+    return $GetBooksEntityCopyWith<$Res>(_value.recommendedBooks!, (value) {
+      return _then(_value.copyWith(recommendedBooks: value) as $Val);
+    });
+  }
+
+  /// Create a copy of BookViewModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GetBooksEntityCopyWith<$Res>? get popularBooks {
+    if (_value.popularBooks == null) {
+      return null;
+    }
+
+    return $GetBooksEntityCopyWith<$Res>(_value.popularBooks!, (value) {
+      return _then(_value.copyWith(popularBooks: value) as $Val);
+    });
+  }
+
+  /// Create a copy of BookViewModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GetBooksEntityCopyWith<$Res>? get newBooks {
+    if (_value.newBooks == null) {
+      return null;
+    }
+
+    return $GetBooksEntityCopyWith<$Res>(_value.newBooks!, (value) {
+      return _then(_value.copyWith(newBooks: value) as $Val);
     });
   }
 }
@@ -888,10 +934,17 @@ abstract class _$$BookViewModelImplCopyWith<$Res>
       __$$BookViewModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({GetBooksEntity? books});
+  $Res call(
+      {entity.GetBooksEntity? recommendedBooks,
+      entity.GetBooksEntity? popularBooks,
+      entity.GetBooksEntity? newBooks});
 
   @override
-  $GetBooksEntityCopyWith<$Res>? get books;
+  $GetBooksEntityCopyWith<$Res>? get recommendedBooks;
+  @override
+  $GetBooksEntityCopyWith<$Res>? get popularBooks;
+  @override
+  $GetBooksEntityCopyWith<$Res>? get newBooks;
 }
 
 /// @nodoc
@@ -907,13 +960,23 @@ class __$$BookViewModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? books = freezed,
+    Object? recommendedBooks = freezed,
+    Object? popularBooks = freezed,
+    Object? newBooks = freezed,
   }) {
     return _then(_$BookViewModelImpl(
-      books: freezed == books
-          ? _value.books
-          : books // ignore: cast_nullable_to_non_nullable
-              as GetBooksEntity?,
+      recommendedBooks: freezed == recommendedBooks
+          ? _value.recommendedBooks
+          : recommendedBooks // ignore: cast_nullable_to_non_nullable
+              as entity.GetBooksEntity?,
+      popularBooks: freezed == popularBooks
+          ? _value.popularBooks
+          : popularBooks // ignore: cast_nullable_to_non_nullable
+              as entity.GetBooksEntity?,
+      newBooks: freezed == newBooks
+          ? _value.newBooks
+          : newBooks // ignore: cast_nullable_to_non_nullable
+              as entity.GetBooksEntity?,
     ));
   }
 }
@@ -921,14 +984,24 @@ class __$$BookViewModelImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$BookViewModelImpl implements _BookViewModel {
-  const _$BookViewModelImpl({this.books});
+  const _$BookViewModelImpl(
+      {this.recommendedBooks = null,
+      this.popularBooks = null,
+      this.newBooks = null});
 
   @override
-  final GetBooksEntity? books;
+  @JsonKey()
+  final entity.GetBooksEntity? recommendedBooks;
+  @override
+  @JsonKey()
+  final entity.GetBooksEntity? popularBooks;
+  @override
+  @JsonKey()
+  final entity.GetBooksEntity? newBooks;
 
   @override
   String toString() {
-    return 'BookViewModel(books: $books)';
+    return 'BookViewModel(recommendedBooks: $recommendedBooks, popularBooks: $popularBooks, newBooks: $newBooks)';
   }
 
   @override
@@ -936,11 +1009,17 @@ class _$BookViewModelImpl implements _BookViewModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$BookViewModelImpl &&
-            (identical(other.books, books) || other.books == books));
+            (identical(other.recommendedBooks, recommendedBooks) ||
+                other.recommendedBooks == recommendedBooks) &&
+            (identical(other.popularBooks, popularBooks) ||
+                other.popularBooks == popularBooks) &&
+            (identical(other.newBooks, newBooks) ||
+                other.newBooks == newBooks));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, books);
+  int get hashCode =>
+      Object.hash(runtimeType, recommendedBooks, popularBooks, newBooks);
 
   /// Create a copy of BookViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -952,11 +1031,17 @@ class _$BookViewModelImpl implements _BookViewModel {
 }
 
 abstract class _BookViewModel implements BookViewModel {
-  const factory _BookViewModel({final GetBooksEntity? books}) =
-      _$BookViewModelImpl;
+  const factory _BookViewModel(
+      {final entity.GetBooksEntity? recommendedBooks,
+      final entity.GetBooksEntity? popularBooks,
+      final entity.GetBooksEntity? newBooks}) = _$BookViewModelImpl;
 
   @override
-  GetBooksEntity? get books;
+  entity.GetBooksEntity? get recommendedBooks;
+  @override
+  entity.GetBooksEntity? get popularBooks;
+  @override
+  entity.GetBooksEntity? get newBooks;
 
   /// Create a copy of BookViewModel
   /// with the given fields replaced by the non-null parameter values.

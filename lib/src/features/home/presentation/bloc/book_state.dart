@@ -12,6 +12,8 @@ class BookState with _$BookState {
 @freezed
 class BookViewModel with _$BookViewModel {
   const factory BookViewModel({
-    GetBooksEntity? books,
+    @Default(null) GetBooksEntity? recommendedBooks,
+    @Default(null) GetBooksEntity? popularBooks,
+    @Default(null) GetBooksEntity? newBooks,
   }) = _BookViewModel;
 }

@@ -2,13 +2,12 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:oyan/src/features/home/domain/entities/get_books_entity.dart' as entity;
 import 'package:oyan/src/features/home/domain/entities/get_books_entity.dart';
 import 'package:oyan/src/features/home/domain/requests/get_book_request.dart';
 import 'package:oyan/src/features/home/domain/usecases/get_book_use_case.dart';
 
 import '../../../../core/base/base_bloc/bloc/base_bloc.dart';
-import '../../../../core/base/base_usecase/result.dart';
-import '../../../../core/exceptions/domain_exception.dart';
 
 part 'book_bloc.freezed.dart';
 part 'book_event.dart';
@@ -32,15 +31,31 @@ class BookBloc extends BaseBloc<BookEvent, BookState> {
   Future<void> _started(_Started event) async {}
   Future<void> _getBooks(_GetBooks event, Emitter emit) async {
     emit(const BookState.loading());
-    final Result<GetBooksEntity, DomainException> result = await getBookUseCase.call(event.request);
 
-    final data = result.data;
-
-    if (data != null) {
-      _viewModel = _viewModel.copyWith(books: data);
-      return emit(BookState.loaded(viewModel: _viewModel.copyWith(books: data)));
+    // Get recommended books
+    final recommendedResult = await getBookUseCase.call(const GetBookRequest(type: BookType.recommended));
+    if (recommendedResult.failure != null) {
+      return emit(BookState.error(recommendedResult.failure!.message));
     }
 
-    return emit(BookState.error(result.failure!.message));
+    // Get popular books
+    final popularResult = await getBookUseCase.call(const GetBookRequest(type: BookType.popular));
+    if (popularResult.failure != null) {
+      return emit(BookState.error(popularResult.failure!.message));
+    }
+
+    // Get new books
+    final newResult = await getBookUseCase.call(const GetBookRequest(type: BookType.newBooks));
+    if (newResult.failure != null) {
+      return emit(BookState.error(newResult.failure!.message));
+    }
+
+    _viewModel = _viewModel.copyWith(
+      recommendedBooks: recommendedResult.data,
+      popularBooks: popularResult.data,
+      newBooks: newResult.data,
+    );
+
+    return emit(BookState.loaded(viewModel: _viewModel));
   }
 }

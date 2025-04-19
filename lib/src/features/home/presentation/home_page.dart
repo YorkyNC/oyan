@@ -27,8 +27,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return BaseBlocWidget<BookBloc, BookEvent, BookState>(
       bloc: getIt<BookBloc>(),
-      starterEvent: const BookEvent.getBooks(GetBookRequest(type: BookType.newBooks)),
-      builder: (context, state, blo) {
+      starterEvent: const BookEvent.getBooks(GetBookRequest(type: BookType.recommended)),
+      builder: (context, state, bloc) {
         return state.maybeWhen(
           orElse: () {
             return const Center(child: CircularProgressIndicator());
@@ -42,11 +42,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ));
           },
-          loading: () {
-            return const Center(child: CircularProgressIndicator());
-          },
           loaded: (viewModel) {
-            print(viewModel);
             return Scaffold(
               backgroundColor: Colors.grey[50],
               body: SafeArea(
@@ -83,7 +79,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             const SizedBox(height: 14),
                             _selectedTabIndex == 0
-                                ? BookGridWidget(books: recommendedBooks, height: 180)
+                                ? BookGridWidget(books: viewModel.recommendedBooks?.results ?? [], height: 180)
                                 : AudiobookGridWidget(audiobooks: recommendedAudiobooks, height: 180),
                             const SizedBox(height: 24),
                             SectionHeaderWidget(
@@ -92,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             const SizedBox(height: 16),
                             _selectedTabIndex == 0
-                                ? BookGridWidget(books: popularBooks, height: 180)
+                                ? BookGridWidget(books: viewModel.popularBooks?.results ?? [], height: 180)
                                 : AudiobookGridWidget(audiobooks: popularAudiobooks, height: 180),
                             const SizedBox(height: 24),
                             SectionHeaderWidget(
@@ -101,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             const SizedBox(height: 16),
                             _selectedTabIndex == 0
-                                ? BookGridWidget(books: newBooks, height: 180)
+                                ? BookGridWidget(books: viewModel.newBooks?.results ?? [], height: 180)
                                 : AudiobookGridWidget(audiobooks: newAudiobooks, height: 180),
                             const SizedBox(height: 24),
                           ],

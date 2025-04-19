@@ -25,12 +25,12 @@ mixin _$Book {
   String? get author => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get coverImageUrl => throw _privateConstructorUsedError;
-  double? get rating => throw _privateConstructorUsedError;
+  String? get rating => throw _privateConstructorUsedError;
   List<int>? get genres => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   int? get publishedYear => throw _privateConstructorUsedError;
   String? get plan => throw _privateConstructorUsedError;
-  double? get price => throw _privateConstructorUsedError;
+  String? get price => throw _privateConstructorUsedError;
   int? get pageCount => throw _privateConstructorUsedError;
   String? get ageLimit => throw _privateConstructorUsedError;
   String? get readUrl => throw _privateConstructorUsedError;
@@ -55,12 +55,12 @@ abstract class $BookCopyWith<$Res> {
       String? author,
       String? description,
       String? coverImageUrl,
-      double? rating,
+      String? rating,
       List<int>? genres,
       DateTime? createdAt,
       int? publishedYear,
       String? plan,
-      double? price,
+      String? price,
       int? pageCount,
       String? ageLimit,
       String? readUrl});
@@ -120,7 +120,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
       rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       genres: freezed == genres
           ? _value.genres
           : genres // ignore: cast_nullable_to_non_nullable
@@ -140,7 +140,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       pageCount: freezed == pageCount
           ? _value.pageCount
           : pageCount // ignore: cast_nullable_to_non_nullable
@@ -170,12 +170,12 @@ abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
       String? author,
       String? description,
       String? coverImageUrl,
-      double? rating,
+      String? rating,
       List<int>? genres,
       DateTime? createdAt,
       int? publishedYear,
       String? plan,
-      double? price,
+      String? price,
       int? pageCount,
       String? ageLimit,
       String? readUrl});
@@ -232,7 +232,7 @@ class __$$BookImplCopyWithImpl<$Res>
       rating: freezed == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       genres: freezed == genres
           ? _value._genres
           : genres // ignore: cast_nullable_to_non_nullable
@@ -252,7 +252,7 @@ class __$$BookImplCopyWithImpl<$Res>
       price: freezed == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       pageCount: freezed == pageCount
           ? _value.pageCount
           : pageCount // ignore: cast_nullable_to_non_nullable
@@ -303,7 +303,7 @@ class _$BookImpl implements _Book {
   @override
   final String? coverImageUrl;
   @override
-  final double? rating;
+  final String? rating;
   final List<int>? _genres;
   @override
   List<int>? get genres {
@@ -321,7 +321,7 @@ class _$BookImpl implements _Book {
   @override
   final String? plan;
   @override
-  final double? price;
+  final String? price;
   @override
   final int? pageCount;
   @override
@@ -403,12 +403,12 @@ abstract class _Book implements Book {
       final String? author,
       final String? description,
       final String? coverImageUrl,
-      final double? rating,
+      final String? rating,
       final List<int>? genres,
       final DateTime? createdAt,
       final int? publishedYear,
       final String? plan,
-      final double? price,
+      final String? price,
       final int? pageCount,
       final String? ageLimit,
       final String? readUrl}) = _$BookImpl;
@@ -426,7 +426,7 @@ abstract class _Book implements Book {
   @override
   String? get coverImageUrl;
   @override
-  double? get rating;
+  String? get rating;
   @override
   List<int>? get genres;
   @override
@@ -436,7 +436,7 @@ abstract class _Book implements Book {
   @override
   String? get plan;
   @override
-  double? get price;
+  String? get price;
   @override
   int? get pageCount;
   @override

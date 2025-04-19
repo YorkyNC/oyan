@@ -15,14 +15,3 @@ class GetBooksEntity with _$GetBooksEntity {
 
   factory GetBooksEntity.fromJson(Map<String, dynamic> json) => _$GetBooksEntityFromJson(json);
 }
-
-enum BookType {
-  @JsonValue('new')
-  newBooks,
-
-  @JsonValue('popular')
-  popular,
-
-  @JsonValue('recommended')
-  recommended
-}

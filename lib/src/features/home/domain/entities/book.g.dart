@@ -12,7 +12,7 @@ _$BookImpl _$$BookImplFromJson(Map<String, dynamic> json) => _$BookImpl(
       author: json['author'] as String?,
       description: json['description'] as String?,
       coverImageUrl: json['coverImageUrl'] as String?,
-      rating: (json['rating'] as num?)?.toDouble(),
+      rating: json['rating'] as String?,
       genres: (json['genres'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
           .toList(),
@@ -21,7 +21,7 @@ _$BookImpl _$$BookImplFromJson(Map<String, dynamic> json) => _$BookImpl(
           : DateTime.parse(json['createdAt'] as String),
       publishedYear: (json['publishedYear'] as num?)?.toInt(),
       plan: json['plan'] as String?,
-      price: (json['price'] as num?)?.toDouble(),
+      price: json['price'] as String?,
       pageCount: (json['pageCount'] as num?)?.toInt(),
       ageLimit: json['ageLimit'] as String?,
       readUrl: json['readUrl'] as String?,
