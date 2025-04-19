@@ -19,7 +19,7 @@ class BookStatsWidget extends StatelessWidget {
         _buildVerticalDivider(),
         _buildStat('Reading', '0'),
         _buildVerticalDivider(),
-        _buildStat('Bookmarks', '0'),
+        _buildStat('Age limit', book.ageLimit.toString()),
         _buildVerticalDivider(),
         _buildStat('Rating', book.rating.toString()),
       ],
@@ -37,6 +37,30 @@ class BookStatsWidget extends StatelessWidget {
   }
 
   Widget _buildStat(String label, String value) {
+    if (label == 'Age limit') {
+      final maturityLevel = value.contains('MATURE') ? '18+' : '12+';
+      return Column(
+        children: [
+          Text(
+            maturityLevel,
+            style: GoogleFonts.openSans(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
+          ),
+          Text(
+            label,
+            style: GoogleFonts.openSans(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xffA2ADD0),
+            ),
+          ),
+        ],
+      );
+    }
+
     return Column(
       children: [
         Text(
