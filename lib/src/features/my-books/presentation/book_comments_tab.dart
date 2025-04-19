@@ -1,12 +1,12 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
-import 'package:oyan/src/features/my-books/presentation/book_information_page.dart';
+import 'package:oyan/src/features/home/domain/entities/book.dart';
 import 'package:oyan/src/features/my-books/presentation/rating_filter_button.dart';
 import 'package:oyan/src/features/my-books/presentation/review_item.dart';
 
 class BookCommentsTab extends StatefulWidget {
-  final List<ReviewModel> reviews;
+  final List<Book> reviews;
 
   const BookCommentsTab({
     Key? key,
@@ -20,7 +20,7 @@ class BookCommentsTab extends StatefulWidget {
 class _BookCommentsTabState extends State<BookCommentsTab> {
   int _ratingFilter = 0;
 
-  List<ReviewModel> get filteredReviews {
+  List<Book> get filteredReviews {
     if (_ratingFilter == 0) return widget.reviews;
     return widget.reviews.where((review) => review.rating == _ratingFilter).toList();
   }

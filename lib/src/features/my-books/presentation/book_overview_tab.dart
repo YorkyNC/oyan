@@ -1,9 +1,9 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
-import 'package:oyan/src/features/my-books/presentation/book_information_page.dart';
+import 'package:oyan/src/features/home/domain/entities/book.dart';
 
 class BookOverviewTab extends StatelessWidget {
-  final BookModel book;
+  final Book book;
 
   const BookOverviewTab({
     Key? key,
@@ -28,7 +28,7 @@ class BookOverviewTab extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         Text(
-          book.description,
+          book.description ?? '',
           style: GoogleFonts.openSans(
             fontSize: 15,
             fontWeight: FontWeight.w400,

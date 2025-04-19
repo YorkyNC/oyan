@@ -29,4 +29,5 @@ class RoutePaths {
   static const String dailyStory = '/daily-story';
   static const String competitionStory = '/competition-story';
   static const String newHitsStrory = '/new-hits-story';
+  static const String seeAll = '/see-all';
 }

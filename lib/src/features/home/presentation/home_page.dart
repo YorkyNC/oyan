@@ -22,6 +22,9 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedTabIndex = 0;
+  final bool _showAllRecommended = false;
+  final bool _showAllPopular = false;
+  final bool _showAllNew = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,7 @@ class _HomePageState extends State<HomePage> {
           },
           loaded: (viewModel) {
             return Scaffold(
-              backgroundColor: Colors.grey[50],
+              backgroundColor: Colors.white,
               body: SafeArea(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -76,28 +79,43 @@ class _HomePageState extends State<HomePage> {
                             SectionHeaderWidget(
                               title: _selectedTabIndex == 0 ? 'Recommendation' : 'Featured Audiobooks',
                               showSeeAll: true,
+                              books: viewModel.recommendedBooks?.results ?? [],
                             ),
                             const SizedBox(height: 14),
                             _selectedTabIndex == 0
-                                ? BookGridWidget(books: viewModel.recommendedBooks?.results ?? [], height: 180)
+                                ? BookGridWidget(
+                                    books: viewModel.recommendedBooks?.results ?? [],
+                                    height: 180,
+                                    // showAll: _showAllRecommended,
+                                  )
                                 : AudiobookGridWidget(audiobooks: recommendedAudiobooks, height: 180),
                             const SizedBox(height: 24),
                             SectionHeaderWidget(
                               title: _selectedTabIndex == 0 ? 'Popular books' : 'Popular audiobooks',
                               showSeeAll: true,
+                              books: viewModel.popularBooks?.results ?? [],
                             ),
                             const SizedBox(height: 16),
                             _selectedTabIndex == 0
-                                ? BookGridWidget(books: viewModel.popularBooks?.results ?? [], height: 180)
+                                ? BookGridWidget(
+                                    books: viewModel.popularBooks?.results ?? [],
+                                    height: 180,
+                                    // showAll: _showAllPopular,
+                                  )
                                 : AudiobookGridWidget(audiobooks: popularAudiobooks, height: 180),
                             const SizedBox(height: 24),
                             SectionHeaderWidget(
+                              books: viewModel.newBooks?.results ?? [],
                               title: _selectedTabIndex == 0 ? 'New books' : 'New audiobooks',
                               showSeeAll: true,
                             ),
                             const SizedBox(height: 16),
                             _selectedTabIndex == 0
-                                ? BookGridWidget(books: viewModel.newBooks?.results ?? [], height: 180)
+                                ? BookGridWidget(
+                                    books: viewModel.newBooks?.results ?? [],
+                                    height: 180,
+                                    // showAll: _showAllNew,
+                                  )
                                 : AudiobookGridWidget(audiobooks: newAudiobooks, height: 180),
                             const SizedBox(height: 24),
                           ],

@@ -34,18 +34,22 @@ class BookBloc extends BaseBloc<BookEvent, BookState> {
 
     // Get recommended books
     final recommendedResult = await getBookUseCase.call(const GetBookRequest(type: BookType.recommended));
+    print(
+        'Recommended Result: ${recommendedResult.data?.results?.map((e) => '${e.title}: ${e.coverImageUrl}').toList()}');
     if (recommendedResult.failure != null) {
       return emit(BookState.error(recommendedResult.failure!.message));
     }
 
     // Get popular books
     final popularResult = await getBookUseCase.call(const GetBookRequest(type: BookType.popular));
+    print('Popular Result: ${popularResult.data?.results?.map((e) => '${e.title}: ${e.coverImageUrl}').toList()}');
     if (popularResult.failure != null) {
       return emit(BookState.error(popularResult.failure!.message));
     }
 
     // Get new books
     final newResult = await getBookUseCase.call(const GetBookRequest(type: BookType.newBooks));
+    print('New Result: ${newResult.data?.results?.map((e) => '${e.title}: ${e.coverImageUrl}').toList()}');
     if (newResult.failure != null) {
       return emit(BookState.error(newResult.failure!.message));
     }
@@ -55,6 +59,13 @@ class BookBloc extends BaseBloc<BookEvent, BookState> {
       popularBooks: popularResult.data,
       newBooks: newResult.data,
     );
+
+    print(
+        'Final ViewModel - Recommended: ${_viewModel.recommendedBooks?.results?.map((e) => '${e.title}: ${e.coverImageUrl}').toList()}');
+    print(
+        'Final ViewModel - Popular: ${_viewModel.popularBooks?.results?.map((e) => '${e.title}: ${e.coverImageUrl}').toList()}');
+    print(
+        'Final ViewModel - New: ${_viewModel.newBooks?.results?.map((e) => '${e.title}: ${e.coverImageUrl}').toList()}');
 
     return emit(BookState.loaded(viewModel: _viewModel));
   }

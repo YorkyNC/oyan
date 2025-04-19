@@ -1,12 +1,14 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
+import 'package:oyan/src/features/home/domain/entities/book.dart';
 import 'package:oyan/src/features/my-books/presentation/book_comments_tab.dart';
 import 'package:oyan/src/features/my-books/presentation/book_overview_tab.dart';
 import 'package:oyan/src/features/my-books/presentation/book_stats_widget.dart';
 
 class BookInformationPage extends StatefulWidget {
-  const BookInformationPage({Key? key}) : super(key: key);
+  final Book book;
+  const BookInformationPage({super.key, required this.book});
 
   @override
   State<BookInformationPage> createState() => _BookInformationPageState();
@@ -14,43 +16,6 @@ class BookInformationPage extends StatefulWidget {
 
 class _BookInformationPageState extends State<BookInformationPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-
-  // Mock book data
-  final BookModel book = BookModel(
-    title: 'The story of a lonely boy',
-    author: 'James Williams',
-    year: '2025',
-    pages: 238,
-    reading: 123,
-    bookmarks: 44,
-    rating: 4.6,
-    description:
-        'The book was disappointing: a weak plot, flat/hollow characters, and lengthy descriptions. Expected more.',
-  );
-
-  // Mock reviews data
-  final List<ReviewModel> reviews = [
-    ReviewModel(
-      id: 1,
-      text: 'The book was disappointing: a weak plot, flat/hollow characters, and lengthy descriptions. Expected more.',
-      rating: 2,
-    ),
-    ReviewModel(
-      id: 2,
-      text: 'The book was disappointing: a weak plot, flat/hollow characters, and lengthy descriptions. Expected more.',
-      rating: 3,
-    ),
-    ReviewModel(
-      id: 3,
-      text: 'The book was disappointing: a weak plot, flat/hollow characters, and lengthy descriptions. Expected more.',
-      rating: 5,
-    ),
-    ReviewModel(
-      id: 4,
-      text: 'The book was disappointing: a weak plot, flat/hollow characters, and lengthy descriptions. Expected more.',
-      rating: 4,
-    ),
-  ];
 
   @override
   void initState() {
@@ -137,8 +102,8 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(color: Colors.blue, width: 2),
-                          image: const DecorationImage(
-                            image: AssetImage('assets/book_cover.jpg'),
+                          image: DecorationImage(
+                            image: NetworkImage(widget.book.coverImageUrl ?? ''),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -148,7 +113,7 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
 
                       // Book title and author
                       Text(
-                        book.title,
+                        widget.book.title ?? '',
                         style: GoogleFonts.openSans(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -157,7 +122,7 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        book.author,
+                        widget.book.author ?? '',
                         style: GoogleFonts.openSans(
                           fontSize: 17,
                           fontWeight: FontWeight.w500,
@@ -165,7 +130,7 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                         ),
                       ),
                       Text(
-                        book.year,
+                        widget.book.publishedYear?.toString() ?? '',
                         style: GoogleFonts.openSans(
                           fontSize: 17,
                           fontWeight: FontWeight.w500,
@@ -176,7 +141,7 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                       const SizedBox(height: 20),
 
                       // Book stats
-                      BookStatsWidget(book: book),
+                      BookStatsWidget(book: widget.book),
                     ],
                   ),
                 ),
@@ -208,7 +173,7 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                 ),
 
                 // Tab content
-                _tabController.index == 0 ? BookOverviewTab(book: book) : BookCommentsTab(reviews: reviews),
+                _tabController.index == 0 ? BookOverviewTab(book: widget.book) : const BookCommentsTab(reviews: []),
 
                 const SizedBox(height: 21),
                 Row(
@@ -241,80 +206,5 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
         ),
       ),
     );
-  }
-}
-
-class BookModel {
-  final String title;
-  final String author;
-  final String year;
-  final int pages;
-  final int reading;
-  final int bookmarks;
-  final double rating;
-  final String description;
-
-  BookModel({
-    required this.title,
-    required this.author,
-    required this.year,
-    required this.pages,
-    required this.reading,
-    required this.bookmarks,
-    required this.rating,
-    required this.description,
-  });
-
-  factory BookModel.fromMap(Map<String, dynamic> map) {
-    return BookModel(
-      title: map['title'] as String,
-      author: map['author'] as String,
-      year: map['year'] as String,
-      pages: map['pages'] as int,
-      reading: map['reading'] as int,
-      bookmarks: map['bookmarks'] as int,
-      rating: map['rating'] as double,
-      description: map['description'] as String? ?? '',
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'title': title,
-      'author': author,
-      'year': year,
-      'pages': pages,
-      'reading': reading,
-      'bookmarks': bookmarks,
-      'rating': rating,
-      'description': description,
-    };
-  }
-}
-
-class ReviewModel {
-  final int id;
-  final String text;
-  final int rating;
-
-  ReviewModel({
-    required this.id,
-    required this.text,
-    required this.rating,
-  });
-
-  factory ReviewModel.fromMap(Map<String, dynamic> map) {
-    return ReviewModel(
-      id: map['id'] as int,
-      text: map['text'] as String,
-      rating: map['rating'] as int,
-    );
-  }
-  Map<String, dynamic> toMap() {
-    return {
-      'id': id,
-      'text': text,
-      'rating': rating,
-    };
   }
 }

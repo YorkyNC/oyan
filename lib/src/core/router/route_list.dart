@@ -234,7 +234,8 @@ List<RouteBase> _routes = [
   GoRoute(
     path: RoutePaths.booksDetails,
     pageBuilder: (context, state) {
-      return getPage(child: const BookInformationPage(), state: state);
+      final Book book = state.extra as Book;
+      return getPage(child: BookInformationPage(book: book), state: state);
     },
   ),
   GoRoute(
@@ -259,6 +260,20 @@ List<RouteBase> _routes = [
     path: RoutePaths.dailyStory,
     pageBuilder: (context, state) {
       return getPage(child: const DailyStoryPage(), state: state);
+    },
+  ),
+  GoRoute(
+    path: RoutePaths.seeAll,
+    pageBuilder: (context, state) {
+      final Map<String, dynamic> args = state.extra as Map<String, dynamic>;
+
+      return getPage(
+        child: SeeAllPage(
+          title: args['title'] as String,
+          books: args['books'] as List<Book>,
+        ),
+        state: state,
+      );
     },
   ),
 ];

@@ -16,6 +16,20 @@ class ImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (imageUrl.isEmpty) {
+      return Container(
+        height: height,
+        width: width,
+        color: Colors.grey[300],
+        child: Center(
+          child: Icon(
+            Icons.image_not_supported,
+            color: Colors.grey[600],
+          ),
+        ),
+      );
+    }
+
     if (imageUrl.startsWith('http')) {
       // Handle network image
       return Image(
@@ -40,6 +54,7 @@ class ImageWidget extends StatelessWidget {
           if (loadingProgress == null) {
             return child;
           }
+
           return Container(
             height: height,
             width: width,
@@ -56,12 +71,24 @@ class ImageWidget extends StatelessWidget {
         },
       );
     } else {
-      // Handle asset image
       return Image.asset(
         imageUrl,
         height: height,
         width: width,
         fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return Container(
+            height: height,
+            width: width,
+            color: Colors.grey[300],
+            child: Center(
+              child: Icon(
+                Icons.image_not_supported,
+                color: Colors.grey[600],
+              ),
+            ),
+          );
+        },
       );
     }
   }

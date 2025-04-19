@@ -7,6 +7,7 @@ import '../../../../../core/api/client/headers/api_headers.dart';
 import '../../../../../core/api/client/rest/dio/dio_client.dart';
 import '../../../../../core/exceptions/domain_exception.dart';
 import '../../../../../core/services/storage/storage_service_impl.dart';
+import '../../../../../core/utils/loggers/logger.dart';
 import '../../../domain/entities/get_books_entity.dart';
 import '../../../domain/requests/get_book_request.dart';
 import 'i_book_remote.dart';
@@ -39,10 +40,14 @@ class BookRemoteImpl implements IBookRemote {
           if (result.statusCode == 401) {
             return Left(AuthenticationException.invalidCredentials());
           }
-          return Right(GetBooksEntity.fromJson(result.data));
+          print('Raw API Response: ${result.data}');
+          final entity = GetBooksEntity.fromJson(result.data);
+          print('Parsed Entity: ${entity.results?.map((e) => '${e.title}: ${e.coverImageUrl}').toList()}');
+          return Right(entity);
         },
       );
     } catch (e) {
+      Log.e(e);
       return Left(UnknownException(message: e.toString()));
     }
   }

@@ -1,9 +1,9 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
-import 'package:oyan/src/features/my-books/presentation/book_information_page.dart';
+import 'package:oyan/src/features/home/domain/entities/book.dart';
 
 class BookStatsWidget extends StatelessWidget {
-  final BookModel book;
+  final Book book;
 
   const BookStatsWidget({
     Key? key,
@@ -15,11 +15,11 @@ class BookStatsWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _buildStat('Pages', book.pages.toString()),
+        _buildStat('Pages', book.pageCount.toString()),
         _buildVerticalDivider(),
-        _buildStat('Reading', book.reading.toString()),
+        _buildStat('Reading', '0'),
         _buildVerticalDivider(),
-        _buildStat('Bookmarks', book.bookmarks.toString()),
+        _buildStat('Bookmarks', '0'),
         _buildVerticalDivider(),
         _buildStat('Rating', book.rating.toString()),
       ],

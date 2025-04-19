@@ -11,20 +11,20 @@ _$BookImpl _$$BookImplFromJson(Map<String, dynamic> json) => _$BookImpl(
       title: json['title'] as String?,
       author: json['author'] as String?,
       description: json['description'] as String?,
-      coverImageUrl: json['coverImageUrl'] as String?,
+      coverImageUrl: json['cover_image_url'] as String?,
       rating: json['rating'] as String?,
       genres: (json['genres'] as List<dynamic>?)
           ?.map((e) => (e as num).toInt())
           .toList(),
-      createdAt: json['createdAt'] == null
+      createdAt: json['created_at'] == null
           ? null
-          : DateTime.parse(json['createdAt'] as String),
-      publishedYear: (json['publishedYear'] as num?)?.toInt(),
+          : DateTime.parse(json['created_at'] as String),
+      publishedYear: (json['published_year'] as num?)?.toInt(),
       plan: json['plan'] as String?,
       price: json['price'] as String?,
-      pageCount: (json['pageCount'] as num?)?.toInt(),
-      ageLimit: json['ageLimit'] as String?,
-      readUrl: json['readUrl'] as String?,
+      pageCount: (json['page_count'] as num?)?.toInt(),
+      ageLimit: json['age_limit'] as String?,
+      readUrl: json['read_url'] as String?,
     );
 
 Map<String, dynamic> _$$BookImplToJson(_$BookImpl instance) =>
@@ -33,14 +33,14 @@ Map<String, dynamic> _$$BookImplToJson(_$BookImpl instance) =>
       'title': instance.title,
       'author': instance.author,
       'description': instance.description,
-      'coverImageUrl': instance.coverImageUrl,
+      'cover_image_url': instance.coverImageUrl,
       'rating': instance.rating,
       'genres': instance.genres,
-      'createdAt': instance.createdAt?.toIso8601String(),
-      'publishedYear': instance.publishedYear,
+      'created_at': instance.createdAt?.toIso8601String(),
+      'published_year': instance.publishedYear,
       'plan': instance.plan,
       'price': instance.price,
-      'pageCount': instance.pageCount,
-      'ageLimit': instance.ageLimit,
-      'readUrl': instance.readUrl,
+      'page_count': instance.pageCount,
+      'age_limit': instance.ageLimit,
+      'read_url': instance.readUrl,
     };

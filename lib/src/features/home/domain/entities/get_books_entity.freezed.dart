@@ -20,9 +20,13 @@ GetBooksEntity _$GetBooksEntityFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$GetBooksEntity {
+  @JsonKey(name: 'count')
   int? get count => throw _privateConstructorUsedError;
+  @JsonKey(name: 'next')
   String? get next => throw _privateConstructorUsedError;
+  @JsonKey(name: 'previous')
   String? get previous => throw _privateConstructorUsedError;
+  @JsonKey(name: 'results')
   List<Book>? get results => throw _privateConstructorUsedError;
 
   /// Serializes this GetBooksEntity to a JSON map.
@@ -41,7 +45,11 @@ abstract class $GetBooksEntityCopyWith<$Res> {
           GetBooksEntity value, $Res Function(GetBooksEntity) then) =
       _$GetBooksEntityCopyWithImpl<$Res, GetBooksEntity>;
   @useResult
-  $Res call({int? count, String? next, String? previous, List<Book>? results});
+  $Res call(
+      {@JsonKey(name: 'count') int? count,
+      @JsonKey(name: 'next') String? next,
+      @JsonKey(name: 'previous') String? previous,
+      @JsonKey(name: 'results') List<Book>? results});
 }
 
 /// @nodoc
@@ -93,7 +101,11 @@ abstract class _$$GetBooksEntityImplCopyWith<$Res>
       __$$GetBooksEntityImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int? count, String? next, String? previous, List<Book>? results});
+  $Res call(
+      {@JsonKey(name: 'count') int? count,
+      @JsonKey(name: 'next') String? next,
+      @JsonKey(name: 'previous') String? previous,
+      @JsonKey(name: 'results') List<Book>? results});
 }
 
 /// @nodoc
@@ -139,20 +151,27 @@ class __$$GetBooksEntityImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$GetBooksEntityImpl implements _GetBooksEntity {
   const _$GetBooksEntityImpl(
-      {this.count, this.next, this.previous, final List<Book>? results})
+      {@JsonKey(name: 'count') this.count,
+      @JsonKey(name: 'next') this.next,
+      @JsonKey(name: 'previous') this.previous,
+      @JsonKey(name: 'results') final List<Book>? results})
       : _results = results;
 
   factory _$GetBooksEntityImpl.fromJson(Map<String, dynamic> json) =>
       _$$GetBooksEntityImplFromJson(json);
 
   @override
+  @JsonKey(name: 'count')
   final int? count;
   @override
+  @JsonKey(name: 'next')
   final String? next;
   @override
+  @JsonKey(name: 'previous')
   final String? previous;
   final List<Book>? _results;
   @override
+  @JsonKey(name: 'results')
   List<Book>? get results {
     final value = _results;
     if (value == null) return null;
@@ -202,21 +221,26 @@ class _$GetBooksEntityImpl implements _GetBooksEntity {
 
 abstract class _GetBooksEntity implements GetBooksEntity {
   const factory _GetBooksEntity(
-      {final int? count,
-      final String? next,
-      final String? previous,
-      final List<Book>? results}) = _$GetBooksEntityImpl;
+          {@JsonKey(name: 'count') final int? count,
+          @JsonKey(name: 'next') final String? next,
+          @JsonKey(name: 'previous') final String? previous,
+          @JsonKey(name: 'results') final List<Book>? results}) =
+      _$GetBooksEntityImpl;
 
   factory _GetBooksEntity.fromJson(Map<String, dynamic> json) =
       _$GetBooksEntityImpl.fromJson;
 
   @override
+  @JsonKey(name: 'count')
   int? get count;
   @override
+  @JsonKey(name: 'next')
   String? get next;
   @override
+  @JsonKey(name: 'previous')
   String? get previous;
   @override
+  @JsonKey(name: 'results')
   List<Book>? get results;
 
   /// Create a copy of GetBooksEntity

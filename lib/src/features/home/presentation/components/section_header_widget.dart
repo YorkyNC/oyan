@@ -1,17 +1,21 @@
 // File: lib/src/presentation/pages/home/home_page.dart
 
-import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
+import 'package:oyan/src/core/router/router.dart';
+import 'package:oyan/src/features/home/domain/entities/book.dart';
 
 class SectionHeaderWidget extends StatelessWidget {
   final String title;
+  final List<Book> books;
   final bool showSeeAll;
 
   const SectionHeaderWidget({
     super.key,
     required this.title,
     this.showSeeAll = false,
+    required this.books,
   });
 
   @override
@@ -29,7 +33,15 @@ class SectionHeaderWidget extends StatelessWidget {
         ),
         if (showSeeAll)
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              context.push(
+                RoutePaths.seeAll,
+                extra: {
+                  'title': title,
+                  'books': books,
+                },
+              );
+            },
             style: TextButton.styleFrom(
               minimumSize: Size.zero,
               padding: EdgeInsets.zero,

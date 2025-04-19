@@ -1,9 +1,9 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
-import 'package:oyan/src/features/my-books/presentation/book_information_page.dart';
+import 'package:oyan/src/features/home/domain/entities/book.dart';
 
 class ReviewItem extends StatelessWidget {
-  final ReviewModel review;
+  final Book review;
 
   const ReviewItem({
     Key? key,
@@ -27,7 +27,7 @@ class ReviewItem extends StatelessWidget {
               )),
           const SizedBox(height: 6),
           Text(
-            review.text,
+            review.description ?? '',
             style: GoogleFonts.openSans(
               fontSize: 15,
               fontWeight: FontWeight.w400,
@@ -48,7 +48,7 @@ class ReviewItem extends StatelessWidget {
               ),
               Row(
                 children: [
-                  ..._renderStars(review.rating.toInt(), size: 25),
+                  ..._renderStars(review.rating!, size: 25),
                 ],
               )
             ],
@@ -58,12 +58,12 @@ class ReviewItem extends StatelessWidget {
     );
   }
 
-  List<Widget> _renderStars(int rating, {double size = 16}) {
+  List<Widget> _renderStars(String rating, {double size = 16}) {
     return List.generate(5, (index) {
       return Icon(
-        index < rating ? Icons.star_rounded : Icons.star_outline_rounded,
+        index < double.parse(rating) ? Icons.star_rounded : Icons.star_outline_rounded,
         size: size,
-        color: index < rating ? Colors.yellow : Colors.grey[600],
+        color: index < double.parse(rating) ? Colors.yellow : Colors.grey[600],
       );
     });
   }
