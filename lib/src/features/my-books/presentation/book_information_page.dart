@@ -146,7 +146,6 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                   ),
                 ),
 
-                // Tab bar
                 Container(
                   color: Colors.white,
                   child: TabBar(
