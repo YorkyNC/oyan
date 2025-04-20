@@ -276,4 +276,10 @@ List<RouteBase> _routes = [
       );
     },
   ),
+  GoRoute(
+    path: RoutePaths.genre,
+    pageBuilder: (context, state) {
+      return getPage(child: const GenrePage(), state: state);
+    },
+  ),
 ];

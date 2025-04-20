@@ -53,6 +53,18 @@ import 'package:oyan/src/features/events/domain/use_cases/get_events_count_use_c
     as _i210;
 import 'package:oyan/src/features/events/presentation/bloc/events_bloc.dart'
     as _i277;
+import 'package:oyan/src/features/genre/data/datasources/remote/genre_remote_impl.dart'
+    as _i480;
+import 'package:oyan/src/features/genre/data/datasources/remote/i_genre_remote.dart'
+    as _i513;
+import 'package:oyan/src/features/genre/data/repositories/genre_repository_impl.dart'
+    as _i35;
+import 'package:oyan/src/features/genre/domain/repositories/i_genre_repository.dart'
+    as _i23;
+import 'package:oyan/src/features/genre/domain/usecases/add_genre_use_case.dart'
+    as _i865;
+import 'package:oyan/src/features/genre/domain/usecases/get_genre_use_case.dart'
+    as _i781;
 import 'package:oyan/src/features/home/data/datasources/remote/book_remote_impl.dart'
     as _i994;
 import 'package:oyan/src/features/home/data/datasources/remote/i_book_remote.dart'
@@ -146,6 +158,10 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i594.IAttachmentRemote>(instanceName: 'AttachmentRemoteImpl')),
       instanceName: 'AttachmentRepositoryImpl',
     );
+    gh.lazySingleton<_i513.IGenreRemote>(
+      () => _i480.GenreRemoteImpl(gh<_i140.DioRestClient>()),
+      instanceName: 'GenreRemoteImpl',
+    );
     gh.lazySingleton<_i1002.INewsRepository>(
       () => _i924.NewsRepositoryImpl(
           gh<_i227.INewsRemote>(instanceName: 'NewsRemoteImpl')),
@@ -214,6 +230,15 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1002.INewsRepository>(instanceName: 'NewsRepositoryImpl')));
     gh.lazySingleton<_i1068.GetPostsUseCase>(() => _i1068.GetPostsUseCase(
         gh<_i1002.INewsRepository>(instanceName: 'NewsRepositoryImpl')));
+    gh.lazySingleton<_i23.IGenreRepository>(
+      () => _i35.GenreRepositoryImpl(
+          gh<_i513.IGenreRemote>(instanceName: 'GenreRemoteImpl')),
+      instanceName: 'GenreRepositoryImpl',
+    );
+    gh.lazySingleton<_i781.GetGenreUseCase>(() => _i781.GetGenreUseCase(
+        gh<_i23.IGenreRepository>(instanceName: 'GenreRepositoryImpl')));
+    gh.lazySingleton<_i865.AddGenreUseCase>(() => _i865.AddGenreUseCase(
+        gh<_i23.IGenreRepository>(instanceName: 'GenreRepositoryImpl')));
     gh.lazySingleton<_i126.GetMessagesUseCase>(() => _i126.GetMessagesUseCase(
         gh<_i188.IChatRepository>(instanceName: 'ChatRepositoryImpl')));
     gh.lazySingleton<_i183.GetChatsUseCase>(() => _i183.GetChatsUseCase(

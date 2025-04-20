@@ -20,7 +20,7 @@ class ShimmerContainer extends StatelessWidget {
         width: width,
         decoration: BoxDecoration(
           color: colors.gray600.withOpacity(0.2),
-          // borderRadius: isEight != null ? BorderRadius.circular(8) : BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(5),
         ),
         child: const SizedBox(),
       ),

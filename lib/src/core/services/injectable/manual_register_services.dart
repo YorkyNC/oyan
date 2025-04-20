@@ -3,6 +3,9 @@ import 'package:oyan/src/core/services/injectable/service_register_proxy.dart';
 import 'package:oyan/src/features/chat/domain/usecases/get_chats_use_case.dart';
 import 'package:oyan/src/features/chat/domain/usecases/get_messages_use_case.dart';
 import 'package:oyan/src/features/chat/presentation/bloc/chat_bloc.dart';
+import 'package:oyan/src/features/genre/domain/usecases/add_genre_use_case.dart';
+import 'package:oyan/src/features/genre/domain/usecases/get_genre_use_case.dart';
+import 'package:oyan/src/features/genre/presentation/bloc/genre_bloc.dart';
 import 'package:oyan/src/features/home/domain/usecases/get_book_use_case.dart';
 import 'package:oyan/src/features/home/presentation/bloc/book_bloc.dart';
 import 'package:oyan/src/features/login/domain/usecases/csrf_token_use_case.dart';
@@ -72,6 +75,13 @@ void manualRegisterServices() {
     ),
   );
 
+  getIt.registerBloc<GenreBloc>(
+    factory: true,
+    () => GenreBloc(
+      getIt<GetGenreUseCase>(),
+      getIt<AddGenreUseCase>(),
+    ),
+  );
   getIt.registerBloc<NewsBloc>(
     factory: true,
     () => NewsBloc(

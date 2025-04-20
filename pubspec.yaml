@@ -120,7 +120,7 @@ dev_dependencies:
 
   # * Code Generators
   # Generating Files
-  build_runner: ^2.4.6
+  build_runner: ^2.4.8
 
   # * UI Testing
   # Preview for different devices
@@ -136,11 +136,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   # Code Generation for Models and Union Types
-  freezed: ^2.2.0
+  freezed: ^2.4.7
   # Injecting Dependencies
   injectable_generator: ^2.1.1
   # Generating Serialization of JSON
-  json_serializable: ^6.5.4
+  json_serializable: ^6.7.1
   # Data Mocking
   mockito: ^5.3.2
 

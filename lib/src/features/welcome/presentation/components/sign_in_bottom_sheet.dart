@@ -53,7 +53,13 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
 
             if (viewModel.signInResponse != null) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                context.pushReplacement(RoutePaths.home);
+                if (viewModel.signInResponse?.preferredGenres == null ||
+                    (viewModel.signInResponse?.preferredGenres is List &&
+                        (viewModel.signInResponse?.preferredGenres as List).isEmpty)) {
+                  context.pushReplacement(RoutePaths.genre);
+                } else {
+                  context.pushReplacement(RoutePaths.home);
+                }
               });
             }
             return _buildLoginForm(context);
