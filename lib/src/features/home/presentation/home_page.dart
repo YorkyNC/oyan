@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
+import 'package:oyan/src/core/widgets/shimmer/shimmer_container.dart';
 import 'package:oyan/src/features/home/domain/requests/get_book_request.dart';
 import 'package:oyan/src/features/home/presentation/bloc/book_bloc.dart';
 import 'package:oyan/src/features/home/presentation/components/audiobook_grid_widget.dart';
@@ -24,7 +25,6 @@ class _HomePageState extends State<HomePage> {
   int _selectedTabIndex = 0;
   final bool _showAllRecommended = false;
   final bool _showAllPopular = false;
-  final bool _showAllNew = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +33,7 @@ class _HomePageState extends State<HomePage> {
       starterEvent: const BookEvent.getBooks(GetBookRequest(type: BookType.recommended)),
       builder: (context, state, bloc) {
         return state.maybeWhen(
-          orElse: () {
-            return const Center(child: CircularProgressIndicator());
-          },
+          orElse: () => const HomePageLoading(),
           error: (error) {
             return Center(
                 child: Text(
@@ -129,6 +127,111 @@ class _HomePageState extends State<HomePage> {
           },
         );
       },
+    );
+  }
+}
+
+class HomePageLoading extends StatelessWidget {
+  const HomePageLoading({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                const SizedBox(height: 16),
+                const ShimmerContainer(width: double.infinity, height: 50),
+                const SizedBox(height: 26),
+                _buildSearchBarLoading(),
+                const SizedBox(height: 23),
+                _buildCategoryTabsLoading(),
+                const SizedBox(height: 28),
+                _buildBookSectionLoading(),
+                const SizedBox(height: 28),
+                _buildBookSectionLoading(),
+                const SizedBox(height: 28),
+                _buildBookSectionLoading(),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSearchBarLoading() {
+    return Row(
+      children: [
+        const Expanded(child: ShimmerContainer(width: double.infinity, height: 50)),
+        const SizedBox(width: 10),
+        Expanded(
+          child: Container(
+            height: 50,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(color: const Color(0xffD9D9D9)),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCategoryTabsLoading() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: List.generate(
+        3,
+        (index) => Container(
+          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 38),
+          decoration: const BoxDecoration(color: Color(0xffEAEAEA)),
+          child: const Center(
+            child: Icon(
+              Icons.image_outlined,
+              size: 39,
+              color: Color(0xff808080),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildBookSectionLoading() {
+    return Column(
+      children: [
+        const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ShimmerContainer(width: 167, height: 19),
+            ShimmerContainer(width: 48, height: 19),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: List.generate(
+            3,
+            (index) => Container(
+              padding: const EdgeInsets.symmetric(vertical: 54, horizontal: 38),
+              decoration: const BoxDecoration(color: Color(0xffEAEAEA)),
+              child: const Center(
+                child: Icon(
+                  Icons.image_outlined,
+                  size: 39,
+                  color: Color(0xff808080),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
