@@ -24,14 +24,17 @@ class GenreRemoteImpl implements IGenreRemote {
   @override
   Future<Either<DomainException, AddGenreEntity>> addGenre(AddGenreRequest file) async {
     try {
-      final formData = FormData.fromMap({
-        'genres': file.genres.toString(),
-      });
+      final csrfToken = st.getCsrfToken();
+      final headers = {
+        ...ApiHeaders.headers,
+        if (csrfToken != null) 'X-CSRFToken': csrfToken,
+        'Content-Type': 'application/json',
+      };
 
       final Either<DomainException, Response<dynamic>> response = await client.post(
         '${EndPoints.baseUrl}/genres/',
-        data: formData,
-        options: ApiHeaders.dioOptions,
+        data: {'genres': file.genres},
+        options: Options(headers: headers),
       );
 
       return response.fold(
@@ -52,9 +55,15 @@ class GenreRemoteImpl implements IGenreRemote {
   @override
   Future<Either<DomainException, GenreEntity>> getGenre(GetGenreRequest request) async {
     try {
+      final csrfToken = st.getCsrfToken();
+      final headers = {
+        ...ApiHeaders.headers,
+        if (csrfToken != null) 'X-CSRFToken': csrfToken,
+      };
+
       final Either<DomainException, Response<dynamic>> response = await client.get(
         '${EndPoints.baseUrl}/genres/',
-        options: ApiHeaders.dioOptions,
+        options: Options(headers: headers),
       );
 
       return response.fold(
