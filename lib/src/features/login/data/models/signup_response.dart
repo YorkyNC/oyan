@@ -7,7 +7,6 @@ part 'signup_response.g.dart';
 class SignupResponse with _$SignupResponse {
   const factory SignupResponse({
     required String status,
-    String? message,
   }) = _SignupResponse;
 
   factory SignupResponse.fromJson(Map<String, dynamic> json) => _$SignupResponseFromJson(json);

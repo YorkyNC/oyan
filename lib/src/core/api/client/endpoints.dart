@@ -12,7 +12,7 @@ class EndPoints {
   static const updatePassword = "/v1/auth/update-password";
   static const getUser = "/v1/auth/profile";
   static const csrf = "/csrf/";
-
+  static const signup = "/signup/";
   // Attachment
   static const attachment = "/v1/attachment";
 

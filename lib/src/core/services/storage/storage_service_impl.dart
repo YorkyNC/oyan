@@ -29,6 +29,7 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   // Device-related keys
   static const String _clientIdKey = 'CLIENT_ID';
   static const String _lastSentFcmTokenKey = 'LAST_SENT_FCM_TOKEN';
+  static const String _preferredGenresKey = 'PREFERRED_GENRES';
 
   late Box authBox;
   late Box deviceBox;
@@ -262,17 +263,19 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
     return token;
   }
 
-  void setCsrfCookie(String cookie) {
+  Future<void> setCsrfCookie(String cookie) async {
     try {
       // Log the received cookie for debugging
       log('Setting CSRF cookie: $cookie');
 
-      // Store the token value directly since we're now receiving just the value
-      authBox.put(_csrfCookieKey, cookie);
-
+      // Extract the actual cookie value from the Set-Cookie header
+      final cookieValue = cookie.split(';').first;
+      await authBox.put(_csrfCookieKey, cookieValue);
+      log('CSRF cookie stored: $cookieValue');
       notifyListeners();
     } catch (e) {
       log('Error setting CSRF cookie: $e');
+      rethrow;
     }
   }
 
@@ -378,4 +381,22 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
 
   @override
   bool get isLoggedIn => checkLoggedIn();
+
+  Future<void> setPreferredGenres(List<dynamic>? genres) async {
+    if (authBox.isOpen) {
+      await authBox.put(_preferredGenresKey, genres);
+      notifyListeners();
+    }
+  }
+
+  List<dynamic>? getPreferredGenres() {
+    return authBox.get(_preferredGenresKey);
+  }
+
+  Future<void> clearPreferredGenres() async {
+    if (authBox.isOpen) {
+      await authBox.delete(_preferredGenresKey);
+      notifyListeners();
+    }
+  }
 }

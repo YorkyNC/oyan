@@ -3,6 +3,8 @@ import 'package:oyan/src/core/services/auth/entities/user_entity.dart';
 import 'package:oyan/src/core/services/auth/models/update_password_request.dart';
 import 'package:oyan/src/core/services/auth/models/update_password_response.dart';
 import 'package:oyan/src/features/login/data/models/csrf_token_response.dart';
+import 'package:oyan/src/features/login/data/models/signup_request.dart';
+import 'package:oyan/src/features/login/data/models/signup_response.dart';
 
 import '../../exceptions/domain_exception.dart';
 import 'models/forgot_password_request.dart';
@@ -28,4 +30,6 @@ abstract class IAuthService {
   Future<Either<DomainException, UpdatePasswordResponse>> updatePassword(UpdatePasswordRequest request);
 
   Future<void> logout();
+
+  Future<Either<DomainException, SignupResponse>> signupUser(SignupRequest request);
 }

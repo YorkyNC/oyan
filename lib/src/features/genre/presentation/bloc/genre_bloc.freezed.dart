@@ -359,6 +359,8 @@ abstract class _$$AddGenreImplCopyWith<$Res> {
       __$$AddGenreImplCopyWithImpl<$Res>;
   @useResult
   $Res call({AddGenreRequest request});
+
+  $AddGenreRequestCopyWith<$Res> get request;
 }
 
 /// @nodoc
@@ -374,14 +376,24 @@ class __$$AddGenreImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? request = freezed,
+    Object? request = null,
   }) {
     return _then(_$AddGenreImpl(
-      freezed == request
+      null == request
           ? _value.request
           : request // ignore: cast_nullable_to_non_nullable
               as AddGenreRequest,
     ));
+  }
+
+  /// Create a copy of GenreEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AddGenreRequestCopyWith<$Res> get request {
+    return $AddGenreRequestCopyWith<$Res>(_value.request, (value) {
+      return _then(_value.copyWith(request: value));
+    });
   }
 }
 
@@ -403,12 +415,11 @@ class _$AddGenreImpl implements _AddGenre {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddGenreImpl &&
-            const DeepCollectionEquality().equals(other.request, request));
+            (identical(other.request, request) || other.request == request));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(request));
+  int get hashCode => Object.hash(runtimeType, request);
 
   /// Create a copy of GenreEvent
   /// with the given fields replaced by the non-null parameter values.

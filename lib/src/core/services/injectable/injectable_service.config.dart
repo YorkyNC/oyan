@@ -15,6 +15,7 @@ import 'package:oyan/src/core/api/client/rest/dio/dio_client.dart' as _i140;
 import 'package:oyan/src/core/services/auth/auth_service_impl.dart' as _i161;
 import 'package:oyan/src/core/services/auth/i_auth_service.dart' as _i877;
 import 'package:oyan/src/core/services/auth/role_notifier.dart' as _i801;
+import 'package:oyan/src/core/services/csrf/csrf_service.dart' as _i301;
 import 'package:oyan/src/features/attachment/data/datasources/remote/attachment_remote_impl.dart'
     as _i958;
 import 'package:oyan/src/features/attachment/data/datasources/remote/i_attachment_remote.dart'
@@ -89,6 +90,8 @@ import 'package:oyan/src/features/login/domain/usecases/login_use_case.dart'
     as _i1029;
 import 'package:oyan/src/features/login/domain/usecases/refresh_token_use_case.dart'
     as _i484;
+import 'package:oyan/src/features/login/domain/usecases/register_use_case.dart'
+    as _i353;
 import 'package:oyan/src/features/login/domain/usecases/update_password_use_case.dart'
     as _i915;
 import 'package:oyan/src/features/login/domain/usecases/verify_user_case.dart'
@@ -149,6 +152,8 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i47.NewsRemoteImpl(gh<_i140.DioRestClient>()),
       instanceName: 'NewsRemoteImpl',
     );
+    gh.singleton<_i301.CsrfService>(
+        () => _i301.CsrfService(gh<_i140.DioRestClient>()));
     gh.lazySingleton<_i966.IBookRemote>(
       () => _i994.BookRemoteImpl(gh<_i140.DioRestClient>()),
       instanceName: 'BookRemoteImpl',
@@ -205,6 +210,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i757.VerifyUseCase>(() => _i757.VerifyUseCase(
         gh<_i913.IAuthRepository>(instanceName: 'AuthRepositoryImpl')));
     gh.lazySingleton<_i484.RefreshTokenUseCase>(() => _i484.RefreshTokenUseCase(
+        gh<_i913.IAuthRepository>(instanceName: 'AuthRepositoryImpl')));
+    gh.lazySingleton<_i353.RegisterUseCase>(() => _i353.RegisterUseCase(
         gh<_i913.IAuthRepository>(instanceName: 'AuthRepositoryImpl')));
     gh.lazySingleton<_i1029.LoginUseCase>(() => _i1029.LoginUseCase(
         gh<_i913.IAuthRepository>(instanceName: 'AuthRepositoryImpl')));

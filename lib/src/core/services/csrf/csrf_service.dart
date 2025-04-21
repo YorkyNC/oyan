@@ -10,9 +10,11 @@ import '../storage/storage_service_impl.dart';
 @singleton
 class CsrfService {
   final DioRestClient _client;
-  final StorageServiceImpl _storage;
+  final StorageServiceImpl _storage = StorageServiceImpl();
 
-  CsrfService(this._client, this._storage);
+  CsrfService(
+    this._client,
+  );
 
   Future<Either<DomainException, void>> fetchCsrfToken() async {
     try {

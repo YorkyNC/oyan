@@ -25,6 +25,9 @@ mixin _$AuthEvent {
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
+    required TResult Function(
+            String username, String email, String password1, String password2)
+        register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -36,6 +39,9 @@ mixin _$AuthEvent {
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
+    TResult? Function(
+            String username, String email, String password1, String password2)?
+        register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -47,6 +53,9 @@ mixin _$AuthEvent {
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
+    TResult Function(
+            String username, String email, String password1, String password2)?
+        register,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -59,6 +68,7 @@ mixin _$AuthEvent {
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
+    required TResult Function(_Register value) register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +80,7 @@ mixin _$AuthEvent {
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
+    TResult? Function(_Register value)? register,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,6 +92,7 @@ mixin _$AuthEvent {
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -191,6 +203,9 @@ class _$LoginImpl implements _Login {
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
+    required TResult Function(
+            String username, String email, String password1, String password2)
+        register,
   }) {
     return login(username, password);
   }
@@ -205,6 +220,9 @@ class _$LoginImpl implements _Login {
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
+    TResult? Function(
+            String username, String email, String password1, String password2)?
+        register,
   }) {
     return login?.call(username, password);
   }
@@ -219,6 +237,9 @@ class _$LoginImpl implements _Login {
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
+    TResult Function(
+            String username, String email, String password1, String password2)?
+        register,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -237,6 +258,7 @@ class _$LoginImpl implements _Login {
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
+    required TResult Function(_Register value) register,
   }) {
     return login(this);
   }
@@ -251,6 +273,7 @@ class _$LoginImpl implements _Login {
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
+    TResult? Function(_Register value)? register,
   }) {
     return login?.call(this);
   }
@@ -265,6 +288,7 @@ class _$LoginImpl implements _Login {
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (login != null) {
@@ -337,6 +361,9 @@ class _$GetUserImpl implements _GetUser {
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
+    required TResult Function(
+            String username, String email, String password1, String password2)
+        register,
   }) {
     return getUser();
   }
@@ -351,6 +378,9 @@ class _$GetUserImpl implements _GetUser {
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
+    TResult? Function(
+            String username, String email, String password1, String password2)?
+        register,
   }) {
     return getUser?.call();
   }
@@ -365,6 +395,9 @@ class _$GetUserImpl implements _GetUser {
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
+    TResult Function(
+            String username, String email, String password1, String password2)?
+        register,
     required TResult orElse(),
   }) {
     if (getUser != null) {
@@ -383,6 +416,7 @@ class _$GetUserImpl implements _GetUser {
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
+    required TResult Function(_Register value) register,
   }) {
     return getUser(this);
   }
@@ -397,6 +431,7 @@ class _$GetUserImpl implements _GetUser {
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
+    TResult? Function(_Register value)? register,
   }) {
     return getUser?.call(this);
   }
@@ -411,6 +446,7 @@ class _$GetUserImpl implements _GetUser {
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (getUser != null) {
@@ -472,6 +508,9 @@ class _$RefreshTokenImpl implements _RefreshToken {
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
+    required TResult Function(
+            String username, String email, String password1, String password2)
+        register,
   }) {
     return refreshToken();
   }
@@ -486,6 +525,9 @@ class _$RefreshTokenImpl implements _RefreshToken {
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
+    TResult? Function(
+            String username, String email, String password1, String password2)?
+        register,
   }) {
     return refreshToken?.call();
   }
@@ -500,6 +542,9 @@ class _$RefreshTokenImpl implements _RefreshToken {
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
+    TResult Function(
+            String username, String email, String password1, String password2)?
+        register,
     required TResult orElse(),
   }) {
     if (refreshToken != null) {
@@ -518,6 +563,7 @@ class _$RefreshTokenImpl implements _RefreshToken {
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
+    required TResult Function(_Register value) register,
   }) {
     return refreshToken(this);
   }
@@ -532,6 +578,7 @@ class _$RefreshTokenImpl implements _RefreshToken {
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
+    TResult? Function(_Register value)? register,
   }) {
     return refreshToken?.call(this);
   }
@@ -546,6 +593,7 @@ class _$RefreshTokenImpl implements _RefreshToken {
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (refreshToken != null) {
@@ -607,6 +655,9 @@ class _$GetCsrfTokenImpl implements _GetCsrfToken {
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
+    required TResult Function(
+            String username, String email, String password1, String password2)
+        register,
   }) {
     return getCsrfToken();
   }
@@ -621,6 +672,9 @@ class _$GetCsrfTokenImpl implements _GetCsrfToken {
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
+    TResult? Function(
+            String username, String email, String password1, String password2)?
+        register,
   }) {
     return getCsrfToken?.call();
   }
@@ -635,6 +689,9 @@ class _$GetCsrfTokenImpl implements _GetCsrfToken {
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
+    TResult Function(
+            String username, String email, String password1, String password2)?
+        register,
     required TResult orElse(),
   }) {
     if (getCsrfToken != null) {
@@ -653,6 +710,7 @@ class _$GetCsrfTokenImpl implements _GetCsrfToken {
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
+    required TResult Function(_Register value) register,
   }) {
     return getCsrfToken(this);
   }
@@ -667,6 +725,7 @@ class _$GetCsrfTokenImpl implements _GetCsrfToken {
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
+    TResult? Function(_Register value)? register,
   }) {
     return getCsrfToken?.call(this);
   }
@@ -681,6 +740,7 @@ class _$GetCsrfTokenImpl implements _GetCsrfToken {
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (getCsrfToken != null) {
@@ -771,6 +831,9 @@ class _$ForgotPasswordImpl implements _ForgotPassword {
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
+    required TResult Function(
+            String username, String email, String password1, String password2)
+        register,
   }) {
     return forgotPassword(usernameOrEmail);
   }
@@ -785,6 +848,9 @@ class _$ForgotPasswordImpl implements _ForgotPassword {
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
+    TResult? Function(
+            String username, String email, String password1, String password2)?
+        register,
   }) {
     return forgotPassword?.call(usernameOrEmail);
   }
@@ -799,6 +865,9 @@ class _$ForgotPasswordImpl implements _ForgotPassword {
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
+    TResult Function(
+            String username, String email, String password1, String password2)?
+        register,
     required TResult orElse(),
   }) {
     if (forgotPassword != null) {
@@ -817,6 +886,7 @@ class _$ForgotPasswordImpl implements _ForgotPassword {
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
+    required TResult Function(_Register value) register,
   }) {
     return forgotPassword(this);
   }
@@ -831,6 +901,7 @@ class _$ForgotPasswordImpl implements _ForgotPassword {
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
+    TResult? Function(_Register value)? register,
   }) {
     return forgotPassword?.call(this);
   }
@@ -845,6 +916,7 @@ class _$ForgotPasswordImpl implements _ForgotPassword {
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (forgotPassword != null) {
@@ -944,6 +1016,9 @@ class _$UpdatePasswordImpl implements _UpdatePassword {
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
+    required TResult Function(
+            String username, String email, String password1, String password2)
+        register,
   }) {
     return updatePassword(newPassword);
   }
@@ -958,6 +1033,9 @@ class _$UpdatePasswordImpl implements _UpdatePassword {
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
+    TResult? Function(
+            String username, String email, String password1, String password2)?
+        register,
   }) {
     return updatePassword?.call(newPassword);
   }
@@ -972,6 +1050,9 @@ class _$UpdatePasswordImpl implements _UpdatePassword {
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
+    TResult Function(
+            String username, String email, String password1, String password2)?
+        register,
     required TResult orElse(),
   }) {
     if (updatePassword != null) {
@@ -990,6 +1071,7 @@ class _$UpdatePasswordImpl implements _UpdatePassword {
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
+    required TResult Function(_Register value) register,
   }) {
     return updatePassword(this);
   }
@@ -1004,6 +1086,7 @@ class _$UpdatePasswordImpl implements _UpdatePassword {
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
+    TResult? Function(_Register value)? register,
   }) {
     return updatePassword?.call(this);
   }
@@ -1018,6 +1101,7 @@ class _$UpdatePasswordImpl implements _UpdatePassword {
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (updatePassword != null) {
@@ -1123,6 +1207,9 @@ class _$VerifyImpl implements _Verify {
     required TResult Function(String usernameOrEmail) forgotPassword,
     required TResult Function(String newPassword) updatePassword,
     required TResult Function(String code, String userId) verify,
+    required TResult Function(
+            String username, String email, String password1, String password2)
+        register,
   }) {
     return verify(code, userId);
   }
@@ -1137,6 +1224,9 @@ class _$VerifyImpl implements _Verify {
     TResult? Function(String usernameOrEmail)? forgotPassword,
     TResult? Function(String newPassword)? updatePassword,
     TResult? Function(String code, String userId)? verify,
+    TResult? Function(
+            String username, String email, String password1, String password2)?
+        register,
   }) {
     return verify?.call(code, userId);
   }
@@ -1151,6 +1241,9 @@ class _$VerifyImpl implements _Verify {
     TResult Function(String usernameOrEmail)? forgotPassword,
     TResult Function(String newPassword)? updatePassword,
     TResult Function(String code, String userId)? verify,
+    TResult Function(
+            String username, String email, String password1, String password2)?
+        register,
     required TResult orElse(),
   }) {
     if (verify != null) {
@@ -1169,6 +1262,7 @@ class _$VerifyImpl implements _Verify {
     required TResult Function(_ForgotPassword value) forgotPassword,
     required TResult Function(_UpdatePassword value) updatePassword,
     required TResult Function(_Verify value) verify,
+    required TResult Function(_Register value) register,
   }) {
     return verify(this);
   }
@@ -1183,6 +1277,7 @@ class _$VerifyImpl implements _Verify {
     TResult? Function(_ForgotPassword value)? forgotPassword,
     TResult? Function(_UpdatePassword value)? updatePassword,
     TResult? Function(_Verify value)? verify,
+    TResult? Function(_Register value)? register,
   }) {
     return verify?.call(this);
   }
@@ -1197,6 +1292,7 @@ class _$VerifyImpl implements _Verify {
     TResult Function(_ForgotPassword value)? forgotPassword,
     TResult Function(_UpdatePassword value)? updatePassword,
     TResult Function(_Verify value)? verify,
+    TResult Function(_Register value)? register,
     required TResult orElse(),
   }) {
     if (verify != null) {
@@ -1218,6 +1314,228 @@ abstract class _Verify implements AuthEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$VerifyImplCopyWith<_$VerifyImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$RegisterImplCopyWith<$Res> {
+  factory _$$RegisterImplCopyWith(
+          _$RegisterImpl value, $Res Function(_$RegisterImpl) then) =
+      __$$RegisterImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call(
+      {String username, String email, String password1, String password2});
+}
+
+/// @nodoc
+class __$$RegisterImplCopyWithImpl<$Res>
+    extends _$AuthEventCopyWithImpl<$Res, _$RegisterImpl>
+    implements _$$RegisterImplCopyWith<$Res> {
+  __$$RegisterImplCopyWithImpl(
+      _$RegisterImpl _value, $Res Function(_$RegisterImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? username = null,
+    Object? email = null,
+    Object? password1 = null,
+    Object? password2 = null,
+  }) {
+    return _then(_$RegisterImpl(
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
+      password1: null == password1
+          ? _value.password1
+          : password1 // ignore: cast_nullable_to_non_nullable
+              as String,
+      password2: null == password2
+          ? _value.password2
+          : password2 // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$RegisterImpl implements _Register {
+  const _$RegisterImpl(
+      {required this.username,
+      required this.email,
+      required this.password1,
+      required this.password2});
+
+  @override
+  final String username;
+  @override
+  final String email;
+  @override
+  final String password1;
+  @override
+  final String password2;
+
+  @override
+  String toString() {
+    return 'AuthEvent.register(username: $username, email: $email, password1: $password1, password2: $password2)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$RegisterImpl &&
+            (identical(other.username, username) ||
+                other.username == username) &&
+            (identical(other.email, email) || other.email == email) &&
+            (identical(other.password1, password1) ||
+                other.password1 == password1) &&
+            (identical(other.password2, password2) ||
+                other.password2 == password2));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, username, email, password1, password2);
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$RegisterImplCopyWith<_$RegisterImpl> get copyWith =>
+      __$$RegisterImplCopyWithImpl<_$RegisterImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String username, String password) login,
+    required TResult Function() getUser,
+    required TResult Function() refreshToken,
+    required TResult Function() getCsrfToken,
+    required TResult Function(String usernameOrEmail) forgotPassword,
+    required TResult Function(String newPassword) updatePassword,
+    required TResult Function(String code, String userId) verify,
+    required TResult Function(
+            String username, String email, String password1, String password2)
+        register,
+  }) {
+    return register(username, email, password1, password2);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String username, String password)? login,
+    TResult? Function()? getUser,
+    TResult? Function()? refreshToken,
+    TResult? Function()? getCsrfToken,
+    TResult? Function(String usernameOrEmail)? forgotPassword,
+    TResult? Function(String newPassword)? updatePassword,
+    TResult? Function(String code, String userId)? verify,
+    TResult? Function(
+            String username, String email, String password1, String password2)?
+        register,
+  }) {
+    return register?.call(username, email, password1, password2);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String username, String password)? login,
+    TResult Function()? getUser,
+    TResult Function()? refreshToken,
+    TResult Function()? getCsrfToken,
+    TResult Function(String usernameOrEmail)? forgotPassword,
+    TResult Function(String newPassword)? updatePassword,
+    TResult Function(String code, String userId)? verify,
+    TResult Function(
+            String username, String email, String password1, String password2)?
+        register,
+    required TResult orElse(),
+  }) {
+    if (register != null) {
+      return register(username, email, password1, password2);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Login value) login,
+    required TResult Function(_GetUser value) getUser,
+    required TResult Function(_RefreshToken value) refreshToken,
+    required TResult Function(_GetCsrfToken value) getCsrfToken,
+    required TResult Function(_ForgotPassword value) forgotPassword,
+    required TResult Function(_UpdatePassword value) updatePassword,
+    required TResult Function(_Verify value) verify,
+    required TResult Function(_Register value) register,
+  }) {
+    return register(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Login value)? login,
+    TResult? Function(_GetUser value)? getUser,
+    TResult? Function(_RefreshToken value)? refreshToken,
+    TResult? Function(_GetCsrfToken value)? getCsrfToken,
+    TResult? Function(_ForgotPassword value)? forgotPassword,
+    TResult? Function(_UpdatePassword value)? updatePassword,
+    TResult? Function(_Verify value)? verify,
+    TResult? Function(_Register value)? register,
+  }) {
+    return register?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Login value)? login,
+    TResult Function(_GetUser value)? getUser,
+    TResult Function(_RefreshToken value)? refreshToken,
+    TResult Function(_GetCsrfToken value)? getCsrfToken,
+    TResult Function(_ForgotPassword value)? forgotPassword,
+    TResult Function(_UpdatePassword value)? updatePassword,
+    TResult Function(_Verify value)? verify,
+    TResult Function(_Register value)? register,
+    required TResult orElse(),
+  }) {
+    if (register != null) {
+      return register(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _Register implements AuthEvent {
+  const factory _Register(
+      {required final String username,
+      required final String email,
+      required final String password1,
+      required final String password2}) = _$RegisterImpl;
+
+  String get username;
+  String get email;
+  String get password1;
+  String get password2;
+
+  /// Create a copy of AuthEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$RegisterImplCopyWith<_$RegisterImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -2251,6 +2569,7 @@ abstract class _ErrorVerify implements AuthState {
 
 /// @nodoc
 mixin _$AuthStateViewModel {
+  SignupResponse? get signupResponse => throw _privateConstructorUsedError;
   SignInResponse? get signInResponse => throw _privateConstructorUsedError;
   int get userId => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
@@ -2272,13 +2591,15 @@ abstract class $AuthStateViewModelCopyWith<$Res> {
       _$AuthStateViewModelCopyWithImpl<$Res, AuthStateViewModel>;
   @useResult
   $Res call(
-      {SignInResponse? signInResponse,
+      {SignupResponse? signupResponse,
+      SignInResponse? signInResponse,
       int userId,
       String token,
       String refreshToken,
       String csrfToken,
       UserEntity user});
 
+  $SignupResponseCopyWith<$Res>? get signupResponse;
   $SignInResponseCopyWith<$Res>? get signInResponse;
   $UserEntityCopyWith<$Res> get user;
 }
@@ -2298,6 +2619,7 @@ class _$AuthStateViewModelCopyWithImpl<$Res, $Val extends AuthStateViewModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? signupResponse = freezed,
     Object? signInResponse = freezed,
     Object? userId = null,
     Object? token = null,
@@ -2306,6 +2628,10 @@ class _$AuthStateViewModelCopyWithImpl<$Res, $Val extends AuthStateViewModel>
     Object? user = null,
   }) {
     return _then(_value.copyWith(
+      signupResponse: freezed == signupResponse
+          ? _value.signupResponse
+          : signupResponse // ignore: cast_nullable_to_non_nullable
+              as SignupResponse?,
       signInResponse: freezed == signInResponse
           ? _value.signInResponse
           : signInResponse // ignore: cast_nullable_to_non_nullable
@@ -2331,6 +2657,20 @@ class _$AuthStateViewModelCopyWithImpl<$Res, $Val extends AuthStateViewModel>
           : user // ignore: cast_nullable_to_non_nullable
               as UserEntity,
     ) as $Val);
+  }
+
+  /// Create a copy of AuthStateViewModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $SignupResponseCopyWith<$Res>? get signupResponse {
+    if (_value.signupResponse == null) {
+      return null;
+    }
+
+    return $SignupResponseCopyWith<$Res>(_value.signupResponse!, (value) {
+      return _then(_value.copyWith(signupResponse: value) as $Val);
+    });
   }
 
   /// Create a copy of AuthStateViewModel
@@ -2367,13 +2707,16 @@ abstract class _$$AuthStateViewModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {SignInResponse? signInResponse,
+      {SignupResponse? signupResponse,
+      SignInResponse? signInResponse,
       int userId,
       String token,
       String refreshToken,
       String csrfToken,
       UserEntity user});
 
+  @override
+  $SignupResponseCopyWith<$Res>? get signupResponse;
   @override
   $SignInResponseCopyWith<$Res>? get signInResponse;
   @override
@@ -2393,6 +2736,7 @@ class __$$AuthStateViewModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? signupResponse = freezed,
     Object? signInResponse = freezed,
     Object? userId = null,
     Object? token = null,
@@ -2401,6 +2745,10 @@ class __$$AuthStateViewModelImplCopyWithImpl<$Res>
     Object? user = null,
   }) {
     return _then(_$AuthStateViewModelImpl(
+      signupResponse: freezed == signupResponse
+          ? _value.signupResponse
+          : signupResponse // ignore: cast_nullable_to_non_nullable
+              as SignupResponse?,
       signInResponse: freezed == signInResponse
           ? _value.signInResponse
           : signInResponse // ignore: cast_nullable_to_non_nullable
@@ -2433,7 +2781,8 @@ class __$$AuthStateViewModelImplCopyWithImpl<$Res>
 
 class _$AuthStateViewModelImpl implements _AuthStateViewModel {
   const _$AuthStateViewModelImpl(
-      {this.signInResponse,
+      {this.signupResponse,
+      this.signInResponse,
       this.userId = 0,
       this.token = '',
       this.refreshToken = '',
@@ -2444,6 +2793,8 @@ class _$AuthStateViewModelImpl implements _AuthStateViewModel {
           firstName: 'firstName',
           lastName: 'lastName')});
 
+  @override
+  final SignupResponse? signupResponse;
   @override
   final SignInResponse? signInResponse;
   @override
@@ -2464,7 +2815,7 @@ class _$AuthStateViewModelImpl implements _AuthStateViewModel {
 
   @override
   String toString() {
-    return 'AuthStateViewModel(signInResponse: $signInResponse, userId: $userId, token: $token, refreshToken: $refreshToken, csrfToken: $csrfToken, user: $user)';
+    return 'AuthStateViewModel(signupResponse: $signupResponse, signInResponse: $signInResponse, userId: $userId, token: $token, refreshToken: $refreshToken, csrfToken: $csrfToken, user: $user)';
   }
 
   @override
@@ -2472,6 +2823,8 @@ class _$AuthStateViewModelImpl implements _AuthStateViewModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AuthStateViewModelImpl &&
+            (identical(other.signupResponse, signupResponse) ||
+                other.signupResponse == signupResponse) &&
             (identical(other.signInResponse, signInResponse) ||
                 other.signInResponse == signInResponse) &&
             (identical(other.userId, userId) || other.userId == userId) &&
@@ -2484,8 +2837,8 @@ class _$AuthStateViewModelImpl implements _AuthStateViewModel {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, signInResponse, userId, token,
-      refreshToken, csrfToken, user);
+  int get hashCode => Object.hash(runtimeType, signupResponse, signInResponse,
+      userId, token, refreshToken, csrfToken, user);
 
   /// Create a copy of AuthStateViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -2499,13 +2852,16 @@ class _$AuthStateViewModelImpl implements _AuthStateViewModel {
 
 abstract class _AuthStateViewModel implements AuthStateViewModel {
   const factory _AuthStateViewModel(
-      {final SignInResponse? signInResponse,
+      {final SignupResponse? signupResponse,
+      final SignInResponse? signInResponse,
       final int userId,
       final String token,
       final String refreshToken,
       final String csrfToken,
       final UserEntity user}) = _$AuthStateViewModelImpl;
 
+  @override
+  SignupResponse? get signupResponse;
   @override
   SignInResponse? get signInResponse;
   @override

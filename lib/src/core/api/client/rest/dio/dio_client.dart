@@ -8,7 +8,6 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../exceptions/domain_exception.dart';
 import '../../../../services/auth/models/refresh_token_response.dart';
-import '../../../../services/csrf/csrf_service.dart';
 import '../../../../services/storage/storage_service_impl.dart';
 import '../../endpoints.dart';
 import 'dio_exceptions.dart';

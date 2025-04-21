@@ -17,6 +17,7 @@ class AuthState with _$AuthState {
 @freezed
 class AuthStateViewModel with _$AuthStateViewModel {
   const factory AuthStateViewModel({
+    SignupResponse? signupResponse,
     SignInResponse? signInResponse,
     @Default(0) int userId,
     @Default('') String token,

@@ -7,6 +7,8 @@ import 'package:oyan/src/core/services/auth/models/forgot_password_response.dart
 import 'package:oyan/src/core/services/auth/models/update_password_request.dart';
 import 'package:oyan/src/core/services/auth/models/update_password_response.dart';
 import 'package:oyan/src/features/login/data/models/csrf_token_response.dart';
+import 'package:oyan/src/features/login/data/models/signup_request.dart';
+import 'package:oyan/src/features/login/data/models/signup_response.dart' show SignupResponse;
 
 import '../../api/client/endpoints.dart';
 import '../../api/client/rest/dio/dio_client.dart';
@@ -88,6 +90,90 @@ class AuthServiceImpl implements IAuthService {
       });
     } on DioException catch (e) {
       return Left(NetworkException(message: e.message ?? 'Network error'));
+    } catch (e) {
+      return Left(e is DomainException ? e : UnknownException(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<DomainException, SignupResponse>> signupUser(SignupRequest request) async {
+    try {
+      final csrfResult = await csrfToken();
+      if (csrfResult.isLeft()) {
+        return Left(csrfResult.fold((l) => l, (r) => UnknownException(message: 'CSRF token error')));
+      }
+      final storedCsrfToken = st.getCsrfToken();
+      final storedCsrfCookie = st.getCsrfCookie();
+      if (storedCsrfToken == null || storedCsrfCookie == null) {
+        return Left(UnknownException(message: 'CSRF token or cookie not found'));
+      }
+      final formData = FormData.fromMap({
+        'username': request.username,
+        'email': request.email,
+        'password1': request.password1,
+        'password2': request.password2,
+      });
+      final Map<String, String> requestHeaders = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-CSRFToken': storedCsrfToken,
+        'Cookie': storedCsrfCookie,
+      };
+      final response = await client.post(
+        '${EndPoints.baseUrl}${EndPoints.signup}',
+        data: formData,
+        options: Options(
+          method: 'POST',
+          headers: requestHeaders,
+          contentType: Headers.formUrlEncodedContentType,
+          followRedirects: true,
+          validateStatus: (status) => status != null && status < 500,
+          receiveDataWhenStatusError: true,
+        ),
+      );
+
+      return response.fold(
+        (error) => Left(error),
+        (result) async {
+          if (result.statusCode == 200) {
+            try {
+              final signupResponse = SignupResponse.fromJson(result.data);
+
+              // Handle tokens from response
+              if (result.data['token'] != null) {
+                await st.setToken(result.data['token']);
+              } else if (result.data['accessToken'] != null) {
+                await st.setToken(result.data['accessToken']);
+              }
+
+              if (result.data['refreshToken'] != null) {
+                await st.setRefreshToken(result.data['refreshToken']);
+              }
+
+              // Handle session ID if present
+              final cookies = result.headers.map['set-cookie'];
+              if (cookies != null) {
+                for (final cookie in cookies) {
+                  if (cookie.contains('sessionid=')) {
+                    final sessionId = cookie.split(';')[0];
+                    await st.setSessionId(sessionId);
+                    break;
+                  }
+                }
+              }
+
+              return Right(signupResponse);
+            } catch (e) {
+              return Left(UnknownException(message: 'Error parsing login response: $e'));
+            }
+          } else if (result.statusCode == 403) {
+            await st.deleteCsrfToken();
+            return Left(AuthenticationException.invalidCredentials());
+          } else {
+            return Left(UnknownException(message: result.statusMessage ?? 'Failed to register'));
+          }
+        },
+      );
     } catch (e) {
       return Left(e is DomainException ? e : UnknownException(message: e.toString()));
     }

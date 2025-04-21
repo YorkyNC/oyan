@@ -9,6 +9,7 @@ import 'package:oyan/src/features/genre/presentation/bloc/genre_bloc.dart';
 import 'package:oyan/src/features/home/domain/usecases/get_book_use_case.dart';
 import 'package:oyan/src/features/home/presentation/bloc/book_bloc.dart';
 import 'package:oyan/src/features/login/domain/usecases/csrf_token_use_case.dart';
+import 'package:oyan/src/features/login/domain/usecases/register_use_case.dart';
 import 'package:oyan/src/features/news/domain/usecases/add_feed_use_case.dart';
 import 'package:oyan/src/features/news/domain/usecases/get_feed_use_case.dart';
 import 'package:oyan/src/features/news/presentation/bloc/news_bloc.dart';
@@ -49,6 +50,7 @@ void manualRegisterServices() {
       getIt<UpdatePasswordUseCase>(),
       getIt<RefreshTokenUseCase>(),
       getIt<CsrfTokenUseCase>(),
+      getIt<RegisterUseCase>(),
     ),
   );
 

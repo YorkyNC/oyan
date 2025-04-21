@@ -21,7 +21,6 @@ SignupResponse _$SignupResponseFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$SignupResponse {
   String get status => throw _privateConstructorUsedError;
-  String? get message => throw _privateConstructorUsedError;
 
   /// Serializes this SignupResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -39,7 +38,7 @@ abstract class $SignupResponseCopyWith<$Res> {
           SignupResponse value, $Res Function(SignupResponse) then) =
       _$SignupResponseCopyWithImpl<$Res, SignupResponse>;
   @useResult
-  $Res call({String status, String? message});
+  $Res call({String status});
 }
 
 /// @nodoc
@@ -58,17 +57,12 @@ class _$SignupResponseCopyWithImpl<$Res, $Val extends SignupResponse>
   @override
   $Res call({
     Object? status = null,
-    Object? message = freezed,
   }) {
     return _then(_value.copyWith(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
     ) as $Val);
   }
 }
@@ -81,7 +75,7 @@ abstract class _$$SignupResponseImplCopyWith<$Res>
       __$$SignupResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String status, String? message});
+  $Res call({String status});
 }
 
 /// @nodoc
@@ -98,17 +92,12 @@ class __$$SignupResponseImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? status = null,
-    Object? message = freezed,
   }) {
     return _then(_$SignupResponseImpl(
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
-      message: freezed == message
-          ? _value.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
   }
 }
@@ -116,19 +105,17 @@ class __$$SignupResponseImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$SignupResponseImpl implements _SignupResponse {
-  const _$SignupResponseImpl({required this.status, this.message});
+  const _$SignupResponseImpl({required this.status});
 
   factory _$SignupResponseImpl.fromJson(Map<String, dynamic> json) =>
       _$$SignupResponseImplFromJson(json);
 
   @override
   final String status;
-  @override
-  final String? message;
 
   @override
   String toString() {
-    return 'SignupResponse(status: $status, message: $message)';
+    return 'SignupResponse(status: $status)';
   }
 
   @override
@@ -136,13 +123,12 @@ class _$SignupResponseImpl implements _SignupResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SignupResponseImpl &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.message, message) || other.message == message));
+            (identical(other.status, status) || other.status == status));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, status, message);
+  int get hashCode => Object.hash(runtimeType, status);
 
   /// Create a copy of SignupResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -162,17 +148,14 @@ class _$SignupResponseImpl implements _SignupResponse {
 }
 
 abstract class _SignupResponse implements SignupResponse {
-  const factory _SignupResponse(
-      {required final String status,
-      final String? message}) = _$SignupResponseImpl;
+  const factory _SignupResponse({required final String status}) =
+      _$SignupResponseImpl;
 
   factory _SignupResponse.fromJson(Map<String, dynamic> json) =
       _$SignupResponseImpl.fromJson;
 
   @override
   String get status;
-  @override
-  String? get message;
 
   /// Create a copy of SignupResponse
   /// with the given fields replaced by the non-null parameter values.

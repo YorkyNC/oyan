@@ -4,6 +4,8 @@ import 'package:oyan/src/core/services/auth/entities/user_entity.dart';
 import 'package:oyan/src/core/services/auth/models/update_password_request.dart';
 import 'package:oyan/src/core/services/auth/models/update_password_response.dart';
 import 'package:oyan/src/features/login/data/models/csrf_token_response.dart';
+import 'package:oyan/src/features/login/data/models/signup_request.dart';
+import 'package:oyan/src/features/login/data/models/signup_response.dart';
 
 import '../../../../core/exceptions/domain_exception.dart';
 import '../../../../core/services/auth/auth_service_impl.dart';
@@ -109,6 +111,19 @@ class AuthRepositoryImpl implements IAuthRepository {
         Log.i(response);
         final UpdatePasswordResponse result = UpdatePasswordResponse(message: response.message);
         return Right(result);
+      });
+    } catch (e) {
+      Log.e(e);
+      return Left(UnknownException(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<DomainException, SignupResponse>> signupUser(SignupRequest body) async {
+    try {
+      final requests = await _authService.signupUser(body);
+      return requests.fold((error) => Left(error), (response) {
+        return Right(response);
       });
     } catch (e) {
       Log.e(e);

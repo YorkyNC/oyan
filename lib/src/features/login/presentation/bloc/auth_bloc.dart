@@ -8,7 +8,10 @@ import 'package:oyan/src/core/services/auth/models/update_password_request.dart'
 import 'package:oyan/src/core/services/auth/models/update_password_response.dart';
 import 'package:oyan/src/core/services/storage/storage_service_impl.dart';
 import 'package:oyan/src/features/login/data/models/csrf_token_response.dart';
+import 'package:oyan/src/features/login/data/models/signup_request.dart';
+import 'package:oyan/src/features/login/data/models/signup_response.dart';
 import 'package:oyan/src/features/login/domain/usecases/csrf_token_use_case.dart';
+import 'package:oyan/src/features/login/domain/usecases/register_use_case.dart';
 
 import '../../../../core/base/base_bloc/bloc/base_bloc.dart';
 import '../../../../core/base/base_usecase/result.dart';
@@ -35,6 +38,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     this._updatePasswordUseCase,
     this._refreshTokenUseCase,
     this._csrfTokenUseCase,
+    this._registerUseCase,
   ) : super(const _Initial());
 
   final LoginUseCase _loginUseCase;
@@ -44,6 +48,7 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   final UpdatePasswordUseCase _updatePasswordUseCase;
   final RefreshTokenUseCase _refreshTokenUseCase;
   final CsrfTokenUseCase _csrfTokenUseCase;
+  final RegisterUseCase _registerUseCase;
   final AuthStateViewModel _viewModel = const AuthStateViewModel();
 
   final StorageServiceImpl st = StorageServiceImpl();
@@ -58,7 +63,23 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
       verify: (_, __) => _verify(event as _Verify, emit as Emitter<AuthState>),
       refreshToken: () => _refreshToken(event as _RefreshToken, emit as Emitter<AuthState>),
       getCsrfToken: () => _getCsrfToken(event as _GetCsrfToken, emit as Emitter<AuthState>),
+      register: (username, email, password1, password2) => _register(event as _Register, emit as Emitter<AuthState>),
     );
+  }
+
+  Future<void> _register(_Register event, Emitter<AuthState> emit) async {
+    emit(const _Loading());
+    final SignupRequest request = SignupRequest(
+      username: event.username,
+      email: event.email,
+      password1: event.password1,
+      password2: event.password2,
+    );
+    final result = await _registerUseCase.call(request);
+    if (result.isSuccessful) {
+      return emit(_Loaded(viewModel: _viewModel.copyWith(signupResponse: result.data)));
+    }
+    return emit(const _Error("Failed to register"));
   }
 
   Future<void> _login(_Login event, Emitter<AuthState> emit) async {

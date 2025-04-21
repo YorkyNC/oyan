@@ -1,12 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/gestures.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/api/client/rest/dio/dio_client.dart';
-import 'package:oyan/src/core/exceptions/domain_exception.dart';
+import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
-import 'package:oyan/src/features/login/data/models/signup_response.dart';
+import 'package:oyan/src/core/router/router.dart';
+import 'package:oyan/src/core/services/injectable/injectable_service.dart';
+import 'package:oyan/src/features/login/presentation/bloc/auth_bloc.dart';
 import 'package:oyan/src/features/login/presentation/components/email_text_form_field.dart';
 import 'package:oyan/src/features/login/presentation/components/password_text_form_field.dart';
 
@@ -26,7 +26,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
   bool isRepeatPasswordVisible = false;
   final _formKey = GlobalKey<FormState>();
   final DioRestClient _dioClient = DioRestClient();
-  final bool _isLoading = false;
+  final authBloc = getIt<AuthBloc>();
 
   @override
   void dispose() {
@@ -39,6 +39,44 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    return BaseBlocWidget<AuthBloc, AuthEvent, AuthState>(
+      bloc: authBloc,
+      builder: (context, state, bloc) {
+        return state.maybeWhen(
+          loading: () => _buildSignUpForm(context, isLoading: true),
+          loaded: (viewModel) {
+            if (viewModel.signupResponse != null) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Account created successfully!'),
+                    backgroundColor: Colors.green,
+                  ),
+                );
+                context.pop();
+                context.pushReplacement(RoutePaths.welcome);
+              });
+            }
+            return _buildSignUpForm(context);
+          },
+          error: (message) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(message),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            });
+            return _buildSignUpForm(context);
+          },
+          orElse: () => _buildSignUpForm(context),
+        );
+      },
+    );
+  }
+
+  Widget _buildSignUpForm(BuildContext context, {bool isLoading = false}) {
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -57,6 +95,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
               const SizedBox(height: 16),
               EmailTextFormField(
                 emailController: emailController,
+                enabled: !isLoading,
               ),
               const SizedBox(height: 16),
               PasswordTextFormField(
@@ -67,6 +106,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
                     isPasswordVisible = !isPasswordVisible;
                   });
                 },
+                enabled: !isLoading,
               ),
               const SizedBox(height: 16),
               PasswordTextFormField(
@@ -79,9 +119,10 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
                     isRepeatPasswordVisible = !isRepeatPasswordVisible;
                   });
                 },
+                enabled: !isLoading,
               ),
               const SizedBox(height: 24),
-              _buildCreateAccountButton(),
+              _buildCreateAccountButton(isLoading: isLoading),
               const SizedBox(height: 16),
               _buildTermsText(),
               const SizedBox(height: 20),
@@ -143,10 +184,26 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
     );
   }
 
-  Widget _buildCreateAccountButton() {
+  Widget _buildCreateAccountButton({bool isLoading = false}) {
     return FilledButton(
-      // onPressed: _isLoading ? null : _handleSignUp,
-      onPressed: () {},
+      onPressed: isLoading
+          ? null
+          : () {
+              if (_formKey.currentState?.validate() ?? false) {
+                if (passwordController.text != repeatPasswordController.text) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Passwords do not match')),
+                  );
+                  return;
+                }
+                authBloc.add(AuthEvent.register(
+                  username: usernameController.text,
+                  email: emailController.text,
+                  password1: passwordController.text,
+                  password2: repeatPasswordController.text,
+                ));
+              }
+            },
       style: FilledButton.styleFrom(
         backgroundColor: const Color(0xff6366F1),
         shape: RoundedRectangleBorder(
@@ -155,7 +212,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
       ),
       child: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: _isLoading
+        child: isLoading
             ? const SizedBox(
                 height: 20,
                 width: 20,
@@ -180,7 +237,7 @@ class _SignUpBottomSheetState extends State<SignUpBottomSheet> {
       TextSpan(
         children: [
           TextSpan(
-            text: 'By signing up, you acknowledge that you have read and understood, and agree to TextTool  ',
+            text: 'By signing up, you acknowledge that you have read and understood, and agree to TextTool ',
             style: GoogleFonts.openSans(
               fontSize: 12,
               fontWeight: FontWeight.w400,

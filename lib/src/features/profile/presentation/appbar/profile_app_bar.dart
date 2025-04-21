@@ -222,6 +222,7 @@ class ProfileAppBarState extends State<ProfileAppBar> {
                       });
                       try {
                         await _authService.logout();
+                        st.clearPreferredGenres();
                         if (context.mounted) {
                           context.pushReplacement(RoutePaths.welcome);
                         }

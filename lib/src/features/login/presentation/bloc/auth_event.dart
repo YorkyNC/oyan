@@ -22,4 +22,11 @@ class AuthEvent with _$AuthEvent {
   }) = _UpdatePassword;
 
   const factory AuthEvent.verify({required String code, required String userId}) = _Verify;
+
+  const factory AuthEvent.register({
+    required String username,
+    required String email,
+    required String password1,
+    required String password2,
+  }) = _Register;
 }

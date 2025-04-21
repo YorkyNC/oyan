@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
+import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/core/widgets/shimmer/shimmer_container.dart';
 import 'package:oyan/src/features/genre/domain/requests/add_genre_request.dart';
@@ -27,95 +29,93 @@ class _GenrePageState extends State<GenrePage> {
       starterEvent: const GenreEvent.getGenre(GetGenreRequest()),
       builder: (context, state, bloc) {
         return state.maybeWhen(
-          orElse: () {
-            return Scaffold(
-              backgroundColor: Colors.white,
-              body: SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    children: [
-                      const SizedBox(height: 16),
-                      const ShimmerContainer(width: double.infinity, height: 50),
-                      const SizedBox(height: 26),
-                      Row(
-                        children: [
-                          const Expanded(child: ShimmerContainer(width: double.infinity, height: 50)),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: const Color(0xffD9D9D9)),
-                              ),
+          loading: () => Scaffold(
+            backgroundColor: Colors.white,
+            body: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 16),
+                    const ShimmerContainer(width: double.infinity, height: 50),
+                    const SizedBox(height: 26),
+                    Row(
+                      children: [
+                        const Expanded(child: ShimmerContainer(width: double.infinity, height: 50)),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(color: const Color(0xffD9D9D9)),
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(height: 9),
-                      Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: const Color(0xffD9D9D9)),
                         ),
+                      ],
+                    ),
+                    const SizedBox(height: 9),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: const Color(0xffD9D9D9)),
                       ),
-                      const SizedBox(height: 9),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: const Color(0xffD9D9D9)),
-                              ),
+                    ),
+                    const SizedBox(height: 9),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(color: const Color(0xffD9D9D9)),
                             ),
                           ),
-                          const SizedBox(width: 10),
-                          const Expanded(child: ShimmerContainer(width: double.infinity, height: 50)),
-                        ],
-                      ),
-                      const SizedBox(height: 9),
-                      Container(
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5),
-                          border: Border.all(color: const Color(0xffD9D9D9)),
                         ),
+                        const SizedBox(width: 10),
+                        const Expanded(child: ShimmerContainer(width: double.infinity, height: 50)),
+                      ],
+                    ),
+                    const SizedBox(height: 9),
+                    Container(
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(color: const Color(0xffD9D9D9)),
                       ),
-                      const SizedBox(height: 9),
-                      Row(
-                        children: [
-                          const Expanded(child: ShimmerContainer(width: double.infinity, height: 50)),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Container(
-                              height: 50,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(color: const Color(0xffD9D9D9)),
-                              ),
+                    ),
+                    const SizedBox(height: 9),
+                    Row(
+                      children: [
+                        const Expanded(child: ShimmerContainer(width: double.infinity, height: 50)),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5),
+                              border: Border.all(color: const Color(0xffD9D9D9)),
                             ),
                           ),
-                        ],
-                      ),
-                      const Spacer(),
-                      const SizedBox(height: 16),
-                      const ShimmerContainer(width: double.infinity, height: 50),
-                      const SizedBox(height: 32),
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    const Spacer(),
+                    const SizedBox(height: 16),
+                    const ShimmerContainer(width: double.infinity, height: 50),
+                    const SizedBox(height: 32),
+                  ],
                 ),
               ),
-            );
-          },
+            ),
+          ),
           error: (error) => Center(child: Text(error)),
           loaded: (viewModel) {
             final genres = viewModel.genres;
@@ -188,6 +188,7 @@ class _GenrePageState extends State<GenrePage> {
                             onPressed: selectedGenres.length == maxSelections
                                 ? () {
                                     bloc.add(GenreEvent.addGenre(AddGenreRequest(genres: selectedGenres.toList())));
+                                    context.push(RoutePaths.home);
                                   }
                                 : null,
                             style: ElevatedButton.styleFrom(
@@ -214,6 +215,7 @@ class _GenrePageState extends State<GenrePage> {
               ),
             );
           },
+          orElse: () => const Center(child: CircularProgressIndicator()),
         );
       },
     );

@@ -6,6 +6,7 @@ import '../../../../../core/api/client/endpoints.dart';
 import '../../../../../core/api/client/headers/api_headers.dart';
 import '../../../../../core/api/client/rest/dio/dio_client.dart';
 import '../../../../../core/exceptions/domain_exception.dart';
+import '../../../../../core/services/csrf/csrf_service.dart';
 import '../../../../../core/services/storage/storage_service_impl.dart';
 import '../../../../../core/utils/loggers/logger.dart';
 import '../../../domain/entities/add_genre_entity.dart';
@@ -21,14 +22,32 @@ class GenreRemoteImpl implements IGenreRemote {
   final StorageServiceImpl st = StorageServiceImpl();
 
   GenreRemoteImpl(this.client);
+
   @override
   Future<Either<DomainException, AddGenreEntity>> addGenre(AddGenreRequest file) async {
     try {
+      final csrfService = CsrfService(client);
+      final csrfResult = await csrfService.fetchCsrfToken();
+      if (csrfResult.isLeft()) {
+        return Left(csrfResult.getLeft().getOrElse(() => UnknownException()));
+      }
+
       final csrfToken = st.getCsrfToken();
+      final csrfCookie = st.getCsrfCookie();
+      final sessionId = st.getSessionId();
+
+      if (csrfToken == null || csrfCookie == null || sessionId == null) {
+        return Left(UnknownException(message: 'CSRF token, cookie or session ID not found'));
+      }
+
+      final csrfCookieValue = csrfToken;
+      final sessionIdValue = sessionId.split('=').last.split(';').first;
+
       final headers = {
-        ...ApiHeaders.headers,
-        if (csrfToken != null) 'X-CSRFToken': csrfToken,
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken,
+        'Cookie': 'csrftoken=$csrfCookieValue; sessionid=$sessionIdValue',
       };
 
       final Either<DomainException, Response<dynamic>> response = await client.post(
@@ -56,9 +75,11 @@ class GenreRemoteImpl implements IGenreRemote {
   Future<Either<DomainException, GenreEntity>> getGenre(GetGenreRequest request) async {
     try {
       final csrfToken = st.getCsrfToken();
+      final csrfCookie = st.getCsrfCookie();
       final headers = {
         ...ApiHeaders.headers,
         if (csrfToken != null) 'X-CSRFToken': csrfToken,
+        // if (csrfCookie != null) 'Cookie': csrfCookie,.
       };
 
       final Either<DomainException, Response<dynamic>> response = await client.get(
