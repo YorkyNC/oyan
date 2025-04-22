@@ -1,9 +1,9 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
-import 'package:oyan/src/features/home/domain/entities/book.dart';
+import 'package:oyan/src/features/comments/domain/entities/get_commets_response.dart';
 
 class ReviewItem extends StatelessWidget {
-  final Book review;
+  final Comment review;
 
   const ReviewItem({
     Key? key,
@@ -19,7 +19,7 @@ class ReviewItem extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Bekzat S.',
+          Text(review.username ?? 'Anonymous',
               style: GoogleFonts.openSans(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
@@ -27,7 +27,7 @@ class ReviewItem extends StatelessWidget {
               )),
           const SizedBox(height: 6),
           Text(
-            review.description ?? '',
+            review.content ?? '',
             style: GoogleFonts.openSans(
               fontSize: 15,
               fontWeight: FontWeight.w400,
@@ -39,7 +39,7 @@ class ReviewItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '14.02.2025',
+                review.createdAt?.toString() ?? '',
                 style: GoogleFonts.openSans(
                   fontSize: 15,
                   fontWeight: FontWeight.w400,
@@ -48,7 +48,7 @@ class ReviewItem extends StatelessWidget {
               ),
               Row(
                 children: [
-                  ..._renderStars(review.rating!, size: 25),
+                  ..._renderStars(review.rate ?? '0', size: 25),
                 ],
               )
             ],
@@ -58,12 +58,12 @@ class ReviewItem extends StatelessWidget {
     );
   }
 
-  List<Widget> _renderStars(String rating, {double size = 16}) {
+  List<Widget> _renderStars(String rating, {double size = 20}) {
     return List.generate(5, (index) {
       return Icon(
-        index < double.parse(rating) ? Icons.star_rounded : Icons.star_outline_rounded,
+        index < double.parse(rating) ? Icons.star_rounded : Icons.star_rounded,
         size: size,
-        color: index < double.parse(rating) ? Colors.yellow : Colors.grey[600],
+        color: index < double.parse(rating) ? Colors.amber : const Color(0xffA2ADD0),
       );
     });
   }

@@ -34,10 +34,11 @@ part 'router_paths.dart';
 GoRouter routerProvider() {
   final StorageServiceImpl st = StorageServiceImpl();
   final String? token = st.getToken();
+  final bool isAuthenticated = st.isLoggedIn;
 
   return GoRouter(
     refreshListenable: st,
-    initialLocation: RoutePaths.welcome,
+    initialLocation: isAuthenticated ? RoutePaths.home : RoutePaths.welcome,
     debugLogDiagnostics: true,
     routes: _routes,
   );

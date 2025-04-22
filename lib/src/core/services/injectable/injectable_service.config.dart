@@ -48,6 +48,18 @@ import 'package:oyan/src/features/chat/domain/usecases/view_message_use_case.dar
     as _i63;
 import 'package:oyan/src/features/class_events/presentation/bloc/class_bloc.dart'
     as _i963;
+import 'package:oyan/src/features/comments/data/datasources/remote/comment_remote_impl.dart'
+    as _i155;
+import 'package:oyan/src/features/comments/data/datasources/remote/i_comment_remote.dart'
+    as _i2;
+import 'package:oyan/src/features/comments/data/repositories/comment_repository_impl.dart'
+    as _i188;
+import 'package:oyan/src/features/comments/domain/repositories/i_comment_repository.dart'
+    as _i391;
+import 'package:oyan/src/features/comments/domain/usecases/add_comment_use_case.dart'
+    as _i29;
+import 'package:oyan/src/features/comments/domain/usecases/get_comment_use_case.dart'
+    as _i359;
 import 'package:oyan/src/features/events/domain/use_cases/get_all_events_use_case.dart'
     as _i967;
 import 'package:oyan/src/features/events/domain/use_cases/get_events_count_use_case.dart'
@@ -116,6 +128,16 @@ import 'package:oyan/src/features/news/domain/usecases/get_post_use_case.dart'
     as _i1054;
 import 'package:oyan/src/features/news/domain/usecases/get_posts_use_case.dart'
     as _i1068;
+import 'package:oyan/src/features/profile/data/datasources/remote/i_profile_remote.dart'
+    as _i543;
+import 'package:oyan/src/features/profile/data/datasources/remote/profile_remote_impl.dart'
+    as _i9;
+import 'package:oyan/src/features/profile/data/repositories/profile_repository_impl.dart'
+    as _i425;
+import 'package:oyan/src/features/profile/domain/repositories/i_profile_repository.dart'
+    as _i246;
+import 'package:oyan/src/features/profile/domain/usecases/get_profile_use_case.dart'
+    as _i73;
 import 'package:oyan/src/features/review/presentation/bloc/review_bloc.dart'
     as _i459;
 
@@ -148,6 +170,15 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i958.AttachmentRemoteImpl(),
       instanceName: 'AttachmentRemoteImpl',
     );
+    gh.lazySingleton<_i2.ICommentRemote>(
+      () => _i155.CommentRemoteImpl(gh<_i140.DioRestClient>()),
+      instanceName: 'CommentRemoteImpl',
+    );
+    gh.lazySingleton<_i391.ICommentRepository>(
+      () => _i188.CommentRepositoryImpl(
+          gh<_i2.ICommentRemote>(instanceName: 'CommentRemoteImpl')),
+      instanceName: 'CommentRepositoryImpl',
+    );
     gh.lazySingleton<_i227.INewsRemote>(
       () => _i47.NewsRemoteImpl(gh<_i140.DioRestClient>()),
       instanceName: 'NewsRemoteImpl',
@@ -166,6 +197,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i513.IGenreRemote>(
       () => _i480.GenreRemoteImpl(gh<_i140.DioRestClient>()),
       instanceName: 'GenreRemoteImpl',
+    );
+    gh.lazySingleton<_i543.IProfileRemote>(
+      () => _i9.ProfileRemoteImpl(gh<_i140.DioRestClient>()),
+      instanceName: 'ProfileRemoteImpl',
     );
     gh.lazySingleton<_i1002.INewsRepository>(
       () => _i924.NewsRepositoryImpl(
@@ -200,6 +235,10 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i967.GetAllEventsUseCase>(),
           gh<_i210.GetEventsCountUseCase>(),
         ));
+    gh.lazySingleton<_i359.GetCommentUseCase>(() => _i359.GetCommentUseCase(
+        gh<_i391.ICommentRepository>(instanceName: 'CommentRepositoryImpl')));
+    gh.lazySingleton<_i29.AddCommentUseCase>(() => _i29.AddCommentUseCase(
+        gh<_i391.ICommentRepository>(instanceName: 'CommentRepositoryImpl')));
     gh.lazySingleton<_i913.IAuthRepository>(
       () => _i871.AuthRepositoryImpl(
           gh<_i877.IAuthService>(instanceName: 'AuthServiceImpl')),
@@ -237,6 +276,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i1002.INewsRepository>(instanceName: 'NewsRepositoryImpl')));
     gh.lazySingleton<_i1068.GetPostsUseCase>(() => _i1068.GetPostsUseCase(
         gh<_i1002.INewsRepository>(instanceName: 'NewsRepositoryImpl')));
+    gh.lazySingleton<_i246.IProfileRepository>(
+      () => _i425.ProfileRepositoryImpl(
+          gh<_i543.IProfileRemote>(instanceName: 'ProfileRemoteImpl')),
+      instanceName: 'ProfileRepositoryImpl',
+    );
     gh.lazySingleton<_i23.IGenreRepository>(
       () => _i35.GenreRepositoryImpl(
           gh<_i513.IGenreRemote>(instanceName: 'GenreRemoteImpl')),
@@ -256,6 +300,8 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i188.IChatRepository>(instanceName: 'ChatRepositoryImpl')));
     gh.lazySingleton<_i1068.GetMessageUseCase>(() => _i1068.GetMessageUseCase(
         gh<_i188.IChatRepository>(instanceName: 'ChatRepositoryImpl')));
+    gh.lazySingleton<_i73.GetProfileUseCase>(() => _i73.GetProfileUseCase(
+        gh<_i246.IProfileRepository>(instanceName: 'ProfileRepositoryImpl')));
     return this;
   }
 }

@@ -172,7 +172,7 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                 ),
 
                 // Tab content
-                _tabController.index == 0 ? BookOverviewTab(book: widget.book) : const BookCommentsTab(reviews: []),
+                _tabController.index == 0 ? BookOverviewTab(book: widget.book) : BookCommentsTab(book: widget.book),
 
                 const SizedBox(height: 21),
                 Row(

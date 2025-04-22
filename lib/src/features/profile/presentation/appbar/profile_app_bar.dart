@@ -8,16 +8,20 @@ import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/auth/i_auth_service.dart';
 import 'package:oyan/src/core/services/storage/storage_service_impl.dart';
-import 'package:oyan/src/features/profile/domain/menu.dart';
+import 'package:oyan/src/features/profile/enum/menu.dart';
 import 'package:path_provider/path_provider.dart';
 
 class ProfileAppBar extends StatefulWidget implements PreferredSizeWidget {
   ProfileAppBar({
     super.key,
     required this.savedAvatarPath,
+    required this.username,
+    required this.name,
   });
 
   final String? savedAvatarPath;
+  final String? username;
+  final String? name;
 
   @override
   State<ProfileAppBar> createState() => ProfileAppBarState();
@@ -87,7 +91,7 @@ class ProfileAppBarState extends State<ProfileAppBar> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Nursultan',
+                          widget.name ?? '',
                           style: GoogleFonts.openSans(
                             fontWeight: FontWeight.w600,
                             fontSize: 20,
@@ -95,7 +99,7 @@ class ProfileAppBarState extends State<ProfileAppBar> {
                           ),
                         ),
                         Text(
-                          '@nurikkz',
+                          '@${widget.username}',
                           style: GoogleFonts.openSans(
                             fontWeight: FontWeight.w600,
                             fontSize: 15,
@@ -226,6 +230,7 @@ class ProfileAppBarState extends State<ProfileAppBar> {
                         if (context.mounted) {
                           context.pushReplacement(RoutePaths.welcome);
                         }
+                        st.deleteUsername();
                       } finally {
                         if (mounted) {
                           setState(() {

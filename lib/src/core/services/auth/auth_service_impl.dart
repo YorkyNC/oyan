@@ -226,6 +226,8 @@ class AuthServiceImpl implements IAuthService {
           if (result.statusCode == 200) {
             try {
               final signInResponse = SignInResponse.fromJson(result.data);
+              print('Login response data: ${result.data}');
+              print('Parsed sign in response: $signInResponse');
 
               // Handle tokens from response
               if (result.data['token'] != null) {
@@ -236,6 +238,14 @@ class AuthServiceImpl implements IAuthService {
 
               if (result.data['refreshToken'] != null) {
                 await st.setRefreshToken(result.data['refreshToken']);
+              }
+
+              // Save username if available
+              if (signInResponse.username != null) {
+                print('Saving username from SignInResponse: ${signInResponse.username}');
+                await st.setUsername(signInResponse.username);
+              } else {
+                print('No username found in SignInResponse');
               }
 
               // Handle session ID if present

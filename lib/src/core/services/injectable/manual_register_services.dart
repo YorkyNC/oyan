@@ -3,6 +3,9 @@ import 'package:oyan/src/core/services/injectable/service_register_proxy.dart';
 import 'package:oyan/src/features/chat/domain/usecases/get_chats_use_case.dart';
 import 'package:oyan/src/features/chat/domain/usecases/get_messages_use_case.dart';
 import 'package:oyan/src/features/chat/presentation/bloc/chat_bloc.dart';
+import 'package:oyan/src/features/comments/bloc/comment_bloc.dart';
+import 'package:oyan/src/features/comments/domain/usecases/add_comment_use_case.dart';
+import 'package:oyan/src/features/comments/domain/usecases/get_comment_use_case.dart';
 import 'package:oyan/src/features/genre/domain/usecases/add_genre_use_case.dart';
 import 'package:oyan/src/features/genre/domain/usecases/get_genre_use_case.dart';
 import 'package:oyan/src/features/genre/presentation/bloc/genre_bloc.dart';
@@ -13,6 +16,8 @@ import 'package:oyan/src/features/login/domain/usecases/register_use_case.dart';
 import 'package:oyan/src/features/news/domain/usecases/add_feed_use_case.dart';
 import 'package:oyan/src/features/news/domain/usecases/get_feed_use_case.dart';
 import 'package:oyan/src/features/news/presentation/bloc/news_bloc.dart';
+import 'package:oyan/src/features/profile/domain/usecases/get_profile_use_case.dart';
+import 'package:oyan/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:oyan/src/features/settings/presentation/bloc/settings_bloc.dart';
 
 import '../../../features/chat/domain/usecases/get_message_use_case.dart';
@@ -67,6 +72,21 @@ void manualRegisterServices() {
       getIt<GetMessageUseCase>(),
       getIt<SendMessageUseCase>(),
       getIt<ViewMessageUseCase>(),
+    ),
+  );
+
+  getIt.registerBloc<CommentBloc>(
+    factory: true,
+    () => CommentBloc(
+      getIt<GetCommentUseCase>(),
+      getIt<AddCommentUseCase>(),
+    ),
+  );
+
+  getIt.registerBloc<ProfileBloc>(
+    factory: true,
+    () => ProfileBloc(
+      getIt<GetProfileUseCase>(),
     ),
   );
 

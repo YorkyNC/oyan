@@ -25,6 +25,7 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
   static const String _csrfTokenExpiryKey = 'CSRF_TOKEN_EXPIRY';
   static const String _csrfCookieKey = 'CSRF_COOKIE';
   static const String _sessionIdKey = 'session_id';
+  static const String _usernameKey = 'USERNAME';
 
   // Device-related keys
   static const String _clientIdKey = 'CLIENT_ID';
@@ -398,5 +399,23 @@ class StorageServiceImpl extends ChangeNotifier implements StorageService {
       await authBox.delete(_preferredGenresKey);
       notifyListeners();
     }
+  }
+
+  @override
+  Future<void> setUsername(String? username) async {
+    if (authBox.isOpen) {
+      await authBox.put(_usernameKey, username);
+      notifyListeners();
+    }
+  }
+
+  @override
+  String? getUsername() {
+    return authBox.get(_usernameKey);
+  }
+
+  Future<void> deleteUsername() async {
+    await authBox.delete(_usernameKey);
+    notifyListeners();
   }
 }

@@ -19,6 +19,8 @@ abstract class StorageService {
   // Language preferences
   Future<void> setLanguageCode(String code);
   String? getLanguageCode();
+  Future<void> setUsername(String? username);
+  String? getUsername();
 
   // Box management
   Future<void> init();
