@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
-import 'package:oyan/src/core/services/storage/storage_service_impl.dart';
 import 'package:oyan/src/features/profile/domain/requests/get_profile_request.dart';
 import 'package:oyan/src/features/profile/presentation/appbar/profile_app_bar.dart';
 import 'package:oyan/src/features/profile/presentation/bloc/profile_bloc.dart';
@@ -33,13 +30,9 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    final storage = StorageServiceImpl();
-    final savedUsername = storage.getUsername() ?? 'test';
-    print('Saved username: $savedUsername');
-
     return BaseBlocWidget<ProfileBloc, ProfileEvent, ProfileState>(
       bloc: getIt<ProfileBloc>(),
-      starterEvent: const ProfileEvent.getProfile(GetProfileRequest(username: 'muha')),
+      starterEvent: ProfileEvent.getProfile(GetProfileRequest(username: st.getUsername() ?? '')),
       builder: (context, state, bloc) {
         return state.maybeWhen(
           orElse: () => const Center(

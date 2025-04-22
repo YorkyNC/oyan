@@ -138,6 +138,8 @@ import 'package:oyan/src/features/profile/domain/repositories/i_profile_reposito
     as _i246;
 import 'package:oyan/src/features/profile/domain/usecases/get_profile_use_case.dart'
     as _i73;
+import 'package:oyan/src/features/profile/domain/usecases/update_profile_use_case.dart'
+    as _i1057;
 import 'package:oyan/src/features/review/presentation/bloc/review_bloc.dart'
     as _i459;
 
@@ -302,6 +304,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i188.IChatRepository>(instanceName: 'ChatRepositoryImpl')));
     gh.lazySingleton<_i73.GetProfileUseCase>(() => _i73.GetProfileUseCase(
         gh<_i246.IProfileRepository>(instanceName: 'ProfileRepositoryImpl')));
+    gh.lazySingleton<_i1057.UpdateProfileUseCase>(() =>
+        _i1057.UpdateProfileUseCase(gh<_i246.IProfileRepository>(
+            instanceName: 'ProfileRepositoryImpl')));
     return this;
   }
 }

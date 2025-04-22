@@ -20,18 +20,21 @@ mixin _$ProfileEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(GetProfileRequest request) getProfile,
+    required TResult Function(UpdateProfileRequest request) updateProfile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(GetProfileRequest request)? getProfile,
+    TResult? Function(UpdateProfileRequest request)? updateProfile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(GetProfileRequest request)? getProfile,
+    TResult Function(UpdateProfileRequest request)? updateProfile,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$ProfileEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetProfile value) getProfile,
+    required TResult Function(_UpdateProfile value) updateProfile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetProfile value)? getProfile,
+    TResult? Function(_UpdateProfile value)? updateProfile,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetProfile value)? getProfile,
+    TResult Function(_UpdateProfile value)? updateProfile,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -120,6 +126,7 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(GetProfileRequest request) getProfile,
+    required TResult Function(UpdateProfileRequest request) updateProfile,
   }) {
     return started();
   }
@@ -129,6 +136,7 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(GetProfileRequest request)? getProfile,
+    TResult? Function(UpdateProfileRequest request)? updateProfile,
   }) {
     return started?.call();
   }
@@ -138,6 +146,7 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(GetProfileRequest request)? getProfile,
+    TResult Function(UpdateProfileRequest request)? updateProfile,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -151,6 +160,7 @@ class _$StartedImpl implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetProfile value) getProfile,
+    required TResult Function(_UpdateProfile value) updateProfile,
   }) {
     return started(this);
   }
@@ -160,6 +170,7 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetProfile value)? getProfile,
+    TResult? Function(_UpdateProfile value)? updateProfile,
   }) {
     return started?.call(this);
   }
@@ -169,6 +180,7 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetProfile value)? getProfile,
+    TResult Function(_UpdateProfile value)? updateProfile,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -264,6 +276,7 @@ class _$GetProfileImpl implements _GetProfile {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(GetProfileRequest request) getProfile,
+    required TResult Function(UpdateProfileRequest request) updateProfile,
   }) {
     return getProfile(request);
   }
@@ -273,6 +286,7 @@ class _$GetProfileImpl implements _GetProfile {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(GetProfileRequest request)? getProfile,
+    TResult? Function(UpdateProfileRequest request)? updateProfile,
   }) {
     return getProfile?.call(request);
   }
@@ -282,6 +296,7 @@ class _$GetProfileImpl implements _GetProfile {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(GetProfileRequest request)? getProfile,
+    TResult Function(UpdateProfileRequest request)? updateProfile,
     required TResult orElse(),
   }) {
     if (getProfile != null) {
@@ -295,6 +310,7 @@ class _$GetProfileImpl implements _GetProfile {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetProfile value) getProfile,
+    required TResult Function(_UpdateProfile value) updateProfile,
   }) {
     return getProfile(this);
   }
@@ -304,6 +320,7 @@ class _$GetProfileImpl implements _GetProfile {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetProfile value)? getProfile,
+    TResult? Function(_UpdateProfile value)? updateProfile,
   }) {
     return getProfile?.call(this);
   }
@@ -313,6 +330,7 @@ class _$GetProfileImpl implements _GetProfile {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetProfile value)? getProfile,
+    TResult Function(_UpdateProfile value)? updateProfile,
     required TResult orElse(),
   }) {
     if (getProfile != null) {
@@ -331,6 +349,165 @@ abstract class _GetProfile implements ProfileEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetProfileImplCopyWith<_$GetProfileImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateProfileImplCopyWith<$Res> {
+  factory _$$UpdateProfileImplCopyWith(
+          _$UpdateProfileImpl value, $Res Function(_$UpdateProfileImpl) then) =
+      __$$UpdateProfileImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({UpdateProfileRequest request});
+
+  $UpdateProfileRequestCopyWith<$Res> get request;
+}
+
+/// @nodoc
+class __$$UpdateProfileImplCopyWithImpl<$Res>
+    extends _$ProfileEventCopyWithImpl<$Res, _$UpdateProfileImpl>
+    implements _$$UpdateProfileImplCopyWith<$Res> {
+  __$$UpdateProfileImplCopyWithImpl(
+      _$UpdateProfileImpl _value, $Res Function(_$UpdateProfileImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of ProfileEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? request = null,
+  }) {
+    return _then(_$UpdateProfileImpl(
+      null == request
+          ? _value.request
+          : request // ignore: cast_nullable_to_non_nullable
+              as UpdateProfileRequest,
+    ));
+  }
+
+  /// Create a copy of ProfileEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UpdateProfileRequestCopyWith<$Res> get request {
+    return $UpdateProfileRequestCopyWith<$Res>(_value.request, (value) {
+      return _then(_value.copyWith(request: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$UpdateProfileImpl implements _UpdateProfile {
+  const _$UpdateProfileImpl(this.request);
+
+  @override
+  final UpdateProfileRequest request;
+
+  @override
+  String toString() {
+    return 'ProfileEvent.updateProfile(request: $request)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateProfileImpl &&
+            (identical(other.request, request) || other.request == request));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, request);
+
+  /// Create a copy of ProfileEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateProfileImplCopyWith<_$UpdateProfileImpl> get copyWith =>
+      __$$UpdateProfileImplCopyWithImpl<_$UpdateProfileImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(GetProfileRequest request) getProfile,
+    required TResult Function(UpdateProfileRequest request) updateProfile,
+  }) {
+    return updateProfile(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(GetProfileRequest request)? getProfile,
+    TResult? Function(UpdateProfileRequest request)? updateProfile,
+  }) {
+    return updateProfile?.call(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(GetProfileRequest request)? getProfile,
+    TResult Function(UpdateProfileRequest request)? updateProfile,
+    required TResult orElse(),
+  }) {
+    if (updateProfile != null) {
+      return updateProfile(request);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetProfile value) getProfile,
+    required TResult Function(_UpdateProfile value) updateProfile,
+  }) {
+    return updateProfile(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetProfile value)? getProfile,
+    TResult? Function(_UpdateProfile value)? updateProfile,
+  }) {
+    return updateProfile?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetProfile value)? getProfile,
+    TResult Function(_UpdateProfile value)? updateProfile,
+    required TResult orElse(),
+  }) {
+    if (updateProfile != null) {
+      return updateProfile(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateProfile implements ProfileEvent {
+  const factory _UpdateProfile(final UpdateProfileRequest request) =
+      _$UpdateProfileImpl;
+
+  UpdateProfileRequest get request;
+
+  /// Create a copy of ProfileEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateProfileImplCopyWith<_$UpdateProfileImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -823,6 +1000,7 @@ abstract class _Error implements ProfileState {
 /// @nodoc
 mixin _$ProfileViewModel {
   ProfileData? get profile => throw _privateConstructorUsedError;
+  UpdateProfileEntity? get updateProfile => throw _privateConstructorUsedError;
 
   /// Create a copy of ProfileViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -837,9 +1015,10 @@ abstract class $ProfileViewModelCopyWith<$Res> {
           ProfileViewModel value, $Res Function(ProfileViewModel) then) =
       _$ProfileViewModelCopyWithImpl<$Res, ProfileViewModel>;
   @useResult
-  $Res call({ProfileData? profile});
+  $Res call({ProfileData? profile, UpdateProfileEntity? updateProfile});
 
   $ProfileDataCopyWith<$Res>? get profile;
+  $UpdateProfileEntityCopyWith<$Res>? get updateProfile;
 }
 
 /// @nodoc
@@ -858,12 +1037,17 @@ class _$ProfileViewModelCopyWithImpl<$Res, $Val extends ProfileViewModel>
   @override
   $Res call({
     Object? profile = freezed,
+    Object? updateProfile = freezed,
   }) {
     return _then(_value.copyWith(
       profile: freezed == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as ProfileData?,
+      updateProfile: freezed == updateProfile
+          ? _value.updateProfile
+          : updateProfile // ignore: cast_nullable_to_non_nullable
+              as UpdateProfileEntity?,
     ) as $Val);
   }
 
@@ -880,6 +1064,20 @@ class _$ProfileViewModelCopyWithImpl<$Res, $Val extends ProfileViewModel>
       return _then(_value.copyWith(profile: value) as $Val);
     });
   }
+
+  /// Create a copy of ProfileViewModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $UpdateProfileEntityCopyWith<$Res>? get updateProfile {
+    if (_value.updateProfile == null) {
+      return null;
+    }
+
+    return $UpdateProfileEntityCopyWith<$Res>(_value.updateProfile!, (value) {
+      return _then(_value.copyWith(updateProfile: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -890,10 +1088,12 @@ abstract class _$$ProfileViewModelImplCopyWith<$Res>
       __$$ProfileViewModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({ProfileData? profile});
+  $Res call({ProfileData? profile, UpdateProfileEntity? updateProfile});
 
   @override
   $ProfileDataCopyWith<$Res>? get profile;
+  @override
+  $UpdateProfileEntityCopyWith<$Res>? get updateProfile;
 }
 
 /// @nodoc
@@ -910,12 +1110,17 @@ class __$$ProfileViewModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? profile = freezed,
+    Object? updateProfile = freezed,
   }) {
     return _then(_$ProfileViewModelImpl(
       profile: freezed == profile
           ? _value.profile
           : profile // ignore: cast_nullable_to_non_nullable
               as ProfileData?,
+      updateProfile: freezed == updateProfile
+          ? _value.updateProfile
+          : updateProfile // ignore: cast_nullable_to_non_nullable
+              as UpdateProfileEntity?,
     ));
   }
 }
@@ -923,15 +1128,19 @@ class __$$ProfileViewModelImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ProfileViewModelImpl implements _ProfileViewModel {
-  const _$ProfileViewModelImpl({this.profile = null});
+  const _$ProfileViewModelImpl(
+      {this.profile = null, this.updateProfile = null});
 
   @override
   @JsonKey()
   final ProfileData? profile;
+  @override
+  @JsonKey()
+  final UpdateProfileEntity? updateProfile;
 
   @override
   String toString() {
-    return 'ProfileViewModel(profile: $profile)';
+    return 'ProfileViewModel(profile: $profile, updateProfile: $updateProfile)';
   }
 
   @override
@@ -939,11 +1148,13 @@ class _$ProfileViewModelImpl implements _ProfileViewModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProfileViewModelImpl &&
-            (identical(other.profile, profile) || other.profile == profile));
+            (identical(other.profile, profile) || other.profile == profile) &&
+            (identical(other.updateProfile, updateProfile) ||
+                other.updateProfile == updateProfile));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, profile);
+  int get hashCode => Object.hash(runtimeType, profile, updateProfile);
 
   /// Create a copy of ProfileViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -956,11 +1167,14 @@ class _$ProfileViewModelImpl implements _ProfileViewModel {
 }
 
 abstract class _ProfileViewModel implements ProfileViewModel {
-  const factory _ProfileViewModel({final ProfileData? profile}) =
-      _$ProfileViewModelImpl;
+  const factory _ProfileViewModel(
+      {final ProfileData? profile,
+      final UpdateProfileEntity? updateProfile}) = _$ProfileViewModelImpl;
 
   @override
   ProfileData? get profile;
+  @override
+  UpdateProfileEntity? get updateProfile;
 
   /// Create a copy of ProfileViewModel
   /// with the given fields replaced by the non-null parameter values.

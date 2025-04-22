@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
+import 'package:oyan/src/core/services/csrf/csrf_service.dart';
+import 'package:oyan/src/features/profile/domain/entities/update_profile_entity.dart';
+import 'package:oyan/src/features/profile/domain/requests/update_profile_requset.dart';
 
 import '../../../../../core/api/client/endpoints.dart';
 import '../../../../../core/api/client/headers/api_headers.dart';
@@ -19,6 +22,57 @@ class ProfileRemoteImpl implements IProfileRemote {
   final StorageServiceImpl st = StorageServiceImpl();
 
   ProfileRemoteImpl(this.client);
+  @override
+  Future<Either<DomainException, UpdateProfileEntity>> updateProfile(UpdateProfileRequest request) async {
+    try {
+      final csrfService = CsrfService(client);
+      final csrfResult = await csrfService.fetchCsrfToken();
+      if (csrfResult.isLeft()) {
+        return Left(csrfResult.getLeft().getOrElse(() => UnknownException()));
+      }
+
+      final csrfToken = st.getCsrfToken();
+      final csrfCookie = st.getCsrfCookie();
+      final sessionId = st.getSessionId();
+
+      if (csrfToken == null || csrfCookie == null || sessionId == null) {
+        return Left(UnknownException(message: 'CSRF token, cookie or session ID not found'));
+      }
+
+      final csrfCookieValue = csrfToken;
+      final sessionIdValue = sessionId.split('=').last.split(';').first;
+
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken,
+        'Cookie': 'csrftoken=$csrfCookieValue; sessionid=$sessionIdValue',
+      };
+
+      final Either<DomainException, Response<dynamic>> response = await client.post(
+        '${EndPoints.baseUrl}/profile/${request.username}/',
+        data: {
+          'name': request.name,
+          'avatar': request.avatar,
+          'bio': request.bio,
+        },
+        options: Options(headers: headers),
+      );
+
+      return response.fold(
+        (error) => Left(error),
+        (result) async {
+          if (result.statusCode == 201) {
+            return Right(UpdateProfileEntity.fromJson(result.data));
+          } else {
+            return Left(UnknownException(message: result.statusMessage));
+          }
+        },
+      );
+    } catch (e) {
+      return Left(NetworkException(message: 'Network error: $e'));
+    }
+  }
 
   @override
   Future<Either<DomainException, ProfileData>> getProfile(GetProfileRequest request) async {

@@ -13,5 +13,6 @@ class ProfileState with _$ProfileState {
 class ProfileViewModel with _$ProfileViewModel {
   const factory ProfileViewModel({
     @Default(null) ProfileData? profile,
+    @Default(null) UpdateProfileEntity? updateProfile,
   }) = _ProfileViewModel;
 }

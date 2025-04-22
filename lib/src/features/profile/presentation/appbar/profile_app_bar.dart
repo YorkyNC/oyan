@@ -8,8 +8,11 @@ import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/auth/i_auth_service.dart';
 import 'package:oyan/src/core/services/storage/storage_service_impl.dart';
+import 'package:oyan/src/features/profile/domain/requests/get_profile_request.dart';
 import 'package:oyan/src/features/profile/enum/menu.dart';
+import 'package:oyan/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
 
 class ProfileAppBar extends StatefulWidget implements PreferredSizeWidget {
   ProfileAppBar({
@@ -212,7 +215,15 @@ class ProfileAppBarState extends State<ProfileAppBar> {
                 onSelected: (Menu item) async {
                   switch (item) {
                     case Menu.changeInformation:
-                      context.push(RoutePaths.changeInformation);
+                      final updated = await context.push<bool>(RoutePaths.changeInformation);
+                      if (updated == true && context.mounted) {
+                        final profileBloc = context.read<ProfileBloc>();
+                        profileBloc.add(
+                          ProfileEvent.getProfile(
+                            GetProfileRequest(username: st.getUsername() ?? ''),
+                          ),
+                        );
+                      }
                     case Menu.chooseAPhoto:
                       final newAvatarPath = await context.push<String?>(RoutePaths.chooseAPhoto);
                       if (newAvatarPath != null) {

@@ -17,6 +17,7 @@ import 'package:oyan/src/features/news/domain/usecases/add_feed_use_case.dart';
 import 'package:oyan/src/features/news/domain/usecases/get_feed_use_case.dart';
 import 'package:oyan/src/features/news/presentation/bloc/news_bloc.dart';
 import 'package:oyan/src/features/profile/domain/usecases/get_profile_use_case.dart';
+import 'package:oyan/src/features/profile/domain/usecases/update_profile_use_case.dart';
 import 'package:oyan/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:oyan/src/features/settings/presentation/bloc/settings_bloc.dart';
 
@@ -87,6 +88,7 @@ void manualRegisterServices() {
     factory: true,
     () => ProfileBloc(
       getIt<GetProfileUseCase>(),
+      getIt<UpdateProfileUseCase>(),
     ),
   );
 
