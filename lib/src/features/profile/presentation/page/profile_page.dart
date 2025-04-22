@@ -4,11 +4,13 @@ import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
+import 'package:oyan/src/core/widgets/shimmer/shimmer_container.dart';
 import 'package:oyan/src/features/profile/domain/requests/get_profile_request.dart';
 import 'package:oyan/src/features/profile/presentation/appbar/profile_app_bar.dart';
 import 'package:oyan/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:oyan/src/features/profile/presentation/custrom_filled_button.dart';
 import 'package:oyan/src/features/profile/presentation/language_selector.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -30,13 +32,102 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = context.colors;
     return BaseBlocWidget<ProfileBloc, ProfileEvent, ProfileState>(
       bloc: getIt<ProfileBloc>(),
       starterEvent: ProfileEvent.getProfile(GetProfileRequest(username: st.getUsername() ?? '')),
       builder: (context, state, bloc) {
         return state.maybeWhen(
-          orElse: () => const Center(
-            child: CircularProgressIndicator(color: Colors.amber),
+          orElse: () => Scaffold(
+            backgroundColor: Colors.white,
+            appBar: AppBar(
+              backgroundColor: Colors.white,
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Shimmer(
+                  gradient: colors.gradientGray80060090deg,
+                  direction: ShimmerDirection.ltr,
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: colors.gray600.withOpacity(0.2),
+                      // borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: const SizedBox(),
+                  ),
+                ),
+              ),
+              title: const ShimmerContainer(
+                width: 50,
+                height: 30,
+              ),
+              centerTitle: false,
+              actions: const [
+                Padding(
+                  padding: EdgeInsets.only(right: 20),
+                  child: ShimmerContainer(
+                    width: 50,
+                    height: 30,
+                  ),
+                ),
+              ],
+            ),
+            body: const SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ShimmerContainer(
+                        width: 50,
+                        height: 16,
+                      ),
+                      SizedBox(height: 8),
+                      ShimmerContainer(
+                        width: double.infinity,
+                        height: 68,
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 30),
+                  ShimmerContainer(
+                    width: double.infinity,
+                    height: 50,
+                  ),
+                  SizedBox(height: 30),
+                  ShimmerContainer(
+                    width: double.infinity,
+                    height: 260,
+                  ),
+                  SizedBox(height: 30),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ShimmerContainer(
+                        width: 50,
+                        height: 50,
+                      ),
+                      SizedBox(width: 10),
+                      ShimmerContainer(
+                        width: 50,
+                        height: 50,
+                      ),
+                      SizedBox(width: 10),
+                      ShimmerContainer(
+                        width: 50,
+                        height: 50,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
           ),
           error: (error) => Center(
             child: Text(
