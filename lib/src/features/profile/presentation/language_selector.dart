@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:oyan/src/core/extensions/build_context_extension.dart';
+import 'package:oyan/src/core/localization/localization_controller.dart';
 
 class LanguageSelector extends StatefulWidget {
   const LanguageSelector({super.key});
@@ -10,46 +10,89 @@ class LanguageSelector extends StatefulWidget {
 }
 
 class _LanguageSelectorState extends State<LanguageSelector> {
-  String _selectedLanguage = 'en';
+  final LanguageController _languageController = LanguageController();
 
-  final List<String> _languages = ['en', 'ru', 'kz'];
+  String get _currentLanguage => _languageController.currentLanguage;
 
-  void _selectLanguage(String language) {
-    setState(() {
-      _selectedLanguage = language;
-    });
-    // Here you would typically handle the language change in your app
-    // For example: context.read<LocalizationProvider>().setLanguage(language);
+  // List of supported languages
+  final List<String> _languages = ['en', 'ru'];
+
+  @override
+  void initState() {
+    super.initState();
+    // Listen to changes and update UI
+    _languageController.languageNotifier.addListener(_onLanguageChanged);
+  }
+
+  void _onLanguageChanged() {
+    if (mounted) setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _languageController.languageNotifier.removeListener(_onLanguageChanged);
+    super.dispose();
+  }
+
+  Future<void> _changeLanguage(String languageCode) async {
+    await _languageController.setLanguage(languageCode);
+  }
+
+  String _getLanguageName(String code) {
+    switch (code) {
+      case 'en':
+        return 'English';
+      case 'ru':
+        return 'Русский';
+      default:
+        return 'English';
+    }
+  }
+
+  String _getLanguageDisplayText(String code) {
+    switch (code) {
+      case 'en':
+        return 'EN';
+      case 'ru':
+        return 'RU';
+      default:
+        return 'EN';
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: _languages.map((language) {
-        final isSelected = language == _selectedLanguage;
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: _languages.map((language) {
+          final isSelected = language == _currentLanguage;
 
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
-          child: LanguageButton(
-            language: language,
-            isSelected: isSelected,
-            onTap: () => _selectLanguage(language),
-          ),
-        );
-      }).toList(),
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            child: _LanguageButton(
+              languageCode: language,
+              displayText: _getLanguageDisplayText(language),
+              isSelected: isSelected,
+              onTap: () => _changeLanguage(language),
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 }
 
-class LanguageButton extends StatelessWidget {
-  final String language;
+class _LanguageButton extends StatelessWidget {
+  final String languageCode;
+  final String displayText;
   final bool isSelected;
   final VoidCallback onTap;
 
-  const LanguageButton({
-    super.key,
-    required this.language,
+  const _LanguageButton({
+    required this.languageCode,
+    required this.displayText,
     required this.isSelected,
     required this.onTap,
   });
@@ -61,11 +104,11 @@ class LanguageButton extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
-          color: isSelected ? context.colors.main : const Color(0xFFF5F5F5),
+          color: isSelected ? const Color(0xFF3F51B5) : const Color(0xFFF5F5F5),
         ),
         padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 14),
         child: Text(
-          language.toUpperCase(),
+          displayText,
           style: GoogleFonts.openSans(
             fontSize: 17,
             fontWeight: FontWeight.w600,

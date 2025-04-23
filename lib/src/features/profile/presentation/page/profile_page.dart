@@ -193,7 +193,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 _buildDivider(),
                                 _buildMenuItem(
                                   icon: Icons.notifications_outlined,
-                                  title: context.loc.notification,
+                                  title: context.loc.notifications,
                                   onTap: () {
                                     context.push(RoutePaths.notification);
                                   },
@@ -301,3 +301,183 @@ Widget _buildMenuItem({
 Widget _buildDivider() {
   return const Divider();
 }
+
+// class LanguageSelector extends StatefulWidget {
+//   const LanguageSelector({super.key});
+
+//   @override
+//   State<LanguageSelector> createState() => _LanguageSelectorState();
+// }
+
+// class _LanguageSelectorState extends State<LanguageSelector> {
+//   final LanguageController _languageController = LanguageController();
+
+//   String get _currentLanguage => _languageController.currentLanguage;
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     // Listen to changes and update UI
+//     _languageController.languageNotifier.addListener(_onLanguageChanged);
+//   }
+
+//   void _onLanguageChanged() {
+//     if (mounted) setState(() {});
+//   }
+
+//   @override
+//   void dispose() {
+//     _languageController.languageNotifier.removeListener(_onLanguageChanged);
+//     super.dispose();
+//   }
+
+//   Future<void> _changeLanguage(String languageCode) async {
+//     await _languageController.setLanguage(languageCode);
+//   }
+
+//   String _getLanguageName(String code) {
+//     switch (code) {
+//       case 'en':
+//         return 'English';
+//       case 'ru':
+//         return 'Русский';
+//       default:
+//         return 'English';
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Material(
+//       color: context.colors.white,
+//       borderRadius: BorderRadius.circular(12),
+//       child: InkWell(
+//         borderRadius: BorderRadius.circular(12),
+//         onTap: () {
+//           _showLanguageOptions(context);
+//         },
+//         child: ListTile(
+//           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+//           contentPadding: EdgeInsets.zero,
+//           title: Padding(
+//             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+//             child: Text(
+//               'Язык приложения',
+//               style: context.typography.textmdSemibold.copyWith(
+//                 color: context.colors.black,
+//               ),
+//             ),
+//           ),
+//           subtitle: Padding(
+//             padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+//             child: Text(
+//               _getLanguageName(_currentLanguage),
+//               style: context.typography.textsmRegular.copyWith(
+//                 color: context.colors.gray600,
+//               ),
+//             ),
+//           ),
+//           trailing: Padding(
+//             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+//             child: Icon(
+//               context.icons.chevron_right,
+//               color: context.colors.gray400,
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+
+//   void _showLanguageOptions(BuildContext context) {
+//     showModalBottomSheet(
+//       constraints: BoxConstraints(
+//         maxHeight: MediaQuery.of(context).size.height * 0.4,
+//       ),
+//       backgroundColor: context.colors.white,
+//       useSafeArea: true,
+//       useRootNavigator: true,
+//       context: context,
+//       builder: (context) {
+//         return SafeArea(
+//           bottom: true,
+//           child: CustomScrollView(
+//             shrinkWrap: true,
+//             slivers: [
+//               SliverPadding(
+//                 padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+//                 sliver: SliverToBoxAdapter(
+//                   child: Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Text(
+//                         'Выбор языка',
+//                         style: context.typography.textlgSemibold.copyWith(
+//                           color: context.colors.black,
+//                         ),
+//                       ),
+//                       IconButton(
+//                         onPressed: () => context.pop(),
+//                         icon: Icon(
+//                           context.icons.delete_1__remove_add_button_buttons_delete_cross_x_mathematics_multiply_math,
+//                           color: context.colors.black,
+//                         ),
+//                         constraints: const BoxConstraints(),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//               SliverList(
+//                 delegate: SliverChildListDelegate([
+//                   _buildLanguageOption(context, 'English', 'en'),
+//                   _buildLanguageOption(context, 'Русский', 'ru'),
+//                 ]),
+//               ),
+//             ],
+//           ),
+//         );
+//       },
+//     );
+//   }
+
+//   Widget _buildLanguageOption(BuildContext context, String name, String code) {
+//     final isSelected = _currentLanguage == code;
+
+//     return Padding(
+//       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+//       child: Material(
+//         color: isSelected ? context.colors.success500 : context.colors.white,
+//         borderRadius: BorderRadius.circular(12),
+//         child: InkWell(
+//           borderRadius: BorderRadius.circular(12),
+//           onTap: () {
+//             _changeLanguage(code);
+//             context.pop();
+//           },
+//           child: Container(
+//             padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+//             decoration: BoxDecoration(
+//               borderRadius: BorderRadius.circular(12),
+//               border: Border.all(
+//                 color: isSelected ? context.colors.white : context.colors.gray300,
+//               ),
+//             ),
+//             child: Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 Text(
+//                   name,
+//                   style: context.typography.textmdSemibold.copyWith(
+//                     color: isSelected ? context.colors.white : context.colors.black,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

@@ -10,8 +10,6 @@ MaterialApp _buildApp(AppFlavor flavor, GoRouter router, String languageCode) {
       return staging(router, languageCode);
     case AppFlavor.production:
       return production(router, languageCode);
-    default:
-      return development(router, languageCode);
   }
 }
 
@@ -39,6 +37,12 @@ MaterialApp development(GoRouter router, String languageCode) => MaterialApp.rou
 
       // Other
       debugShowCheckedModeBanner: true,
+
+      builder: (context, child) {
+        return NetworkAwareWidget(
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
     );
 
 MaterialApp staging(GoRouter router, String languageCode) => MaterialApp.router(
@@ -65,6 +69,13 @@ MaterialApp staging(GoRouter router, String languageCode) => MaterialApp.router(
 
       // Other
       debugShowCheckedModeBanner: false,
+
+      // Add builder for network awareness
+      builder: (context, child) {
+        return NetworkAwareWidget(
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
     );
 
 MaterialApp production(GoRouter router, String languageCode) => MaterialApp.router(
@@ -92,4 +103,10 @@ MaterialApp production(GoRouter router, String languageCode) => MaterialApp.rout
 
       // Other
       debugShowCheckedModeBanner: false,
+
+      builder: (context, child) {
+        return NetworkAwareWidget(
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
     );
