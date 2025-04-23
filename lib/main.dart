@@ -19,12 +19,8 @@ void main([List<String>? args, AppFlavor flavor = AppFlavor.production]) async {
   // await FirebaseManager.initialize();
   // Initialize chat service
   // await ChatService.initializeChat();
-
-  // UIHelpers.statusBarTheme();
-  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-  // await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
   // Prevent landscape mode
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (_) {
       runApp(

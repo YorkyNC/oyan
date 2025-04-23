@@ -95,7 +95,6 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                     children: [
                       const SizedBox(height: 16),
 
-                      // Book cover
                       Container(
                         width: 206.61761474609375,
                         height: 283.0863952636719,
