@@ -3,8 +3,10 @@ import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:oyan/src/core/services/csrf/csrf_service.dart';
 import 'package:oyan/src/features/home/domain/entities/add_my_book_entity.dart';
+import 'package:oyan/src/features/home/domain/entities/get_book_by_id_entity.dart';
 import 'package:oyan/src/features/home/domain/entities/get_my_books_entity.dart';
 import 'package:oyan/src/features/home/domain/requests/add_my_books_request.dart';
+import 'package:oyan/src/features/home/domain/requests/get_book_by_id_request.dart';
 import 'package:oyan/src/features/home/domain/requests/my_book_request.dart';
 
 import '../../../../../core/api/client/endpoints.dart';
@@ -24,6 +26,22 @@ class BookRemoteImpl implements IBookRemote {
   final StorageServiceImpl st = StorageServiceImpl();
 
   BookRemoteImpl(this.client);
+  @override
+  Future<Either<DomainException, GetBookByIdEntity>> getBookById(GetBookByIdRequest file) async {
+    try {
+      final Either<DomainException, Response<dynamic>> response = await client.get(
+        '${EndPoints.baseUrl}/books/${file.bookId}/',
+        options: ApiHeaders.dioOptions,
+      );
+
+      return response.fold((error) => Left(error), (result) {
+        return Right(GetBookByIdEntity.fromJson(result.data));
+      });
+    } catch (e) {
+      Log.e(e);
+      return Left(UnknownException(message: e.toString()));
+    }
+  }
 
   @override
   Future<Either<DomainException, GetBooksEntity>> getBook(GetBookRequest request) async {
@@ -39,18 +57,15 @@ class BookRemoteImpl implements IBookRemote {
         queryParameters: queryParameters,
       );
 
-      return response.fold(
-        (error) => Left(error),
-        (result) async {
-          if (result.statusCode == 401) {
-            return Left(AuthenticationException.invalidCredentials());
-          }
-          print('Raw API Response: ${result.data}');
-          final entity = GetBooksEntity.fromJson(result.data);
-          print('Parsed Entity: ${entity.results?.map((e) => '${e.title}: ${e.coverImageUrl}').toList()}');
-          return Right(entity);
-        },
-      );
+      return response.fold((error) => Left(error), (result) async {
+        if (result.statusCode == 401) {
+          return Left(AuthenticationException.invalidCredentials());
+        }
+        print('Raw API Response: ${result.data}');
+        final entity = GetBooksEntity.fromJson(result.data);
+        print('Parsed Entity: ${entity.results?.map((e) => '${e.title}: ${e.coverImageUrl}').toList()}');
+        return Right(entity);
+      });
     } catch (e) {
       Log.e(e);
       return Left(UnknownException(message: e.toString()));
@@ -60,9 +75,7 @@ class BookRemoteImpl implements IBookRemote {
   @override
   Future<Either<DomainException, GetMyBooksEntity>> getMyBook(MyBookRequest request) async {
     try {
-      final queryParameters = <String, dynamic>{
-        'filter': request.filter,
-      };
+      final queryParameters = <String, dynamic>{'filter': request.filter};
 
       final Either<DomainException, Response<dynamic>> response = await client.get(
         '${EndPoints.baseUrl}/profile/${request.username}/books/',
@@ -70,13 +83,10 @@ class BookRemoteImpl implements IBookRemote {
         queryParameters: queryParameters,
       );
 
-      return response.fold(
-        (error) => Left(error),
-        (result) {
-          final entity = GetMyBooksEntity.fromJson(result.data);
-          return Right(entity);
-        },
-      );
+      return response.fold((error) => Left(error), (result) {
+        final entity = GetMyBooksEntity.fromJson(result.data);
+        return Right(entity);
+      });
     } catch (e) {
       Log.e(e);
       return Left(UnknownException(message: e.toString()));
@@ -112,25 +122,18 @@ class BookRemoteImpl implements IBookRemote {
 
       final Either<DomainException, Response<dynamic>> response = await client.post(
         '${EndPoints.baseUrl}/profile/${file.username}/books/',
-        queryParameters: {
-          'filter': file.filter,
-        },
-        data: {
-          'book_id': file.bookId,
-        },
+        queryParameters: {'filter': file.filter},
+        data: {'book_id': file.bookId},
         options: Options(headers: headers),
       );
 
-      return response.fold(
-        (error) => Left(error),
-        (result) async {
-          if (result.statusCode == 200 || result.statusCode == 201) {
-            return Right(AddMyBookEntity.fromJson(result.data));
-          } else {
-            return Left(UnknownException(message: result.statusMessage));
-          }
-        },
-      );
+      return response.fold((error) => Left(error), (result) async {
+        if (result.statusCode == 200 || result.statusCode == 201) {
+          return Right(AddMyBookEntity.fromJson(result.data));
+        } else {
+          return Left(UnknownException(message: result.statusMessage));
+        }
+      });
     } catch (e) {
       return Left(NetworkException(message: 'Network error: $e'));
     }

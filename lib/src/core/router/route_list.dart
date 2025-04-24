@@ -252,7 +252,8 @@ List<RouteBase> _routes = [
       return getPage(
         child: BlocProvider(
           create: (context) => getIt<BookBloc>(),
-          child: BookInformationPage(book: book ?? const Book()),
+          child:
+              BookInformationPage(book: book ?? const Book(), id: (data as Map<String, dynamic>?)?['id'] as int? ?? 0),
         ),
         state: state,
       );

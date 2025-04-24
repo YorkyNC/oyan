@@ -1,6 +1,8 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:oyan/src/features/home/domain/entities/add_my_book_entity.dart';
+import 'package:oyan/src/features/home/domain/entities/get_book_by_id_entity.dart';
 import 'package:oyan/src/features/home/domain/requests/add_my_books_request.dart';
+import 'package:oyan/src/features/home/domain/requests/get_book_by_id_request.dart';
 
 import '../../../../../core/exceptions/domain_exception.dart';
 import '../../../domain/entities/get_books_entity.dart';
@@ -17,5 +19,8 @@ abstract class IBookRemote {
   );
   Future<Either<DomainException, AddMyBookEntity>> addMyBook(
     AddMyBooksRequest file,
+  );
+  Future<Either<DomainException, GetBookByIdEntity>> getBookById(
+    GetBookByIdRequest file,
   );
 }

@@ -152,7 +152,7 @@ class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProvide
                                 onReadPressed: () {
                                   context.push(
                                     RoutePaths.booksDetails,
-                                    extra: book,
+                                    extra: {'book': book, 'id': book.book},
                                   );
                                 },
                               ),
