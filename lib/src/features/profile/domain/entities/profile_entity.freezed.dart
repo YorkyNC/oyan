@@ -35,12 +35,14 @@ mixin _$ProfileData {
   /// Create a copy of ProfileData
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
-  $ProfileDataCopyWith<ProfileData> get copyWith => throw _privateConstructorUsedError;
+  $ProfileDataCopyWith<ProfileData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
 abstract class $ProfileDataCopyWith<$Res> {
-  factory $ProfileDataCopyWith(ProfileData value, $Res Function(ProfileData) then) =
+  factory $ProfileDataCopyWith(
+          ProfileData value, $Res Function(ProfileData) then) =
       _$ProfileDataCopyWithImpl<$Res, ProfileData>;
   @useResult
   $Res call(
@@ -55,7 +57,8 @@ abstract class $ProfileDataCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ProfileDataCopyWithImpl<$Res, $Val extends ProfileData> implements $ProfileDataCopyWith<$Res> {
+class _$ProfileDataCopyWithImpl<$Res, $Val extends ProfileData>
+    implements $ProfileDataCopyWith<$Res> {
   _$ProfileDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
@@ -115,8 +118,10 @@ class _$ProfileDataCopyWithImpl<$Res, $Val extends ProfileData> implements $Prof
 }
 
 /// @nodoc
-abstract class _$$ProfileDataImplCopyWith<$Res> implements $ProfileDataCopyWith<$Res> {
-  factory _$$ProfileDataImplCopyWith(_$ProfileDataImpl value, $Res Function(_$ProfileDataImpl) then) =
+abstract class _$$ProfileDataImplCopyWith<$Res>
+    implements $ProfileDataCopyWith<$Res> {
+  factory _$$ProfileDataImplCopyWith(
+          _$ProfileDataImpl value, $Res Function(_$ProfileDataImpl) then) =
       __$$ProfileDataImplCopyWithImpl<$Res>;
   @override
   @useResult
@@ -132,9 +137,11 @@ abstract class _$$ProfileDataImplCopyWith<$Res> implements $ProfileDataCopyWith<
 }
 
 /// @nodoc
-class __$$ProfileDataImplCopyWithImpl<$Res> extends _$ProfileDataCopyWithImpl<$Res, _$ProfileDataImpl>
+class __$$ProfileDataImplCopyWithImpl<$Res>
+    extends _$ProfileDataCopyWithImpl<$Res, _$ProfileDataImpl>
     implements _$$ProfileDataImplCopyWith<$Res> {
-  __$$ProfileDataImplCopyWithImpl(_$ProfileDataImpl _value, $Res Function(_$ProfileDataImpl) _then)
+  __$$ProfileDataImplCopyWithImpl(
+      _$ProfileDataImpl _value, $Res Function(_$ProfileDataImpl) _then)
       : super(_value, _then);
 
   /// Create a copy of ProfileData
@@ -202,7 +209,8 @@ class _$ProfileDataImpl implements _ProfileData {
       this.createdAt})
       : _preferredGenres = preferredGenres;
 
-  factory _$ProfileDataImpl.fromJson(Map<String, dynamic> json) => _$$ProfileDataImplFromJson(json);
+  factory _$ProfileDataImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ProfileDataImplFromJson(json);
 
   @override
   final String? username;
@@ -239,20 +247,32 @@ class _$ProfileDataImpl implements _ProfileData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ProfileDataImpl &&
-            (identical(other.username, username) || other.username == username) &&
+            (identical(other.username, username) ||
+                other.username == username) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
-            (identical(other.dateOfBirth, dateOfBirth) || other.dateOfBirth == dateOfBirth) &&
+            (identical(other.dateOfBirth, dateOfBirth) ||
+                other.dateOfBirth == dateOfBirth) &&
             (identical(other.bio, bio) || other.bio == bio) &&
-            const DeepCollectionEquality().equals(other._preferredGenres, _preferredGenres) &&
-            (identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+            const DeepCollectionEquality()
+                .equals(other._preferredGenres, _preferredGenres) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, username, name, email, avatar, dateOfBirth, bio,
-      const DeepCollectionEquality().hash(_preferredGenres), createdAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      username,
+      name,
+      email,
+      avatar,
+      dateOfBirth,
+      bio,
+      const DeepCollectionEquality().hash(_preferredGenres),
+      createdAt);
 
   /// Create a copy of ProfileData
   /// with the given fields replaced by the non-null parameter values.
@@ -281,7 +301,8 @@ abstract class _ProfileData implements ProfileData {
       final List<int>? preferredGenres,
       final String? createdAt}) = _$ProfileDataImpl;
 
-  factory _ProfileData.fromJson(Map<String, dynamic> json) = _$ProfileDataImpl.fromJson;
+  factory _ProfileData.fromJson(Map<String, dynamic> json) =
+      _$ProfileDataImpl.fromJson;
 
   @override
   String? get username;
@@ -304,5 +325,6 @@ abstract class _ProfileData implements ProfileData {
   /// with the given fields replaced by the non-null parameter values.
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$ProfileDataImplCopyWith<_$ProfileDataImpl> get copyWith => throw _privateConstructorUsedError;
+  _$$ProfileDataImplCopyWith<_$ProfileDataImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

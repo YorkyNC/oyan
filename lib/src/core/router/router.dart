@@ -11,6 +11,7 @@ import 'package:oyan/src/features/home/presentation/home_page.dart';
 import 'package:oyan/src/features/my-books/presentation/book_information_page.dart';
 import 'package:oyan/src/features/my-books/presentation/my_books_page.dart';
 import 'package:oyan/src/features/my-books/presentation/see_all_page.dart';
+import 'package:oyan/src/features/my-books/read_book_page.dart';
 import 'package:oyan/src/features/profile/presentation/page/achivement_page.dart';
 import 'package:oyan/src/features/profile/presentation/page/change_information_page.dart';
 import 'package:oyan/src/features/profile/presentation/page/choose_a_photo_page.dart';

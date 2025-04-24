@@ -1,6 +1,7 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
+import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/features/home/domain/entities/book.dart';
 import 'package:oyan/src/features/my-books/presentation/book_comments_tab.dart';
 import 'package:oyan/src/features/my-books/presentation/book_overview_tab.dart';
@@ -185,7 +186,9 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                             borderRadius: BorderRadius.circular(5),
                           ),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          context.push(RoutePaths.readBook, extra: {'book': widget.book});
+                        },
                         child: Text(
                           'Read book',
                           style: GoogleFonts.openSans(

@@ -88,6 +88,8 @@ import 'package:oyan/src/features/home/domain/repositories/i_book_repository.dar
     as _i842;
 import 'package:oyan/src/features/home/domain/usecases/get_book_use_case.dart'
     as _i446;
+import 'package:oyan/src/features/home/domain/usecases/get_my_book_use_case.dart'
+    as _i24;
 import 'package:oyan/src/features/login/data/repositories/i_auth_repository.dart'
     as _i913;
 import 'package:oyan/src/features/login/domain/repositories/auth_repository_impl.dart'
@@ -266,6 +268,8 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i913.IAuthRepository>(instanceName: 'AuthRepositoryImpl')));
     gh.lazySingleton<_i446.GetBookUseCase>(() => _i446.GetBookUseCase(
         gh<_i842.IBookRepository>(instanceName: 'BookRepositoryImpl')));
+    gh.lazySingleton<_i24.GetMyBookUseCase>(() => _i24.GetMyBookUseCase(
+        gh<_i842.IBookRepository>(instanceName: 'BookRepositoryImpl')));
     gh.lazySingleton<_i231.AddPostUseCase>(() => _i231.AddPostUseCase(
         gh<_i1002.INewsRepository>(instanceName: 'NewsRepositoryImpl')));
     gh.lazySingleton<_i644.AddFeedUseCase>(() => _i644.AddFeedUseCase(
@@ -302,11 +306,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i188.IChatRepository>(instanceName: 'ChatRepositoryImpl')));
     gh.lazySingleton<_i1068.GetMessageUseCase>(() => _i1068.GetMessageUseCase(
         gh<_i188.IChatRepository>(instanceName: 'ChatRepositoryImpl')));
-    gh.lazySingleton<_i73.GetProfileUseCase>(() => _i73.GetProfileUseCase(
-        gh<_i246.IProfileRepository>(instanceName: 'ProfileRepositoryImpl')));
     gh.lazySingleton<_i1057.UpdateProfileUseCase>(() =>
         _i1057.UpdateProfileUseCase(gh<_i246.IProfileRepository>(
             instanceName: 'ProfileRepositoryImpl')));
+    gh.lazySingleton<_i73.GetProfileUseCase>(() => _i73.GetProfileUseCase(
+        gh<_i246.IProfileRepository>(instanceName: 'ProfileRepositoryImpl')));
     return this;
   }
 }

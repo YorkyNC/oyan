@@ -5,4 +5,5 @@ class BookEvent with _$BookEvent {
   const factory BookEvent.started() = _Started;
 
   const factory BookEvent.getBooks(GetBookRequest request) = _GetBooks;
+  const factory BookEvent.getMyBooks(MyBookRequest request) = _GetMyBooks;
 }

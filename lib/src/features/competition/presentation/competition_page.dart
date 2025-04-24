@@ -34,10 +34,11 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
           'Competition',
           style: TextStyle(
             fontSize: 20,
-            fontWeight: FontWeight.bold,
+            fontWeight: FontWeight.w600,
             color: Colors.black,
           ),
         ),
+        centerTitle: false,
         backgroundColor: Colors.white,
         elevation: 0,
       ),

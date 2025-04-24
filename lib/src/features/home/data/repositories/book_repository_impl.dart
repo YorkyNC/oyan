@@ -1,5 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
+import 'package:oyan/src/features/home/domain/entities/get_my_books_entity.dart';
+import 'package:oyan/src/features/home/domain/requests/my_book_request.dart';
 
 import '../../../../core/exceptions/domain_exception.dart';
 import '../../../../core/utils/loggers/logger.dart';
@@ -19,6 +21,23 @@ class BookRepositoryImpl implements IBookRepository {
   Future<Either<DomainException, GetBooksEntity>> getBook(GetBookRequest file) async {
     try {
       final requests = await bookImpl.getBook(file);
+
+      return requests.fold(
+        (error) => Left(error),
+        (result) {
+          return Right(result);
+        },
+      );
+    } catch (e) {
+      Log.e(e);
+      return Left(UnknownException(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<DomainException, GetMyBooksEntity>> getMyBook(MyBookRequest file) async {
+    try {
+      final requests = await bookImpl.getMyBook(file);
 
       return requests.fold(
         (error) => Left(error),

@@ -31,4 +31,5 @@ class RoutePaths {
   static const String newHitsStrory = '/new-hits-story';
   static const String seeAll = '/see-all';
   static const String genre = '/genre';
+  static const String readBook = '/read-book';
 }

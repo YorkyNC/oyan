@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
+import 'package:oyan/src/features/home/domain/entities/get_my_books_entity.dart';
+import 'package:oyan/src/features/home/domain/requests/my_book_request.dart';
 
 import '../../../../../core/api/client/endpoints.dart';
 import '../../../../../core/api/client/headers/api_headers.dart';
@@ -43,6 +45,32 @@ class BookRemoteImpl implements IBookRemote {
           print('Raw API Response: ${result.data}');
           final entity = GetBooksEntity.fromJson(result.data);
           print('Parsed Entity: ${entity.results?.map((e) => '${e.title}: ${e.coverImageUrl}').toList()}');
+          return Right(entity);
+        },
+      );
+    } catch (e) {
+      Log.e(e);
+      return Left(UnknownException(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<DomainException, GetMyBooksEntity>> getMyBook(MyBookRequest request) async {
+    try {
+      final queryParameters = <String, dynamic>{
+        'filter': request.filter,
+      };
+
+      final Either<DomainException, Response<dynamic>> response = await client.get(
+        '${EndPoints.baseUrl}/profile/${request.username}/books/',
+        options: ApiHeaders.dioOptions,
+        queryParameters: queryParameters,
+      );
+
+      return response.fold(
+        (error) => Left(error),
+        (result) {
+          final entity = GetMyBooksEntity.fromJson(result.data);
           return Right(entity);
         },
       );

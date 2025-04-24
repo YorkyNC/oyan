@@ -5,6 +5,7 @@ import 'package:oyan/src/app/application.dart';
 import 'package:oyan/src/core/network/network_status_notifier.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/core/services/storage/storage_service_impl.dart';
+import 'package:oyan/src/core/utils/helpers/ui_helpers.dart';
 import 'package:provider/provider.dart';
 
 final StorageServiceImpl storageService = StorageServiceImpl();
@@ -20,7 +21,9 @@ void main([List<String>? args, AppFlavor flavor = AppFlavor.production]) async {
   // Initialize chat service
   // await ChatService.initializeChat();
   // Prevent landscape mode
+  UIHelpers.statusBarTheme();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then(
     (_) {
       runApp(
