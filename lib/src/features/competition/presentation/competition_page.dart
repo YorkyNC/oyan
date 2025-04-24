@@ -2,6 +2,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
+import 'package:oyan/src/features/home/domain/entities/book.dart';
 
 class CompetitionPage extends StatefulWidget {
   const CompetitionPage({super.key});
@@ -171,7 +172,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
         ),
         ElevatedButton(
           onPressed: () {
-            context.push(RoutePaths.booksDetails);
+            context.push(RoutePaths.booksDetails, extra: const Book());
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xffEBF0FF),
@@ -295,7 +296,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
         ),
         ElevatedButton(
           onPressed: () {
-            context.push(RoutePaths.booksDetails);
+            context.push(RoutePaths.booksDetails, extra: const Book());
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xffEBF0FF),
@@ -438,7 +439,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
         ),
         ElevatedButton(
           onPressed: () {
-            context.push(RoutePaths.booksDetails);
+            context.push(RoutePaths.booksDetails, extra: const Book());
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xffEBF0FF),

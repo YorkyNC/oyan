@@ -21,6 +21,7 @@ mixin _$BookEvent {
     required TResult Function() started,
     required TResult Function(GetBookRequest request) getBooks,
     required TResult Function(MyBookRequest request) getMyBooks,
+    required TResult Function(AddMyBooksRequest request) addMyBook,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$BookEvent {
     TResult? Function()? started,
     TResult? Function(GetBookRequest request)? getBooks,
     TResult? Function(MyBookRequest request)? getMyBooks,
+    TResult? Function(AddMyBooksRequest request)? addMyBook,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$BookEvent {
     TResult Function()? started,
     TResult Function(GetBookRequest request)? getBooks,
     TResult Function(MyBookRequest request)? getMyBooks,
+    TResult Function(AddMyBooksRequest request)? addMyBook,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$BookEvent {
     required TResult Function(_Started value) started,
     required TResult Function(_GetBooks value) getBooks,
     required TResult Function(_GetMyBooks value) getMyBooks,
+    required TResult Function(_AddMyBook value) addMyBook,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$BookEvent {
     TResult? Function(_Started value)? started,
     TResult? Function(_GetBooks value)? getBooks,
     TResult? Function(_GetMyBooks value)? getMyBooks,
+    TResult? Function(_AddMyBook value)? addMyBook,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$BookEvent {
     TResult Function(_Started value)? started,
     TResult Function(_GetBooks value)? getBooks,
     TResult Function(_GetMyBooks value)? getMyBooks,
+    TResult Function(_AddMyBook value)? addMyBook,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -126,6 +132,7 @@ class _$StartedImpl implements _Started {
     required TResult Function() started,
     required TResult Function(GetBookRequest request) getBooks,
     required TResult Function(MyBookRequest request) getMyBooks,
+    required TResult Function(AddMyBooksRequest request) addMyBook,
   }) {
     return started();
   }
@@ -136,6 +143,7 @@ class _$StartedImpl implements _Started {
     TResult? Function()? started,
     TResult? Function(GetBookRequest request)? getBooks,
     TResult? Function(MyBookRequest request)? getMyBooks,
+    TResult? Function(AddMyBooksRequest request)? addMyBook,
   }) {
     return started?.call();
   }
@@ -146,6 +154,7 @@ class _$StartedImpl implements _Started {
     TResult Function()? started,
     TResult Function(GetBookRequest request)? getBooks,
     TResult Function(MyBookRequest request)? getMyBooks,
+    TResult Function(AddMyBooksRequest request)? addMyBook,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -160,6 +169,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_Started value) started,
     required TResult Function(_GetBooks value) getBooks,
     required TResult Function(_GetMyBooks value) getMyBooks,
+    required TResult Function(_AddMyBook value) addMyBook,
   }) {
     return started(this);
   }
@@ -170,6 +180,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_Started value)? started,
     TResult? Function(_GetBooks value)? getBooks,
     TResult? Function(_GetMyBooks value)? getMyBooks,
+    TResult? Function(_AddMyBook value)? addMyBook,
   }) {
     return started?.call(this);
   }
@@ -180,6 +191,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_Started value)? started,
     TResult Function(_GetBooks value)? getBooks,
     TResult Function(_GetMyBooks value)? getMyBooks,
+    TResult Function(_AddMyBook value)? addMyBook,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -276,6 +288,7 @@ class _$GetBooksImpl implements _GetBooks {
     required TResult Function() started,
     required TResult Function(GetBookRequest request) getBooks,
     required TResult Function(MyBookRequest request) getMyBooks,
+    required TResult Function(AddMyBooksRequest request) addMyBook,
   }) {
     return getBooks(request);
   }
@@ -286,6 +299,7 @@ class _$GetBooksImpl implements _GetBooks {
     TResult? Function()? started,
     TResult? Function(GetBookRequest request)? getBooks,
     TResult? Function(MyBookRequest request)? getMyBooks,
+    TResult? Function(AddMyBooksRequest request)? addMyBook,
   }) {
     return getBooks?.call(request);
   }
@@ -296,6 +310,7 @@ class _$GetBooksImpl implements _GetBooks {
     TResult Function()? started,
     TResult Function(GetBookRequest request)? getBooks,
     TResult Function(MyBookRequest request)? getMyBooks,
+    TResult Function(AddMyBooksRequest request)? addMyBook,
     required TResult orElse(),
   }) {
     if (getBooks != null) {
@@ -310,6 +325,7 @@ class _$GetBooksImpl implements _GetBooks {
     required TResult Function(_Started value) started,
     required TResult Function(_GetBooks value) getBooks,
     required TResult Function(_GetMyBooks value) getMyBooks,
+    required TResult Function(_AddMyBook value) addMyBook,
   }) {
     return getBooks(this);
   }
@@ -320,6 +336,7 @@ class _$GetBooksImpl implements _GetBooks {
     TResult? Function(_Started value)? started,
     TResult? Function(_GetBooks value)? getBooks,
     TResult? Function(_GetMyBooks value)? getMyBooks,
+    TResult? Function(_AddMyBook value)? addMyBook,
   }) {
     return getBooks?.call(this);
   }
@@ -330,6 +347,7 @@ class _$GetBooksImpl implements _GetBooks {
     TResult Function(_Started value)? started,
     TResult Function(_GetBooks value)? getBooks,
     TResult Function(_GetMyBooks value)? getMyBooks,
+    TResult Function(_AddMyBook value)? addMyBook,
     required TResult orElse(),
   }) {
     if (getBooks != null) {
@@ -434,6 +452,7 @@ class _$GetMyBooksImpl implements _GetMyBooks {
     required TResult Function() started,
     required TResult Function(GetBookRequest request) getBooks,
     required TResult Function(MyBookRequest request) getMyBooks,
+    required TResult Function(AddMyBooksRequest request) addMyBook,
   }) {
     return getMyBooks(request);
   }
@@ -444,6 +463,7 @@ class _$GetMyBooksImpl implements _GetMyBooks {
     TResult? Function()? started,
     TResult? Function(GetBookRequest request)? getBooks,
     TResult? Function(MyBookRequest request)? getMyBooks,
+    TResult? Function(AddMyBooksRequest request)? addMyBook,
   }) {
     return getMyBooks?.call(request);
   }
@@ -454,6 +474,7 @@ class _$GetMyBooksImpl implements _GetMyBooks {
     TResult Function()? started,
     TResult Function(GetBookRequest request)? getBooks,
     TResult Function(MyBookRequest request)? getMyBooks,
+    TResult Function(AddMyBooksRequest request)? addMyBook,
     required TResult orElse(),
   }) {
     if (getMyBooks != null) {
@@ -468,6 +489,7 @@ class _$GetMyBooksImpl implements _GetMyBooks {
     required TResult Function(_Started value) started,
     required TResult Function(_GetBooks value) getBooks,
     required TResult Function(_GetMyBooks value) getMyBooks,
+    required TResult Function(_AddMyBook value) addMyBook,
   }) {
     return getMyBooks(this);
   }
@@ -478,6 +500,7 @@ class _$GetMyBooksImpl implements _GetMyBooks {
     TResult? Function(_Started value)? started,
     TResult? Function(_GetBooks value)? getBooks,
     TResult? Function(_GetMyBooks value)? getMyBooks,
+    TResult? Function(_AddMyBook value)? addMyBook,
   }) {
     return getMyBooks?.call(this);
   }
@@ -488,6 +511,7 @@ class _$GetMyBooksImpl implements _GetMyBooks {
     TResult Function(_Started value)? started,
     TResult Function(_GetBooks value)? getBooks,
     TResult Function(_GetMyBooks value)? getMyBooks,
+    TResult Function(_AddMyBook value)? addMyBook,
     required TResult orElse(),
   }) {
     if (getMyBooks != null) {
@@ -506,6 +530,170 @@ abstract class _GetMyBooks implements BookEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetMyBooksImplCopyWith<_$GetMyBooksImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddMyBookImplCopyWith<$Res> {
+  factory _$$AddMyBookImplCopyWith(
+          _$AddMyBookImpl value, $Res Function(_$AddMyBookImpl) then) =
+      __$$AddMyBookImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({AddMyBooksRequest request});
+
+  $AddMyBooksRequestCopyWith<$Res> get request;
+}
+
+/// @nodoc
+class __$$AddMyBookImplCopyWithImpl<$Res>
+    extends _$BookEventCopyWithImpl<$Res, _$AddMyBookImpl>
+    implements _$$AddMyBookImplCopyWith<$Res> {
+  __$$AddMyBookImplCopyWithImpl(
+      _$AddMyBookImpl _value, $Res Function(_$AddMyBookImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of BookEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? request = null,
+  }) {
+    return _then(_$AddMyBookImpl(
+      null == request
+          ? _value.request
+          : request // ignore: cast_nullable_to_non_nullable
+              as AddMyBooksRequest,
+    ));
+  }
+
+  /// Create a copy of BookEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AddMyBooksRequestCopyWith<$Res> get request {
+    return $AddMyBooksRequestCopyWith<$Res>(_value.request, (value) {
+      return _then(_value.copyWith(request: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$AddMyBookImpl implements _AddMyBook {
+  const _$AddMyBookImpl(this.request);
+
+  @override
+  final AddMyBooksRequest request;
+
+  @override
+  String toString() {
+    return 'BookEvent.addMyBook(request: $request)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddMyBookImpl &&
+            (identical(other.request, request) || other.request == request));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, request);
+
+  /// Create a copy of BookEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddMyBookImplCopyWith<_$AddMyBookImpl> get copyWith =>
+      __$$AddMyBookImplCopyWithImpl<_$AddMyBookImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(GetBookRequest request) getBooks,
+    required TResult Function(MyBookRequest request) getMyBooks,
+    required TResult Function(AddMyBooksRequest request) addMyBook,
+  }) {
+    return addMyBook(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(GetBookRequest request)? getBooks,
+    TResult? Function(MyBookRequest request)? getMyBooks,
+    TResult? Function(AddMyBooksRequest request)? addMyBook,
+  }) {
+    return addMyBook?.call(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(GetBookRequest request)? getBooks,
+    TResult Function(MyBookRequest request)? getMyBooks,
+    TResult Function(AddMyBooksRequest request)? addMyBook,
+    required TResult orElse(),
+  }) {
+    if (addMyBook != null) {
+      return addMyBook(request);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetBooks value) getBooks,
+    required TResult Function(_GetMyBooks value) getMyBooks,
+    required TResult Function(_AddMyBook value) addMyBook,
+  }) {
+    return addMyBook(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetBooks value)? getBooks,
+    TResult? Function(_GetMyBooks value)? getMyBooks,
+    TResult? Function(_AddMyBook value)? addMyBook,
+  }) {
+    return addMyBook?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetBooks value)? getBooks,
+    TResult Function(_GetMyBooks value)? getMyBooks,
+    TResult Function(_AddMyBook value)? addMyBook,
+    required TResult orElse(),
+  }) {
+    if (addMyBook != null) {
+      return addMyBook(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddMyBook implements BookEvent {
+  const factory _AddMyBook(final AddMyBooksRequest request) = _$AddMyBookImpl;
+
+  AddMyBooksRequest get request;
+
+  /// Create a copy of BookEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$AddMyBookImplCopyWith<_$AddMyBookImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1001,6 +1189,7 @@ mixin _$BookViewModel {
   entity.GetBooksEntity? get popularBooks => throw _privateConstructorUsedError;
   entity.GetBooksEntity? get newBooks => throw _privateConstructorUsedError;
   GetMyBooksEntity? get myBooks => throw _privateConstructorUsedError;
+  AddMyBookEntity? get addMyBook => throw _privateConstructorUsedError;
 
   /// Create a copy of BookViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1019,12 +1208,14 @@ abstract class $BookViewModelCopyWith<$Res> {
       {entity.GetBooksEntity? recommendedBooks,
       entity.GetBooksEntity? popularBooks,
       entity.GetBooksEntity? newBooks,
-      GetMyBooksEntity? myBooks});
+      GetMyBooksEntity? myBooks,
+      AddMyBookEntity? addMyBook});
 
   $GetBooksEntityCopyWith<$Res>? get recommendedBooks;
   $GetBooksEntityCopyWith<$Res>? get popularBooks;
   $GetBooksEntityCopyWith<$Res>? get newBooks;
   $GetMyBooksEntityCopyWith<$Res>? get myBooks;
+  $AddMyBookEntityCopyWith<$Res>? get addMyBook;
 }
 
 /// @nodoc
@@ -1046,6 +1237,7 @@ class _$BookViewModelCopyWithImpl<$Res, $Val extends BookViewModel>
     Object? popularBooks = freezed,
     Object? newBooks = freezed,
     Object? myBooks = freezed,
+    Object? addMyBook = freezed,
   }) {
     return _then(_value.copyWith(
       recommendedBooks: freezed == recommendedBooks
@@ -1064,6 +1256,10 @@ class _$BookViewModelCopyWithImpl<$Res, $Val extends BookViewModel>
           ? _value.myBooks
           : myBooks // ignore: cast_nullable_to_non_nullable
               as GetMyBooksEntity?,
+      addMyBook: freezed == addMyBook
+          ? _value.addMyBook
+          : addMyBook // ignore: cast_nullable_to_non_nullable
+              as AddMyBookEntity?,
     ) as $Val);
   }
 
@@ -1122,6 +1318,20 @@ class _$BookViewModelCopyWithImpl<$Res, $Val extends BookViewModel>
       return _then(_value.copyWith(myBooks: value) as $Val);
     });
   }
+
+  /// Create a copy of BookViewModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AddMyBookEntityCopyWith<$Res>? get addMyBook {
+    if (_value.addMyBook == null) {
+      return null;
+    }
+
+    return $AddMyBookEntityCopyWith<$Res>(_value.addMyBook!, (value) {
+      return _then(_value.copyWith(addMyBook: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -1136,7 +1346,8 @@ abstract class _$$BookViewModelImplCopyWith<$Res>
       {entity.GetBooksEntity? recommendedBooks,
       entity.GetBooksEntity? popularBooks,
       entity.GetBooksEntity? newBooks,
-      GetMyBooksEntity? myBooks});
+      GetMyBooksEntity? myBooks,
+      AddMyBookEntity? addMyBook});
 
   @override
   $GetBooksEntityCopyWith<$Res>? get recommendedBooks;
@@ -1146,6 +1357,8 @@ abstract class _$$BookViewModelImplCopyWith<$Res>
   $GetBooksEntityCopyWith<$Res>? get newBooks;
   @override
   $GetMyBooksEntityCopyWith<$Res>? get myBooks;
+  @override
+  $AddMyBookEntityCopyWith<$Res>? get addMyBook;
 }
 
 /// @nodoc
@@ -1165,6 +1378,7 @@ class __$$BookViewModelImplCopyWithImpl<$Res>
     Object? popularBooks = freezed,
     Object? newBooks = freezed,
     Object? myBooks = freezed,
+    Object? addMyBook = freezed,
   }) {
     return _then(_$BookViewModelImpl(
       recommendedBooks: freezed == recommendedBooks
@@ -1183,6 +1397,10 @@ class __$$BookViewModelImplCopyWithImpl<$Res>
           ? _value.myBooks
           : myBooks // ignore: cast_nullable_to_non_nullable
               as GetMyBooksEntity?,
+      addMyBook: freezed == addMyBook
+          ? _value.addMyBook
+          : addMyBook // ignore: cast_nullable_to_non_nullable
+              as AddMyBookEntity?,
     ));
   }
 }
@@ -1194,7 +1412,8 @@ class _$BookViewModelImpl implements _BookViewModel {
       {this.recommendedBooks = null,
       this.popularBooks = null,
       this.newBooks = null,
-      this.myBooks = null});
+      this.myBooks = null,
+      this.addMyBook = null});
 
   @override
   @JsonKey()
@@ -1208,10 +1427,13 @@ class _$BookViewModelImpl implements _BookViewModel {
   @override
   @JsonKey()
   final GetMyBooksEntity? myBooks;
+  @override
+  @JsonKey()
+  final AddMyBookEntity? addMyBook;
 
   @override
   String toString() {
-    return 'BookViewModel(recommendedBooks: $recommendedBooks, popularBooks: $popularBooks, newBooks: $newBooks, myBooks: $myBooks)';
+    return 'BookViewModel(recommendedBooks: $recommendedBooks, popularBooks: $popularBooks, newBooks: $newBooks, myBooks: $myBooks, addMyBook: $addMyBook)';
   }
 
   @override
@@ -1225,12 +1447,14 @@ class _$BookViewModelImpl implements _BookViewModel {
                 other.popularBooks == popularBooks) &&
             (identical(other.newBooks, newBooks) ||
                 other.newBooks == newBooks) &&
-            (identical(other.myBooks, myBooks) || other.myBooks == myBooks));
+            (identical(other.myBooks, myBooks) || other.myBooks == myBooks) &&
+            (identical(other.addMyBook, addMyBook) ||
+                other.addMyBook == addMyBook));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, recommendedBooks, popularBooks, newBooks, myBooks);
+  int get hashCode => Object.hash(runtimeType, recommendedBooks, popularBooks,
+      newBooks, myBooks, addMyBook);
 
   /// Create a copy of BookViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1246,7 +1470,8 @@ abstract class _BookViewModel implements BookViewModel {
       {final entity.GetBooksEntity? recommendedBooks,
       final entity.GetBooksEntity? popularBooks,
       final entity.GetBooksEntity? newBooks,
-      final GetMyBooksEntity? myBooks}) = _$BookViewModelImpl;
+      final GetMyBooksEntity? myBooks,
+      final AddMyBookEntity? addMyBook}) = _$BookViewModelImpl;
 
   @override
   entity.GetBooksEntity? get recommendedBooks;
@@ -1256,6 +1481,8 @@ abstract class _BookViewModel implements BookViewModel {
   entity.GetBooksEntity? get newBooks;
   @override
   GetMyBooksEntity? get myBooks;
+  @override
+  AddMyBookEntity? get addMyBook;
 
   /// Create a copy of BookViewModel
   /// with the given fields replaced by the non-null parameter values.

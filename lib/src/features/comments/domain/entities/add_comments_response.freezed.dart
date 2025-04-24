@@ -22,7 +22,7 @@ AddCommentResponse _$AddCommentResponseFromJson(Map<String, dynamic> json) {
 mixin _$AddCommentResponse {
   String? get status => throw _privateConstructorUsedError;
   @JsonKey(name: 'new_rating')
-  String? get newRating => throw _privateConstructorUsedError;
+  double? get newRating => throw _privateConstructorUsedError;
 
   /// Serializes this AddCommentResponse to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -40,7 +40,7 @@ abstract class $AddCommentResponseCopyWith<$Res> {
           AddCommentResponse value, $Res Function(AddCommentResponse) then) =
       _$AddCommentResponseCopyWithImpl<$Res, AddCommentResponse>;
   @useResult
-  $Res call({String? status, @JsonKey(name: 'new_rating') String? newRating});
+  $Res call({String? status, @JsonKey(name: 'new_rating') double? newRating});
 }
 
 /// @nodoc
@@ -69,7 +69,7 @@ class _$AddCommentResponseCopyWithImpl<$Res, $Val extends AddCommentResponse>
       newRating: freezed == newRating
           ? _value.newRating
           : newRating // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
     ) as $Val);
   }
 }
@@ -82,7 +82,7 @@ abstract class _$$AddCommentResponseImplCopyWith<$Res>
       __$$AddCommentResponseImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? status, @JsonKey(name: 'new_rating') String? newRating});
+  $Res call({String? status, @JsonKey(name: 'new_rating') double? newRating});
 }
 
 /// @nodoc
@@ -109,7 +109,7 @@ class __$$AddCommentResponseImplCopyWithImpl<$Res>
       newRating: freezed == newRating
           ? _value.newRating
           : newRating // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
     ));
   }
 }
@@ -127,7 +127,7 @@ class _$AddCommentResponseImpl implements _AddCommentResponse {
   final String? status;
   @override
   @JsonKey(name: 'new_rating')
-  final String? newRating;
+  final double? newRating;
 
   @override
   String toString() {
@@ -168,7 +168,7 @@ class _$AddCommentResponseImpl implements _AddCommentResponse {
 abstract class _AddCommentResponse implements AddCommentResponse {
   const factory _AddCommentResponse(
           {final String? status,
-          @JsonKey(name: 'new_rating') final String? newRating}) =
+          @JsonKey(name: 'new_rating') final double? newRating}) =
       _$AddCommentResponseImpl;
 
   factory _AddCommentResponse.fromJson(Map<String, dynamic> json) =
@@ -178,7 +178,7 @@ abstract class _AddCommentResponse implements AddCommentResponse {
   String? get status;
   @override
   @JsonKey(name: 'new_rating')
-  String? get newRating;
+  double? get newRating;
 
   /// Create a copy of AddCommentResponse
   /// with the given fields replaced by the non-null parameter values.

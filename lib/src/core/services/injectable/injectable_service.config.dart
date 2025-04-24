@@ -86,6 +86,8 @@ import 'package:oyan/src/features/home/data/repositories/book_repository_impl.da
     as _i908;
 import 'package:oyan/src/features/home/domain/repositories/i_book_repository.dart'
     as _i842;
+import 'package:oyan/src/features/home/domain/usecases/add_my_book_use_case.dart'
+    as _i594;
 import 'package:oyan/src/features/home/domain/usecases/get_book_use_case.dart'
     as _i446;
 import 'package:oyan/src/features/home/domain/usecases/get_my_book_use_case.dart'
@@ -269,6 +271,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i446.GetBookUseCase>(() => _i446.GetBookUseCase(
         gh<_i842.IBookRepository>(instanceName: 'BookRepositoryImpl')));
     gh.lazySingleton<_i24.GetMyBookUseCase>(() => _i24.GetMyBookUseCase(
+        gh<_i842.IBookRepository>(instanceName: 'BookRepositoryImpl')));
+    gh.lazySingleton<_i594.AddMyBookUseCase>(() => _i594.AddMyBookUseCase(
         gh<_i842.IBookRepository>(instanceName: 'BookRepositoryImpl')));
     gh.lazySingleton<_i231.AddPostUseCase>(() => _i231.AddPostUseCase(
         gh<_i1002.INewsRepository>(instanceName: 'NewsRepositoryImpl')));

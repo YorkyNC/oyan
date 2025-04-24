@@ -2,11 +2,14 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:oyan/src/features/home/domain/entities/add_my_book_entity.dart';
 import 'package:oyan/src/features/home/domain/entities/get_books_entity.dart' as entity;
 import 'package:oyan/src/features/home/domain/entities/get_books_entity.dart';
 import 'package:oyan/src/features/home/domain/entities/get_my_books_entity.dart';
+import 'package:oyan/src/features/home/domain/requests/add_my_books_request.dart';
 import 'package:oyan/src/features/home/domain/requests/get_book_request.dart';
 import 'package:oyan/src/features/home/domain/requests/my_book_request.dart';
+import 'package:oyan/src/features/home/domain/usecases/add_my_book_use_case.dart';
 import 'package:oyan/src/features/home/domain/usecases/get_book_use_case.dart';
 import 'package:oyan/src/features/home/domain/usecases/get_my_book_use_case.dart';
 
@@ -17,10 +20,11 @@ part 'book_event.dart';
 part 'book_state.dart';
 
 class BookBloc extends BaseBloc<BookEvent, BookState> {
-  BookBloc(this.getBookUseCase, this.getMyBookUseCase) : super(const BookState.loading());
+  BookBloc(this.getBookUseCase, this.getMyBookUseCase, this.addMyBookUseCase) : super(const BookState.loading());
 
   final GetBookUseCase getBookUseCase;
   final GetMyBookUseCase getMyBookUseCase;
+  final AddMyBookUseCase addMyBookUseCase;
   BookViewModel _viewModel = const BookViewModel();
 
   @override
@@ -29,6 +33,7 @@ class BookBloc extends BaseBloc<BookEvent, BookState> {
       started: () => _started(event as _Started),
       getBooks: (request) => _getBooks(event as _GetBooks, emit as Emitter<BookState>),
       getMyBooks: (request) => _getMyBooks(event as _GetMyBooks, emit as Emitter<BookState>),
+      addMyBook: (request) => _addMyBook(event as _AddMyBook, emit as Emitter<BookState>),
     );
   }
 
@@ -86,6 +91,18 @@ class BookBloc extends BaseBloc<BookEvent, BookState> {
     print(
         'Final ViewModel - New: ${_viewModel.newBooks?.results?.map((e) => '${e.title}: ${e.coverImageUrl}').toList()}');
 
+    return emit(BookState.loaded(viewModel: _viewModel));
+  }
+
+  Future<void> _addMyBook(_AddMyBook event, Emitter emit) async {
+    emit(const BookState.loading());
+
+    final result = await addMyBookUseCase.call(event.request);
+    if (result.failure != null) {
+      return emit(BookState.error(result.failure!.message));
+    }
+
+    _viewModel = _viewModel.copyWith(addMyBook: result.data);
     return emit(BookState.loaded(viewModel: _viewModel));
   }
 }

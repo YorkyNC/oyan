@@ -1,8 +1,11 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/features/home/domain/entities/book.dart';
+import 'package:oyan/src/features/home/domain/requests/add_my_books_request.dart';
+import 'package:oyan/src/features/home/presentation/bloc/book_bloc.dart';
 import 'package:oyan/src/features/my-books/presentation/book_comments_tab.dart';
 import 'package:oyan/src/features/my-books/presentation/book_overview_tab.dart';
 import 'package:oyan/src/features/my-books/presentation/book_stats_widget.dart';
@@ -17,6 +20,7 @@ class BookInformationPage extends StatefulWidget {
 
 class _BookInformationPageState extends State<BookInformationPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  late Book _book;
 
   @override
   void initState() {
@@ -24,6 +28,15 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {});
+    });
+    _book = widget.book;
+  }
+
+  void _updateBookRating(double newRating) {
+    setState(() {
+      final currentRating = double.tryParse(_book.rating ?? '0') ?? 0;
+      final updatedRating = (currentRating + newRating) / 2;
+      _book = _book.copyWith(rating: updatedRating.toString());
     });
   }
 
@@ -41,16 +54,30 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
         actions: [
           Row(
             children: [
-              Container(
-                padding: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: const Color(0xffEBF0FF),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: const Icon(
-                  Icons.bookmark_border_rounded,
-                  color: Colors.black,
+              InkWell(
+                onTap: () {
+                  print('add favourite');
+                  context.read<BookBloc>().add(
+                        BookEvent.addMyBook(
+                          AddMyBooksRequest(
+                            bookId: widget.book.id ?? 0,
+                            username: st.getUsername()!,
+                            filter: 'favourite',
+                          ),
+                        ),
+                      );
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: const Color(0xffEBF0FF),
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: const Icon(
+                    Icons.bookmark_border_rounded,
+                    color: Colors.black,
+                  ),
                 ),
               ),
               const SizedBox(width: 12),
@@ -141,7 +168,7 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                       const SizedBox(height: 20),
 
                       // Book stats
-                      BookStatsWidget(book: widget.book),
+                      BookStatsWidget(book: _book),
                     ],
                   ),
                 ),
@@ -172,7 +199,12 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                 ),
 
                 // Tab content
-                _tabController.index == 0 ? BookOverviewTab(book: widget.book) : BookCommentsTab(book: widget.book),
+                _tabController.index == 0
+                    ? BookOverviewTab(book: _book)
+                    : BookCommentsTab(
+                        book: _book,
+                        onRatingUpdated: _updateBookRating,
+                      ),
 
                 const SizedBox(height: 21),
                 Row(
@@ -188,6 +220,15 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                         ),
                         onPressed: () {
                           context.push(RoutePaths.readBook, extra: {'book': widget.book});
+                          context.read<BookBloc>().add(
+                                BookEvent.addMyBook(
+                                  AddMyBooksRequest(
+                                    username: st.getUsername()!,
+                                    filter: 'to_read',
+                                    bookId: widget.book.id ?? 0,
+                                  ),
+                                ),
+                              );
                         },
                         child: Text(
                           'Read book',

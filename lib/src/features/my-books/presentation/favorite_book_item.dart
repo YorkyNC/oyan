@@ -71,7 +71,7 @@ class _FavoriteBookItemState extends State<FavoriteBookItem> with SingleTickerPr
                   width: 70,
                   height: 100,
                   color: Colors.grey[300],
-                  child: Image.asset(
+                  child: Image.network(
                     widget.coverUrl,
                     fit: BoxFit.cover,
                     errorBuilder: (context, error, stackTrace) {

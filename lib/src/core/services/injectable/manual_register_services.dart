@@ -9,6 +9,7 @@ import 'package:oyan/src/features/comments/domain/usecases/get_comment_use_case.
 import 'package:oyan/src/features/genre/domain/usecases/add_genre_use_case.dart';
 import 'package:oyan/src/features/genre/domain/usecases/get_genre_use_case.dart';
 import 'package:oyan/src/features/genre/presentation/bloc/genre_bloc.dart';
+import 'package:oyan/src/features/home/domain/usecases/add_my_book_use_case.dart';
 import 'package:oyan/src/features/home/domain/usecases/get_book_use_case.dart';
 import 'package:oyan/src/features/home/domain/usecases/get_my_book_use_case.dart';
 import 'package:oyan/src/features/home/presentation/bloc/book_bloc.dart';
@@ -98,6 +99,7 @@ void manualRegisterServices() {
     () => BookBloc(
       getIt<GetBookUseCase>(),
       getIt<GetMyBookUseCase>(),
+      getIt<AddMyBookUseCase>(),
     ),
   );
 

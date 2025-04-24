@@ -1,5 +1,7 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:oyan/src/features/home/domain/entities/add_my_book_entity.dart';
 import 'package:oyan/src/features/home/domain/entities/get_my_books_entity.dart';
+import 'package:oyan/src/features/home/domain/requests/add_my_books_request.dart';
 import 'package:oyan/src/features/home/domain/requests/my_book_request.dart';
 
 import '../../../../core/exceptions/domain_exception.dart';
@@ -12,5 +14,8 @@ abstract class IBookRepository {
   );
   Future<Either<DomainException, GetMyBooksEntity>> getMyBook(
     MyBookRequest request,
+  );
+  Future<Either<DomainException, AddMyBookEntity>> addMyBook(
+    AddMyBooksRequest request,
   );
 }

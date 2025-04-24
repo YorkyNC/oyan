@@ -1,21 +1,19 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'add_comments_response.dart';
+part of 'add_my_book_entity.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$AddCommentResponseImpl _$$AddCommentResponseImplFromJson(
+_$AddMyBookEntityImpl _$$AddMyBookEntityImplFromJson(
         Map<String, dynamic> json) =>
-    _$AddCommentResponseImpl(
+    _$AddMyBookEntityImpl(
       status: json['status'] as String?,
-      newRating: (json['new_rating'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$$AddCommentResponseImplToJson(
-        _$AddCommentResponseImpl instance) =>
+Map<String, dynamic> _$$AddMyBookEntityImplToJson(
+        _$AddMyBookEntityImpl instance) =>
     <String, dynamic>{
       'status': instance.status,
-      'new_rating': instance.newRating,
     };

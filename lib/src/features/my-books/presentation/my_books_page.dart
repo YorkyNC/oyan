@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
@@ -74,116 +75,120 @@ class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProvide
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
+    return BlocProvider.value(
+      value: _bookBloc,
+      child: Scaffold(
         backgroundColor: Colors.white,
-        elevation: 0,
-        title: const Text(
-          'My book',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          title: const Text(
+            'My book',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
           ),
+          centerTitle: false,
         ),
-        centerTitle: false,
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            _buildTabs(),
-            const SizedBox(height: 16),
-            Expanded(
-              child: BaseBlocWidget<BookBloc, BookEvent, BookState>(
-                bloc: _bookBloc,
-                builder: (context, state, bloc) {
-                  return state.maybeWhen(
-                    orElse: () {
-                      return const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.black,
-                        ),
-                      );
-                    },
-                    loaded: (viewModel) {
-                      return TabBarView(
-                        controller: _tabController,
-                        children: [
-                          _TabContent(
-                            status: 'to_read',
-                            books: viewModel.myBooks?.results ?? [],
-                            buildItem: (book) => ReadingBookItem(
-                              title: book.title ?? '',
-                              author: book.author ?? '',
-                              coverUrl: book.coverUrl ?? '',
-                              progress: 0.0,
-                              onContinuePressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Continue reading: ${book.title}')),
-                                );
-                              },
-                            ),
+        body: SafeArea(
+          child: Column(
+            children: [
+              _buildTabs(),
+              const SizedBox(height: 16),
+              Expanded(
+                child: BaseBlocWidget<BookBloc, BookEvent, BookState>(
+                  bloc: _bookBloc,
+                  builder: (context, state, bloc) {
+                    return state.maybeWhen(
+                      orElse: () {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: Colors.black,
                           ),
-                          _TabContent(
-                            status: 'completed',
-                            books: viewModel.myBooks?.results ?? [],
-                            buildItem: (book) => CompletedBookItem(
-                              title: book.title ?? '',
-                              author: book.author ?? '',
-                              coverUrl: book.coverUrl ?? '',
-                              onReadAgainPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Read again: ${book.title}')),
-                                );
-                              },
-                            ),
-                          ),
-                          _TabContent(
-                            status: 'favourite',
-                            books: viewModel.myBooks?.results ?? [],
-                            buildItem: (book) => FavoriteBookItem(
-                              title: book.title ?? '',
-                              author: book.author ?? '',
-                              coverUrl: book.coverUrl ?? '',
-                              onReadPressed: () {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(content: Text('Reading: ${book.title}')),
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      );
-                    },
-                    error: (error) {
-                      return Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        );
+                      },
+                      loaded: (viewModel) {
+                        return TabBarView(
+                          controller: _tabController,
                           children: [
-                            Text(
-                              error,
-                              style: GoogleFonts.openSans(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500,
-                                color: context.colors.error500,
+                            _TabContent(
+                              status: 'to_read',
+                              books: viewModel.myBooks?.results ?? [],
+                              buildItem: (book) => ReadingBookItem(
+                                title: book.title ?? '',
+                                author: book.author ?? '',
+                                coverUrl: book.coverUrl ?? '',
+                                progress: 0.0,
+                                onContinuePressed: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Continue reading: ${book.title}')),
+                                  );
+                                },
                               ),
-                              textAlign: TextAlign.center,
                             ),
-                            const SizedBox(height: 16),
-                            ElevatedButton(
-                              onPressed: _loadBooksForCurrentTab,
-                              child: const Text('Try Again'),
+                            _TabContent(
+                              status: 'completed',
+                              books: viewModel.myBooks?.results ?? [],
+                              buildItem: (book) => CompletedBookItem(
+                                title: book.title ?? '',
+                                author: book.author ?? '',
+                                coverUrl: book.coverUrl ?? '',
+                                onReadAgainPressed: () {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text('Read again: ${book.title}')),
+                                  );
+                                },
+                              ),
+                            ),
+                            _TabContent(
+                              status: 'favourite',
+                              books: viewModel.myBooks?.results ?? [],
+                              buildItem: (book) => FavoriteBookItem(
+                                title: book.title ?? '',
+                                author: book.author ?? '',
+                                coverUrl: book.coverUrl ?? '',
+                                onReadPressed: () {
+                                  context.push(
+                                    RoutePaths.booksDetails,
+                                    extra: book,
+                                  );
+                                },
+                              ),
                             ),
                           ],
-                        ),
-                      );
-                    },
-                  );
-                },
+                        );
+                      },
+                      error: (error) {
+                        return Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                error,
+                                style: GoogleFonts.openSans(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                  color: context.colors.error500,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                              const SizedBox(height: 16),
+                              ElevatedButton(
+                                onPressed: _loadBooksForCurrentTab,
+                                child: const Text('Try Again'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -216,7 +221,12 @@ class _TabContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final filteredBooks = books.where((book) => book.status == status).toList();
+    final filteredBooks = books.where((book) {
+      if (status == 'favourite') {
+        return book.status == 'favourite' || book.status == 'favorite';
+      }
+      return book.status == status;
+    }).toList();
 
     if (filteredBooks.isEmpty) {
       return Center(

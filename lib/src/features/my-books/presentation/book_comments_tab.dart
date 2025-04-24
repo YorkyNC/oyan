@@ -13,18 +13,20 @@ import 'package:oyan/src/features/my-books/presentation/review_item.dart';
 
 class BookCommentsTab extends StatefulWidget {
   final Book book;
+  final Function(double) onRatingUpdated;
 
   const BookCommentsTab({
-    Key? key,
+    super.key,
     required this.book,
-  }) : super(key: key);
+    required this.onRatingUpdated,
+  });
 
   @override
   State<BookCommentsTab> createState() => _BookCommentsTabState();
 }
 
 class _BookCommentsTabState extends State<BookCommentsTab> {
-  int _selectedRating = 0;
+  double _selectedRating = 0;
   final TextEditingController _commentController = TextEditingController();
   bool _isLoading = false;
 
@@ -34,7 +36,7 @@ class _BookCommentsTabState extends State<BookCommentsTab> {
     _selectedRating = 0;
   }
 
-  void _onRatingChanged(int rating) {
+  void _onRatingChanged(double rating) {
     setState(() {
       _selectedRating = _selectedRating == rating ? 0 : rating;
     });
@@ -60,6 +62,12 @@ class _BookCommentsTabState extends State<BookCommentsTab> {
         duration: const Duration(seconds: 2),
       ),
     );
+  }
+
+  void _updateBookRating() {
+    final currentRating = double.tryParse(widget.book.rating ?? '0') ?? 0;
+    final newRating = (currentRating + _selectedRating) / 2;
+    widget.book.copyWith(rating: newRating.toString());
   }
 
   @override
@@ -153,11 +161,11 @@ class _BookCommentsTabState extends State<BookCommentsTab> {
                           final rating = 5 - index;
                           return Expanded(
                             child: RatingButton(
-                              rating: rating,
+                              rating: rating.toDouble(),
                               isSelected: _selectedRating >= rating,
                               onPressed: () {
                                 if (_commentController.text.trim().isNotEmpty) {
-                                  _onRatingChanged(rating);
+                                  _onRatingChanged(rating.toDouble());
                                 }
                                 //we are not able to change rating if the comment is empty
                               },
@@ -191,18 +199,19 @@ class _BookCommentsTabState extends State<BookCommentsTab> {
                                       AddCommentRequest(
                                         bookId: widget.book.id ?? 0,
                                         content: _commentController.text,
-                                        rate: _selectedRating,
+                                        rate: _selectedRating.toInt(),
                                       ),
                                     ),
                                   );
 
+                                  widget.onRatingUpdated(_selectedRating);
                                   _commentController.clear();
                                   setState(() {
                                     _selectedRating = 0;
                                     _isLoading = false;
                                   });
                                   _showSuccessSnackBar();
-                                  context.pop();
+                                  // context.pop();
                                 }
                               : null,
                           child: Padding(

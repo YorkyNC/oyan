@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RatingButton extends StatelessWidget {
-  final int rating;
+  final double rating;
   final bool isSelected;
   final VoidCallback onPressed;
 
@@ -32,7 +32,7 @@ class RatingButton extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(rating.toString()),
+            Text(rating.toStringAsFixed(0)),
             const SizedBox(width: 2),
             Icon(
               rating >= 6 ? Icons.star_outline_rounded : Icons.star_rounded,

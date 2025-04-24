@@ -1,12 +1,15 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jwt_decode/jwt_decode.dart';
 import 'package:oyan/src/app/app_navigation_wrapper.dart';
 import 'package:oyan/src/app/imports.dart';
+import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/features/camera/presentation/camera_page.dart';
 import 'package:oyan/src/features/class_events/presentation/class_event_page.dart';
 import 'package:oyan/src/features/competition/presentation/competition_page.dart';
 import 'package:oyan/src/features/competition/presentation/result_page.dart';
 import 'package:oyan/src/features/genre/presentation/genre_page.dart';
 import 'package:oyan/src/features/home/domain/entities/book.dart';
+import 'package:oyan/src/features/home/presentation/bloc/book_bloc.dart';
 import 'package:oyan/src/features/home/presentation/home_page.dart';
 import 'package:oyan/src/features/my-books/presentation/book_information_page.dart';
 import 'package:oyan/src/features/my-books/presentation/my_books_page.dart';
