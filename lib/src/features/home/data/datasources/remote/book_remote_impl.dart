@@ -3,6 +3,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:oyan/src/core/services/csrf/csrf_service.dart';
 import 'package:oyan/src/features/home/domain/entities/add_my_book_entity.dart';
+import 'package:oyan/src/features/home/domain/entities/book.dart';
 import 'package:oyan/src/features/home/domain/entities/get_book_by_id_entity.dart';
 import 'package:oyan/src/features/home/domain/entities/get_my_books_entity.dart';
 import 'package:oyan/src/features/home/domain/requests/add_my_books_request.dart';
@@ -27,7 +28,7 @@ class BookRemoteImpl implements IBookRemote {
 
   BookRemoteImpl(this.client);
   @override
-  Future<Either<DomainException, GetBookByIdEntity>> getBookById(GetBookByIdRequest file) async {
+  Future<Either<DomainException, Book>> getBookById(GetBookByIdRequest file) async {
     try {
       final Either<DomainException, Response<dynamic>> response = await client.get(
         '${EndPoints.baseUrl}/books/${file.bookId}/',
@@ -35,7 +36,7 @@ class BookRemoteImpl implements IBookRemote {
       );
 
       return response.fold((error) => Left(error), (result) {
-        return Right(GetBookByIdEntity.fromJson(result.data));
+        return Right(Book.fromJson(result.data));
       });
     } catch (e) {
       Log.e(e);

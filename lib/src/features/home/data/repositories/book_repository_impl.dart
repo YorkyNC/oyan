@@ -1,7 +1,7 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:oyan/src/features/home/domain/entities/add_my_book_entity.dart';
-import 'package:oyan/src/features/home/domain/entities/get_book_by_id_entity.dart';
+import 'package:oyan/src/features/home/domain/entities/book.dart';
 import 'package:oyan/src/features/home/domain/entities/get_my_books_entity.dart';
 import 'package:oyan/src/features/home/domain/requests/add_my_books_request.dart';
 import 'package:oyan/src/features/home/domain/requests/get_book_by_id_request.dart';
@@ -73,7 +73,7 @@ class BookRepositoryImpl implements IBookRepository {
   }
 
   @override
-  Future<Either<DomainException, GetBookByIdEntity>> getBookById(GetBookByIdRequest file) async {
+  Future<Either<DomainException, Book>> getBookById(GetBookByIdRequest file) async {
     try {
       final requests = await bookImpl.getBookById(file);
       return requests.fold(

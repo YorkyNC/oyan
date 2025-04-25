@@ -6,13 +6,13 @@ part 'book.g.dart';
 @freezed
 class Book with _$Book {
   const factory Book({
-    @JsonKey(name: 'id') int? id,
-    @JsonKey(name: 'title') String? title,
-    @JsonKey(name: 'author') String? author,
-    @JsonKey(name: 'description') String? description,
+    int? id,
+    String? title,
+    String? author,
+    String? description,
     @JsonKey(name: 'cover_image_url') String? coverImageUrl,
-    @JsonKey(name: 'rating') String? rating,
-    @JsonKey(name: 'genres') List<int>? genres,
+    String? rating,
+    List<int>? genres,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'published_year') int? publishedYear,
     @JsonKey(name: 'plan') String? plan,
@@ -20,7 +20,22 @@ class Book with _$Book {
     @JsonKey(name: 'page_count') int? pageCount,
     @JsonKey(name: 'age_limit') String? ageLimit,
     @JsonKey(name: 'read_url') String? readUrl,
+    PersonalBookType? isFav,
   }) = _Book;
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
+}
+
+enum PersonalBookType {
+  @JsonValue('completed')
+  completed,
+
+  @JsonValue('favorite')
+  favourite,
+
+  @JsonValue('to_read')
+  toRead,
+
+  @JsonValue('none')
+  none,
 }

@@ -20,19 +20,13 @@ Book _$BookFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Book {
-  @JsonKey(name: 'id')
   int? get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'title')
   String? get title => throw _privateConstructorUsedError;
-  @JsonKey(name: 'author')
   String? get author => throw _privateConstructorUsedError;
-  @JsonKey(name: 'description')
   String? get description => throw _privateConstructorUsedError;
   @JsonKey(name: 'cover_image_url')
   String? get coverImageUrl => throw _privateConstructorUsedError;
-  @JsonKey(name: 'rating')
   String? get rating => throw _privateConstructorUsedError;
-  @JsonKey(name: 'genres')
   List<int>? get genres => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -48,6 +42,7 @@ mixin _$Book {
   String? get ageLimit => throw _privateConstructorUsedError;
   @JsonKey(name: 'read_url')
   String? get readUrl => throw _privateConstructorUsedError;
+  PersonalBookType? get isFav => throw _privateConstructorUsedError;
 
   /// Serializes this Book to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -64,20 +59,21 @@ abstract class $BookCopyWith<$Res> {
       _$BookCopyWithImpl<$Res, Book>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int? id,
-      @JsonKey(name: 'title') String? title,
-      @JsonKey(name: 'author') String? author,
-      @JsonKey(name: 'description') String? description,
+      {int? id,
+      String? title,
+      String? author,
+      String? description,
       @JsonKey(name: 'cover_image_url') String? coverImageUrl,
-      @JsonKey(name: 'rating') String? rating,
-      @JsonKey(name: 'genres') List<int>? genres,
+      String? rating,
+      List<int>? genres,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'published_year') int? publishedYear,
       @JsonKey(name: 'plan') String? plan,
       @JsonKey(name: 'price') String? price,
       @JsonKey(name: 'page_count') int? pageCount,
       @JsonKey(name: 'age_limit') String? ageLimit,
-      @JsonKey(name: 'read_url') String? readUrl});
+      @JsonKey(name: 'read_url') String? readUrl,
+      PersonalBookType? isFav});
 }
 
 /// @nodoc
@@ -109,6 +105,7 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
     Object? pageCount = freezed,
     Object? ageLimit = freezed,
     Object? readUrl = freezed,
+    Object? isFav = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -167,6 +164,10 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
           ? _value.readUrl
           : readUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      isFav: freezed == isFav
+          ? _value.isFav
+          : isFav // ignore: cast_nullable_to_non_nullable
+              as PersonalBookType?,
     ) as $Val);
   }
 }
@@ -179,20 +180,21 @@ abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int? id,
-      @JsonKey(name: 'title') String? title,
-      @JsonKey(name: 'author') String? author,
-      @JsonKey(name: 'description') String? description,
+      {int? id,
+      String? title,
+      String? author,
+      String? description,
       @JsonKey(name: 'cover_image_url') String? coverImageUrl,
-      @JsonKey(name: 'rating') String? rating,
-      @JsonKey(name: 'genres') List<int>? genres,
+      String? rating,
+      List<int>? genres,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'published_year') int? publishedYear,
       @JsonKey(name: 'plan') String? plan,
       @JsonKey(name: 'price') String? price,
       @JsonKey(name: 'page_count') int? pageCount,
       @JsonKey(name: 'age_limit') String? ageLimit,
-      @JsonKey(name: 'read_url') String? readUrl});
+      @JsonKey(name: 'read_url') String? readUrl,
+      PersonalBookType? isFav});
 }
 
 /// @nodoc
@@ -221,6 +223,7 @@ class __$$BookImplCopyWithImpl<$Res>
     Object? pageCount = freezed,
     Object? ageLimit = freezed,
     Object? readUrl = freezed,
+    Object? isFav = freezed,
   }) {
     return _then(_$BookImpl(
       id: freezed == id
@@ -279,6 +282,10 @@ class __$$BookImplCopyWithImpl<$Res>
           ? _value.readUrl
           : readUrl // ignore: cast_nullable_to_non_nullable
               as String?,
+      isFav: freezed == isFav
+          ? _value.isFav
+          : isFav // ignore: cast_nullable_to_non_nullable
+              as PersonalBookType?,
     ));
   }
 }
@@ -287,46 +294,41 @@ class __$$BookImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$BookImpl implements _Book {
   const _$BookImpl(
-      {@JsonKey(name: 'id') this.id,
-      @JsonKey(name: 'title') this.title,
-      @JsonKey(name: 'author') this.author,
-      @JsonKey(name: 'description') this.description,
+      {this.id,
+      this.title,
+      this.author,
+      this.description,
       @JsonKey(name: 'cover_image_url') this.coverImageUrl,
-      @JsonKey(name: 'rating') this.rating,
-      @JsonKey(name: 'genres') final List<int>? genres,
+      this.rating,
+      final List<int>? genres,
       @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(name: 'published_year') this.publishedYear,
       @JsonKey(name: 'plan') this.plan,
       @JsonKey(name: 'price') this.price,
       @JsonKey(name: 'page_count') this.pageCount,
       @JsonKey(name: 'age_limit') this.ageLimit,
-      @JsonKey(name: 'read_url') this.readUrl})
+      @JsonKey(name: 'read_url') this.readUrl,
+      this.isFav})
       : _genres = genres;
 
   factory _$BookImpl.fromJson(Map<String, dynamic> json) =>
       _$$BookImplFromJson(json);
 
   @override
-  @JsonKey(name: 'id')
   final int? id;
   @override
-  @JsonKey(name: 'title')
   final String? title;
   @override
-  @JsonKey(name: 'author')
   final String? author;
   @override
-  @JsonKey(name: 'description')
   final String? description;
   @override
   @JsonKey(name: 'cover_image_url')
   final String? coverImageUrl;
   @override
-  @JsonKey(name: 'rating')
   final String? rating;
   final List<int>? _genres;
   @override
-  @JsonKey(name: 'genres')
   List<int>? get genres {
     final value = _genres;
     if (value == null) return null;
@@ -356,10 +358,12 @@ class _$BookImpl implements _Book {
   @override
   @JsonKey(name: 'read_url')
   final String? readUrl;
+  @override
+  final PersonalBookType? isFav;
 
   @override
   String toString() {
-    return 'Book(id: $id, title: $title, author: $author, description: $description, coverImageUrl: $coverImageUrl, rating: $rating, genres: $genres, createdAt: $createdAt, publishedYear: $publishedYear, plan: $plan, price: $price, pageCount: $pageCount, ageLimit: $ageLimit, readUrl: $readUrl)';
+    return 'Book(id: $id, title: $title, author: $author, description: $description, coverImageUrl: $coverImageUrl, rating: $rating, genres: $genres, createdAt: $createdAt, publishedYear: $publishedYear, plan: $plan, price: $price, pageCount: $pageCount, ageLimit: $ageLimit, readUrl: $readUrl, isFav: $isFav)';
   }
 
   @override
@@ -386,7 +390,8 @@ class _$BookImpl implements _Book {
                 other.pageCount == pageCount) &&
             (identical(other.ageLimit, ageLimit) ||
                 other.ageLimit == ageLimit) &&
-            (identical(other.readUrl, readUrl) || other.readUrl == readUrl));
+            (identical(other.readUrl, readUrl) || other.readUrl == readUrl) &&
+            (identical(other.isFav, isFav) || other.isFav == isFav));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -406,7 +411,8 @@ class _$BookImpl implements _Book {
       price,
       pageCount,
       ageLimit,
-      readUrl);
+      readUrl,
+      isFav);
 
   /// Create a copy of Book
   /// with the given fields replaced by the non-null parameter values.
@@ -426,43 +432,38 @@ class _$BookImpl implements _Book {
 
 abstract class _Book implements Book {
   const factory _Book(
-      {@JsonKey(name: 'id') final int? id,
-      @JsonKey(name: 'title') final String? title,
-      @JsonKey(name: 'author') final String? author,
-      @JsonKey(name: 'description') final String? description,
+      {final int? id,
+      final String? title,
+      final String? author,
+      final String? description,
       @JsonKey(name: 'cover_image_url') final String? coverImageUrl,
-      @JsonKey(name: 'rating') final String? rating,
-      @JsonKey(name: 'genres') final List<int>? genres,
+      final String? rating,
+      final List<int>? genres,
       @JsonKey(name: 'created_at') final DateTime? createdAt,
       @JsonKey(name: 'published_year') final int? publishedYear,
       @JsonKey(name: 'plan') final String? plan,
       @JsonKey(name: 'price') final String? price,
       @JsonKey(name: 'page_count') final int? pageCount,
       @JsonKey(name: 'age_limit') final String? ageLimit,
-      @JsonKey(name: 'read_url') final String? readUrl}) = _$BookImpl;
+      @JsonKey(name: 'read_url') final String? readUrl,
+      final PersonalBookType? isFav}) = _$BookImpl;
 
   factory _Book.fromJson(Map<String, dynamic> json) = _$BookImpl.fromJson;
 
   @override
-  @JsonKey(name: 'id')
   int? get id;
   @override
-  @JsonKey(name: 'title')
   String? get title;
   @override
-  @JsonKey(name: 'author')
   String? get author;
   @override
-  @JsonKey(name: 'description')
   String? get description;
   @override
   @JsonKey(name: 'cover_image_url')
   String? get coverImageUrl;
   @override
-  @JsonKey(name: 'rating')
   String? get rating;
   @override
-  @JsonKey(name: 'genres')
   List<int>? get genres;
   @override
   @JsonKey(name: 'created_at')
@@ -485,6 +486,8 @@ abstract class _Book implements Book {
   @override
   @JsonKey(name: 'read_url')
   String? get readUrl;
+  @override
+  PersonalBookType? get isFav;
 
   /// Create a copy of Book
   /// with the given fields replaced by the non-null parameter values.

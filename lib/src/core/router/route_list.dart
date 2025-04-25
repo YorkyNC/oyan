@@ -234,26 +234,12 @@ List<RouteBase> _routes = [
   GoRoute(
     path: RoutePaths.booksDetails,
     pageBuilder: (context, state) {
-      final data = state.extra;
-      Book? book;
-      if (data != null) {
-        if (data is Map<String, dynamic>) {
-          if (data['book'] is Book) {
-            book = data['book'] as Book;
-          } else if (data['book'] is Map<String, dynamic>) {
-            book = Book.fromJson(data['book'] as Map<String, dynamic>);
-          }
-        } else if (data is Book) {
-          book = data;
-        } else if (data is Map<String, dynamic>) {
-          book = Book.fromJson(data);
-        }
-      }
+      final data = state.extra as Map<String, dynamic>;
+
       return getPage(
         child: BlocProvider(
           create: (context) => getIt<BookBloc>(),
-          child:
-              BookInformationPage(book: book ?? const Book(), id: (data as Map<String, dynamic>?)?['id'] as int? ?? 0),
+          child: BookInformationPage(id: data['id'] as int),
         ),
         state: state,
       );

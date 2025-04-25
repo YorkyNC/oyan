@@ -18,5 +18,6 @@ class BookViewModel with _$BookViewModel {
     @Default(null) GetMyBooksEntity? myBooks,
     @Default(null) AddMyBookEntity? addMyBook,
     @Default(null) GetBookByIdEntity? bookById,
+    @Default(null) Book? book,
   }) = _BookViewModel;
 }

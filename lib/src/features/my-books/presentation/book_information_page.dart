@@ -1,10 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
+import 'package:oyan/src/core/services/injectable/injectable_service.dart';
+import 'package:oyan/src/core/widgets/shimmer/shimmer_container.dart';
 import 'package:oyan/src/features/home/domain/entities/book.dart';
 import 'package:oyan/src/features/home/domain/requests/add_my_books_request.dart';
 import 'package:oyan/src/features/home/domain/requests/get_book_by_id_request.dart';
@@ -14,9 +15,8 @@ import 'package:oyan/src/features/my-books/presentation/book_overview_tab.dart';
 import 'package:oyan/src/features/my-books/presentation/book_stats_widget.dart';
 
 class BookInformationPage extends StatefulWidget {
-  final Book book;
-  final int id;
-  const BookInformationPage({super.key, required this.book, required this.id});
+  final int? id;
+  const BookInformationPage({super.key, this.id});
 
   @override
   State<BookInformationPage> createState() => _BookInformationPageState();
@@ -24,23 +24,26 @@ class BookInformationPage extends StatefulWidget {
 
 class _BookInformationPageState extends State<BookInformationPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
-  late Book _book;
+  Book? _currentBook;
+  bool isFavourite = false;
 
   @override
   void initState() {
+    print('Loading book with ID: ${widget.id}');
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {});
     });
-    _book = widget.book;
   }
 
   void _updateBookRating(double newRating) {
     setState(() {
-      final currentRating = double.tryParse(_book.rating ?? '0') ?? 0;
-      final updatedRating = (currentRating + newRating) / 2;
-      _book = _book.copyWith(rating: updatedRating.toString());
+      if (_currentBook != null) {
+        final currentRating = double.tryParse(_currentBook!.rating ?? '0') ?? 0;
+        final updatedRating = (currentRating + newRating) / 2;
+        _currentBook = _currentBook!.copyWith(rating: updatedRating.toString());
+      }
     });
   }
 
@@ -53,32 +56,145 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
   @override
   Widget build(BuildContext context) {
     return BaseBlocWidget<BookBloc, BookEvent, BookState>(
-      bloc: GetIt.instance<BookBloc>(),
-      starterEvent: BookEvent.getBookById(GetBookByIdRequest(bookId: widget.id ?? 0)),
+      bloc: getIt<BookBloc>(),
+      starterEvent: BookEvent.getBookById(GetBookByIdRequest(bookId: widget.id!)),
       builder: (context, state, bloc) {
         return state.maybeWhen(
           loading: () => _buildLoadingState(),
           error: (error) => _buildErrorState(error),
           loaded: (viewModel) {
-            final book = viewModel.bookById?.data ?? widget.book;
-            return _buildContent(context, book);
+            print('ViewModel data: ${viewModel.book}');
+            print('Book data: ${viewModel.book}');
+            _currentBook = viewModel.book;
+            if (_currentBook?.isFav == PersonalBookType.favourite) {
+              isFavourite = true;
+            }
+            if (_currentBook == null) {
+              print('Book is null after assignment');
+              return _buildErrorState('Book not found');
+            }
+            return _buildContent(context, _currentBook!);
           },
-          orElse: () => _buildContent(context, widget.book),
+          orElse: () => _buildLoadingState(),
         );
       },
     );
   }
 
   Widget _buildLoadingState() {
-    return const Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: const Row(
+          children: [
+            SizedBox(width: 12),
+            ShimmerContainer(width: 44, height: 44),
+          ],
+        ),
+        actions: const [
+          Row(
+            children: [
+              ShimmerContainer(width: 44, height: 44),
+              SizedBox(width: 12),
+            ],
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          physics: const NeverScrollableScrollPhysics(),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 29),
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    color: Colors.white,
+                    child: const Column(
+                      children: [
+                        SizedBox(height: 16),
+                        ShimmerContainer(width: 206.61761474609375, height: 283.0863952636719),
+                        SizedBox(height: 12),
+                        ShimmerContainer(width: 260, height: 24),
+                        SizedBox(height: 12),
+                        ShimmerContainer(width: 180, height: 24),
+                        SizedBox(height: 12),
+                        ShimmerContainer(width: 100, height: 24),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ShimmerContainer(width: 68, height: 48),
+                            SizedBox(width: 6),
+                            ShimmerContainer(width: 68, height: 48),
+                            SizedBox(width: 6),
+                            ShimmerContainer(width: 68, height: 48),
+                            SizedBox(width: 6),
+                            ShimmerContainer(width: 68, height: 48),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ShimmerContainer(width: 100, height: 12),
+                            SizedBox(width: 12),
+                            ShimmerContainer(width: 100, height: 12),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ShimmerContainer(width: 100, height: 12),
+                          ],
+                        ),
+                        SizedBox(height: 20),
+                        ShimmerContainer(width: double.infinity, height: 46),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
 
   Widget _buildErrorState(String error) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: Row(
+          children: [
+            const SizedBox(width: 12),
+            InkWell(
+              onTap: () {
+                context.pop();
+              },
+              splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  shape: BoxShape.rectangle,
+                  color: const Color(0xffEBF0FF),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
       body: Center(
         child: Text(
           error,
@@ -90,6 +206,7 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
 
   Widget _buildContent(BuildContext context, Book book) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         actions: [
@@ -97,16 +214,20 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
             children: [
               InkWell(
                 onTap: () {
-                  print('add favourite');
-                  context.read<BookBloc>().add(
-                        BookEvent.addMyBook(
-                          AddMyBooksRequest(
-                            bookId: book.id ?? 0,
-                            username: st.getUsername()!,
-                            filter: 'favourite',
+                  if (!isFavourite) {
+                    setState(() {
+                      isFavourite = true;
+                    });
+                    context.read<BookBloc>().add(
+                          BookEvent.addMyBook(
+                            AddMyBooksRequest(
+                              bookId: book.id ?? 0,
+                              username: st.getUsername()!,
+                              filter: 'favourite',
+                            ),
                           ),
-                        ),
-                      );
+                        );
+                  }
                 },
                 child: Container(
                   padding: const EdgeInsets.all(10),
@@ -115,9 +236,9 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                     color: const Color(0xffEBF0FF),
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  child: const Icon(
-                    Icons.bookmark_border_rounded,
-                    color: Colors.black,
+                  child: Icon(
+                    isFavourite ? Icons.bookmark : Icons.bookmark_border_rounded,
+                    color: isFavourite ? Colors.amber : Colors.black,
                   ),
                 ),
               ),
@@ -150,7 +271,6 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
           ],
         ),
       ),
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

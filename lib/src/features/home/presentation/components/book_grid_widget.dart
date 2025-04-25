@@ -29,7 +29,7 @@ class BookGridWidget extends StatelessWidget {
           final book = displayedBooks[index];
           return GestureDetector(
             onTap: () {
-              context.push(RoutePaths.booksDetails, extra: {'book': book, 'id': book.id});
+              context.push(RoutePaths.booksDetails, extra: {'id': book.id});
             },
             child: Padding(
               padding: const EdgeInsets.only(right: 16),

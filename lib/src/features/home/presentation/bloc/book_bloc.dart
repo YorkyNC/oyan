@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:oyan/src/features/home/domain/entities/add_my_book_entity.dart';
+import 'package:oyan/src/features/home/domain/entities/book.dart';
 import 'package:oyan/src/features/home/domain/entities/get_book_by_id_entity.dart';
 import 'package:oyan/src/features/home/domain/entities/get_books_entity.dart' as entity;
 import 'package:oyan/src/features/home/domain/entities/get_books_entity.dart';
@@ -52,7 +53,7 @@ class BookBloc extends BaseBloc<BookEvent, BookState> {
       return emit(BookState.error(result.failure!.message));
     }
 
-    _viewModel = _viewModel.copyWith(bookById: result.data);
+    _viewModel = _viewModel.copyWith(book: result.data);
     return emit(BookState.loaded(viewModel: _viewModel));
   }
 

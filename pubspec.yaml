@@ -213,8 +213,8 @@ flutter_native_splash:
   android_12:
     image: assets/splash/light.png
     image_dark: assets/splash/dark.png
-    icon_background_color: "#646CE6"
-    icon_background_color_dark: "#646CE6"
+    icon_background_color: "#1E1E1E"
+    icon_background_color_dark: "#1E1E1E"
 
 # * Flutter Flavor Configurations
 flavorizr:

@@ -150,9 +150,10 @@ class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProvide
                                 author: book.author ?? '',
                                 coverUrl: book.coverUrl ?? '',
                                 onReadPressed: () {
+                                  print(book.book);
                                   context.push(
                                     RoutePaths.booksDetails,
-                                    extra: {'book': book, 'id': book.book},
+                                    extra: {'id': book.book},
                                   );
                                 },
                               ),

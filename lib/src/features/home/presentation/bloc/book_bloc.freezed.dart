@@ -1392,6 +1392,7 @@ mixin _$BookViewModel {
   GetMyBooksEntity? get myBooks => throw _privateConstructorUsedError;
   AddMyBookEntity? get addMyBook => throw _privateConstructorUsedError;
   GetBookByIdEntity? get bookById => throw _privateConstructorUsedError;
+  Book? get book => throw _privateConstructorUsedError;
 
   /// Create a copy of BookViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1412,7 +1413,8 @@ abstract class $BookViewModelCopyWith<$Res> {
       entity.GetBooksEntity? newBooks,
       GetMyBooksEntity? myBooks,
       AddMyBookEntity? addMyBook,
-      GetBookByIdEntity? bookById});
+      GetBookByIdEntity? bookById,
+      Book? book});
 
   $GetBooksEntityCopyWith<$Res>? get recommendedBooks;
   $GetBooksEntityCopyWith<$Res>? get popularBooks;
@@ -1443,6 +1445,7 @@ class _$BookViewModelCopyWithImpl<$Res, $Val extends BookViewModel>
     Object? myBooks = freezed,
     Object? addMyBook = freezed,
     Object? bookById = freezed,
+    Object? book = freezed,
   }) {
     return _then(_value.copyWith(
       recommendedBooks: freezed == recommendedBooks
@@ -1469,6 +1472,10 @@ class _$BookViewModelCopyWithImpl<$Res, $Val extends BookViewModel>
           ? _value.bookById
           : bookById // ignore: cast_nullable_to_non_nullable
               as GetBookByIdEntity?,
+      book: freezed == book
+          ? _value.book
+          : book // ignore: cast_nullable_to_non_nullable
+              as Book?,
     ) as $Val);
   }
 
@@ -1571,7 +1578,8 @@ abstract class _$$BookViewModelImplCopyWith<$Res>
       entity.GetBooksEntity? newBooks,
       GetMyBooksEntity? myBooks,
       AddMyBookEntity? addMyBook,
-      GetBookByIdEntity? bookById});
+      GetBookByIdEntity? bookById,
+      Book? book});
 
   @override
   $GetBooksEntityCopyWith<$Res>? get recommendedBooks;
@@ -1606,6 +1614,7 @@ class __$$BookViewModelImplCopyWithImpl<$Res>
     Object? myBooks = freezed,
     Object? addMyBook = freezed,
     Object? bookById = freezed,
+    Object? book = freezed,
   }) {
     return _then(_$BookViewModelImpl(
       recommendedBooks: freezed == recommendedBooks
@@ -1632,6 +1641,10 @@ class __$$BookViewModelImplCopyWithImpl<$Res>
           ? _value.bookById
           : bookById // ignore: cast_nullable_to_non_nullable
               as GetBookByIdEntity?,
+      book: freezed == book
+          ? _value.book
+          : book // ignore: cast_nullable_to_non_nullable
+              as Book?,
     ));
   }
 }
@@ -1645,7 +1658,8 @@ class _$BookViewModelImpl implements _BookViewModel {
       this.newBooks = null,
       this.myBooks = null,
       this.addMyBook = null,
-      this.bookById = null});
+      this.bookById = null,
+      this.book = null});
 
   @override
   @JsonKey()
@@ -1665,10 +1679,13 @@ class _$BookViewModelImpl implements _BookViewModel {
   @override
   @JsonKey()
   final GetBookByIdEntity? bookById;
+  @override
+  @JsonKey()
+  final Book? book;
 
   @override
   String toString() {
-    return 'BookViewModel(recommendedBooks: $recommendedBooks, popularBooks: $popularBooks, newBooks: $newBooks, myBooks: $myBooks, addMyBook: $addMyBook, bookById: $bookById)';
+    return 'BookViewModel(recommendedBooks: $recommendedBooks, popularBooks: $popularBooks, newBooks: $newBooks, myBooks: $myBooks, addMyBook: $addMyBook, bookById: $bookById, book: $book)';
   }
 
   @override
@@ -1686,12 +1703,20 @@ class _$BookViewModelImpl implements _BookViewModel {
             (identical(other.addMyBook, addMyBook) ||
                 other.addMyBook == addMyBook) &&
             (identical(other.bookById, bookById) ||
-                other.bookById == bookById));
+                other.bookById == bookById) &&
+            const DeepCollectionEquality().equals(other.book, book));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, recommendedBooks, popularBooks,
-      newBooks, myBooks, addMyBook, bookById);
+  int get hashCode => Object.hash(
+      runtimeType,
+      recommendedBooks,
+      popularBooks,
+      newBooks,
+      myBooks,
+      addMyBook,
+      bookById,
+      const DeepCollectionEquality().hash(book));
 
   /// Create a copy of BookViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1709,7 +1734,8 @@ abstract class _BookViewModel implements BookViewModel {
       final entity.GetBooksEntity? newBooks,
       final GetMyBooksEntity? myBooks,
       final AddMyBookEntity? addMyBook,
-      final GetBookByIdEntity? bookById}) = _$BookViewModelImpl;
+      final GetBookByIdEntity? bookById,
+      final Book? book}) = _$BookViewModelImpl;
 
   @override
   entity.GetBooksEntity? get recommendedBooks;
@@ -1723,6 +1749,8 @@ abstract class _BookViewModel implements BookViewModel {
   AddMyBookEntity? get addMyBook;
   @override
   GetBookByIdEntity? get bookById;
+  @override
+  Book? get book;
 
   /// Create a copy of BookViewModel
   /// with the given fields replaced by the non-null parameter values.
