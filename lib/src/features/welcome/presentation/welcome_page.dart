@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
+import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/features/login/presentation/bloc/auth_bloc.dart';
 import 'package:oyan/src/features/welcome/presentation/components/login_options_bottom_sheet.dart';
@@ -31,9 +32,24 @@ class WelcomePage extends StatelessWidget {
               _showLoginOptionsBottomSheet(context);
             }
           },
+          loading: () {
+            ScaffoldMessenger.of(context).showSnackBar(
+              CustomSnackBar.show(
+                title: 'Wait please...',
+                seconds: 3,
+                context: context,
+                color: context.colors.success500,
+              ),
+            );
+          },
           error: (error) {
             ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Failed to prepare login: $error')),
+              CustomSnackBar.show(
+                title: error.toString(),
+                seconds: 3,
+                context: context,
+                color: context.colors.error500,
+              ),
             );
           },
         );
@@ -106,5 +122,45 @@ class WelcomePage extends StatelessWidget {
 
   Future<void> _handleGettingCSRF(BuildContext context) async {
     authBloc.add(const AuthEvent.getCsrfToken());
+  }
+}
+
+class CustomSnackBar {
+  static SnackBar show({
+    required String title,
+    required int seconds,
+    required BuildContext context,
+    required Color color,
+  }) {
+    return SnackBar(
+      behavior: SnackBarBehavior.floating,
+      elevation: 0,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(12),
+        ),
+      ),
+      backgroundColor: color,
+      duration: Duration(seconds: seconds),
+      content: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: Text(
+              title,
+              style: context.typography.textsmSemibold.copyWith(
+                color: context.colors.white,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          Icon(
+            context.icons.delete_1__remove_add_button_buttons_delete_cross_x_mathematics_multiply_math,
+            color: context.colors.white,
+          ),
+        ],
+      ),
+    );
   }
 }

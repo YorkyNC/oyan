@@ -5,6 +5,7 @@ import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
+import 'package:oyan/src/core/widgets/shimmer/shimmer_container.dart';
 import 'package:oyan/src/features/home/domain/entities/my_book_entity.dart';
 import 'package:oyan/src/features/home/domain/requests/my_book_request.dart';
 import 'package:oyan/src/features/home/presentation/bloc/book_bloc.dart';
@@ -103,10 +104,32 @@ class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProvide
                   builder: (context, state, bloc) {
                     return state.maybeWhen(
                       orElse: () {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.black,
-                          ),
+                        return ListView.builder(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          itemCount: 5,
+                          itemBuilder: (context, index) {
+                            return const Padding(
+                              padding: EdgeInsets.only(bottom: 16),
+                              child: Row(
+                                children: [
+                                  ShimmerContainer(width: 100, height: 150),
+                                  SizedBox(width: 16),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        ShimmerContainer(width: double.infinity, height: 24),
+                                        SizedBox(height: 8),
+                                        ShimmerContainer(width: 150, height: 20),
+                                        SizedBox(height: 16),
+                                        ShimmerContainer(width: 100, height: 40),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
                         );
                       },
                       loaded: (viewModel) {

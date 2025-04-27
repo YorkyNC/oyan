@@ -1422,6 +1422,7 @@ abstract class $BookViewModelCopyWith<$Res> {
   $GetMyBooksEntityCopyWith<$Res>? get myBooks;
   $AddMyBookEntityCopyWith<$Res>? get addMyBook;
   $GetBookByIdEntityCopyWith<$Res>? get bookById;
+  $BookCopyWith<$Res>? get book;
 }
 
 /// @nodoc
@@ -1562,6 +1563,20 @@ class _$BookViewModelCopyWithImpl<$Res, $Val extends BookViewModel>
       return _then(_value.copyWith(bookById: value) as $Val);
     });
   }
+
+  /// Create a copy of BookViewModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $BookCopyWith<$Res>? get book {
+    if (_value.book == null) {
+      return null;
+    }
+
+    return $BookCopyWith<$Res>(_value.book!, (value) {
+      return _then(_value.copyWith(book: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -1593,6 +1608,8 @@ abstract class _$$BookViewModelImplCopyWith<$Res>
   $AddMyBookEntityCopyWith<$Res>? get addMyBook;
   @override
   $GetBookByIdEntityCopyWith<$Res>? get bookById;
+  @override
+  $BookCopyWith<$Res>? get book;
 }
 
 /// @nodoc
@@ -1704,19 +1721,12 @@ class _$BookViewModelImpl implements _BookViewModel {
                 other.addMyBook == addMyBook) &&
             (identical(other.bookById, bookById) ||
                 other.bookById == bookById) &&
-            const DeepCollectionEquality().equals(other.book, book));
+            (identical(other.book, book) || other.book == book));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      recommendedBooks,
-      popularBooks,
-      newBooks,
-      myBooks,
-      addMyBook,
-      bookById,
-      const DeepCollectionEquality().hash(book));
+  int get hashCode => Object.hash(runtimeType, recommendedBooks, popularBooks,
+      newBooks, myBooks, addMyBook, bookById, book);
 
   /// Create a copy of BookViewModel
   /// with the given fields replaced by the non-null parameter values.

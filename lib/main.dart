@@ -14,8 +14,6 @@ void main([List<String>? args, AppFlavor flavor = AppFlavor.production]) async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   await storageService.init();
-  debugPrint('Initial client ID from storage: ${storageService.getClientId()}');
-
   await configureDependencies();
   // await FirebaseManager.initialize();
   // Initialize chat service

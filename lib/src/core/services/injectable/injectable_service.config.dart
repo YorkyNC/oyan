@@ -60,6 +60,16 @@ import 'package:oyan/src/features/comments/domain/usecases/add_comment_use_case.
     as _i29;
 import 'package:oyan/src/features/comments/domain/usecases/get_comment_use_case.dart'
     as _i359;
+import 'package:oyan/src/features/competition/data/datasources/remote/competition_remote_impl.dart'
+    as _i770;
+import 'package:oyan/src/features/competition/data/datasources/remote/i_competition_remote.dart'
+    as _i447;
+import 'package:oyan/src/features/competition/data/repositories/competition_repository_impl.dart'
+    as _i550;
+import 'package:oyan/src/features/competition/domain/repositories/i_competition_repository.dart'
+    as _i521;
+import 'package:oyan/src/features/competition/domain/usecases/get_competition_use_case.dart'
+    as _i1072;
 import 'package:oyan/src/features/events/domain/use_cases/get_all_events_use_case.dart'
     as _i967;
 import 'package:oyan/src/features/events/domain/use_cases/get_events_count_use_case.dart'
@@ -219,6 +229,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i702.ChatRemoteImpl(gh<_i140.DioRestClient>()),
       instanceName: 'ChatRemoteImpl',
     );
+    gh.lazySingleton<_i447.ICompetitionRemote>(
+      () => _i770.CompetitionRemoteImpl(gh<_i140.DioRestClient>()),
+      instanceName: 'CompetitionRemoteImpl',
+    );
     gh.lazySingleton<_i877.IAuthService>(
       () => _i161.AuthServiceImpl(gh<_i140.DioRestClient>()),
       instanceName: 'AuthServiceImpl',
@@ -300,10 +314,18 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i513.IGenreRemote>(instanceName: 'GenreRemoteImpl')),
       instanceName: 'GenreRepositoryImpl',
     );
+    gh.lazySingleton<_i521.ICompetitionRepository>(
+      () => _i550.CompetitionRepositoryImpl(
+          gh<_i447.ICompetitionRemote>(instanceName: 'CompetitionRemoteImpl')),
+      instanceName: 'CompetitionRepositoryImpl',
+    );
     gh.lazySingleton<_i781.GetGenreUseCase>(() => _i781.GetGenreUseCase(
         gh<_i23.IGenreRepository>(instanceName: 'GenreRepositoryImpl')));
     gh.lazySingleton<_i865.AddGenreUseCase>(() => _i865.AddGenreUseCase(
         gh<_i23.IGenreRepository>(instanceName: 'GenreRepositoryImpl')));
+    gh.lazySingleton<_i1072.GetCompetitionUseCase>(() =>
+        _i1072.GetCompetitionUseCase(gh<_i521.ICompetitionRepository>(
+            instanceName: 'CompetitionRepositoryImpl')));
     gh.lazySingleton<_i126.GetMessagesUseCase>(() => _i126.GetMessagesUseCase(
         gh<_i188.IChatRepository>(instanceName: 'ChatRepositoryImpl')));
     gh.lazySingleton<_i183.GetChatsUseCase>(() => _i183.GetChatsUseCase(
