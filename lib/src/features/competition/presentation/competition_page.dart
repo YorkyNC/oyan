@@ -112,7 +112,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
                   return state.maybeWhen(
                     orElse: () {
                       return ListView.builder(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         itemCount: 5,
                         itemBuilder: (context, index) {
                           return const Padding(

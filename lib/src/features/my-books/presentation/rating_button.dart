@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:oyan/src/core/extensions/build_context_extension.dart';
 
 class RatingButton extends StatelessWidget {
   final double rating;
@@ -19,8 +20,8 @@ class RatingButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: isSelected ? const Color(0xffEBF0FF) : const Color(0xffEBF0FF),
-          foregroundColor: isSelected ? const Color(0xffA2ADD0) : const Color(0xffA2ADD0),
+          backgroundColor: isSelected ? context.colors.main : const Color(0xffEBF0FF),
+          foregroundColor: isSelected ? Colors.white : const Color(0xffA2ADD0),
           elevation: 0,
           padding: EdgeInsets.zero,
           shape: RoundedRectangleBorder(
