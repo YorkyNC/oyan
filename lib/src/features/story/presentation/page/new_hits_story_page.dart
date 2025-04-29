@@ -1,23 +1,26 @@
 import 'dart:async';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
+import 'package:oyan/src/core/services/injectable/injectable_service.dart';
+import 'package:oyan/src/features/story/domain/request/get_daily_hits_request.dart';
+import 'package:oyan/src/features/story/presentation/bloc/story_bloc.dart';
 
 class NewHitsStoryPage extends StatefulWidget {
   final String title;
   final String date;
-
   final String backgroundImageUrl;
   final String trophyImageUrl;
   final int storyDuration;
 
   const NewHitsStoryPage({
     super.key,
-    this.title = 'The story of a lonely boy', //The story of a lonely boy
-    this.date = 'TODAY’s Hit',
+    this.title = 'The story of a lonely boy',
+    this.date = 'TODAY\'s Hit',
     this.backgroundImageUrl = 'assets/app_images/main4.png',
     this.trophyImageUrl = 'assets/app_images/main2.png',
-    this.storyDuration = 30,
+    this.storyDuration = 5,
   });
 
   @override
@@ -26,7 +29,9 @@ class NewHitsStoryPage extends StatefulWidget {
 
 class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
   late Timer _timer;
-  double _progress = 0.0;
+  final double _progress = 0.0;
+  int _currentStoryIndex = 0;
+  final List<double> _storyProgress = List.generate(9, (index) => 0.0);
 
   @override
   void initState() {
@@ -47,10 +52,15 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
 
     _timer = Timer.periodic(const Duration(milliseconds: updateInterval), (timer) {
       setState(() {
-        _progress += progressIncrement;
-        if (_progress >= 1.0) {
-          _timer.cancel();
-          context.pop();
+        _storyProgress[_currentStoryIndex] += progressIncrement;
+        if (_storyProgress[_currentStoryIndex] >= 1.0) {
+          if (_currentStoryIndex < 8) {
+            _currentStoryIndex++;
+            _storyProgress[_currentStoryIndex] = 0.0;
+          } else {
+            _timer.cancel();
+            context.pop();
+          }
         }
       });
     });
@@ -64,44 +74,125 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
     _startTimer();
   }
 
+  void _nextStory() {
+    if (_currentStoryIndex < 8) {
+      setState(() {
+        _storyProgress[_currentStoryIndex] = 1.0;
+        _currentStoryIndex++;
+        _storyProgress[_currentStoryIndex] = 0.0;
+      });
+      _timer.cancel();
+      _startTimer();
+    } else {
+      setState(() {
+        _storyProgress[_currentStoryIndex] = 1.0;
+      });
+      context.pop();
+    }
+  }
+
+  void _previousStory() {
+    if (_currentStoryIndex > 0) {
+      setState(() {
+        _storyProgress[_currentStoryIndex] = 1.0;
+        _currentStoryIndex--;
+        _storyProgress[_currentStoryIndex] = 0.0;
+      });
+      _timer.cancel();
+      _startTimer();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    return BlocBuilder<StoryBloc, StoryState>(
+      builder: (context, state) {
+        return state.when(
+          loading: () => _buildLoadingState(),
+          loaded: (viewModel) => _buildLoadedState(viewModel),
+          error: (error) => _buildErrorState(error),
+        );
+      },
+    );
+  }
+
+  Widget _buildLoadingState() {
+    return const Scaffold(
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
+  Widget _buildErrorState(String error) {
+    return Scaffold(
+      body: Center(
+        child: Text('Error: $error'),
+      ),
+    );
+  }
+
+  Widget _buildLoadedState(StoryViewModel viewModel) {
+    final dailyHits = viewModel.dailyHits?.results ?? [];
+    if (dailyHits.isEmpty) return _buildErrorState('No stories available');
+
+    final currentStory = dailyHits[_currentStoryIndex];
+
     return Scaffold(
       body: GestureDetector(
         onLongPress: _pauseTimer,
         onLongPressUp: _resumeTimer,
+        onTapDown: (details) {
+          final screenWidth = MediaQuery.of(context).size.width;
+          if (details.localPosition.dx < screenWidth / 3) {
+            _previousStory();
+          } else if (details.localPosition.dx > screenWidth * 2 / 3) {
+            _nextStory();
+          }
+        },
         child: Stack(
           children: [
             Positioned.fill(
-              child: Image.asset(
-                widget.backgroundImageUrl,
-                fit: BoxFit.cover,
+              child: Image.network(
+                currentStory.coverImageUrl ?? widget.backgroundImageUrl,
+                fit: BoxFit.fitHeight,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    widget.backgroundImageUrl,
+                    fit: BoxFit.cover,
+                  );
+                },
+              ),
+            ),
+            Positioned.fill(
+              child: Container(
+                color: Colors.black.withOpacity(0.8), // Adjust color and opacity as needed
               ),
             ),
 
-            // Content
+            // Progress bars
             SafeArea(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Progress bar
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(2),
-                            child: LinearProgressIndicator(
-                              value: _progress,
-                              backgroundColor: Colors.white.withOpacity(0.3),
-                              color: Colors.white,
-                              minHeight: 4,
+                      children: List.generate(9, (index) {
+                        return Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(2),
+                              child: LinearProgressIndicator(
+                                value: _storyProgress[index],
+                                backgroundColor: Colors.white.withOpacity(0.3),
+                                color: Colors.white,
+                                minHeight: 2,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        );
+                      }),
                     ),
                   ),
 
@@ -130,29 +221,15 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Transform.rotate(
                       angle: 0.15,
-                      child: Image.asset(
-                        widget.trophyImageUrl,
+                      child: Image.network(
+                        currentStory.coverImageUrl ?? widget.trophyImageUrl,
                         height: 300,
                         fit: BoxFit.contain,
                         errorBuilder: (context, error, stackTrace) {
-                          // Fallback trophy if image fails to load
-                          return Container(
-                            height: 200,
-                            width: 180,
-                            decoration: BoxDecoration(
-                              color: Colors.amber,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: const Center(
-                              child: Text(
-                                "#1",
-                                style: TextStyle(
-                                  fontSize: 48,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ),
+                          return Image.asset(
+                            widget.trophyImageUrl,
+                            height: 300,
+                            fit: BoxFit.contain,
                           );
                         },
                       ),
@@ -161,34 +238,30 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
 
                   const Spacer(),
 
-                  // Date
+                  // Date and Title
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          widget.date,
+                          'TODAY’s Hit',
                           style: GoogleFonts.montserrat(
                             fontSize: 50,
                             fontWeight: FontWeight.w800,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                         ),
-
                         const SizedBox(height: 10),
-
-                        // Title
                         Text(
-                          widget.title,
+                          currentStory.title ?? widget.title,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.openSans(
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
-                            color: Colors.black,
+                            color: Colors.white,
                           ),
                         ),
-
                         const SizedBox(height: 16),
                       ],
                     ),
@@ -225,6 +298,18 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class NewHitsStoryPageWrapper extends StatelessWidget {
+  const NewHitsStoryPageWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<StoryBloc>()..add(const StoryEvent.getDailyHits(GetDailyHitsRequest())),
+      child: const NewHitsStoryPage(),
     );
   }
 }

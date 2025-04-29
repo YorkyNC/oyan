@@ -162,6 +162,18 @@ import 'package:oyan/src/features/profile/domain/usecases/update_profile_use_cas
     as _i1057;
 import 'package:oyan/src/features/review/presentation/bloc/review_bloc.dart'
     as _i459;
+import 'package:oyan/src/features/story/data/datasources/remote/book_remote_impl.dart'
+    as _i54;
+import 'package:oyan/src/features/story/data/datasources/remote/i_story_remote.dart'
+    as _i16;
+import 'package:oyan/src/features/story/data/repositories/story_repository_impl.dart'
+    as _i171;
+import 'package:oyan/src/features/story/domain/repositories/i_story_repository.dart'
+    as _i263;
+import 'package:oyan/src/features/story/domain/usecases/get_daily_hits_use_case.dart'
+    as _i132;
+import 'package:oyan/src/features/story/domain/usecases/get_daily_use_case.dart'
+    as _i445;
 
 extension GetItInjectableX on _i174.GetIt {
 // initializes the registration of main-scope dependencies inside of GetIt
@@ -241,6 +253,10 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i161.AuthServiceImpl(gh<_i140.DioRestClient>()),
       instanceName: 'AuthServiceImpl',
     );
+    gh.lazySingleton<_i16.IStoryRemote>(
+      () => _i54.StoryRemoteImpl(gh<_i140.DioRestClient>()),
+      instanceName: 'StoryRemoteImpl',
+    );
     gh.lazySingleton<_i842.IBookRepository>(
       () => _i908.BookRepositoryImpl(
           gh<_i966.IBookRemote>(instanceName: 'BookRemoteImpl')),
@@ -252,6 +268,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i338.AddAttachmentUseCase>(() =>
         _i338.AddAttachmentUseCase(gh<_i773.IAttachmentRepository>(
             instanceName: 'AttachmentRepositoryImpl')));
+    gh.lazySingleton<_i263.IStoryRepository>(
+      () => _i171.StoryRepositoryImpl(
+          gh<_i16.IStoryRemote>(instanceName: 'StoryRemoteImpl')),
+      instanceName: 'StoryRepositoryImpl',
+    );
     gh.lazySingleton<_i188.IChatRepository>(
       () => _i292.ChatRepositoryImpl(
           gh<_i309.IChatRemote>(instanceName: 'ChatRemoteImpl')),
@@ -323,6 +344,10 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i447.ICompetitionRemote>(instanceName: 'CompetitionRemoteImpl')),
       instanceName: 'CompetitionRepositoryImpl',
     );
+    gh.lazySingleton<_i445.GetDailyUseCase>(() => _i445.GetDailyUseCase(
+        gh<_i263.IStoryRepository>(instanceName: 'StoryRepositoryImpl')));
+    gh.lazySingleton<_i132.GetDailyHitsUseCase>(() => _i132.GetDailyHitsUseCase(
+        gh<_i263.IStoryRepository>(instanceName: 'StoryRepositoryImpl')));
     gh.lazySingleton<_i781.GetGenreUseCase>(() => _i781.GetGenreUseCase(
         gh<_i23.IGenreRepository>(instanceName: 'GenreRepositoryImpl')));
     gh.lazySingleton<_i865.AddGenreUseCase>(() => _i865.AddGenreUseCase(

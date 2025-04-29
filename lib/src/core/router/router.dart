@@ -22,9 +22,11 @@ import 'package:oyan/src/features/profile/presentation/page/notification_page.da
 import 'package:oyan/src/features/profile/presentation/page/profile_page.dart';
 import 'package:oyan/src/features/profile/presentation/page/support_page.dart';
 import 'package:oyan/src/features/settings/domain/entities/user_token_entity.dart';
-import 'package:oyan/src/features/story/page/competitons_story_page.dart';
-import 'package:oyan/src/features/story/page/daily_story_page.dart';
-import 'package:oyan/src/features/story/page/new_hits_story_page.dart';
+import 'package:oyan/src/features/story/domain/request/get_daily_hits_request.dart';
+import 'package:oyan/src/features/story/presentation/bloc/story_bloc.dart';
+import 'package:oyan/src/features/story/presentation/page/competitons_story_page.dart';
+import 'package:oyan/src/features/story/presentation/page/daily_story_page.dart';
+import 'package:oyan/src/features/story/presentation/page/new_hits_story_page.dart';
 import 'package:oyan/src/features/welcome/presentation/welcome_page.dart';
 
 import '../services/auth/role_notifier.dart';

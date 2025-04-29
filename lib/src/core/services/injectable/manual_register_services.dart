@@ -27,6 +27,9 @@ import 'package:oyan/src/features/profile/domain/usecases/get_profile_use_case.d
 import 'package:oyan/src/features/profile/domain/usecases/update_profile_use_case.dart';
 import 'package:oyan/src/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:oyan/src/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:oyan/src/features/story/domain/usecases/get_daily_hits_use_case.dart';
+import 'package:oyan/src/features/story/domain/usecases/get_daily_use_case.dart';
+import 'package:oyan/src/features/story/presentation/bloc/story_bloc.dart';
 
 import '../../../features/chat/domain/usecases/get_message_use_case.dart';
 import '../../../features/chat/domain/usecases/send_message_use_case.dart';
@@ -133,6 +136,13 @@ void manualRegisterServices() {
       getIt<GetCompetitionUseCase>(),
       getIt<GetDailyTasksUseCase>(),
       getIt<GetResultUseCase>(),
+    ),
+  );
+  getIt.registerBloc<StoryBloc>(
+    factory: true,
+    () => StoryBloc(
+      getIt<GetDailyUseCase>(),
+      getIt<GetDailyHitsUseCase>(),
     ),
   );
 }

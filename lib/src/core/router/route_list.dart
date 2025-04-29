@@ -258,7 +258,10 @@ List<RouteBase> _routes = [
   GoRoute(
     path: RoutePaths.newHitsStrory,
     pageBuilder: (context, state) {
-      return getPage(child: const NewHitsStoryPage(), state: state);
+      return getPage(
+        child: const NewHitsStoryPageWrapper(),
+        state: state,
+      );
     },
   ),
   GoRoute(
@@ -270,7 +273,10 @@ List<RouteBase> _routes = [
   GoRoute(
     path: RoutePaths.dailyStory,
     pageBuilder: (context, state) {
-      return getPage(child: const DailyStoryPage(), state: state);
+      return getPage(
+        child: const DailyStoryPageWrapper(),
+        state: state,
+      );
     },
   ),
   GoRoute(
@@ -299,7 +305,7 @@ List<RouteBase> _routes = [
       final data = state.extra as Map<String, dynamic>;
       return getPage(
         child: ReadBookPage(
-          book: data['book'] as Book,
+          book: Book.fromJson(data['book'] as Map<String, dynamic>),
         ),
         state: state,
       );

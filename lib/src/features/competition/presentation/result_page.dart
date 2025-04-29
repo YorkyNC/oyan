@@ -53,7 +53,16 @@ class _ResultPageState extends State<ResultPage> {
             loaded: (viewModel) {
               final results = viewModel.result?.results ?? [];
               if (results.isEmpty) {
-                return const Center(child: Text('No results available'));
+                return Center(
+                  child: Text(
+                    'No results available',
+                    style: GoogleFonts.openSans(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xffA2ADD0),
+                    ),
+                  ),
+                );
               }
               results.sort((a, b) => (b.score ?? 0).compareTo(a.score ?? 0));
 
