@@ -227,6 +227,11 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                             ),
                           ),
                         );
+                  } else {
+                    setState(() {
+                      isFavourite = false;
+                    });
+                    null;
                   }
                 },
                 child: Container(

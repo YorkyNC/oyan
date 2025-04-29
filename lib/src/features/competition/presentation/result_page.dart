@@ -1,8 +1,28 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
+import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
+import 'package:oyan/src/core/services/injectable/injectable_service.dart';
+import 'package:oyan/src/features/competition/domain/entities/get_result_entity.dart';
+import 'package:oyan/src/features/competition/domain/requests/get_result_request.dart';
+import 'package:oyan/src/features/competition/presentation/bloc/competition_bloc.dart';
 
-class ResultPage extends StatelessWidget {
-  const ResultPage({super.key});
+class ResultPage extends StatefulWidget {
+  final int tournamentId;
+  const ResultPage({super.key, required this.tournamentId});
+
+  @override
+  State<ResultPage> createState() => _ResultPageState();
+}
+
+class _ResultPageState extends State<ResultPage> {
+  late CompetitionBloc _competitionBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _competitionBloc = getIt<CompetitionBloc>();
+    _competitionBloc.add(CompetitionEvent.getResult(GetResultRequest(tournamentId: widget.tournamentId)));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +36,7 @@ class ResultPage extends StatelessWidget {
           onPressed: () => context.pop(),
         ),
         title: Text(
-          'Tournament #4',
+          'Tournament #${widget.tournamentId}',
           style: GoogleFonts.openSans(
             fontSize: 20,
             fontWeight: FontWeight.w600,
@@ -25,22 +45,49 @@ class ResultPage extends StatelessWidget {
         ),
         centerTitle: false,
       ),
-      body: Column(
-        children: [
-          _buildPodium(),
-          const SizedBox(height: 20),
-          _buildMyPlace(),
-          const SizedBox(height: 14),
-          _buildOtherPlaces(),
-          Expanded(
-            child: _buildParticipantsList(),
-          ),
-        ],
+      body: BaseBlocWidget<CompetitionBloc, CompetitionEvent, CompetitionState>(
+        bloc: _competitionBloc,
+        builder: (context, state, bloc) {
+          return state.maybeWhen(
+            orElse: () => const Center(child: CircularProgressIndicator()),
+            loaded: (viewModel) {
+              final results = viewModel.result?.results ?? [];
+              if (results.isEmpty) {
+                return const Center(child: Text('No results available'));
+              }
+              results.sort((a, b) => (b.score ?? 0).compareTo(a.score ?? 0));
+
+              return Column(
+                children: [
+                  _buildPodium(results),
+                  const SizedBox(height: 20),
+                  _buildMyPlace(results),
+                  const SizedBox(height: 14),
+                  _buildOtherPlaces(),
+                  Expanded(
+                    child: _buildParticipantsList(results),
+                  ),
+                ],
+              );
+            },
+            error: (error) => Center(
+              child: Text(
+                error,
+                style: GoogleFonts.openSans(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                  color: const Color(0xffA2ADD0),
+                ),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildPodium() {
+  Widget _buildPodium(List<Result> results) {
+    final topThree = results.take(3).toList();
     return Container(
       height: 180,
       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -59,47 +106,50 @@ class ResultPage extends StatelessWidget {
           ),
 
           // Second place (left)
-          Positioned(
-            bottom: 4,
-            left: 0,
-            child: _buildPodiumPlace(
-              height: 67,
-              width: 114,
-              position: "#2",
-              username: "@loremupsum_123",
-              color: const Color(0xFFEBF0FF),
-            ),
-          ),
-
-          // First place (center)
-          Positioned(
-            bottom: 4,
-            left: 0,
-            right: 0,
-            child: Center(
+          if (topThree.length >= 2)
+            Positioned(
+              bottom: 4,
+              left: 0,
               child: _buildPodiumPlace(
-                height: 110,
+                height: 67,
                 width: 114,
-                position: "#1",
-                username: "@nurikkz",
-                color: const Color(0xFFFFD700),
-                isFirst: true,
+                position: "#2",
+                username: topThree[1].user ?? '',
+                color: const Color(0xFFEBF0FF),
               ),
             ),
-          ),
+
+          // First place (center)
+          if (topThree.isNotEmpty)
+            Positioned(
+              bottom: 4,
+              left: 0,
+              right: 0,
+              child: Center(
+                child: _buildPodiumPlace(
+                  height: 110,
+                  width: 114,
+                  position: "#1",
+                  username: topThree[0].user ?? '',
+                  color: const Color(0xFFFFD700),
+                  isFirst: true,
+                ),
+              ),
+            ),
 
           // Third place (right)
-          Positioned(
-            bottom: 4,
-            right: 0,
-            child: _buildPodiumPlace(
-              height: 67,
-              width: 114,
-              position: "#3",
-              username: "@lorem_123",
-              color: const Color(0xFFEBF0FF),
+          if (topThree.length >= 3)
+            Positioned(
+              bottom: 4,
+              right: 0,
+              child: _buildPodiumPlace(
+                height: 67,
+                width: 114,
+                position: "#3",
+                username: topThree[2].user ?? '',
+                color: const Color(0xFFEBF0FF),
+              ),
             ),
-          ),
         ],
       ),
     );
@@ -153,7 +203,12 @@ class ResultPage extends StatelessWidget {
     );
   }
 
-  Widget _buildMyPlace() {
+  Widget _buildMyPlace(List<Result> results) {
+    final myResult = results.firstWhere(
+      (result) => result.user == 'current_user',
+      orElse: () => results.first,
+    );
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
@@ -169,9 +224,9 @@ class ResultPage extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _buildParticipantRow(
-            position: 1,
-            username: '@nurikkz',
-            time: '01:51:00',
+            position: results.indexOf(myResult) + 1,
+            username: myResult.user ?? '',
+            time: myResult.time ?? '',
             isHighlighted: true,
           ),
         ],
@@ -193,34 +248,16 @@ class ResultPage extends StatelessWidget {
     );
   }
 
-  Widget _buildParticipantsList() {
-    // Sample data for the list
-    final List<Map<String, dynamic>> participants = [
-      {'position': 4, 'username': '@wefwef', 'time': '01:52:00'},
-      {'position': 5, 'username': '@xyzabc', 'time': '01:53:00'},
-      {'position': 6, 'username': '@qwertyui', 'time': '01:54:00'},
-      {'position': 7, 'username': '@asdfghjkl', 'time': '01:56:00'},
-      {'position': 8, 'username': '@zxcvbnm', 'time': '01:59:00'},
-      {'position': 9, 'username': '@qazwsx', 'time': '02:01:00'},
-      {'position': 10, 'username': '@plmokn', 'time': '01:54:00'},
-      {'position': 11, 'username': '@tyuiop', 'time': '01:54:00'},
-      {'position': 12, 'username': '@ghjklzxc', 'time': '01:54:00'},
-      {'position': 13, 'username': '@vbnmqwe', 'time': '01:54:00'},
-      {'position': 14, 'username': '@rtyuiop', 'time': '01:54:00'},
-      {'position': 15, 'username': '@fghjklmn', 'time': '01:54:00'},
-      {'position': 16, 'username': '@cvbnmlo', 'time': '01:54:00'},
-      {'position': 17, 'username': '@xswqer', 'time': '01:54:00'},
-    ];
-
+  Widget _buildParticipantsList(List<Result> results) {
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      itemCount: participants.length,
+      itemCount: results.length,
       itemBuilder: (context, index) {
-        final participant = participants[index];
+        final result = results[index];
         return _buildParticipantRow(
-          position: participant['position'],
-          username: participant['username'],
-          time: participant['time'],
+          position: index + 1,
+          username: result.user ?? '',
+          time: result.time ?? '',
         );
       },
     );
@@ -234,8 +271,8 @@ class ResultPage extends StatelessWidget {
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: isHighlighted ? const Color(0xFFEBF0FF) : Colors.white,
       ),
       child: Row(
         children: [

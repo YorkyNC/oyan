@@ -20,18 +20,24 @@ mixin _$CompetitionEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(GetCompetitionRequest request) getCompetition,
+    required TResult Function(GetDailyTasksRequest request) getDailyTasks,
+    required TResult Function(GetResultRequest request) getResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(GetCompetitionRequest request)? getCompetition,
+    TResult? Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult? Function(GetResultRequest request)? getResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(GetCompetitionRequest request)? getCompetition,
+    TResult Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult Function(GetResultRequest request)? getResult,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +45,24 @@ mixin _$CompetitionEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetCompetition value) getCompetition,
+    required TResult Function(_GetDailyTasks value) getDailyTasks,
+    required TResult Function(_GetResult value) getResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetCompetition value)? getCompetition,
+    TResult? Function(_GetDailyTasks value)? getDailyTasks,
+    TResult? Function(_GetResult value)? getResult,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetCompetition value)? getCompetition,
+    TResult Function(_GetDailyTasks value)? getDailyTasks,
+    TResult Function(_GetResult value)? getResult,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -120,6 +132,8 @@ class _$StartedImpl implements _Started {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(GetCompetitionRequest request) getCompetition,
+    required TResult Function(GetDailyTasksRequest request) getDailyTasks,
+    required TResult Function(GetResultRequest request) getResult,
   }) {
     return started();
   }
@@ -129,6 +143,8 @@ class _$StartedImpl implements _Started {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(GetCompetitionRequest request)? getCompetition,
+    TResult? Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult? Function(GetResultRequest request)? getResult,
   }) {
     return started?.call();
   }
@@ -138,6 +154,8 @@ class _$StartedImpl implements _Started {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(GetCompetitionRequest request)? getCompetition,
+    TResult Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult Function(GetResultRequest request)? getResult,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -151,6 +169,8 @@ class _$StartedImpl implements _Started {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetCompetition value) getCompetition,
+    required TResult Function(_GetDailyTasks value) getDailyTasks,
+    required TResult Function(_GetResult value) getResult,
   }) {
     return started(this);
   }
@@ -160,6 +180,8 @@ class _$StartedImpl implements _Started {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetCompetition value)? getCompetition,
+    TResult? Function(_GetDailyTasks value)? getDailyTasks,
+    TResult? Function(_GetResult value)? getResult,
   }) {
     return started?.call(this);
   }
@@ -169,6 +191,8 @@ class _$StartedImpl implements _Started {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetCompetition value)? getCompetition,
+    TResult Function(_GetDailyTasks value)? getDailyTasks,
+    TResult Function(_GetResult value)? getResult,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -265,6 +289,8 @@ class _$GetCompetitionImpl implements _GetCompetition {
   TResult when<TResult extends Object?>({
     required TResult Function() started,
     required TResult Function(GetCompetitionRequest request) getCompetition,
+    required TResult Function(GetDailyTasksRequest request) getDailyTasks,
+    required TResult Function(GetResultRequest request) getResult,
   }) {
     return getCompetition(request);
   }
@@ -274,6 +300,8 @@ class _$GetCompetitionImpl implements _GetCompetition {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? started,
     TResult? Function(GetCompetitionRequest request)? getCompetition,
+    TResult? Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult? Function(GetResultRequest request)? getResult,
   }) {
     return getCompetition?.call(request);
   }
@@ -283,6 +311,8 @@ class _$GetCompetitionImpl implements _GetCompetition {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? started,
     TResult Function(GetCompetitionRequest request)? getCompetition,
+    TResult Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult Function(GetResultRequest request)? getResult,
     required TResult orElse(),
   }) {
     if (getCompetition != null) {
@@ -296,6 +326,8 @@ class _$GetCompetitionImpl implements _GetCompetition {
   TResult map<TResult extends Object?>({
     required TResult Function(_Started value) started,
     required TResult Function(_GetCompetition value) getCompetition,
+    required TResult Function(_GetDailyTasks value) getDailyTasks,
+    required TResult Function(_GetResult value) getResult,
   }) {
     return getCompetition(this);
   }
@@ -305,6 +337,8 @@ class _$GetCompetitionImpl implements _GetCompetition {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Started value)? started,
     TResult? Function(_GetCompetition value)? getCompetition,
+    TResult? Function(_GetDailyTasks value)? getDailyTasks,
+    TResult? Function(_GetResult value)? getResult,
   }) {
     return getCompetition?.call(this);
   }
@@ -314,6 +348,8 @@ class _$GetCompetitionImpl implements _GetCompetition {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Started value)? started,
     TResult Function(_GetCompetition value)? getCompetition,
+    TResult Function(_GetDailyTasks value)? getDailyTasks,
+    TResult Function(_GetResult value)? getResult,
     required TResult orElse(),
   }) {
     if (getCompetition != null) {
@@ -333,6 +369,335 @@ abstract class _GetCompetition implements CompetitionEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetCompetitionImplCopyWith<_$GetCompetitionImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetDailyTasksImplCopyWith<$Res> {
+  factory _$$GetDailyTasksImplCopyWith(
+          _$GetDailyTasksImpl value, $Res Function(_$GetDailyTasksImpl) then) =
+      __$$GetDailyTasksImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({GetDailyTasksRequest request});
+
+  $GetDailyTasksRequestCopyWith<$Res> get request;
+}
+
+/// @nodoc
+class __$$GetDailyTasksImplCopyWithImpl<$Res>
+    extends _$CompetitionEventCopyWithImpl<$Res, _$GetDailyTasksImpl>
+    implements _$$GetDailyTasksImplCopyWith<$Res> {
+  __$$GetDailyTasksImplCopyWithImpl(
+      _$GetDailyTasksImpl _value, $Res Function(_$GetDailyTasksImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? request = null,
+  }) {
+    return _then(_$GetDailyTasksImpl(
+      null == request
+          ? _value.request
+          : request // ignore: cast_nullable_to_non_nullable
+              as GetDailyTasksRequest,
+    ));
+  }
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GetDailyTasksRequestCopyWith<$Res> get request {
+    return $GetDailyTasksRequestCopyWith<$Res>(_value.request, (value) {
+      return _then(_value.copyWith(request: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$GetDailyTasksImpl implements _GetDailyTasks {
+  const _$GetDailyTasksImpl(this.request);
+
+  @override
+  final GetDailyTasksRequest request;
+
+  @override
+  String toString() {
+    return 'CompetitionEvent.getDailyTasks(request: $request)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetDailyTasksImpl &&
+            (identical(other.request, request) || other.request == request));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, request);
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetDailyTasksImplCopyWith<_$GetDailyTasksImpl> get copyWith =>
+      __$$GetDailyTasksImplCopyWithImpl<_$GetDailyTasksImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(GetCompetitionRequest request) getCompetition,
+    required TResult Function(GetDailyTasksRequest request) getDailyTasks,
+    required TResult Function(GetResultRequest request) getResult,
+  }) {
+    return getDailyTasks(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(GetCompetitionRequest request)? getCompetition,
+    TResult? Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult? Function(GetResultRequest request)? getResult,
+  }) {
+    return getDailyTasks?.call(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(GetCompetitionRequest request)? getCompetition,
+    TResult Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult Function(GetResultRequest request)? getResult,
+    required TResult orElse(),
+  }) {
+    if (getDailyTasks != null) {
+      return getDailyTasks(request);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetCompetition value) getCompetition,
+    required TResult Function(_GetDailyTasks value) getDailyTasks,
+    required TResult Function(_GetResult value) getResult,
+  }) {
+    return getDailyTasks(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetCompetition value)? getCompetition,
+    TResult? Function(_GetDailyTasks value)? getDailyTasks,
+    TResult? Function(_GetResult value)? getResult,
+  }) {
+    return getDailyTasks?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetCompetition value)? getCompetition,
+    TResult Function(_GetDailyTasks value)? getDailyTasks,
+    TResult Function(_GetResult value)? getResult,
+    required TResult orElse(),
+  }) {
+    if (getDailyTasks != null) {
+      return getDailyTasks(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetDailyTasks implements CompetitionEvent {
+  const factory _GetDailyTasks(final GetDailyTasksRequest request) =
+      _$GetDailyTasksImpl;
+
+  GetDailyTasksRequest get request;
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetDailyTasksImplCopyWith<_$GetDailyTasksImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetResultImplCopyWith<$Res> {
+  factory _$$GetResultImplCopyWith(
+          _$GetResultImpl value, $Res Function(_$GetResultImpl) then) =
+      __$$GetResultImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({GetResultRequest request});
+
+  $GetResultRequestCopyWith<$Res> get request;
+}
+
+/// @nodoc
+class __$$GetResultImplCopyWithImpl<$Res>
+    extends _$CompetitionEventCopyWithImpl<$Res, _$GetResultImpl>
+    implements _$$GetResultImplCopyWith<$Res> {
+  __$$GetResultImplCopyWithImpl(
+      _$GetResultImpl _value, $Res Function(_$GetResultImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? request = null,
+  }) {
+    return _then(_$GetResultImpl(
+      null == request
+          ? _value.request
+          : request // ignore: cast_nullable_to_non_nullable
+              as GetResultRequest,
+    ));
+  }
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GetResultRequestCopyWith<$Res> get request {
+    return $GetResultRequestCopyWith<$Res>(_value.request, (value) {
+      return _then(_value.copyWith(request: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$GetResultImpl implements _GetResult {
+  const _$GetResultImpl(this.request);
+
+  @override
+  final GetResultRequest request;
+
+  @override
+  String toString() {
+    return 'CompetitionEvent.getResult(request: $request)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetResultImpl &&
+            (identical(other.request, request) || other.request == request));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, request);
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetResultImplCopyWith<_$GetResultImpl> get copyWith =>
+      __$$GetResultImplCopyWithImpl<_$GetResultImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(GetCompetitionRequest request) getCompetition,
+    required TResult Function(GetDailyTasksRequest request) getDailyTasks,
+    required TResult Function(GetResultRequest request) getResult,
+  }) {
+    return getResult(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(GetCompetitionRequest request)? getCompetition,
+    TResult? Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult? Function(GetResultRequest request)? getResult,
+  }) {
+    return getResult?.call(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(GetCompetitionRequest request)? getCompetition,
+    TResult Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult Function(GetResultRequest request)? getResult,
+    required TResult orElse(),
+  }) {
+    if (getResult != null) {
+      return getResult(request);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetCompetition value) getCompetition,
+    required TResult Function(_GetDailyTasks value) getDailyTasks,
+    required TResult Function(_GetResult value) getResult,
+  }) {
+    return getResult(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetCompetition value)? getCompetition,
+    TResult? Function(_GetDailyTasks value)? getDailyTasks,
+    TResult? Function(_GetResult value)? getResult,
+  }) {
+    return getResult?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetCompetition value)? getCompetition,
+    TResult Function(_GetDailyTasks value)? getDailyTasks,
+    TResult Function(_GetResult value)? getResult,
+    required TResult orElse(),
+  }) {
+    if (getResult != null) {
+      return getResult(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetResult implements CompetitionEvent {
+  const factory _GetResult(final GetResultRequest request) = _$GetResultImpl;
+
+  GetResultRequest get request;
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetResultImplCopyWith<_$GetResultImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -830,6 +1195,8 @@ mixin _$CompetitionViewModel {
       throw _privateConstructorUsedError;
   GetCompetitionEntity? get startCompetition =>
       throw _privateConstructorUsedError;
+  GetDailyTasks? get dailyTasks => throw _privateConstructorUsedError;
+  GetResult? get result => throw _privateConstructorUsedError;
 
   /// Create a copy of CompetitionViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -847,11 +1214,15 @@ abstract class $CompetitionViewModelCopyWith<$Res> {
   $Res call(
       {GetCompetitionEntity? doneCompetition,
       GetCompetitionEntity? participateCompetition,
-      GetCompetitionEntity? startCompetition});
+      GetCompetitionEntity? startCompetition,
+      GetDailyTasks? dailyTasks,
+      GetResult? result});
 
   $GetCompetitionEntityCopyWith<$Res>? get doneCompetition;
   $GetCompetitionEntityCopyWith<$Res>? get participateCompetition;
   $GetCompetitionEntityCopyWith<$Res>? get startCompetition;
+  $GetDailyTasksCopyWith<$Res>? get dailyTasks;
+  $GetResultCopyWith<$Res>? get result;
 }
 
 /// @nodoc
@@ -873,6 +1244,8 @@ class _$CompetitionViewModelCopyWithImpl<$Res,
     Object? doneCompetition = freezed,
     Object? participateCompetition = freezed,
     Object? startCompetition = freezed,
+    Object? dailyTasks = freezed,
+    Object? result = freezed,
   }) {
     return _then(_value.copyWith(
       doneCompetition: freezed == doneCompetition
@@ -887,6 +1260,14 @@ class _$CompetitionViewModelCopyWithImpl<$Res,
           ? _value.startCompetition
           : startCompetition // ignore: cast_nullable_to_non_nullable
               as GetCompetitionEntity?,
+      dailyTasks: freezed == dailyTasks
+          ? _value.dailyTasks
+          : dailyTasks // ignore: cast_nullable_to_non_nullable
+              as GetDailyTasks?,
+      result: freezed == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as GetResult?,
     ) as $Val);
   }
 
@@ -934,6 +1315,34 @@ class _$CompetitionViewModelCopyWithImpl<$Res,
       return _then(_value.copyWith(startCompetition: value) as $Val);
     });
   }
+
+  /// Create a copy of CompetitionViewModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GetDailyTasksCopyWith<$Res>? get dailyTasks {
+    if (_value.dailyTasks == null) {
+      return null;
+    }
+
+    return $GetDailyTasksCopyWith<$Res>(_value.dailyTasks!, (value) {
+      return _then(_value.copyWith(dailyTasks: value) as $Val);
+    });
+  }
+
+  /// Create a copy of CompetitionViewModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GetResultCopyWith<$Res>? get result {
+    if (_value.result == null) {
+      return null;
+    }
+
+    return $GetResultCopyWith<$Res>(_value.result!, (value) {
+      return _then(_value.copyWith(result: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -947,7 +1356,9 @@ abstract class _$$CompetitionViewModelImplCopyWith<$Res>
   $Res call(
       {GetCompetitionEntity? doneCompetition,
       GetCompetitionEntity? participateCompetition,
-      GetCompetitionEntity? startCompetition});
+      GetCompetitionEntity? startCompetition,
+      GetDailyTasks? dailyTasks,
+      GetResult? result});
 
   @override
   $GetCompetitionEntityCopyWith<$Res>? get doneCompetition;
@@ -955,6 +1366,10 @@ abstract class _$$CompetitionViewModelImplCopyWith<$Res>
   $GetCompetitionEntityCopyWith<$Res>? get participateCompetition;
   @override
   $GetCompetitionEntityCopyWith<$Res>? get startCompetition;
+  @override
+  $GetDailyTasksCopyWith<$Res>? get dailyTasks;
+  @override
+  $GetResultCopyWith<$Res>? get result;
 }
 
 /// @nodoc
@@ -973,6 +1388,8 @@ class __$$CompetitionViewModelImplCopyWithImpl<$Res>
     Object? doneCompetition = freezed,
     Object? participateCompetition = freezed,
     Object? startCompetition = freezed,
+    Object? dailyTasks = freezed,
+    Object? result = freezed,
   }) {
     return _then(_$CompetitionViewModelImpl(
       doneCompetition: freezed == doneCompetition
@@ -987,6 +1404,14 @@ class __$$CompetitionViewModelImplCopyWithImpl<$Res>
           ? _value.startCompetition
           : startCompetition // ignore: cast_nullable_to_non_nullable
               as GetCompetitionEntity?,
+      dailyTasks: freezed == dailyTasks
+          ? _value.dailyTasks
+          : dailyTasks // ignore: cast_nullable_to_non_nullable
+              as GetDailyTasks?,
+      result: freezed == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as GetResult?,
     ));
   }
 }
@@ -997,7 +1422,9 @@ class _$CompetitionViewModelImpl implements _CompetitionViewModel {
   const _$CompetitionViewModelImpl(
       {this.doneCompetition = null,
       this.participateCompetition = null,
-      this.startCompetition = null});
+      this.startCompetition = null,
+      this.dailyTasks = null,
+      this.result = null});
 
   @override
   @JsonKey()
@@ -1008,10 +1435,16 @@ class _$CompetitionViewModelImpl implements _CompetitionViewModel {
   @override
   @JsonKey()
   final GetCompetitionEntity? startCompetition;
+  @override
+  @JsonKey()
+  final GetDailyTasks? dailyTasks;
+  @override
+  @JsonKey()
+  final GetResult? result;
 
   @override
   String toString() {
-    return 'CompetitionViewModel(doneCompetition: $doneCompetition, participateCompetition: $participateCompetition, startCompetition: $startCompetition)';
+    return 'CompetitionViewModel(doneCompetition: $doneCompetition, participateCompetition: $participateCompetition, startCompetition: $startCompetition, dailyTasks: $dailyTasks, result: $result)';
   }
 
   @override
@@ -1024,12 +1457,15 @@ class _$CompetitionViewModelImpl implements _CompetitionViewModel {
             (identical(other.participateCompetition, participateCompetition) ||
                 other.participateCompetition == participateCompetition) &&
             (identical(other.startCompetition, startCompetition) ||
-                other.startCompetition == startCompetition));
+                other.startCompetition == startCompetition) &&
+            (identical(other.dailyTasks, dailyTasks) ||
+                other.dailyTasks == dailyTasks) &&
+            (identical(other.result, result) || other.result == result));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, doneCompetition, participateCompetition, startCompetition);
+  int get hashCode => Object.hash(runtimeType, doneCompetition,
+      participateCompetition, startCompetition, dailyTasks, result);
 
   /// Create a copy of CompetitionViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1044,10 +1480,11 @@ class _$CompetitionViewModelImpl implements _CompetitionViewModel {
 
 abstract class _CompetitionViewModel implements CompetitionViewModel {
   const factory _CompetitionViewModel(
-          {final GetCompetitionEntity? doneCompetition,
-          final GetCompetitionEntity? participateCompetition,
-          final GetCompetitionEntity? startCompetition}) =
-      _$CompetitionViewModelImpl;
+      {final GetCompetitionEntity? doneCompetition,
+      final GetCompetitionEntity? participateCompetition,
+      final GetCompetitionEntity? startCompetition,
+      final GetDailyTasks? dailyTasks,
+      final GetResult? result}) = _$CompetitionViewModelImpl;
 
   @override
   GetCompetitionEntity? get doneCompetition;
@@ -1055,6 +1492,10 @@ abstract class _CompetitionViewModel implements CompetitionViewModel {
   GetCompetitionEntity? get participateCompetition;
   @override
   GetCompetitionEntity? get startCompetition;
+  @override
+  GetDailyTasks? get dailyTasks;
+  @override
+  GetResult? get result;
 
   /// Create a copy of CompetitionViewModel
   /// with the given fields replaced by the non-null parameter values.

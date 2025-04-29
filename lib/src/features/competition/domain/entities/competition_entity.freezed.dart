@@ -30,7 +30,7 @@ mixin _$Competition {
   int? get pageFrom => throw _privateConstructorUsedError;
   @JsonKey(name: 'page_to')
   int? get pageTo => throw _privateConstructorUsedError;
-  double? get prize => throw _privateConstructorUsedError;
+  String? get prize => throw _privateConstructorUsedError;
   int? get players => throw _privateConstructorUsedError;
   int? get questions => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
@@ -63,7 +63,7 @@ abstract class $CompetitionCopyWith<$Res> {
       @JsonKey(name: 'to_date') DateTime? toDate,
       @JsonKey(name: 'page_from') int? pageFrom,
       @JsonKey(name: 'page_to') int? pageTo,
-      double? prize,
+      String? prize,
       int? players,
       int? questions,
       String? description,
@@ -129,7 +129,7 @@ class _$CompetitionCopyWithImpl<$Res, $Val extends Competition>
       prize: freezed == prize
           ? _value.prize
           : prize // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       players: freezed == players
           ? _value.players
           : players // ignore: cast_nullable_to_non_nullable
@@ -173,7 +173,7 @@ abstract class _$$CompetitionImplCopyWith<$Res>
       @JsonKey(name: 'to_date') DateTime? toDate,
       @JsonKey(name: 'page_from') int? pageFrom,
       @JsonKey(name: 'page_to') int? pageTo,
-      double? prize,
+      String? prize,
       int? players,
       int? questions,
       String? description,
@@ -237,7 +237,7 @@ class __$$CompetitionImplCopyWithImpl<$Res>
       prize: freezed == prize
           ? _value.prize
           : prize // ignore: cast_nullable_to_non_nullable
-              as double?,
+              as String?,
       players: freezed == players
           ? _value.players
           : players // ignore: cast_nullable_to_non_nullable
@@ -304,7 +304,7 @@ class _$CompetitionImpl implements _Competition {
   @JsonKey(name: 'page_to')
   final int? pageTo;
   @override
-  final double? prize;
+  final String? prize;
   @override
   final int? players;
   @override
@@ -393,7 +393,7 @@ abstract class _Competition implements Competition {
           @JsonKey(name: 'to_date') final DateTime? toDate,
           @JsonKey(name: 'page_from') final int? pageFrom,
           @JsonKey(name: 'page_to') final int? pageTo,
-          final double? prize,
+          final String? prize,
           final int? players,
           final int? questions,
           final String? description,
@@ -422,7 +422,7 @@ abstract class _Competition implements Competition {
   @JsonKey(name: 'page_to')
   int? get pageTo;
   @override
-  double? get prize;
+  String? get prize;
   @override
   int? get players;
   @override

@@ -248,7 +248,11 @@ List<RouteBase> _routes = [
   GoRoute(
     path: RoutePaths.tournamentResult,
     pageBuilder: (context, state) {
-      return getPage(child: const ResultPage(), state: state);
+      final data = state.extra as Map<String, dynamic>;
+      return getPage(
+        child: ResultPage(tournamentId: data['tournamentId'] as int),
+        state: state,
+      );
     },
   ),
   GoRoute(

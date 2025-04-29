@@ -5,4 +5,8 @@ class CompetitionEvent with _$CompetitionEvent {
   const factory CompetitionEvent.started() = _Started;
 
   const factory CompetitionEvent.getCompetition(GetCompetitionRequest request) = _GetCompetition;
+
+  const factory CompetitionEvent.getDailyTasks(GetDailyTasksRequest request) = _GetDailyTasks;
+
+  const factory CompetitionEvent.getResult(GetResultRequest request) = _GetResult;
 }

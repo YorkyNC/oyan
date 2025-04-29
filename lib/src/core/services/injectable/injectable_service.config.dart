@@ -70,6 +70,10 @@ import 'package:oyan/src/features/competition/domain/repositories/i_competition_
     as _i521;
 import 'package:oyan/src/features/competition/domain/usecases/get_competition_use_case.dart'
     as _i1072;
+import 'package:oyan/src/features/competition/domain/usecases/get_daily_tasks_use_case.dart'
+    as _i718;
+import 'package:oyan/src/features/competition/domain/usecases/get_result_use_case.dart'
+    as _i817;
 import 'package:oyan/src/features/events/domain/use_cases/get_all_events_use_case.dart'
     as _i967;
 import 'package:oyan/src/features/events/domain/use_cases/get_events_count_use_case.dart'
@@ -325,6 +329,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i23.IGenreRepository>(instanceName: 'GenreRepositoryImpl')));
     gh.lazySingleton<_i1072.GetCompetitionUseCase>(() =>
         _i1072.GetCompetitionUseCase(gh<_i521.ICompetitionRepository>(
+            instanceName: 'CompetitionRepositoryImpl')));
+    gh.lazySingleton<_i718.GetDailyTasksUseCase>(() =>
+        _i718.GetDailyTasksUseCase(gh<_i521.ICompetitionRepository>(
+            instanceName: 'CompetitionRepositoryImpl')));
+    gh.lazySingleton<_i817.GetResultUseCase>(() => _i817.GetResultUseCase(
+        gh<_i521.ICompetitionRepository>(
             instanceName: 'CompetitionRepositoryImpl')));
     gh.lazySingleton<_i126.GetMessagesUseCase>(() => _i126.GetMessagesUseCase(
         gh<_i188.IChatRepository>(instanceName: 'ChatRepositoryImpl')));

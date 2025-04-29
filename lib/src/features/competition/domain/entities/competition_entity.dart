@@ -13,7 +13,7 @@ class Competition with _$Competition {
     @JsonKey(name: 'to_date') DateTime? toDate,
     @JsonKey(name: 'page_from') int? pageFrom,
     @JsonKey(name: 'page_to') int? pageTo,
-    double? prize,
+    String? prize,
     int? players,
     int? questions,
     String? description,

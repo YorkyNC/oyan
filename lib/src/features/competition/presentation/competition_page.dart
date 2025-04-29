@@ -8,6 +8,7 @@ import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/core/widgets/shimmer/shimmer_container.dart';
 import 'package:oyan/src/features/competition/domain/entities/get_competition_entity.dart';
 import 'package:oyan/src/features/competition/domain/requests/get_competition_request.dart';
+import 'package:oyan/src/features/competition/domain/requests/get_daily_tasks_request.dart';
 import 'package:oyan/src/features/competition/presentation/bloc/competition_bloc.dart';
 import 'package:oyan/src/features/home/domain/entities/book.dart';
 
@@ -25,7 +26,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
   final List<Map<String, dynamic>> _tabs = [
     {
       'label': 'Daily tasks',
-      'status': CompetitionStatus.done,
+      'isDaily': true,
     },
     {
       'label': 'Tournaments',
@@ -54,13 +55,17 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
 
   void _loadBooksForCurrentTab() {
     final currentTab = _tabs[_tabController.index];
-    _competitionBloc.add(
-      CompetitionEvent.getCompetition(
-        GetCompetitionRequest(
-          status: currentTab['status'],
+    if (currentTab['isDaily'] == true) {
+      _competitionBloc.add(const CompetitionEvent.getDailyTasks(GetDailyTasksRequest()));
+    } else {
+      _competitionBloc.add(
+        CompetitionEvent.getCompetition(
+          GetCompetitionRequest(
+            status: currentTab['status'],
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
 
   @override
@@ -139,6 +144,16 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
                         },
                       );
                     },
+                    error: (error) {
+                      return Center(
+                        child: Text(
+                          error.toString(),
+                          style: context.typography.textsmMedium.copyWith(
+                            color: context.colors.black,
+                          ),
+                        ),
+                      );
+                    },
                     loaded: (viewModel) {
                       return TabBarView(
                         controller: _tabController,
@@ -190,7 +205,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
         return state.maybeWhen(
           orElse: () => const SizedBox(),
           loaded: (viewModel) {
-            final tasks = viewModel.doneCompetition?.results ?? [];
+            final tasks = viewModel.dailyTasks?.results ?? [];
             if (tasks.isEmpty) {
               return _buildEmptyState('No daily tasks available at the moment');
             }
@@ -200,9 +215,9 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
               itemBuilder: (context, index) {
                 final task = tasks[index];
                 return _buildTaskItem(
-                  points: '${task.prize} OY',
-                  title: task.description ?? '',
-                  subtitle: '${task.players} players',
+                  points: '${task.score} OY',
+                  title: task.task ?? '',
+                  subtitle: task.completed == true ? 'Completed' : 'Not completed',
                   pointsColor: const Color(0xffFFC100),
                 );
               },
@@ -249,22 +264,74 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
           orElse: () => const SizedBox(),
           loaded: (viewModel) {
             final participating = viewModel.startCompetition?.results ?? [];
-            if (participating.isEmpty) {
+            final completed = viewModel.doneCompetition?.results ?? [];
+
+            if (participating.isEmpty && completed.isEmpty) {
               return _buildEmptyState('No active competitions at the moment');
             }
-            return ListView.builder(
+
+            return ListView(
               padding: const EdgeInsets.all(16),
-              itemCount: participating.length,
-              itemBuilder: (context, index) {
-                final competition = participating[index];
-                return _buildParticipatingItem(
-                  amount: '${competition.prize}\$',
-                  title: competition.description ?? '',
-                  subtitle: '${competition.players} players',
-                  amountColor: const Color(0xff66D48A),
-                  buttonText: 'Details',
-                );
-              },
+              children: [
+                if (participating.isNotEmpty) ...[
+                  Text(
+                    'Active',
+                    style: GoogleFonts.openSans(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  ...participating
+                      .map((competition) => Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: _buildParticipatingItem(
+                              amount: '${competition.prize}\$',
+                              title: competition.description ?? '',
+                              subtitle: '${competition.players} players',
+                              amountColor: const Color(0xff66D48A),
+                              buttonText: 'Details',
+                              onPressed: () {
+                                // context.push(RoutePaths.tournamentResult);
+                              },
+                            ),
+                          ))
+                      .toList(),
+                ],
+                if (completed.isNotEmpty) ...[
+                  if (participating.isNotEmpty) const SizedBox(height: 24),
+                  Text(
+                    'Results',
+                    style: GoogleFonts.openSans(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  ...completed
+                      .map((competition) => Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: _buildParticipatingItem(
+                              amount: '${competition.prize}\$',
+                              title: competition.description ?? '',
+                              subtitle: '${competition.players} players',
+                              amountColor: const Color(0xff66D48A),
+                              buttonText: 'Result',
+                              onPressed: () {
+                                context.push(
+                                  RoutePaths.tournamentResult,
+                                  extra: {
+                                    'tournamentId': competition.id,
+                                  },
+                                );
+                              },
+                            ),
+                          ))
+                      .toList(),
+                ],
+              ],
             );
           },
         );
@@ -349,6 +416,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
     required String subtitle,
     required Color amountColor,
     required String buttonText,
+    required VoidCallback onPressed,
   }) {
     return Row(
       children: [
@@ -392,9 +460,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
           ),
         ),
         ElevatedButton(
-          onPressed: () {
-            context.push(RoutePaths.booksDetails, extra: const Book());
-          },
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xffEBF0FF),
             foregroundColor: Colors.black,

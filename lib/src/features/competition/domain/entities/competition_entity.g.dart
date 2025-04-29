@@ -18,7 +18,7 @@ _$CompetitionImpl _$$CompetitionImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['to_date'] as String),
       pageFrom: (json['page_from'] as num?)?.toInt(),
       pageTo: (json['page_to'] as num?)?.toInt(),
-      prize: (json['prize'] as num?)?.toDouble(),
+      prize: json['prize'] as String?,
       players: (json['players'] as num?)?.toInt(),
       questions: (json['questions'] as num?)?.toInt(),
       description: json['description'] as String?,
