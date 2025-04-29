@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
+import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/features/story/domain/request/get_daily_hits_request.dart';
 import 'package:oyan/src/features/story/presentation/bloc/story_bloc.dart';
@@ -166,11 +167,9 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
             ),
             Positioned.fill(
               child: Container(
-                color: Colors.black.withOpacity(0.8), // Adjust color and opacity as needed
+                color: Colors.black.withOpacity(0.8),
               ),
             ),
-
-            // Progress bars
             SafeArea(
               child: Column(
                 children: [
@@ -195,8 +194,6 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
                       }),
                     ),
                   ),
-
-                  // Close button
                   Align(
                     alignment: Alignment.topRight,
                     child: Container(
@@ -213,10 +210,7 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 40),
-
-                  // Trophy image
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: Transform.rotate(
@@ -235,10 +229,7 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
                       ),
                     ),
                   ),
-
                   const Spacer(),
-
-                  // Date and Title
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
@@ -266,14 +257,16 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
                       ],
                     ),
                   ),
-
                   const Spacer(),
-
-                  // More detailed button
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        context.pop();
+                        context.push(RoutePaths.booksDetails, extra: {
+                          'id': currentStory.id,
+                        });
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.white,
                         foregroundColor: Colors.black,

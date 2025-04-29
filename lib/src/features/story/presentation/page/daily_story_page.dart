@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oyan/src/app/imports.dart';
+import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/features/story/domain/request/get_daily_excerpts_request.dart';
 import 'package:oyan/src/features/story/presentation/bloc/story_bloc.dart';
@@ -11,12 +12,13 @@ class DailyStoryPage extends StatefulWidget {
   final String title;
   final String content;
   final String imageUrl;
-
+  final int bookId;
   const DailyStoryPage({
     super.key,
     required this.title,
     required this.content,
     required this.imageUrl,
+    required this.bookId,
   });
 
   @override
@@ -107,7 +109,6 @@ class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProvid
           ),
           child: Stack(
             children: [
-              // Background image
               Positioned.fill(
                 child: Image.network(
                   imageUrl,
@@ -136,15 +137,11 @@ class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProvid
                   },
                 ),
               ),
-
-              // Dark overlay
               Positioned.fill(
                 child: Container(
                   color: Colors.black.withOpacity(0.6),
                 ),
               ),
-
-              // Progress bar
               Positioned(
                 top: 0,
                 left: 0,
@@ -162,13 +159,10 @@ class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProvid
                   ),
                 ),
               ),
-
-              // Content
               SafeArea(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Close button
                     Align(
                       alignment: Alignment.topRight,
                       child: Container(
@@ -185,8 +179,6 @@ class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProvid
                         ),
                       ),
                     ),
-
-                    // Title badge
                     Container(
                       margin: const EdgeInsets.only(left: 20, top: 24),
                       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -203,8 +195,6 @@ class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProvid
                         ),
                       ),
                     ),
-
-                    // Main content text
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
@@ -216,14 +206,16 @@ class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProvid
                         ),
                       ),
                     ),
-
                     const Spacer(),
-
-                    // Bottom button
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.pop();
+                          context.push(RoutePaths.booksDetails, extra: {
+                            'id': widget.bookId,
+                          });
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: Colors.black,
@@ -274,6 +266,7 @@ class DailyStoryPageWrapper extends StatelessWidget {
                 title: 'Daily Story',
                 content: dailyExcerpt?.text ?? '',
                 imageUrl: dailyExcerpt?.generatedImageUrl ?? '',
+                bookId: dailyExcerpt?.book ?? 0,
               );
             },
             error: (message) => Center(child: Text(message)),
