@@ -339,5 +339,14 @@
   "details": "Details",
   "participate": "Participate",
   "start": "Start",
-  "overview": "Overview"
+  "overview": "Overview",
+  "pages": "Страницы",
+  "ageLimit": "Возрастное ограничение",
+  "rating": "Оценка",
+  "leaveComments": "Оставить комментарий",
+  "send": "Отправить",
+  "ratingsAndReviews": "Рейтинги и отзывы",
+  "commentAddedSuccessfully": "Комментарий успешно добавлен",
+  "todaysHit": "TODAY’s Hit",
+  "moreDetailed": "More detailed"
 }

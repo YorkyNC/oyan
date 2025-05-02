@@ -65,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Добавить медиа,файлы",
     ),
     "addMore": MessageLookupByLibrary.simpleMessage("Добавить еще"),
+    "ageLimit": MessageLookupByLibrary.simpleMessage("Возрастное ограничение"),
     "all": MessageLookupByLibrary.simpleMessage("Все"),
     "allEvents": MessageLookupByLibrary.simpleMessage("Все события"),
     "allFieldsAreRequired": MessageLookupByLibrary.simpleMessage(
@@ -154,6 +155,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "clearAll": MessageLookupByLibrary.simpleMessage("Очистить все"),
     "collaboration": MessageLookupByLibrary.simpleMessage("Сотрудничество"),
     "coment": MessageLookupByLibrary.simpleMessage("Комментарий:"),
+    "commentAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Комментарий успешно добавлен",
+    ),
     "comments": MessageLookupByLibrary.simpleMessage("комментарии"),
     "competition": MessageLookupByLibrary.simpleMessage("Соревнование"),
     "complete": MessageLookupByLibrary.simpleMessage("Завершено"),
@@ -294,6 +298,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "leadershipSkills": MessageLookupByLibrary.simpleMessage(
       "Лидерские качества",
     ),
+    "leaveComments": MessageLookupByLibrary.simpleMessage(
+      "Оставить комментарий",
+    ),
     "left": MessageLookupByLibrary.simpleMessage("Осталось"),
     "listOfStudents": MessageLookupByLibrary.simpleMessage("Список учеников"),
     "loading": MessageLookupByLibrary.simpleMessage("Загрузка..."),
@@ -321,6 +328,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "more": MessageLookupByLibrary.simpleMessage("еще"),
     "moreDetail": MessageLookupByLibrary.simpleMessage("Подробнее"),
+    "moreDetailed": MessageLookupByLibrary.simpleMessage("More detailed"),
     "myBooks": MessageLookupByLibrary.simpleMessage("Мои книги"),
     "name": MessageLookupByLibrary.simpleMessage("Имя"),
     "networkIssues": MessageLookupByLibrary.simpleMessage("Проблемы с сетью"),
@@ -402,6 +410,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "overdue": MessageLookupByLibrary.simpleMessage("Просрочено"),
     "overview": MessageLookupByLibrary.simpleMessage("Overview"),
+    "pages": MessageLookupByLibrary.simpleMessage("Страницы"),
     "parent": MessageLookupByLibrary.simpleMessage("Родитель"),
     "parentInteraction": MessageLookupByLibrary.simpleMessage(
       "Взаимодействие с родителями",
@@ -457,7 +466,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "qualityOfFeedback": MessageLookupByLibrary.simpleMessage(
       "Качество обратной связи",
     ),
+    "rating": MessageLookupByLibrary.simpleMessage("Оценка"),
     "ratingLog": MessageLookupByLibrary.simpleMessage("Журнал оценок"),
+    "ratingsAndReviews": MessageLookupByLibrary.simpleMessage(
+      "Рейтинги и отзывы",
+    ),
     "read": MessageLookupByLibrary.simpleMessage("Читать"),
     "readMore": MessageLookupByLibrary.simpleMessage("Читать далее"),
     "reading": MessageLookupByLibrary.simpleMessage("Чтение"),
@@ -499,6 +512,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "selfsufficiency": MessageLookupByLibrary.simpleMessage(
       "Самостоятельность",
     ),
+    "send": MessageLookupByLibrary.simpleMessage("Отправить"),
     "sent": MessageLookupByLibrary.simpleMessage("Отправлено"),
     "sentWithDelay": MessageLookupByLibrary.simpleMessage(
       "Отправлено с опозданием",
@@ -554,6 +568,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "timeOut": MessageLookupByLibrary.simpleMessage("Срок истек"),
     "title": MessageLookupByLibrary.simpleMessage("Название"),
     "toRead": MessageLookupByLibrary.simpleMessage("Читать"),
+    "todaysHit": MessageLookupByLibrary.simpleMessage("TODAY’s Hit"),
     "total": m2,
     "tournaments": MessageLookupByLibrary.simpleMessage("Турниры"),
     "training": MessageLookupByLibrary.simpleMessage("Обучение"),

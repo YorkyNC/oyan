@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
+import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/features/competition/domain/entities/get_competition_entity.dart';
@@ -268,7 +269,7 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
                           ),
                         ),
                         child: Text(
-                          'More detailed',
+                          context.loc.moreDetailed,
                           style: GoogleFonts.openSans(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
@@ -290,22 +291,22 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
 class CompetitonsStoryPageWrapper extends StatelessWidget {
   const CompetitonsStoryPageWrapper({super.key});
 
-  String _formatDate(DateTime? date) {
+  String _formatDate(BuildContext context, DateTime? date) {
     if (date == null) return '';
 
     final months = {
-      1: 'Январь',
-      2: 'Февраль',
-      3: 'Март',
-      4: 'Апрель',
-      5: 'Май',
-      6: 'Июнь',
-      7: 'Июль',
-      8: 'Август',
-      9: 'Сентябрь',
-      10: 'Октябрь',
-      11: 'Ноябрь',
-      12: 'Декабрь',
+      1: context.loc.january,
+      2: context.loc.february,
+      3: context.loc.march,
+      4: context.loc.april,
+      5: context.loc.may,
+      6: context.loc.june,
+      7: context.loc.july,
+      8: context.loc.august,
+      9: context.loc.september,
+      10: context.loc.october,
+      11: context.loc.november,
+      12: context.loc.december,
     };
 
     return '${date.day} ${months[date.month]}';
@@ -332,7 +333,7 @@ class CompetitonsStoryPageWrapper extends StatelessWidget {
                 content: tournament?.description ?? '',
                 imageUrl: 'assets/app_images/main4.png',
                 bookId: tournament?.book ?? 0,
-                createdDate: _formatDate(tournament?.createdAt),
+                createdDate: _formatDate(context, tournament?.createdAt),
                 prize: tournament?.prize ?? '',
               );
             },

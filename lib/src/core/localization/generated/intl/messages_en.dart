@@ -59,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "addComments": MessageLookupByLibrary.simpleMessage("Add a comment"),
     "addMediaFile": MessageLookupByLibrary.simpleMessage("Add media,files"),
     "addMore": MessageLookupByLibrary.simpleMessage("Add more"),
+    "ageLimit": MessageLookupByLibrary.simpleMessage("Age limit"),
     "all": MessageLookupByLibrary.simpleMessage("All"),
     "allEvents": MessageLookupByLibrary.simpleMessage("All events"),
     "allFieldsAreRequired": MessageLookupByLibrary.simpleMessage(
@@ -144,6 +145,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "clearAll": MessageLookupByLibrary.simpleMessage("Clear everything"),
     "collaboration": MessageLookupByLibrary.simpleMessage("Collaboration"),
     "coment": MessageLookupByLibrary.simpleMessage("Comment:"),
+    "commentAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
+      "Comment added successfully",
+    ),
     "comments": MessageLookupByLibrary.simpleMessage("comments"),
     "competition": MessageLookupByLibrary.simpleMessage("Competition"),
     "complete": MessageLookupByLibrary.simpleMessage("Complete"),
@@ -286,6 +290,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "leadershipSkills": MessageLookupByLibrary.simpleMessage(
       "Leadership skills",
     ),
+    "leaveComments": MessageLookupByLibrary.simpleMessage("Leave comments"),
     "left": MessageLookupByLibrary.simpleMessage("Left"),
     "listOfStudents": MessageLookupByLibrary.simpleMessage("List of students"),
     "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
@@ -313,6 +318,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "more": MessageLookupByLibrary.simpleMessage("more"),
     "moreDetail": MessageLookupByLibrary.simpleMessage("More Details"),
+    "moreDetailed": MessageLookupByLibrary.simpleMessage("More detailed"),
     "myBooks": MessageLookupByLibrary.simpleMessage("My books"),
     "name": MessageLookupByLibrary.simpleMessage("Name"),
     "networkIssues": MessageLookupByLibrary.simpleMessage("Network issues"),
@@ -390,6 +396,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "overdue": MessageLookupByLibrary.simpleMessage("Overdue"),
     "overview": MessageLookupByLibrary.simpleMessage("Overview"),
+    "pages": MessageLookupByLibrary.simpleMessage("Pages"),
     "parent": MessageLookupByLibrary.simpleMessage("Parent"),
     "parentInteraction": MessageLookupByLibrary.simpleMessage(
       "Parent Interaction",
@@ -435,7 +442,11 @@ class MessageLookup extends MessageLookupByLibrary {
     "qualityOfFeedback": MessageLookupByLibrary.simpleMessage(
       "Quality of feedback",
     ),
+    "rating": MessageLookupByLibrary.simpleMessage("Rating"),
     "ratingLog": MessageLookupByLibrary.simpleMessage("Rating log"),
+    "ratingsAndReviews": MessageLookupByLibrary.simpleMessage(
+      "Ratings and reviews",
+    ),
     "read": MessageLookupByLibrary.simpleMessage("Read"),
     "readMore": MessageLookupByLibrary.simpleMessage("Read more"),
     "reading": MessageLookupByLibrary.simpleMessage("Reading"),
@@ -473,6 +484,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "selectSource": MessageLookupByLibrary.simpleMessage("Select source"),
     "selected": MessageLookupByLibrary.simpleMessage("Selected"),
     "selfsufficiency": MessageLookupByLibrary.simpleMessage("Self-sufficiency"),
+    "send": MessageLookupByLibrary.simpleMessage("Send"),
     "sent": MessageLookupByLibrary.simpleMessage("Sent"),
     "sentWithDelay": MessageLookupByLibrary.simpleMessage("Sent with Delay"),
     "september": MessageLookupByLibrary.simpleMessage("September"),
@@ -522,6 +534,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "timeOut": MessageLookupByLibrary.simpleMessage("Time out"),
     "title": MessageLookupByLibrary.simpleMessage("Title"),
     "toRead": MessageLookupByLibrary.simpleMessage("To read"),
+    "todaysHit": MessageLookupByLibrary.simpleMessage("TODAY’s Hit"),
     "total": m2,
     "tournaments": MessageLookupByLibrary.simpleMessage("Tournaments"),
     "training": MessageLookupByLibrary.simpleMessage("Training"),

@@ -2599,6 +2599,76 @@ class S {
   String get overview {
     return Intl.message('Overview', name: 'overview', desc: '', args: []);
   }
+
+  /// `Страницы`
+  String get pages {
+    return Intl.message('Страницы', name: 'pages', desc: '', args: []);
+  }
+
+  /// `Возрастное ограничение`
+  String get ageLimit {
+    return Intl.message(
+      'Возрастное ограничение',
+      name: 'ageLimit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Оценка`
+  String get rating {
+    return Intl.message('Оценка', name: 'rating', desc: '', args: []);
+  }
+
+  /// `Оставить комментарий`
+  String get leaveComments {
+    return Intl.message(
+      'Оставить комментарий',
+      name: 'leaveComments',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Отправить`
+  String get send {
+    return Intl.message('Отправить', name: 'send', desc: '', args: []);
+  }
+
+  /// `Рейтинги и отзывы`
+  String get ratingsAndReviews {
+    return Intl.message(
+      'Рейтинги и отзывы',
+      name: 'ratingsAndReviews',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Комментарий успешно добавлен`
+  String get commentAddedSuccessfully {
+    return Intl.message(
+      'Комментарий успешно добавлен',
+      name: 'commentAddedSuccessfully',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `TODAY’s Hit`
+  String get todaysHit {
+    return Intl.message('TODAY’s Hit', name: 'todaysHit', desc: '', args: []);
+  }
+
+  /// `More detailed`
+  String get moreDetailed {
+    return Intl.message(
+      'More detailed',
+      name: 'moreDetailed',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

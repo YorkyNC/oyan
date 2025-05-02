@@ -46,7 +46,7 @@ class _BookCommentsTabState extends State<BookCommentsTab> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'Comment added successfully',
+          context.loc.commentAddedSuccessfully,
           style: GoogleFonts.openSans(
             color: Colors.white,
             fontSize: 14,
@@ -127,7 +127,7 @@ class _BookCommentsTabState extends State<BookCommentsTab> {
                   ),
                   controller: _commentController,
                   decoration: InputDecoration(
-                    hintText: 'Leave comments',
+                    hintText: context.loc.leaveComments,
                     hintStyle: GoogleFonts.openSans(
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
@@ -226,7 +226,7 @@ class _BookCommentsTabState extends State<BookCommentsTab> {
                                     ),
                                   )
                                 : Text(
-                                    'Send',
+                                    context.loc.send,
                                     style: GoogleFonts.openSans(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16,
@@ -239,7 +239,7 @@ class _BookCommentsTabState extends State<BookCommentsTab> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Ratings and reviews',
+                  context.loc.ratingsAndReviews,
                   style: GoogleFonts.openSans(
                     fontSize: 17,
                     fontWeight: FontWeight.w600,

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
+import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/features/story/domain/request/get_daily_excerpts_request.dart';
@@ -227,7 +228,7 @@ class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProvid
                                 ),
                               ),
                               child: Text(
-                                'More detailed',
+                                context.loc.moreDetailed,
                                 style: GoogleFonts.openSans(
                                   fontSize: 17,
                                   fontWeight: FontWeight.w600,

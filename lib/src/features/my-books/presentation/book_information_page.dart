@@ -302,7 +302,7 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
             child: Column(
               children: [
                 Container(
-                  padding: const EdgeInsets.all(16),
+                  padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 0),
                   color: Colors.white,
                   child: Column(
                     children: [

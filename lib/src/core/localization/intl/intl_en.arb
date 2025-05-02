@@ -339,5 +339,14 @@
   "details": "Details",
   "participate": "Participate",
   "start": "Start",
-  "overview": "Overview"
+  "overview": "Overview",
+  "pages": "Pages",
+  "ageLimit": "Age limit",
+  "rating": "Rating",
+  "leaveComments": "Leave comments",
+  "send": "Send",
+  "ratingsAndReviews": "Ratings and reviews",
+  "commentAddedSuccessfully": "Comment added successfully",
+  "todaysHit": "TODAY’s Hit",
+  "moreDetailed": "More detailed"
 }
