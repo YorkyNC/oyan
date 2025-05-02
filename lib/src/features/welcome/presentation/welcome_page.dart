@@ -89,11 +89,11 @@ class WelcomePage extends StatelessWidget {
                   else
                     FilledButton(
                       onPressed: () => _handleGettingCSRF(context),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
                         child: Text(
-                          'Get started',
-                          style: TextStyle(fontSize: 16),
+                          context.loc.getStarted,
+                          style: const TextStyle(fontSize: 16),
                         ),
                       ),
                     )

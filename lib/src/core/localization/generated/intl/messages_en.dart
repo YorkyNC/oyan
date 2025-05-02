@@ -253,6 +253,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "fullName": MessageLookupByLibrary.simpleMessage("Full name"),
     "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
+    "getStarted": MessageLookupByLibrary.simpleMessage("Get started"),
     "getStartedByAddingYourFirstCertificate":
         MessageLookupByLibrary.simpleMessage(
           "Get Started by Adding Your First Certificate!",

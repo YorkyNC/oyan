@@ -261,6 +261,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "fullName": MessageLookupByLibrary.simpleMessage("Полное название"),
     "gallery": MessageLookupByLibrary.simpleMessage("Галерея"),
+    "getStarted": MessageLookupByLibrary.simpleMessage("Начать"),
     "getStartedByAddingYourFirstCertificate":
         MessageLookupByLibrary.simpleMessage(
           "Начните с добавления Вашего первого сертификата!",
@@ -415,7 +416,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "parentInteraction": MessageLookupByLibrary.simpleMessage(
       "Взаимодействие с родителями",
     ),
-    "participate": MessageLookupByLibrary.simpleMessage("Participate"),
+    "participate": MessageLookupByLibrary.simpleMessage("Участвовать"),
     "passed": MessageLookupByLibrary.simpleMessage("Сдано"),
     "passes": MessageLookupByLibrary.simpleMessage("Пропусков"),
     "password": MessageLookupByLibrary.simpleMessage("Пароль"),

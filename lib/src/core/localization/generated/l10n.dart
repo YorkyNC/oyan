@@ -2585,9 +2585,9 @@ class S {
     return Intl.message('Details', name: 'details', desc: '', args: []);
   }
 
-  /// `Participate`
+  /// `Участвовать`
   String get participate {
-    return Intl.message('Participate', name: 'participate', desc: '', args: []);
+    return Intl.message('Участвовать', name: 'participate', desc: '', args: []);
   }
 
   /// `Start`
@@ -2668,6 +2668,11 @@ class S {
       desc: '',
       args: [],
     );
+  }
+
+  /// `Начать`
+  String get getStarted {
+    return Intl.message('Начать', name: 'getStarted', desc: '', args: []);
   }
 }
 

@@ -337,8 +337,8 @@
   "results": "Results",
   "result": "Result",
   "details": "Details",
-  "participate": "Participate",
-  "start": "Start",
+  "participate": "Участвовать",
+  "start": "Начать",
   "overview": "Overview",
   "pages": "Страницы",
   "ageLimit": "Возрастное ограничение",
@@ -348,5 +348,6 @@
   "ratingsAndReviews": "Рейтинги и отзывы",
   "commentAddedSuccessfully": "Комментарий успешно добавлен",
   "todaysHit": "TODAY’s Hit",
-  "moreDetailed": "More detailed"
+  "moreDetailed": "More detailed",
+  "getStarted": "Начать"
 }
