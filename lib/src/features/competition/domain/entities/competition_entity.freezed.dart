@@ -34,6 +34,8 @@ mixin _$Competition {
   int? get players => throw _privateConstructorUsedError;
   int? get questions => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
+  @JsonKey(name: 'tournament_name')
+  String? get tournamentName => throw _privateConstructorUsedError;
   CompetitionStatus? get status => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -67,6 +69,7 @@ abstract class $CompetitionCopyWith<$Res> {
       int? players,
       int? questions,
       String? description,
+      @JsonKey(name: 'tournament_name') String? tournamentName,
       CompetitionStatus? status,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
@@ -97,6 +100,7 @@ class _$CompetitionCopyWithImpl<$Res, $Val extends Competition>
     Object? players = freezed,
     Object? questions = freezed,
     Object? description = freezed,
+    Object? tournamentName = freezed,
     Object? status = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -142,6 +146,10 @@ class _$CompetitionCopyWithImpl<$Res, $Val extends Competition>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      tournamentName: freezed == tournamentName
+          ? _value.tournamentName
+          : tournamentName // ignore: cast_nullable_to_non_nullable
+              as String?,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -177,6 +185,7 @@ abstract class _$$CompetitionImplCopyWith<$Res>
       int? players,
       int? questions,
       String? description,
+      @JsonKey(name: 'tournament_name') String? tournamentName,
       CompetitionStatus? status,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
@@ -205,6 +214,7 @@ class __$$CompetitionImplCopyWithImpl<$Res>
     Object? players = freezed,
     Object? questions = freezed,
     Object? description = freezed,
+    Object? tournamentName = freezed,
     Object? status = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -250,6 +260,10 @@ class __$$CompetitionImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
+      tournamentName: freezed == tournamentName
+          ? _value.tournamentName
+          : tournamentName // ignore: cast_nullable_to_non_nullable
+              as String?,
       status: freezed == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
@@ -280,6 +294,7 @@ class _$CompetitionImpl implements _Competition {
       this.players,
       this.questions,
       this.description,
+      @JsonKey(name: 'tournament_name') this.tournamentName,
       this.status,
       @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(name: 'updated_at') this.updatedAt});
@@ -312,6 +327,9 @@ class _$CompetitionImpl implements _Competition {
   @override
   final String? description;
   @override
+  @JsonKey(name: 'tournament_name')
+  final String? tournamentName;
+  @override
   final CompetitionStatus? status;
   @override
   @JsonKey(name: 'created_at')
@@ -322,7 +340,7 @@ class _$CompetitionImpl implements _Competition {
 
   @override
   String toString() {
-    return 'Competition(id: $id, book: $book, fromDate: $fromDate, toDate: $toDate, pageFrom: $pageFrom, pageTo: $pageTo, prize: $prize, players: $players, questions: $questions, description: $description, status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Competition(id: $id, book: $book, fromDate: $fromDate, toDate: $toDate, pageFrom: $pageFrom, pageTo: $pageTo, prize: $prize, players: $players, questions: $questions, description: $description, tournamentName: $tournamentName, status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -344,6 +362,8 @@ class _$CompetitionImpl implements _Competition {
                 other.questions == questions) &&
             (identical(other.description, description) ||
                 other.description == description) &&
+            (identical(other.tournamentName, tournamentName) ||
+                other.tournamentName == tournamentName) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -365,6 +385,7 @@ class _$CompetitionImpl implements _Competition {
       players,
       questions,
       description,
+      tournamentName,
       status,
       createdAt,
       updatedAt);
@@ -397,6 +418,7 @@ abstract class _Competition implements Competition {
           final int? players,
           final int? questions,
           final String? description,
+          @JsonKey(name: 'tournament_name') final String? tournamentName,
           final CompetitionStatus? status,
           @JsonKey(name: 'created_at') final DateTime? createdAt,
           @JsonKey(name: 'updated_at') final DateTime? updatedAt}) =
@@ -429,6 +451,9 @@ abstract class _Competition implements Competition {
   int? get questions;
   @override
   String? get description;
+  @override
+  @JsonKey(name: 'tournament_name')
+  String? get tournamentName;
   @override
   CompetitionStatus? get status;
   @override

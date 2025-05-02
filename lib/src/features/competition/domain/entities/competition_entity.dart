@@ -17,6 +17,7 @@ class Competition with _$Competition {
     int? players,
     int? questions,
     String? description,
+    @JsonKey(name: 'tournament_name') String? tournamentName,
     CompetitionStatus? status,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,

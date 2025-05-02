@@ -21,7 +21,7 @@ class _ResultPageState extends State<ResultPage> {
   void initState() {
     super.initState();
     _competitionBloc = getIt<CompetitionBloc>();
-    _competitionBloc.add(CompetitionEvent.getResult(GetResultRequest(tournamentId: widget.tournamentId)));
+    _competitionBloc.add(const CompetitionEvent.getResult(GetResultRequest(tournamentId: 1)));
   }
 
   @override

@@ -267,7 +267,7 @@ List<RouteBase> _routes = [
   GoRoute(
     path: RoutePaths.competitionStory,
     pageBuilder: (context, state) {
-      return getPage(child: const CompetitonsStoryPage(), state: state);
+      return getPage(child: const CompetitonsStoryPageWrapper(), state: state);
     },
   ),
   GoRoute(

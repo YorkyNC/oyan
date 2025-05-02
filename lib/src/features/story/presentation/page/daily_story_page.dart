@@ -173,7 +173,7 @@ class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProvid
                         ),
                         child: IconButton(
                           icon: const Icon(Icons.close, color: Colors.white),
-                          onPressed: () => Navigator.of(context).pop(),
+                          onPressed: () => context.pop(),
                           padding: EdgeInsets.zero,
                           constraints: const BoxConstraints.tightFor(width: 40, height: 40),
                         ),
@@ -207,32 +207,34 @@ class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProvid
                       ),
                     ),
                     const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          context.pop();
-                          context.push(RoutePaths.booksDetails, extra: {
-                            'id': widget.bookId,
-                          });
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: Colors.black,
-                          minimumSize: const Size(double.infinity, 46),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
+                    dailyExcerpt?.book == null
+                        ? const SizedBox.shrink()
+                        : Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                context.pop();
+                                context.push(RoutePaths.booksDetails, extra: {
+                                  'id': widget.bookId,
+                                });
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.white,
+                                foregroundColor: Colors.black,
+                                minimumSize: const Size(double.infinity, 46),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                              ),
+                              child: Text(
+                                'More detailed',
+                                style: GoogleFonts.openSans(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                        child: Text(
-                          'More detailed',
-                          style: GoogleFonts.openSans(
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
                   ],
                 ),
               ),

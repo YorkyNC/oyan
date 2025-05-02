@@ -22,6 +22,7 @@ _$CompetitionImpl _$$CompetitionImplFromJson(Map<String, dynamic> json) =>
       players: (json['players'] as num?)?.toInt(),
       questions: (json['questions'] as num?)?.toInt(),
       description: json['description'] as String?,
+      tournamentName: json['tournament_name'] as String?,
       status: $enumDecodeNullable(_$CompetitionStatusEnumMap, json['status']),
       createdAt: json['created_at'] == null
           ? null
@@ -43,6 +44,7 @@ Map<String, dynamic> _$$CompetitionImplToJson(_$CompetitionImpl instance) =>
       'players': instance.players,
       'questions': instance.questions,
       'description': instance.description,
+      'tournament_name': instance.tournamentName,
       'status': _$CompetitionStatusEnumMap[instance.status],
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),

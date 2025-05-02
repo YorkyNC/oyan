@@ -66,9 +66,9 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
             print('ViewModel data: ${viewModel.book}');
             print('Book data: ${viewModel.book}');
             _currentBook = viewModel.book;
-            if (_currentBook?.isFav == PersonalBookType.favourite) {
-              isFavourite = true;
-            }
+            // if (_currentBook?.isFav == PersonalBookType.favourite) {
+            //   isFavourite = true;
+            // }
             if (_currentBook == null) {
               print('Book is null after assignment');
               return _buildErrorState('Book not found');

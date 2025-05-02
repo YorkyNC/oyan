@@ -25,7 +25,6 @@ _$BookImpl _$$BookImplFromJson(Map<String, dynamic> json) => _$BookImpl(
       pageCount: (json['page_count'] as num?)?.toInt(),
       ageLimit: json['age_limit'] as String?,
       readUrl: json['read_url'] as String?,
-      isFav: $enumDecodeNullable(_$PersonalBookTypeEnumMap, json['isFav']),
     );
 
 Map<String, dynamic> _$$BookImplToJson(_$BookImpl instance) =>
@@ -44,12 +43,4 @@ Map<String, dynamic> _$$BookImplToJson(_$BookImpl instance) =>
       'page_count': instance.pageCount,
       'age_limit': instance.ageLimit,
       'read_url': instance.readUrl,
-      'isFav': _$PersonalBookTypeEnumMap[instance.isFav],
     };
-
-const _$PersonalBookTypeEnumMap = {
-  PersonalBookType.completed: 'completed',
-  PersonalBookType.favourite: 'favorite',
-  PersonalBookType.toRead: 'to_read',
-  PersonalBookType.none: 'none',
-};

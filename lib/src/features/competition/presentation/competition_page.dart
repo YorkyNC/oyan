@@ -234,6 +234,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
         return state.maybeWhen(
           orElse: () => const SizedBox(),
           loaded: (viewModel) {
+            print(viewModel);
             final tournaments = viewModel.participateCompetition?.results ?? [];
             if (tournaments.isEmpty) {
               return _buildEmptyState('No tournaments available at the moment');
@@ -245,7 +246,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
                 final tournament = tournaments[index];
                 return _buildTournamentItem(
                   amount: '${tournament.prize}\$',
-                  title: tournament.description ?? '',
+                  title: tournament.tournamentName ?? '',
                   subtitle: '${tournament.players} players',
                   amountColor: const Color(0xff0CD887),
                 );
@@ -288,7 +289,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
                             padding: const EdgeInsets.only(bottom: 16),
                             child: _buildParticipatingItem(
                               amount: '${competition.prize}\$',
-                              title: competition.description ?? '',
+                              title: competition.tournamentName ?? '',
                               subtitle: '${competition.players} players',
                               amountColor: const Color(0xff66D48A),
                               buttonText: 'Details',
@@ -315,7 +316,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
                             padding: const EdgeInsets.only(bottom: 16),
                             child: _buildParticipatingItem(
                               amount: '${competition.prize}\$',
-                              title: competition.description ?? '',
+                              title: competition.tournamentName ?? '',
                               subtitle: '${competition.players} players',
                               amountColor: const Color(0xff66D48A),
                               buttonText: 'Result',

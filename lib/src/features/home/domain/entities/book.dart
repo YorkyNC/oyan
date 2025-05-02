@@ -20,13 +20,19 @@ class Book with _$Book {
     @JsonKey(name: 'page_count') int? pageCount,
     @JsonKey(name: 'age_limit') String? ageLimit,
     @JsonKey(name: 'read_url') String? readUrl,
-    PersonalBookType? isFav,
+    // PersonalBookType? isFav,
   }) = _Book;
 
   factory Book.fromJson(Map<String, dynamic> json) => _$BookFromJson(json);
 }
 
 enum PersonalBookType {
+  @JsonValue('favorite, to_read')
+  favoriteToRead,
+
+  @JsonValue('reading')
+  reading,
+
   @JsonValue('completed')
   completed,
 

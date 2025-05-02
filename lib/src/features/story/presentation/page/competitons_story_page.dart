@@ -1,271 +1,356 @@
 import 'dart:async';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:oyan/src/app/imports.dart';
-import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
+import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/features/competition/domain/entities/get_competition_entity.dart';
 import 'package:oyan/src/features/competition/domain/requests/get_competition_request.dart';
 import 'package:oyan/src/features/competition/presentation/bloc/competition_bloc.dart';
+import 'package:oyan/src/features/story/presentation/utils/image_utils.dart';
 
-class CompetitonsStoryPage extends StatefulWidget {
-  final int storyDuration;
-
-  const CompetitonsStoryPage({
+class CompetitionStoryPage extends StatefulWidget {
+  final String title;
+  final String content;
+  final String imageUrl;
+  final int bookId;
+  final String? createdDate;
+  final String? prize;
+  const CompetitionStoryPage({
     super.key,
-    this.storyDuration = 15,
+    required this.title,
+    required this.content,
+    required this.imageUrl,
+    required this.bookId,
+    this.createdDate,
+    this.prize,
   });
 
   @override
-  State<CompetitonsStoryPage> createState() => _CompetitonsStoryPageState();
+  State<CompetitionStoryPage> createState() => _CompetitionStoryPageState();
 }
 
-class _CompetitonsStoryPageState extends State<CompetitonsStoryPage> {
+class _CompetitionStoryPageState extends State<CompetitionStoryPage> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
   late Timer _timer;
   double _progress = 0.0;
-  late CompetitionBloc _competitionBloc;
+  final Duration _storyDuration = const Duration(seconds: 5);
 
   @override
   void initState() {
     super.initState();
-    _competitionBloc = getIt<CompetitionBloc>();
-    _competitionBloc.add(const CompetitionEvent.getCompetition(
-      GetCompetitionRequest(status: CompetitionStatus.participate),
-    ));
+    _controller = AnimationController(
+      vsync: this,
+      duration: _storyDuration,
+    )..addListener(() {
+        setState(() {
+          _progress = _controller.value;
+        });
+      });
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _controller.forward();
+    _timer = Timer(_storyDuration, () {
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+    });
+  }
+
+  void _resetTimer() {
+    _timer.cancel();
+    _controller.reset();
     _startTimer();
   }
 
   @override
   void dispose() {
+    _controller.dispose();
     _timer.cancel();
     super.dispose();
   }
 
-  void _startTimer() {
-    const updateInterval = 100;
-    final totalUpdates = (widget.storyDuration * 1000) ~/ updateInterval;
-    final progressIncrement = 1.0 / totalUpdates;
-
-    _timer = Timer.periodic(const Duration(milliseconds: updateInterval), (timer) {
-      setState(() {
-        _progress += progressIncrement;
-        if (_progress >= 1.0) {
-          _timer.cancel();
-          context.pop();
-        }
-      });
-    });
-  }
-
-  void _pauseTimer() {
-    _timer.cancel();
-  }
-
-  void _resumeTimer() {
-    _startTimer();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return BlocBuilder<CompetitionBloc, CompetitionState>(
+      builder: (context, state) {
+        return state.when(
+          loading: () => _buildLoadingState(),
+          loaded: (viewModel) => _buildLoadedState(viewModel),
+          error: (error) => _buildErrorState(error),
+        );
+      },
+    );
+  }
+
+  Widget _buildLoadingState() {
+    return const Scaffold(
       backgroundColor: Colors.black,
-      body: GestureDetector(
-        onLongPress: _pauseTimer,
-        onLongPressUp: _resumeTimer,
-        child: BaseBlocWidget<CompetitionBloc, CompetitionEvent, CompetitionState>(
-          bloc: _competitionBloc,
-          builder: (context, state, bloc) {
-            return state.maybeWhen(
-              orElse: () => const Center(child: CircularProgressIndicator()),
-              loaded: (viewModel) {
-                final competition = viewModel.participateCompetition?.results?.first;
+      body: Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
 
-                if (competition == null) {
-                  return const Center(child: Text('Competition not found'));
-                }
+  Widget _buildErrorState(String error) {
+    return Scaffold(
+      body: Center(
+        child: Text('Error: $error'),
+      ),
+    );
+  }
 
-                return Stack(
+  Widget _buildLoadedState(CompetitionViewModel viewModel) {
+    final tournament = viewModel.participateCompetition?.results?.firstOrNull;
+    // final imageUrl = tournament?.generatedImageUrl ?? widget.imageUrl;
+
+    return GestureDetector(
+      onTapDown: (_) => _controller.stop(),
+      onTapUp: (_) => _controller.forward(),
+      onTapCancel: () => _controller.forward(),
+      child: Scaffold(
+        body: Container(
+          decoration: const BoxDecoration(
+            color: Colors.black,
+          ),
+          child: Stack(
+            children: [
+              // Background image
+              Positioned.fill(
+                child: loadImageWithOverlay(
+                  url: widget.imageUrl,
+                  fallbackAsset: 'assets/app_images/main4.png',
+                  fit: BoxFit.cover,
+                  overlayColor: Colors.black,
+                  overlayOpacity: 0.6,
+                ),
+              ),
+
+              // Progress bar
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: SafeArea(
+                  bottom: false,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: LinearProgressIndicator(
+                      value: _progress,
+                      backgroundColor: Colors.white.withOpacity(0.3),
+                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                      minHeight: 2,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Content
+              SafeArea(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Positioned.fill(
-                      child: Image.asset(
-                        'assets/app_images/main4.png',
-                        fit: BoxFit.cover,
+                    // Close button
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 14, right: 16),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.3),
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: IconButton(
+                          icon: const Icon(Icons.close, color: Colors.white),
+                          onPressed: () => context.pop(),
+                          padding: EdgeInsets.zero,
+                          constraints: const BoxConstraints.tightFor(width: 40, height: 40),
+                        ),
                       ),
                     ),
 
-                    // Content
-                    SafeArea(
-                      child: Center(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              // Progress bar
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(2),
-                                        child: LinearProgressIndicator(
-                                          value: _progress,
-                                          backgroundColor: Colors.white.withOpacity(0.3),
-                                          color: Colors.white,
-                                          minHeight: 4,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                    // Title badge
+
+                    // Trophy image
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: Transform.rotate(
+                        angle: 0.15,
+                        child: Image.asset(
+                          'assets/app_images/main3.png',
+                          height: 300,
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              height: 200,
+                              width: 180,
+                              decoration: BoxDecoration(
+                                color: Colors.amber,
+                                borderRadius: BorderRadius.circular(8),
                               ),
-
-                              // Close button
-                              Align(
-                                alignment: Alignment.topRight,
-                                child: Container(
-                                  margin: const EdgeInsets.only(top: 8, right: 16),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.3),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: IconButton(
-                                    icon: const Icon(Icons.close, color: Colors.white),
-                                    onPressed: () => Navigator.of(context).pop(),
-                                    padding: EdgeInsets.zero,
-                                    constraints: const BoxConstraints.tightFor(width: 40, height: 40),
-                                  ),
-                                ),
-                              ),
-
-                              const SizedBox(height: 20),
-
-                              // Trophy image
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 20),
-                                child: Transform.rotate(
-                                  angle: 0.15,
-                                  child: Image.asset(
-                                    'assets/app_images/main3.png',
-                                    height: 200,
-                                    fit: BoxFit.contain,
-                                    errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        height: 200,
-                                        width: 180,
-                                        decoration: BoxDecoration(
-                                          color: Colors.amber,
-                                          borderRadius: BorderRadius.circular(8),
-                                        ),
-                                        child: const Center(
-                                          child: Text(
-                                            "#1",
-                                            style: TextStyle(
-                                              fontSize: 48,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black,
-                                            ),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-
-                              const SizedBox(height: 20),
-
-                              // Date
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
+                              child: const Center(
                                 child: Text(
-                                  competition.fromDate != null
-                                      ? DateFormat('dd.MM.yyyy').format(competition.fromDate!)
-                                      : '',
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 40,
-                                    fontWeight: FontWeight.w800,
+                                  "#1",
+                                  style: TextStyle(
+                                    fontSize: 48,
+                                    fontWeight: FontWeight.bold,
                                     color: Colors.black,
                                   ),
                                 ),
                               ),
+                            );
+                          },
+                        ),
+                      ),
+                    ),
 
-                              const SizedBox(height: 10),
+                    const SizedBox(height: 20),
 
-                              // Title
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 5,
-                                  competition.description ?? '',
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.openSans(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
+                    // Date
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            widget.createdDate ?? '',
+                            style: GoogleFonts.openSans(
+                              fontWeight: FontWeight.w800,
+                              fontSize: 50,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
 
-                              const SizedBox(height: 16),
+                        const SizedBox(height: 10),
 
-                              // Prize
-                              Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 16),
-                                child: Text(
-                                  '${competition.prize}\$',
-                                  style: GoogleFonts.montserrat(
-                                    fontSize: 36,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                              ),
+                        // Title
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 5,
+                            widget.title,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.openSans(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: Text(
+                            'PRIZE: ${widget.prize}${widget.prize?.isNotEmpty == true ? ' \$' : ''}',
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 5,
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.openSans(
+                              fontSize: 40,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
 
-                              const SizedBox(height: 32),
+                    const Spacer(),
 
-                              // More detailed button
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 16.0,
-                                  right: 16.0,
-                                  bottom: 16.0,
-                                ),
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.white,
-                                    foregroundColor: Colors.black,
-                                    minimumSize: const Size(double.infinity, 46),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    elevation: 0,
-                                    padding: const EdgeInsets.symmetric(vertical: 12),
-                                  ),
-                                  child: Text(
-                                    'More detailed',
-                                    style: GoogleFonts.openSans(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                    // Bottom button
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          context.pop();
+                          context.push(RoutePaths.booksDetails, extra: {
+                            'id': widget.bookId,
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: Colors.black,
+                          minimumSize: const Size(double.infinity, 46),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          'More detailed',
+                          style: GoogleFonts.openSans(
+                            fontSize: 17,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
                       ),
                     ),
                   ],
-                );
-              },
-            );
-          },
+                ),
+              ),
+            ],
+          ),
         ),
+      ),
+    );
+  }
+}
+
+class CompetitonsStoryPageWrapper extends StatelessWidget {
+  const CompetitonsStoryPageWrapper({super.key});
+
+  String _formatDate(DateTime? date) {
+    if (date == null) return '';
+
+    final months = {
+      1: 'Январь',
+      2: 'Февраль',
+      3: 'Март',
+      4: 'Апрель',
+      5: 'Май',
+      6: 'Июнь',
+      7: 'Июль',
+      8: 'Август',
+      9: 'Сентябрь',
+      10: 'Октябрь',
+      11: 'Ноябрь',
+      12: 'Декабрь',
+    };
+
+    return '${date.day} ${months[date.month]}';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => getIt<CompetitionBloc>()
+        ..add(const CompetitionEvent.getCompetition(GetCompetitionRequest(status: CompetitionStatus.participate))),
+      child: BlocBuilder<CompetitionBloc, CompetitionState>(
+        builder: (context, state) {
+          return state.maybeWhen(
+            loading: () => const Scaffold(
+              backgroundColor: Colors.black,
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+            loaded: (viewModel) {
+              final tournament = viewModel.participateCompetition?.results?.firstOrNull;
+              return CompetitionStoryPage(
+                title: tournament?.tournamentName ?? 'Competition',
+                content: tournament?.description ?? '',
+                imageUrl: 'assets/app_images/main4.png',
+                bookId: tournament?.book ?? 0,
+                createdDate: _formatDate(tournament?.createdAt),
+                prize: tournament?.prize ?? '',
+              );
+            },
+            error: (message) => Center(child: Text(message)),
+            orElse: () => const Center(child: Text('Something went wrong')),
+          );
+        },
       ),
     );
   }

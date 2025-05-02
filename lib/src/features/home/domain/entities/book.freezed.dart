@@ -42,7 +42,6 @@ mixin _$Book {
   String? get ageLimit => throw _privateConstructorUsedError;
   @JsonKey(name: 'read_url')
   String? get readUrl => throw _privateConstructorUsedError;
-  PersonalBookType? get isFav => throw _privateConstructorUsedError;
 
   /// Serializes this Book to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -72,8 +71,7 @@ abstract class $BookCopyWith<$Res> {
       @JsonKey(name: 'price') String? price,
       @JsonKey(name: 'page_count') int? pageCount,
       @JsonKey(name: 'age_limit') String? ageLimit,
-      @JsonKey(name: 'read_url') String? readUrl,
-      PersonalBookType? isFav});
+      @JsonKey(name: 'read_url') String? readUrl});
 }
 
 /// @nodoc
@@ -105,7 +103,6 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
     Object? pageCount = freezed,
     Object? ageLimit = freezed,
     Object? readUrl = freezed,
-    Object? isFav = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -164,10 +161,6 @@ class _$BookCopyWithImpl<$Res, $Val extends Book>
           ? _value.readUrl
           : readUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      isFav: freezed == isFav
-          ? _value.isFav
-          : isFav // ignore: cast_nullable_to_non_nullable
-              as PersonalBookType?,
     ) as $Val);
   }
 }
@@ -193,8 +186,7 @@ abstract class _$$BookImplCopyWith<$Res> implements $BookCopyWith<$Res> {
       @JsonKey(name: 'price') String? price,
       @JsonKey(name: 'page_count') int? pageCount,
       @JsonKey(name: 'age_limit') String? ageLimit,
-      @JsonKey(name: 'read_url') String? readUrl,
-      PersonalBookType? isFav});
+      @JsonKey(name: 'read_url') String? readUrl});
 }
 
 /// @nodoc
@@ -223,7 +215,6 @@ class __$$BookImplCopyWithImpl<$Res>
     Object? pageCount = freezed,
     Object? ageLimit = freezed,
     Object? readUrl = freezed,
-    Object? isFav = freezed,
   }) {
     return _then(_$BookImpl(
       id: freezed == id
@@ -282,10 +273,6 @@ class __$$BookImplCopyWithImpl<$Res>
           ? _value.readUrl
           : readUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      isFav: freezed == isFav
-          ? _value.isFav
-          : isFav // ignore: cast_nullable_to_non_nullable
-              as PersonalBookType?,
     ));
   }
 }
@@ -307,8 +294,7 @@ class _$BookImpl implements _Book {
       @JsonKey(name: 'price') this.price,
       @JsonKey(name: 'page_count') this.pageCount,
       @JsonKey(name: 'age_limit') this.ageLimit,
-      @JsonKey(name: 'read_url') this.readUrl,
-      this.isFav})
+      @JsonKey(name: 'read_url') this.readUrl})
       : _genres = genres;
 
   factory _$BookImpl.fromJson(Map<String, dynamic> json) =>
@@ -358,12 +344,10 @@ class _$BookImpl implements _Book {
   @override
   @JsonKey(name: 'read_url')
   final String? readUrl;
-  @override
-  final PersonalBookType? isFav;
 
   @override
   String toString() {
-    return 'Book(id: $id, title: $title, author: $author, description: $description, coverImageUrl: $coverImageUrl, rating: $rating, genres: $genres, createdAt: $createdAt, publishedYear: $publishedYear, plan: $plan, price: $price, pageCount: $pageCount, ageLimit: $ageLimit, readUrl: $readUrl, isFav: $isFav)';
+    return 'Book(id: $id, title: $title, author: $author, description: $description, coverImageUrl: $coverImageUrl, rating: $rating, genres: $genres, createdAt: $createdAt, publishedYear: $publishedYear, plan: $plan, price: $price, pageCount: $pageCount, ageLimit: $ageLimit, readUrl: $readUrl)';
   }
 
   @override
@@ -390,8 +374,7 @@ class _$BookImpl implements _Book {
                 other.pageCount == pageCount) &&
             (identical(other.ageLimit, ageLimit) ||
                 other.ageLimit == ageLimit) &&
-            (identical(other.readUrl, readUrl) || other.readUrl == readUrl) &&
-            (identical(other.isFav, isFav) || other.isFav == isFav));
+            (identical(other.readUrl, readUrl) || other.readUrl == readUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -411,8 +394,7 @@ class _$BookImpl implements _Book {
       price,
       pageCount,
       ageLimit,
-      readUrl,
-      isFav);
+      readUrl);
 
   /// Create a copy of Book
   /// with the given fields replaced by the non-null parameter values.
@@ -445,8 +427,7 @@ abstract class _Book implements Book {
       @JsonKey(name: 'price') final String? price,
       @JsonKey(name: 'page_count') final int? pageCount,
       @JsonKey(name: 'age_limit') final String? ageLimit,
-      @JsonKey(name: 'read_url') final String? readUrl,
-      final PersonalBookType? isFav}) = _$BookImpl;
+      @JsonKey(name: 'read_url') final String? readUrl}) = _$BookImpl;
 
   factory _Book.fromJson(Map<String, dynamic> json) = _$BookImpl.fromJson;
 
@@ -486,8 +467,6 @@ abstract class _Book implements Book {
   @override
   @JsonKey(name: 'read_url')
   String? get readUrl;
-  @override
-  PersonalBookType? get isFav;
 
   /// Create a copy of Book
   /// with the given fields replaced by the non-null parameter values.
