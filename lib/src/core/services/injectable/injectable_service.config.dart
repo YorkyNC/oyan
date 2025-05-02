@@ -356,16 +356,16 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i23.IGenreRepository>(instanceName: 'GenreRepositoryImpl')));
     gh.lazySingleton<_i865.AddGenreUseCase>(() => _i865.AddGenreUseCase(
         gh<_i23.IGenreRepository>(instanceName: 'GenreRepositoryImpl')));
-    gh.lazySingleton<_i1072.GetCompetitionUseCase>(() =>
-        _i1072.GetCompetitionUseCase(gh<_i521.ICompetitionRepository>(
+    gh.lazySingleton<_i599.GetDetailUseCase>(() => _i599.GetDetailUseCase(
+        gh<_i521.ICompetitionRepository>(
             instanceName: 'CompetitionRepositoryImpl')));
     gh.lazySingleton<_i718.GetDailyTasksUseCase>(() =>
         _i718.GetDailyTasksUseCase(gh<_i521.ICompetitionRepository>(
             instanceName: 'CompetitionRepositoryImpl')));
-    gh.lazySingleton<_i817.GetResultUseCase>(() => _i817.GetResultUseCase(
-        gh<_i521.ICompetitionRepository>(
+    gh.lazySingleton<_i1072.GetCompetitionUseCase>(() =>
+        _i1072.GetCompetitionUseCase(gh<_i521.ICompetitionRepository>(
             instanceName: 'CompetitionRepositoryImpl')));
-    gh.lazySingleton<_i599.GetDetailUseCase>(() => _i599.GetDetailUseCase(
+    gh.lazySingleton<_i817.GetResultUseCase>(() => _i817.GetResultUseCase(
         gh<_i521.ICompetitionRepository>(
             instanceName: 'CompetitionRepositoryImpl')));
     gh.lazySingleton<_i369.PatchTournamentUseCase>(() =>

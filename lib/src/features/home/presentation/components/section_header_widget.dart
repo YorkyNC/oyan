@@ -48,7 +48,7 @@ class SectionHeaderWidget extends StatelessWidget {
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             ),
             child: Text(
-              'See all',
+              context.loc.seeAll,
               style: GoogleFonts.openSans(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,

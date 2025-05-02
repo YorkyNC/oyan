@@ -87,9 +87,9 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          title: const Text(
-            'Competition',
-            style: TextStyle(
+          title: Text(
+            context.loc.competition,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
               color: Colors.black,
@@ -109,10 +109,10 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
               labelColor: context.colors.main,
               unselectedLabelColor: context.colors.gray400,
               labelStyle: GoogleFonts.openSans(fontWeight: FontWeight.w500, fontSize: 17),
-              tabs: const [
-                Tab(text: 'Daily tasks'),
-                Tab(text: 'Tournaments'),
-                Tab(text: 'Taking part'),
+              tabs: [
+                Tab(text: context.loc.dailyTasks),
+                Tab(text: context.loc.tournaments),
+                Tab(text: context.loc.takingPart),
               ],
             ),
             Expanded(
@@ -211,7 +211,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
           orElse: () => const SizedBox(),
           loaded: (viewModel) {
             final tasks = viewModel.dailyTasks?.results ?? [];
-            // final bookId =viewModel.dailyTasks
+            final bookId = viewModel.dailyTasks?.results?.first.id;
             if (tasks.isEmpty) {
               return _buildEmptyState('No daily tasks available at the moment');
             }
@@ -225,7 +225,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
                   title: task.task ?? '',
                   subtitle: task.completed == true ? 'Completed' : 'Not completed',
                   pointsColor: const Color(0xffFFC100),
-                  bookId: task.url ?? '',
+                  bookId: bookId ?? 0,
                 );
               },
             );
@@ -281,7 +281,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
               children: [
                 if (participating.isNotEmpty) ...[
                   Text(
-                    'Active',
+                    context.loc.active,
                     style: GoogleFonts.openSans(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -297,7 +297,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
                               title: competition.tournamentName ?? '',
                               subtitle: '${competition.players} players',
                               amountColor: const Color(0xff66D48A),
-                              buttonText: 'Details',
+                              buttonText: context.loc.details,
                               onPressed: () {
                                 context.push(
                                   RoutePaths.tournamentDetail,
@@ -314,7 +314,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
                 if (completed.isNotEmpty) ...[
                   if (participating.isNotEmpty) const SizedBox(height: 24),
                   Text(
-                    'Results',
+                    context.loc.results,
                     style: GoogleFonts.openSans(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -330,7 +330,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
                               title: competition.tournamentName ?? '',
                               subtitle: '${competition.players} players',
                               amountColor: const Color(0xff66D48A),
-                              buttonText: 'Result',
+                              buttonText: context.loc.result,
                               onPressed: () {
                                 context.push(
                                   RoutePaths.tournamentResult,
@@ -415,7 +415,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
             ),
           ),
           child: Text(
-            'Participate',
+            context.loc.participate,
             style: GoogleFonts.openSans(
               fontSize: 15,
               fontWeight: FontWeight.w500,
@@ -502,7 +502,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
     required String title,
     required String subtitle,
     required Color pointsColor,
-    required String bookId,
+    required int bookId,
   }) {
     return Row(
       children: [
@@ -558,7 +558,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
             ),
           ),
           child: Text(
-            'Start',
+            context.loc.start,
             style: GoogleFonts.openSans(
               fontSize: 15,
               fontWeight: FontWeight.w500,

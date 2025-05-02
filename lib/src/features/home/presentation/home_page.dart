@@ -57,8 +57,9 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             const SizedBox(height: 16),
                             SearchBarWidget(
-                              hintText:
-                                  _selectedTabIndex == 0 ? 'Search book or author' : 'Search audiobook or narrator',
+                              hintText: _selectedTabIndex == 0
+                                  ? context.loc.searchBookOrAuthor
+                                  : context.loc.searchAudiobookOrNarrator,
                             ),
                             const SizedBox(height: 16),
                             TabBarWidget(
@@ -75,7 +76,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                             const SizedBox(height: 24),
                             SectionHeaderWidget(
-                              title: _selectedTabIndex == 0 ? 'Recommendation' : 'Featured Audiobooks',
+                              title:
+                                  _selectedTabIndex == 0 ? context.loc.recommendation : context.loc.featuredAudiobooks,
                               showSeeAll: true,
                               books: viewModel.recommendedBooks?.results ?? [],
                             ),
@@ -89,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                                 : AudiobookGridWidget(audiobooks: recommendedAudiobooks, height: 180),
                             const SizedBox(height: 24),
                             SectionHeaderWidget(
-                              title: _selectedTabIndex == 0 ? 'Popular books' : 'Popular audiobooks',
+                              title: _selectedTabIndex == 0 ? context.loc.popularBooks : context.loc.popularAudiobooks,
                               showSeeAll: true,
                               books: viewModel.popularBooks?.results ?? [],
                             ),
@@ -104,7 +106,7 @@ class _HomePageState extends State<HomePage> {
                             const SizedBox(height: 24),
                             SectionHeaderWidget(
                               books: viewModel.newBooks?.results ?? [],
-                              title: _selectedTabIndex == 0 ? 'New books' : 'New audiobooks',
+                              title: _selectedTabIndex == 0 ? context.loc.newBooks : context.loc.newAudiobooks,
                               showSeeAll: true,
                             ),
                             const SizedBox(height: 16),

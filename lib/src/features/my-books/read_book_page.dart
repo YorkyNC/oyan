@@ -9,8 +9,18 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ReadBookPage extends StatefulWidget {
-  final Book book;
-  const ReadBookPage({super.key, required this.book});
+  final dynamic bookData;
+  const ReadBookPage({super.key, required this.bookData});
+
+  Book get book {
+    if (bookData is Book) {
+      return bookData as Book;
+    } else if (bookData is Map<String, dynamic>) {
+      return Book.fromJson(bookData as Map<String, dynamic>);
+    } else {
+      throw Exception('Invalid book data type: ${bookData.runtimeType}');
+    }
+  }
 
   @override
   State<ReadBookPage> createState() => _ReadBookPageState();
@@ -29,6 +39,8 @@ class _ReadBookPageState extends State<ReadBookPage> {
     print('Book read URL: ${widget.book.readUrl}');
     super.initState();
     _pageController.addListener(_onPageChange);
+    // Start downloading automatically when page opens
+    _downloadBook();
   }
 
   @override
@@ -114,13 +126,14 @@ class _ReadBookPageState extends State<ReadBookPage> {
 
       setState(() {
         _downloadedFilePath = filePath;
+        _isDownloading = false;
       });
 
-      _showSuccessDialog('Book saved to: $filePath', openBook: true);
+      // Automatically open the book after successful download
+      _openEpubBook();
     } catch (e) {
       print('Download error: $e');
       _showErrorDialog('Error downloading book: $e');
-    } finally {
       setState(() {
         _isDownloading = false;
         _downloadProgress = 0.0;
@@ -157,7 +170,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
       EpubViewer.open(
         _downloadedFilePath!,
         lastLocation: EpubLocator.fromJson({
-          "bookId": widget.book.id.toString(),
+          "bookId": widget.book.id?.toString() ?? '',
           "href": "/OEBPS/chapter1.xhtml",
           "created": DateTime.now().millisecondsSinceEpoch,
           "locations": {"cfi": "epubcfi(/0!/4/4[simple_book]/2/2/6)"}
@@ -347,20 +360,22 @@ class _ReadBookPageState extends State<ReadBookPage> {
                                 onPressed: () => context.pop(),
                               ),
                               const Spacer(),
-                              IconButton(
-                                icon: _isDownloading
-                                    ? const SizedBox(
-                                        width: 20,
-                                        height: 20,
-                                        child: CircularProgressIndicator(
-                                          color: Colors.white,
-                                          strokeWidth: 2,
-                                        ),
-                                      )
-                                    : const Icon(Icons.download),
-                                color: Colors.white,
-                                onPressed: _isDownloading ? null : _downloadBook,
-                              ),
+                              if (_downloadedFilePath != null)
+                                IconButton(
+                                  icon: const Icon(Icons.menu_book),
+                                  color: Colors.white,
+                                  onPressed: _openEpubBook,
+                                  tooltip: 'Reopen Book',
+                                ),
+                              if (_isDownloading)
+                                const SizedBox(
+                                  width: 20,
+                                  height: 20,
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                    strokeWidth: 2,
+                                  ),
+                                ),
                             ],
                           ),
                         ),

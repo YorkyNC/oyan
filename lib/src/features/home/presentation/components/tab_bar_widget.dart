@@ -34,7 +34,7 @@ class TabBarWidget extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    'Book',
+                    context.loc.book,
                     style: GoogleFonts.openSans(
                       color: selectedTabIndex == 0 ? Colors.white : Colors.black54,
                       fontWeight: FontWeight.w600,
@@ -56,7 +56,7 @@ class TabBarWidget extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    'Audio',
+                    context.loc.audio,
                     style: GoogleFonts.openSans(
                       color: selectedTabIndex == 1 ? Colors.white : Colors.black54,
                       fontWeight: FontWeight.w600,

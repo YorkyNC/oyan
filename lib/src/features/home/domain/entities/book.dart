@@ -20,6 +20,7 @@ class Book with _$Book {
     @JsonKey(name: 'page_count') int? pageCount,
     @JsonKey(name: 'age_limit') String? ageLimit,
     @JsonKey(name: 'read_url') String? readUrl,
+    @JsonKey(name: 'user_statuses') List<PersonalBookType>? userStatuses,
     // PersonalBookType? isFav,
   }) = _Book;
 
@@ -27,16 +28,10 @@ class Book with _$Book {
 }
 
 enum PersonalBookType {
-  @JsonValue('favorite, to_read')
-  favoriteToRead,
-
-  @JsonValue('reading')
-  reading,
-
   @JsonValue('completed')
   completed,
 
-  @JsonValue('favorite')
+  @JsonValue('favourite')
   favourite,
 
   @JsonValue('to_read')

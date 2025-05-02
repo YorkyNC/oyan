@@ -48,7 +48,7 @@ class AppNavigationWrapper extends StatelessWidget {
                 BlendMode.srcIn,
               ),
             ),
-            label: 'Home',
+            label: context.loc.home,
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -58,7 +58,7 @@ class AppNavigationWrapper extends StatelessWidget {
                 BlendMode.srcIn,
               ),
             ),
-            label: 'Сompetition',
+            label: context.loc.competition,
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -68,7 +68,7 @@ class AppNavigationWrapper extends StatelessWidget {
                 BlendMode.srcIn,
               ),
             ),
-            label: 'My books',
+            label: context.loc.myBooks,
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset(
@@ -78,7 +78,7 @@ class AppNavigationWrapper extends StatelessWidget {
                 BlendMode.srcIn,
               ),
             ),
-            label: 'Profile',
+            label: context.loc.profile,
           ),
         ],
       ),

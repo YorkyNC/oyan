@@ -27,7 +27,7 @@ mixin _$GetMyBooksEntity {
   @JsonKey(name: 'previous')
   String? get previous => throw _privateConstructorUsedError;
   @JsonKey(name: 'results')
-  List<MyBookEntity>? get results => throw _privateConstructorUsedError;
+  List<Book>? get results => throw _privateConstructorUsedError;
 
   /// Serializes this GetMyBooksEntity to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +49,7 @@ abstract class $GetMyBooksEntityCopyWith<$Res> {
       {@JsonKey(name: 'count') int? count,
       @JsonKey(name: 'next') String? next,
       @JsonKey(name: 'previous') String? previous,
-      @JsonKey(name: 'results') List<MyBookEntity>? results});
+      @JsonKey(name: 'results') List<Book>? results});
 }
 
 /// @nodoc
@@ -88,7 +88,7 @@ class _$GetMyBooksEntityCopyWithImpl<$Res, $Val extends GetMyBooksEntity>
       results: freezed == results
           ? _value.results
           : results // ignore: cast_nullable_to_non_nullable
-              as List<MyBookEntity>?,
+              as List<Book>?,
     ) as $Val);
   }
 }
@@ -105,7 +105,7 @@ abstract class _$$GetMyBooksEntityImplCopyWith<$Res>
       {@JsonKey(name: 'count') int? count,
       @JsonKey(name: 'next') String? next,
       @JsonKey(name: 'previous') String? previous,
-      @JsonKey(name: 'results') List<MyBookEntity>? results});
+      @JsonKey(name: 'results') List<Book>? results});
 }
 
 /// @nodoc
@@ -142,7 +142,7 @@ class __$$GetMyBooksEntityImplCopyWithImpl<$Res>
       results: freezed == results
           ? _value._results
           : results // ignore: cast_nullable_to_non_nullable
-              as List<MyBookEntity>?,
+              as List<Book>?,
     ));
   }
 }
@@ -154,7 +154,7 @@ class _$GetMyBooksEntityImpl implements _GetMyBooksEntity {
       {@JsonKey(name: 'count') this.count,
       @JsonKey(name: 'next') this.next,
       @JsonKey(name: 'previous') this.previous,
-      @JsonKey(name: 'results') final List<MyBookEntity>? results})
+      @JsonKey(name: 'results') final List<Book>? results})
       : _results = results;
 
   factory _$GetMyBooksEntityImpl.fromJson(Map<String, dynamic> json) =>
@@ -169,10 +169,10 @@ class _$GetMyBooksEntityImpl implements _GetMyBooksEntity {
   @override
   @JsonKey(name: 'previous')
   final String? previous;
-  final List<MyBookEntity>? _results;
+  final List<Book>? _results;
   @override
   @JsonKey(name: 'results')
-  List<MyBookEntity>? get results {
+  List<Book>? get results {
     final value = _results;
     if (value == null) return null;
     if (_results is EqualUnmodifiableListView) return _results;
@@ -224,7 +224,7 @@ abstract class _GetMyBooksEntity implements GetMyBooksEntity {
           {@JsonKey(name: 'count') final int? count,
           @JsonKey(name: 'next') final String? next,
           @JsonKey(name: 'previous') final String? previous,
-          @JsonKey(name: 'results') final List<MyBookEntity>? results}) =
+          @JsonKey(name: 'results') final List<Book>? results}) =
       _$GetMyBooksEntityImpl;
 
   factory _GetMyBooksEntity.fromJson(Map<String, dynamic> json) =
@@ -241,7 +241,7 @@ abstract class _GetMyBooksEntity implements GetMyBooksEntity {
   String? get previous;
   @override
   @JsonKey(name: 'results')
-  List<MyBookEntity>? get results;
+  List<Book>? get results;
 
   /// Create a copy of GetMyBooksEntity
   /// with the given fields replaced by the non-null parameter values.

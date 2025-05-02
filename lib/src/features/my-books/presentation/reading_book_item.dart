@@ -185,7 +185,7 @@ class _BookItemState extends State<ReadingBookItem> with SingleTickerProviderSta
                         ),
                       ),
                       child: Text(
-                        'Continue',
+                        context.loc.continueReading,
                         style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 17, color: Colors.black),
                       ),
                     ),

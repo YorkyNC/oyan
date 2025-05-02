@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:oyan/src/features/home/domain/entities/my_book_entity.dart';
+import 'package:oyan/src/features/home/domain/entities/book.dart';
 
 part 'get_my_books_entity.freezed.dart';
 part 'get_my_books_entity.g.dart';
@@ -10,7 +10,7 @@ class GetMyBooksEntity with _$GetMyBooksEntity {
     @JsonKey(name: 'count') int? count,
     @JsonKey(name: 'next') String? next,
     @JsonKey(name: 'previous') String? previous,
-    @JsonKey(name: 'results') List<MyBookEntity>? results,
+    @JsonKey(name: 'results') List<Book>? results,
   }) = _GetMyBooksEntity;
 
   factory GetMyBooksEntity.fromJson(Map<String, dynamic> json) => _$GetMyBooksEntityFromJson(json);

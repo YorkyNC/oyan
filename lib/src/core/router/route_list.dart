@@ -318,7 +318,7 @@ List<RouteBase> _routes = [
       final data = state.extra as Map<String, dynamic>;
       return getPage(
         child: ReadBookPage(
-          book: Book.fromJson(data['book'] as Map<String, dynamic>),
+          bookData: data['book'],
         ),
         state: state,
       );

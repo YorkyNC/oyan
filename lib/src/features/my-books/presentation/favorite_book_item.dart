@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:oyan/src/core/extensions/build_context_extension.dart';
 
 class FavoriteBookItem extends StatefulWidget {
   final String title;
@@ -163,7 +164,7 @@ class _FavoriteBookItemState extends State<FavoriteBookItem> with SingleTickerPr
                         ),
                       ),
                       child: Text(
-                        'Read',
+                        context.loc.read,
                         style: GoogleFonts.openSans(fontWeight: FontWeight.w600, fontSize: 17, color: Colors.black),
                       ),
                     ),

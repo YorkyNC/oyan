@@ -13,7 +13,7 @@ _$GetMyBooksEntityImpl _$$GetMyBooksEntityImplFromJson(
       next: json['next'] as String?,
       previous: json['previous'] as String?,
       results: (json['results'] as List<dynamic>?)
-          ?.map((e) => MyBookEntity.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Book.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 

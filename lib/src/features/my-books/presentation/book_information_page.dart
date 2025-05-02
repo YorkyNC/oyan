@@ -1,3 +1,4 @@
+import 'package:fluent_ui/fluent_ui.dart' as fluent;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
@@ -26,6 +27,7 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
   late TabController _tabController;
   Book? _currentBook;
   bool isFavourite = false;
+  bool isToRead = false;
 
   @override
   void initState() {
@@ -63,14 +65,15 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
           loading: () => _buildLoadingState(),
           error: (error) => _buildErrorState(error),
           loaded: (viewModel) {
-            print('ViewModel data: ${viewModel.book}');
-            print('Book data: ${viewModel.book}');
             _currentBook = viewModel.book;
-            // if (_currentBook?.isFav == PersonalBookType.favourite) {
-            //   isFavourite = true;
-            // }
+
+            // Check if book is in favorites or to_read status
+            if (_currentBook?.userStatuses != null) {
+              isFavourite = _currentBook!.userStatuses!.contains(PersonalBookType.favourite);
+              isToRead = _currentBook!.userStatuses!.contains(PersonalBookType.toRead);
+            }
+
             if (_currentBook == null) {
-              print('Book is null after assignment');
               return _buildErrorState('Book not found');
             }
             return _buildContent(context, _currentBook!);
@@ -215,9 +218,6 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
               InkWell(
                 onTap: () {
                   if (!isFavourite) {
-                    setState(() {
-                      isFavourite = true;
-                    });
                     context.read<BookBloc>().add(
                           BookEvent.addMyBook(
                             AddMyBooksRequest(
@@ -227,11 +227,30 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                             ),
                           ),
                         );
-                  } else {
-                    setState(() {
-                      isFavourite = false;
+                    Future.delayed(const Duration(milliseconds: 500), () {
+                      context.read<BookBloc>().add(
+                            BookEvent.getBookById(
+                              GetBookByIdRequest(bookId: widget.id!),
+                            ),
+                          );
                     });
-                    null;
+                  } else {
+                    context.read<BookBloc>().add(
+                          BookEvent.addMyBook(
+                            AddMyBooksRequest(
+                              bookId: book.id ?? 0,
+                              username: st.getUsername()!,
+                              filter: 'none',
+                            ),
+                          ),
+                        );
+                    Future.delayed(const Duration(milliseconds: 500), () {
+                      context.read<BookBloc>().add(
+                            BookEvent.getBookById(
+                              GetBookByIdRequest(bookId: widget.id!),
+                            ),
+                          );
+                    });
                   }
                 },
                 child: Container(
@@ -357,9 +376,9 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                       color: context.colors.main,
                     ),
                     unselectedLabelColor: Colors.grey,
-                    tabs: const [
-                      Tab(text: 'Overview'),
-                      Tab(text: 'Comments'),
+                    tabs: [
+                      Tab(text: context.loc.overview),
+                      Tab(text: context.loc.comments.uppercaseFirst()),
                     ],
                   ),
                 ),
@@ -385,19 +404,29 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                           ),
                         ),
                         onPressed: () {
-                          context.push(RoutePaths.readBook, extra: {'book': book});
-                          context.read<BookBloc>().add(
-                                BookEvent.addMyBook(
-                                  AddMyBooksRequest(
-                                    username: st.getUsername()!,
-                                    filter: 'to_read',
-                                    bookId: book.id ?? 0,
+                          if (!isToRead) {
+                            context.read<BookBloc>().add(
+                                  BookEvent.addMyBook(
+                                    AddMyBooksRequest(
+                                      username: st.getUsername()!,
+                                      filter: 'to_read',
+                                      bookId: book.id ?? 0,
+                                    ),
                                   ),
-                                ),
-                              );
+                                );
+                            // Reload book data after adding to to_read
+                            // Future.delayed(const Duration(milliseconds: 500), () {
+                            //   context.read<BookBloc>().add(
+                            //         BookEvent.getBookById(
+                            //           GetBookByIdRequest(bookId: widget.id!),
+                            //         ),
+                            //       );
+                            // });
+                          }
+                          context.push(RoutePaths.readBook, extra: {'book': book});
                         },
                         child: Text(
-                          'Read book',
+                          context.loc.read,
                           style: GoogleFonts.openSans(
                             fontWeight: FontWeight.w600,
                             fontSize: 17,

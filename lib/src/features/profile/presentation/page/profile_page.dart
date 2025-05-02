@@ -201,7 +201,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                 _buildDivider(),
                                 _buildMenuItem(
                                   icon: Icons.support_outlined,
-                                  title: context.loc.support,
+                                  title: context.loc.techSupport,
                                   onTap: () {
                                     context.push(RoutePaths.support);
                                   },

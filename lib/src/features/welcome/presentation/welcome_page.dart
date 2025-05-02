@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
@@ -27,7 +25,6 @@ class WelcomePage extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           loaded: (viewModel) {
-            log('CSRF token in welcome page: ${viewModel.csrfToken}', name: 'WELCOME_PAGE');
             if (viewModel.csrfToken.isNotEmpty) {
               _showLoginOptionsBottomSheet(context);
             }
@@ -55,7 +52,6 @@ class WelcomePage extends StatelessWidget {
         );
       },
       builder: (context, state, bloc) {
-        // Show loading indicator when getting CSRF token
         final bool isLoading = state.maybeMap(
           loading: (_) => true,
           orElse: () => false,
@@ -71,7 +67,7 @@ class WelcomePage extends StatelessWidget {
                   Image.asset('assets/app_images/image1.png'),
                   const SizedBox(height: 40),
                   Text(
-                    'Welcome to OYAN!',
+                    context.loc.welcomeToOyan,
                     style: GoogleFonts.openSans(
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
@@ -80,7 +76,7 @@ class WelcomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 24),
                   Text(
-                    'Discover the world of books and new ideas',
+                    context.loc.discoverTheWorldOfBooksAndNewIdeas,
                     style: GoogleFonts.openSans(
                       fontSize: 16,
                       fontWeight: FontWeight.w400,
@@ -164,3 +160,4 @@ class CustomSnackBar {
     );
   }
 }
+//flutter pub run intl_utils:generate

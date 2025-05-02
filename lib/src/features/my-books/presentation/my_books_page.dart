@@ -6,7 +6,7 @@ import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/core/widgets/shimmer/shimmer_container.dart';
-import 'package:oyan/src/features/home/domain/entities/my_book_entity.dart';
+import 'package:oyan/src/features/home/domain/entities/book.dart';
 import 'package:oyan/src/features/home/domain/requests/my_book_request.dart';
 import 'package:oyan/src/features/home/presentation/bloc/book_bloc.dart';
 import 'package:oyan/src/features/my-books/presentation/completed_book_item.dart';
@@ -23,29 +23,38 @@ class MyBooksPage extends StatefulWidget {
 class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
   late BookBloc _bookBloc;
+  bool _isInit = false;
 
-  final List<Map<String, dynamic>> _tabs = [
-    {
-      'label': 'Reading',
-      'filter': 'to_read',
-    },
-    {
-      'label': 'Complete',
-      'filter': 'completed',
-    },
-    {
-      'label': 'Favorite',
-      'filter': 'favourite',
-    },
-  ];
+  List<Map<String, dynamic>> _getTabs(BuildContext context) => [
+        {
+          'label': context.loc.reading,
+          'filter': 'to_read',
+        },
+        {
+          'label': context.loc.complete,
+          'filter': 'completed',
+        },
+        {
+          'label': context.loc.favorite,
+          'filter': 'favourite',
+        },
+      ];
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: _tabs.length, vsync: this);
-    _tabController.addListener(_handleTabChange);
     _bookBloc = getIt<BookBloc>();
-    _loadBooksForCurrentTab();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isInit) {
+      _tabController = TabController(length: _getTabs(context).length, vsync: this);
+      _tabController.addListener(_handleTabChange);
+      _loadBooksForCurrentTab();
+      _isInit = true;
+    }
   }
 
   void _handleTabChange() {
@@ -56,7 +65,7 @@ class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProvide
   }
 
   void _loadBooksForCurrentTab() {
-    final currentTab = _tabs[_tabController.index];
+    final currentTab = _getTabs(context)[_tabController.index];
     _bookBloc.add(
       BookEvent.getMyBooks(
         MyBookRequest(
@@ -83,9 +92,9 @@ class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProvide
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
-          title: const Text(
-            'My book',
-            style: TextStyle(
+          title: Text(
+            context.loc.myBooks,
+            style: const TextStyle(
               color: Colors.black,
               fontSize: 20,
               fontWeight: FontWeight.w600,
@@ -137,12 +146,12 @@ class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProvide
                           controller: _tabController,
                           children: [
                             _TabContent(
-                              status: 'to_read',
+                              status: PersonalBookType.toRead,
                               books: viewModel.myBooks?.results ?? [],
                               buildItem: (book) => ReadingBookItem(
                                 title: book.title ?? '',
                                 author: book.author ?? '',
-                                coverUrl: book.coverUrl ?? '',
+                                coverUrl: book.coverImageUrl ?? '',
                                 progress: 0.0,
                                 onContinuePressed: () {
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -152,12 +161,12 @@ class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProvide
                               ),
                             ),
                             _TabContent(
-                              status: 'completed',
+                              status: PersonalBookType.completed,
                               books: viewModel.myBooks?.results ?? [],
                               buildItem: (book) => CompletedBookItem(
                                 title: book.title ?? '',
                                 author: book.author ?? '',
-                                coverUrl: book.coverUrl ?? '',
+                                coverUrl: book.coverImageUrl ?? '',
                                 onReadAgainPressed: () {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(content: Text('Read again: ${book.title}')),
@@ -166,17 +175,17 @@ class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProvide
                               ),
                             ),
                             _TabContent(
-                              status: 'favourite',
+                              status: PersonalBookType.favourite,
                               books: viewModel.myBooks?.results ?? [],
                               buildItem: (book) => FavoriteBookItem(
                                 title: book.title ?? '',
                                 author: book.author ?? '',
-                                coverUrl: book.coverUrl ?? '',
+                                coverUrl: book.coverImageUrl ?? '',
                                 onReadPressed: () {
-                                  print(book.book);
+                                  print(book.id);
                                   context.push(
                                     RoutePaths.booksDetails,
-                                    extra: {'id': book.book},
+                                    extra: {'id': book.id},
                                   );
                                 },
                               ),
@@ -227,15 +236,15 @@ class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProvide
       labelColor: context.colors.main,
       unselectedLabelColor: context.colors.gray400,
       labelStyle: GoogleFonts.openSans(fontWeight: FontWeight.w500, fontSize: 17),
-      tabs: _tabs.map((tab) => Tab(text: tab['label'])).toList(),
+      tabs: _getTabs(context).map((tab) => Tab(text: tab['label'])).toList(),
     );
   }
 }
 
 class _TabContent extends StatelessWidget {
-  final String status;
-  final List<MyBookEntity> books;
-  final Widget Function(MyBookEntity book) buildItem;
+  final PersonalBookType status;
+  final List<Book> books;
+  final Widget Function(Book book) buildItem;
 
   const _TabContent({
     required this.status,
@@ -246,10 +255,16 @@ class _TabContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final filteredBooks = books.where((book) {
-      if (status == 'favourite') {
-        return book.status == 'favourite' || book.status == 'favorite';
+      if (status == PersonalBookType.favourite) {
+        return book.userStatuses?.contains(PersonalBookType.favourite) ?? false;
       }
-      return book.status == status;
+      if (status == PersonalBookType.toRead) {
+        return book.userStatuses?.contains(PersonalBookType.toRead) ?? false;
+      }
+      if (status == PersonalBookType.completed) {
+        return book.userStatuses?.contains(PersonalBookType.completed) ?? false;
+      }
+      return false;
     }).toList();
 
     if (filteredBooks.isEmpty) {
@@ -264,7 +279,7 @@ class _TabContent extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              'No books found',
+              context.loc.noBooksFound,
               style: GoogleFonts.openSans(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
