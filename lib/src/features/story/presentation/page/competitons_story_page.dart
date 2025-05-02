@@ -36,6 +36,7 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
   late Timer _timer;
   double _progress = 0.0;
   final Duration _storyDuration = const Duration(seconds: 5);
+  String? _lastImageUrl;
 
   @override
   void initState() {
@@ -105,7 +106,14 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
 
   Widget _buildLoadedState(CompetitionViewModel viewModel) {
     final tournament = viewModel.participateCompetition?.results?.firstOrNull;
-    final imageUrl = tournament?.posterUrl ?? widget.imageUrl;
+    final imageUrl = tournament?.coverImageUrl ?? widget.imageUrl;
+
+    if (imageUrl != _lastImageUrl) {
+      _lastImageUrl = imageUrl;
+      print('Tournament coverUrl: ${tournament?.coverImageUrl}');
+      print('Widget imageUrl: ${widget.imageUrl}');
+      print('Final imageUrl being used: $imageUrl');
+    }
 
     return GestureDetector(
       onTapDown: (_) => _controller.stop(),

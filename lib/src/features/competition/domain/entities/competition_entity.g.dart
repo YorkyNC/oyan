@@ -30,7 +30,7 @@ _$CompetitionImpl _$$CompetitionImplFromJson(Map<String, dynamic> json) =>
       updatedAt: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
-      posterUrl: json['poster_url'] as String?,
+      coverImageUrl: json['cover_image_url'] as String?,
     );
 
 Map<String, dynamic> _$$CompetitionImplToJson(_$CompetitionImpl instance) =>
@@ -49,7 +49,7 @@ Map<String, dynamic> _$$CompetitionImplToJson(_$CompetitionImpl instance) =>
       'status': _$CompetitionStatusEnumMap[instance.status],
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
-      'poster_url': instance.posterUrl,
+      'cover_image_url': instance.coverImageUrl,
     };
 
 const _$CompetitionStatusEnumMap = {
