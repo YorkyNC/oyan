@@ -6,11 +6,11 @@ import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/core/widgets/shimmer/shimmer_container.dart';
+import 'package:oyan/src/features/competition/domain/entities/competition_entity.dart';
 import 'package:oyan/src/features/competition/domain/entities/get_competition_entity.dart';
 import 'package:oyan/src/features/competition/domain/requests/get_competition_request.dart';
 import 'package:oyan/src/features/competition/domain/requests/get_daily_tasks_request.dart';
 import 'package:oyan/src/features/competition/presentation/bloc/competition_bloc.dart';
-import 'package:oyan/src/features/home/domain/entities/book.dart';
 
 class CompetitionPage extends StatefulWidget {
   const CompetitionPage({super.key});
@@ -30,11 +30,11 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
     },
     {
       'label': 'Tournaments',
-      'status': CompetitionStatus.participate,
+      'status': 'participate',
     },
     {
       'label': 'Taking part',
-      'status': CompetitionStatus.start,
+      'status': 'start',
     },
   ];
   @override
@@ -58,10 +58,15 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
     if (currentTab['isDaily'] == true) {
       _competitionBloc.add(const CompetitionEvent.getDailyTasks(GetDailyTasksRequest()));
     } else {
+      final status = currentTab['status'] as String;
       _competitionBloc.add(
         CompetitionEvent.getCompetition(
           GetCompetitionRequest(
-            status: currentTab['status'],
+            status: status == 'participate'
+                ? CompetitionStatus.participate
+                : status == 'start'
+                    ? CompetitionStatus.start
+                    : CompetitionStatus.done,
           ),
         ),
       );
@@ -206,6 +211,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
           orElse: () => const SizedBox(),
           loaded: (viewModel) {
             final tasks = viewModel.dailyTasks?.results ?? [];
+            // final bookId =viewModel.dailyTasks
             if (tasks.isEmpty) {
               return _buildEmptyState('No daily tasks available at the moment');
             }
@@ -219,6 +225,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
                   title: task.task ?? '',
                   subtitle: task.completed == true ? 'Completed' : 'Not completed',
                   pointsColor: const Color(0xffFFC100),
+                  bookId: task.url ?? '',
                 );
               },
             );
@@ -245,10 +252,8 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
               itemBuilder: (context, index) {
                 final tournament = tournaments[index];
                 return _buildTournamentItem(
-                  amount: '${tournament.prize}\$',
-                  title: tournament.tournamentName ?? '',
-                  subtitle: '${tournament.players} players',
                   amountColor: const Color(0xff0CD887),
+                  tournament: tournament,
                 );
               },
             );
@@ -341,10 +346,8 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
   }
 
   Widget _buildTournamentItem({
-    required String amount,
-    required String title,
-    required String subtitle,
     required Color amountColor,
+    required Competition tournament,
   }) {
     return Row(
       children: [
@@ -355,7 +358,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
-            amount,
+            '${tournament.prize}\$',
             style: GoogleFonts.openSans(
               fontSize: 14,
               fontWeight: FontWeight.w600,
@@ -369,7 +372,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                title,
+                tournament.tournamentName ?? '',
                 style: GoogleFonts.openSans(
                   fontSize: 15,
                   fontWeight: FontWeight.w500,
@@ -377,7 +380,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
                 ),
               ),
               Text(
-                subtitle,
+                '${tournament.players} players',
                 style: GoogleFonts.openSans(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
@@ -389,7 +392,13 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
         ),
         ElevatedButton(
           onPressed: () {
-            context.push(RoutePaths.booksDetails, extra: const Book());
+            context.push(
+              RoutePaths.tournamentDetail,
+              extra: {
+                'tournamentId': tournament.id,
+                'bookId': tournament.book,
+              },
+            );
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xffEBF0FF),
@@ -487,6 +496,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
     required String title,
     required String subtitle,
     required Color pointsColor,
+    required String bookId,
   }) {
     return Row(
       children: [
@@ -531,7 +541,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
         ),
         ElevatedButton(
           onPressed: () {
-            context.push(RoutePaths.booksDetails, extra: const Book());
+            context.push(RoutePaths.booksDetails, extra: {'bookId': bookId});
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xffEBF0FF),

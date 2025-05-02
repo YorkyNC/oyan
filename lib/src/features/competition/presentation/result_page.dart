@@ -64,17 +64,17 @@ class _ResultPageState extends State<ResultPage> {
                   ),
                 );
               }
-              results.sort((a, b) => (b.score ?? 0).compareTo(a.score ?? 0));
-
+              final sortedResults = List<Result>.from(results);
+              sortedResults.sort((a, b) => (b.score ?? 0).compareTo(a.score ?? 0));
               return Column(
                 children: [
-                  _buildPodium(results),
+                  _buildPodium(sortedResults),
                   const SizedBox(height: 20),
-                  _buildMyPlace(results),
+                  _buildMyPlace(sortedResults),
                   const SizedBox(height: 14),
                   _buildOtherPlaces(),
                   Expanded(
-                    child: _buildParticipantsList(results),
+                    child: _buildParticipantsList(sortedResults),
                   ),
                 ],
               );
@@ -280,8 +280,8 @@ class _ResultPageState extends State<ResultPage> {
   }) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12),
-      decoration: BoxDecoration(
-        color: isHighlighted ? const Color(0xFFEBF0FF) : Colors.white,
+      decoration: const BoxDecoration(
+        color: Colors.white,
       ),
       child: Row(
         children: [

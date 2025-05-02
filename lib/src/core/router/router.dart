@@ -6,6 +6,7 @@ import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/features/camera/presentation/camera_page.dart';
 import 'package:oyan/src/features/class_events/presentation/class_event_page.dart';
 import 'package:oyan/src/features/competition/presentation/competition_page.dart';
+import 'package:oyan/src/features/competition/presentation/page/tournaments_detail_page.dart';
 import 'package:oyan/src/features/competition/presentation/result_page.dart';
 import 'package:oyan/src/features/genre/presentation/genre_page.dart';
 import 'package:oyan/src/features/home/domain/entities/book.dart';

@@ -22,6 +22,8 @@ mixin _$CompetitionEvent {
     required TResult Function(GetCompetitionRequest request) getCompetition,
     required TResult Function(GetDailyTasksRequest request) getDailyTasks,
     required TResult Function(GetResultRequest request) getResult,
+    required TResult Function(GetResultRequest request) getDetail,
+    required TResult Function(PatchTournamentRequest request) patchTournament,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,6 +32,8 @@ mixin _$CompetitionEvent {
     TResult? Function(GetCompetitionRequest request)? getCompetition,
     TResult? Function(GetDailyTasksRequest request)? getDailyTasks,
     TResult? Function(GetResultRequest request)? getResult,
+    TResult? Function(GetResultRequest request)? getDetail,
+    TResult? Function(PatchTournamentRequest request)? patchTournament,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -38,6 +42,8 @@ mixin _$CompetitionEvent {
     TResult Function(GetCompetitionRequest request)? getCompetition,
     TResult Function(GetDailyTasksRequest request)? getDailyTasks,
     TResult Function(GetResultRequest request)? getResult,
+    TResult Function(GetResultRequest request)? getDetail,
+    TResult Function(PatchTournamentRequest request)? patchTournament,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -47,6 +53,8 @@ mixin _$CompetitionEvent {
     required TResult Function(_GetCompetition value) getCompetition,
     required TResult Function(_GetDailyTasks value) getDailyTasks,
     required TResult Function(_GetResult value) getResult,
+    required TResult Function(_GetDetail value) getDetail,
+    required TResult Function(_PatchTournament value) patchTournament,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -55,6 +63,8 @@ mixin _$CompetitionEvent {
     TResult? Function(_GetCompetition value)? getCompetition,
     TResult? Function(_GetDailyTasks value)? getDailyTasks,
     TResult? Function(_GetResult value)? getResult,
+    TResult? Function(_GetDetail value)? getDetail,
+    TResult? Function(_PatchTournament value)? patchTournament,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -63,6 +73,8 @@ mixin _$CompetitionEvent {
     TResult Function(_GetCompetition value)? getCompetition,
     TResult Function(_GetDailyTasks value)? getDailyTasks,
     TResult Function(_GetResult value)? getResult,
+    TResult Function(_GetDetail value)? getDetail,
+    TResult Function(_PatchTournament value)? patchTournament,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -134,6 +146,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(GetCompetitionRequest request) getCompetition,
     required TResult Function(GetDailyTasksRequest request) getDailyTasks,
     required TResult Function(GetResultRequest request) getResult,
+    required TResult Function(GetResultRequest request) getDetail,
+    required TResult Function(PatchTournamentRequest request) patchTournament,
   }) {
     return started();
   }
@@ -145,6 +159,8 @@ class _$StartedImpl implements _Started {
     TResult? Function(GetCompetitionRequest request)? getCompetition,
     TResult? Function(GetDailyTasksRequest request)? getDailyTasks,
     TResult? Function(GetResultRequest request)? getResult,
+    TResult? Function(GetResultRequest request)? getDetail,
+    TResult? Function(PatchTournamentRequest request)? patchTournament,
   }) {
     return started?.call();
   }
@@ -156,6 +172,8 @@ class _$StartedImpl implements _Started {
     TResult Function(GetCompetitionRequest request)? getCompetition,
     TResult Function(GetDailyTasksRequest request)? getDailyTasks,
     TResult Function(GetResultRequest request)? getResult,
+    TResult Function(GetResultRequest request)? getDetail,
+    TResult Function(PatchTournamentRequest request)? patchTournament,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -171,6 +189,8 @@ class _$StartedImpl implements _Started {
     required TResult Function(_GetCompetition value) getCompetition,
     required TResult Function(_GetDailyTasks value) getDailyTasks,
     required TResult Function(_GetResult value) getResult,
+    required TResult Function(_GetDetail value) getDetail,
+    required TResult Function(_PatchTournament value) patchTournament,
   }) {
     return started(this);
   }
@@ -182,6 +202,8 @@ class _$StartedImpl implements _Started {
     TResult? Function(_GetCompetition value)? getCompetition,
     TResult? Function(_GetDailyTasks value)? getDailyTasks,
     TResult? Function(_GetResult value)? getResult,
+    TResult? Function(_GetDetail value)? getDetail,
+    TResult? Function(_PatchTournament value)? patchTournament,
   }) {
     return started?.call(this);
   }
@@ -193,6 +215,8 @@ class _$StartedImpl implements _Started {
     TResult Function(_GetCompetition value)? getCompetition,
     TResult Function(_GetDailyTasks value)? getDailyTasks,
     TResult Function(_GetResult value)? getResult,
+    TResult Function(_GetDetail value)? getDetail,
+    TResult Function(_PatchTournament value)? patchTournament,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -291,6 +315,8 @@ class _$GetCompetitionImpl implements _GetCompetition {
     required TResult Function(GetCompetitionRequest request) getCompetition,
     required TResult Function(GetDailyTasksRequest request) getDailyTasks,
     required TResult Function(GetResultRequest request) getResult,
+    required TResult Function(GetResultRequest request) getDetail,
+    required TResult Function(PatchTournamentRequest request) patchTournament,
   }) {
     return getCompetition(request);
   }
@@ -302,6 +328,8 @@ class _$GetCompetitionImpl implements _GetCompetition {
     TResult? Function(GetCompetitionRequest request)? getCompetition,
     TResult? Function(GetDailyTasksRequest request)? getDailyTasks,
     TResult? Function(GetResultRequest request)? getResult,
+    TResult? Function(GetResultRequest request)? getDetail,
+    TResult? Function(PatchTournamentRequest request)? patchTournament,
   }) {
     return getCompetition?.call(request);
   }
@@ -313,6 +341,8 @@ class _$GetCompetitionImpl implements _GetCompetition {
     TResult Function(GetCompetitionRequest request)? getCompetition,
     TResult Function(GetDailyTasksRequest request)? getDailyTasks,
     TResult Function(GetResultRequest request)? getResult,
+    TResult Function(GetResultRequest request)? getDetail,
+    TResult Function(PatchTournamentRequest request)? patchTournament,
     required TResult orElse(),
   }) {
     if (getCompetition != null) {
@@ -328,6 +358,8 @@ class _$GetCompetitionImpl implements _GetCompetition {
     required TResult Function(_GetCompetition value) getCompetition,
     required TResult Function(_GetDailyTasks value) getDailyTasks,
     required TResult Function(_GetResult value) getResult,
+    required TResult Function(_GetDetail value) getDetail,
+    required TResult Function(_PatchTournament value) patchTournament,
   }) {
     return getCompetition(this);
   }
@@ -339,6 +371,8 @@ class _$GetCompetitionImpl implements _GetCompetition {
     TResult? Function(_GetCompetition value)? getCompetition,
     TResult? Function(_GetDailyTasks value)? getDailyTasks,
     TResult? Function(_GetResult value)? getResult,
+    TResult? Function(_GetDetail value)? getDetail,
+    TResult? Function(_PatchTournament value)? patchTournament,
   }) {
     return getCompetition?.call(this);
   }
@@ -350,6 +384,8 @@ class _$GetCompetitionImpl implements _GetCompetition {
     TResult Function(_GetCompetition value)? getCompetition,
     TResult Function(_GetDailyTasks value)? getDailyTasks,
     TResult Function(_GetResult value)? getResult,
+    TResult Function(_GetDetail value)? getDetail,
+    TResult Function(_PatchTournament value)? patchTournament,
     required TResult orElse(),
   }) {
     if (getCompetition != null) {
@@ -456,6 +492,8 @@ class _$GetDailyTasksImpl implements _GetDailyTasks {
     required TResult Function(GetCompetitionRequest request) getCompetition,
     required TResult Function(GetDailyTasksRequest request) getDailyTasks,
     required TResult Function(GetResultRequest request) getResult,
+    required TResult Function(GetResultRequest request) getDetail,
+    required TResult Function(PatchTournamentRequest request) patchTournament,
   }) {
     return getDailyTasks(request);
   }
@@ -467,6 +505,8 @@ class _$GetDailyTasksImpl implements _GetDailyTasks {
     TResult? Function(GetCompetitionRequest request)? getCompetition,
     TResult? Function(GetDailyTasksRequest request)? getDailyTasks,
     TResult? Function(GetResultRequest request)? getResult,
+    TResult? Function(GetResultRequest request)? getDetail,
+    TResult? Function(PatchTournamentRequest request)? patchTournament,
   }) {
     return getDailyTasks?.call(request);
   }
@@ -478,6 +518,8 @@ class _$GetDailyTasksImpl implements _GetDailyTasks {
     TResult Function(GetCompetitionRequest request)? getCompetition,
     TResult Function(GetDailyTasksRequest request)? getDailyTasks,
     TResult Function(GetResultRequest request)? getResult,
+    TResult Function(GetResultRequest request)? getDetail,
+    TResult Function(PatchTournamentRequest request)? patchTournament,
     required TResult orElse(),
   }) {
     if (getDailyTasks != null) {
@@ -493,6 +535,8 @@ class _$GetDailyTasksImpl implements _GetDailyTasks {
     required TResult Function(_GetCompetition value) getCompetition,
     required TResult Function(_GetDailyTasks value) getDailyTasks,
     required TResult Function(_GetResult value) getResult,
+    required TResult Function(_GetDetail value) getDetail,
+    required TResult Function(_PatchTournament value) patchTournament,
   }) {
     return getDailyTasks(this);
   }
@@ -504,6 +548,8 @@ class _$GetDailyTasksImpl implements _GetDailyTasks {
     TResult? Function(_GetCompetition value)? getCompetition,
     TResult? Function(_GetDailyTasks value)? getDailyTasks,
     TResult? Function(_GetResult value)? getResult,
+    TResult? Function(_GetDetail value)? getDetail,
+    TResult? Function(_PatchTournament value)? patchTournament,
   }) {
     return getDailyTasks?.call(this);
   }
@@ -515,6 +561,8 @@ class _$GetDailyTasksImpl implements _GetDailyTasks {
     TResult Function(_GetCompetition value)? getCompetition,
     TResult Function(_GetDailyTasks value)? getDailyTasks,
     TResult Function(_GetResult value)? getResult,
+    TResult Function(_GetDetail value)? getDetail,
+    TResult Function(_PatchTournament value)? patchTournament,
     required TResult orElse(),
   }) {
     if (getDailyTasks != null) {
@@ -621,6 +669,8 @@ class _$GetResultImpl implements _GetResult {
     required TResult Function(GetCompetitionRequest request) getCompetition,
     required TResult Function(GetDailyTasksRequest request) getDailyTasks,
     required TResult Function(GetResultRequest request) getResult,
+    required TResult Function(GetResultRequest request) getDetail,
+    required TResult Function(PatchTournamentRequest request) patchTournament,
   }) {
     return getResult(request);
   }
@@ -632,6 +682,8 @@ class _$GetResultImpl implements _GetResult {
     TResult? Function(GetCompetitionRequest request)? getCompetition,
     TResult? Function(GetDailyTasksRequest request)? getDailyTasks,
     TResult? Function(GetResultRequest request)? getResult,
+    TResult? Function(GetResultRequest request)? getDetail,
+    TResult? Function(PatchTournamentRequest request)? patchTournament,
   }) {
     return getResult?.call(request);
   }
@@ -643,6 +695,8 @@ class _$GetResultImpl implements _GetResult {
     TResult Function(GetCompetitionRequest request)? getCompetition,
     TResult Function(GetDailyTasksRequest request)? getDailyTasks,
     TResult Function(GetResultRequest request)? getResult,
+    TResult Function(GetResultRequest request)? getDetail,
+    TResult Function(PatchTournamentRequest request)? patchTournament,
     required TResult orElse(),
   }) {
     if (getResult != null) {
@@ -658,6 +712,8 @@ class _$GetResultImpl implements _GetResult {
     required TResult Function(_GetCompetition value) getCompetition,
     required TResult Function(_GetDailyTasks value) getDailyTasks,
     required TResult Function(_GetResult value) getResult,
+    required TResult Function(_GetDetail value) getDetail,
+    required TResult Function(_PatchTournament value) patchTournament,
   }) {
     return getResult(this);
   }
@@ -669,6 +725,8 @@ class _$GetResultImpl implements _GetResult {
     TResult? Function(_GetCompetition value)? getCompetition,
     TResult? Function(_GetDailyTasks value)? getDailyTasks,
     TResult? Function(_GetResult value)? getResult,
+    TResult? Function(_GetDetail value)? getDetail,
+    TResult? Function(_PatchTournament value)? patchTournament,
   }) {
     return getResult?.call(this);
   }
@@ -680,6 +738,8 @@ class _$GetResultImpl implements _GetResult {
     TResult Function(_GetCompetition value)? getCompetition,
     TResult Function(_GetDailyTasks value)? getDailyTasks,
     TResult Function(_GetResult value)? getResult,
+    TResult Function(_GetDetail value)? getDetail,
+    TResult Function(_PatchTournament value)? patchTournament,
     required TResult orElse(),
   }) {
     if (getResult != null) {
@@ -698,6 +758,360 @@ abstract class _GetResult implements CompetitionEvent {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetResultImplCopyWith<_$GetResultImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetDetailImplCopyWith<$Res> {
+  factory _$$GetDetailImplCopyWith(
+          _$GetDetailImpl value, $Res Function(_$GetDetailImpl) then) =
+      __$$GetDetailImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({GetResultRequest request});
+
+  $GetResultRequestCopyWith<$Res> get request;
+}
+
+/// @nodoc
+class __$$GetDetailImplCopyWithImpl<$Res>
+    extends _$CompetitionEventCopyWithImpl<$Res, _$GetDetailImpl>
+    implements _$$GetDetailImplCopyWith<$Res> {
+  __$$GetDetailImplCopyWithImpl(
+      _$GetDetailImpl _value, $Res Function(_$GetDetailImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? request = null,
+  }) {
+    return _then(_$GetDetailImpl(
+      null == request
+          ? _value.request
+          : request // ignore: cast_nullable_to_non_nullable
+              as GetResultRequest,
+    ));
+  }
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GetResultRequestCopyWith<$Res> get request {
+    return $GetResultRequestCopyWith<$Res>(_value.request, (value) {
+      return _then(_value.copyWith(request: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$GetDetailImpl implements _GetDetail {
+  const _$GetDetailImpl(this.request);
+
+  @override
+  final GetResultRequest request;
+
+  @override
+  String toString() {
+    return 'CompetitionEvent.getDetail(request: $request)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetDetailImpl &&
+            (identical(other.request, request) || other.request == request));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, request);
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetDetailImplCopyWith<_$GetDetailImpl> get copyWith =>
+      __$$GetDetailImplCopyWithImpl<_$GetDetailImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(GetCompetitionRequest request) getCompetition,
+    required TResult Function(GetDailyTasksRequest request) getDailyTasks,
+    required TResult Function(GetResultRequest request) getResult,
+    required TResult Function(GetResultRequest request) getDetail,
+    required TResult Function(PatchTournamentRequest request) patchTournament,
+  }) {
+    return getDetail(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(GetCompetitionRequest request)? getCompetition,
+    TResult? Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult? Function(GetResultRequest request)? getResult,
+    TResult? Function(GetResultRequest request)? getDetail,
+    TResult? Function(PatchTournamentRequest request)? patchTournament,
+  }) {
+    return getDetail?.call(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(GetCompetitionRequest request)? getCompetition,
+    TResult Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult Function(GetResultRequest request)? getResult,
+    TResult Function(GetResultRequest request)? getDetail,
+    TResult Function(PatchTournamentRequest request)? patchTournament,
+    required TResult orElse(),
+  }) {
+    if (getDetail != null) {
+      return getDetail(request);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetCompetition value) getCompetition,
+    required TResult Function(_GetDailyTasks value) getDailyTasks,
+    required TResult Function(_GetResult value) getResult,
+    required TResult Function(_GetDetail value) getDetail,
+    required TResult Function(_PatchTournament value) patchTournament,
+  }) {
+    return getDetail(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetCompetition value)? getCompetition,
+    TResult? Function(_GetDailyTasks value)? getDailyTasks,
+    TResult? Function(_GetResult value)? getResult,
+    TResult? Function(_GetDetail value)? getDetail,
+    TResult? Function(_PatchTournament value)? patchTournament,
+  }) {
+    return getDetail?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetCompetition value)? getCompetition,
+    TResult Function(_GetDailyTasks value)? getDailyTasks,
+    TResult Function(_GetResult value)? getResult,
+    TResult Function(_GetDetail value)? getDetail,
+    TResult Function(_PatchTournament value)? patchTournament,
+    required TResult orElse(),
+  }) {
+    if (getDetail != null) {
+      return getDetail(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetDetail implements CompetitionEvent {
+  const factory _GetDetail(final GetResultRequest request) = _$GetDetailImpl;
+
+  GetResultRequest get request;
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetDetailImplCopyWith<_$GetDetailImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$PatchTournamentImplCopyWith<$Res> {
+  factory _$$PatchTournamentImplCopyWith(_$PatchTournamentImpl value,
+          $Res Function(_$PatchTournamentImpl) then) =
+      __$$PatchTournamentImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PatchTournamentRequest request});
+
+  $PatchTournamentRequestCopyWith<$Res> get request;
+}
+
+/// @nodoc
+class __$$PatchTournamentImplCopyWithImpl<$Res>
+    extends _$CompetitionEventCopyWithImpl<$Res, _$PatchTournamentImpl>
+    implements _$$PatchTournamentImplCopyWith<$Res> {
+  __$$PatchTournamentImplCopyWithImpl(
+      _$PatchTournamentImpl _value, $Res Function(_$PatchTournamentImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? request = null,
+  }) {
+    return _then(_$PatchTournamentImpl(
+      null == request
+          ? _value.request
+          : request // ignore: cast_nullable_to_non_nullable
+              as PatchTournamentRequest,
+    ));
+  }
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PatchTournamentRequestCopyWith<$Res> get request {
+    return $PatchTournamentRequestCopyWith<$Res>(_value.request, (value) {
+      return _then(_value.copyWith(request: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _$PatchTournamentImpl implements _PatchTournament {
+  const _$PatchTournamentImpl(this.request);
+
+  @override
+  final PatchTournamentRequest request;
+
+  @override
+  String toString() {
+    return 'CompetitionEvent.patchTournament(request: $request)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$PatchTournamentImpl &&
+            (identical(other.request, request) || other.request == request));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, request);
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$PatchTournamentImplCopyWith<_$PatchTournamentImpl> get copyWith =>
+      __$$PatchTournamentImplCopyWithImpl<_$PatchTournamentImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(GetCompetitionRequest request) getCompetition,
+    required TResult Function(GetDailyTasksRequest request) getDailyTasks,
+    required TResult Function(GetResultRequest request) getResult,
+    required TResult Function(GetResultRequest request) getDetail,
+    required TResult Function(PatchTournamentRequest request) patchTournament,
+  }) {
+    return patchTournament(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(GetCompetitionRequest request)? getCompetition,
+    TResult? Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult? Function(GetResultRequest request)? getResult,
+    TResult? Function(GetResultRequest request)? getDetail,
+    TResult? Function(PatchTournamentRequest request)? patchTournament,
+  }) {
+    return patchTournament?.call(request);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(GetCompetitionRequest request)? getCompetition,
+    TResult Function(GetDailyTasksRequest request)? getDailyTasks,
+    TResult Function(GetResultRequest request)? getResult,
+    TResult Function(GetResultRequest request)? getDetail,
+    TResult Function(PatchTournamentRequest request)? patchTournament,
+    required TResult orElse(),
+  }) {
+    if (patchTournament != null) {
+      return patchTournament(request);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_GetCompetition value) getCompetition,
+    required TResult Function(_GetDailyTasks value) getDailyTasks,
+    required TResult Function(_GetResult value) getResult,
+    required TResult Function(_GetDetail value) getDetail,
+    required TResult Function(_PatchTournament value) patchTournament,
+  }) {
+    return patchTournament(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_GetCompetition value)? getCompetition,
+    TResult? Function(_GetDailyTasks value)? getDailyTasks,
+    TResult? Function(_GetResult value)? getResult,
+    TResult? Function(_GetDetail value)? getDetail,
+    TResult? Function(_PatchTournament value)? patchTournament,
+  }) {
+    return patchTournament?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_GetCompetition value)? getCompetition,
+    TResult Function(_GetDailyTasks value)? getDailyTasks,
+    TResult Function(_GetResult value)? getResult,
+    TResult Function(_GetDetail value)? getDetail,
+    TResult Function(_PatchTournament value)? patchTournament,
+    required TResult orElse(),
+  }) {
+    if (patchTournament != null) {
+      return patchTournament(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _PatchTournament implements CompetitionEvent {
+  const factory _PatchTournament(final PatchTournamentRequest request) =
+      _$PatchTournamentImpl;
+
+  PatchTournamentRequest get request;
+
+  /// Create a copy of CompetitionEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$PatchTournamentImplCopyWith<_$PatchTournamentImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -1197,6 +1611,9 @@ mixin _$CompetitionViewModel {
       throw _privateConstructorUsedError;
   GetDailyTasks? get dailyTasks => throw _privateConstructorUsedError;
   GetResult? get result => throw _privateConstructorUsedError;
+  GetCompetitionEntity? get detail => throw _privateConstructorUsedError;
+  PatchTournamentEntity? get patchTournament =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of CompetitionViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1216,13 +1633,17 @@ abstract class $CompetitionViewModelCopyWith<$Res> {
       GetCompetitionEntity? participateCompetition,
       GetCompetitionEntity? startCompetition,
       GetDailyTasks? dailyTasks,
-      GetResult? result});
+      GetResult? result,
+      GetCompetitionEntity? detail,
+      PatchTournamentEntity? patchTournament});
 
   $GetCompetitionEntityCopyWith<$Res>? get doneCompetition;
   $GetCompetitionEntityCopyWith<$Res>? get participateCompetition;
   $GetCompetitionEntityCopyWith<$Res>? get startCompetition;
   $GetDailyTasksCopyWith<$Res>? get dailyTasks;
   $GetResultCopyWith<$Res>? get result;
+  $GetCompetitionEntityCopyWith<$Res>? get detail;
+  $PatchTournamentEntityCopyWith<$Res>? get patchTournament;
 }
 
 /// @nodoc
@@ -1246,6 +1667,8 @@ class _$CompetitionViewModelCopyWithImpl<$Res,
     Object? startCompetition = freezed,
     Object? dailyTasks = freezed,
     Object? result = freezed,
+    Object? detail = freezed,
+    Object? patchTournament = freezed,
   }) {
     return _then(_value.copyWith(
       doneCompetition: freezed == doneCompetition
@@ -1268,6 +1691,14 @@ class _$CompetitionViewModelCopyWithImpl<$Res,
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
               as GetResult?,
+      detail: freezed == detail
+          ? _value.detail
+          : detail // ignore: cast_nullable_to_non_nullable
+              as GetCompetitionEntity?,
+      patchTournament: freezed == patchTournament
+          ? _value.patchTournament
+          : patchTournament // ignore: cast_nullable_to_non_nullable
+              as PatchTournamentEntity?,
     ) as $Val);
   }
 
@@ -1343,6 +1774,35 @@ class _$CompetitionViewModelCopyWithImpl<$Res,
       return _then(_value.copyWith(result: value) as $Val);
     });
   }
+
+  /// Create a copy of CompetitionViewModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $GetCompetitionEntityCopyWith<$Res>? get detail {
+    if (_value.detail == null) {
+      return null;
+    }
+
+    return $GetCompetitionEntityCopyWith<$Res>(_value.detail!, (value) {
+      return _then(_value.copyWith(detail: value) as $Val);
+    });
+  }
+
+  /// Create a copy of CompetitionViewModel
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $PatchTournamentEntityCopyWith<$Res>? get patchTournament {
+    if (_value.patchTournament == null) {
+      return null;
+    }
+
+    return $PatchTournamentEntityCopyWith<$Res>(_value.patchTournament!,
+        (value) {
+      return _then(_value.copyWith(patchTournament: value) as $Val);
+    });
+  }
 }
 
 /// @nodoc
@@ -1358,7 +1818,9 @@ abstract class _$$CompetitionViewModelImplCopyWith<$Res>
       GetCompetitionEntity? participateCompetition,
       GetCompetitionEntity? startCompetition,
       GetDailyTasks? dailyTasks,
-      GetResult? result});
+      GetResult? result,
+      GetCompetitionEntity? detail,
+      PatchTournamentEntity? patchTournament});
 
   @override
   $GetCompetitionEntityCopyWith<$Res>? get doneCompetition;
@@ -1370,6 +1832,10 @@ abstract class _$$CompetitionViewModelImplCopyWith<$Res>
   $GetDailyTasksCopyWith<$Res>? get dailyTasks;
   @override
   $GetResultCopyWith<$Res>? get result;
+  @override
+  $GetCompetitionEntityCopyWith<$Res>? get detail;
+  @override
+  $PatchTournamentEntityCopyWith<$Res>? get patchTournament;
 }
 
 /// @nodoc
@@ -1390,6 +1856,8 @@ class __$$CompetitionViewModelImplCopyWithImpl<$Res>
     Object? startCompetition = freezed,
     Object? dailyTasks = freezed,
     Object? result = freezed,
+    Object? detail = freezed,
+    Object? patchTournament = freezed,
   }) {
     return _then(_$CompetitionViewModelImpl(
       doneCompetition: freezed == doneCompetition
@@ -1412,6 +1880,14 @@ class __$$CompetitionViewModelImplCopyWithImpl<$Res>
           ? _value.result
           : result // ignore: cast_nullable_to_non_nullable
               as GetResult?,
+      detail: freezed == detail
+          ? _value.detail
+          : detail // ignore: cast_nullable_to_non_nullable
+              as GetCompetitionEntity?,
+      patchTournament: freezed == patchTournament
+          ? _value.patchTournament
+          : patchTournament // ignore: cast_nullable_to_non_nullable
+              as PatchTournamentEntity?,
     ));
   }
 }
@@ -1424,7 +1900,9 @@ class _$CompetitionViewModelImpl implements _CompetitionViewModel {
       this.participateCompetition = null,
       this.startCompetition = null,
       this.dailyTasks = null,
-      this.result = null});
+      this.result = null,
+      this.detail = null,
+      this.patchTournament = null});
 
   @override
   @JsonKey()
@@ -1441,10 +1919,16 @@ class _$CompetitionViewModelImpl implements _CompetitionViewModel {
   @override
   @JsonKey()
   final GetResult? result;
+  @override
+  @JsonKey()
+  final GetCompetitionEntity? detail;
+  @override
+  @JsonKey()
+  final PatchTournamentEntity? patchTournament;
 
   @override
   String toString() {
-    return 'CompetitionViewModel(doneCompetition: $doneCompetition, participateCompetition: $participateCompetition, startCompetition: $startCompetition, dailyTasks: $dailyTasks, result: $result)';
+    return 'CompetitionViewModel(doneCompetition: $doneCompetition, participateCompetition: $participateCompetition, startCompetition: $startCompetition, dailyTasks: $dailyTasks, result: $result, detail: $detail, patchTournament: $patchTournament)';
   }
 
   @override
@@ -1460,12 +1944,22 @@ class _$CompetitionViewModelImpl implements _CompetitionViewModel {
                 other.startCompetition == startCompetition) &&
             (identical(other.dailyTasks, dailyTasks) ||
                 other.dailyTasks == dailyTasks) &&
-            (identical(other.result, result) || other.result == result));
+            (identical(other.result, result) || other.result == result) &&
+            (identical(other.detail, detail) || other.detail == detail) &&
+            (identical(other.patchTournament, patchTournament) ||
+                other.patchTournament == patchTournament));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, doneCompetition,
-      participateCompetition, startCompetition, dailyTasks, result);
+  int get hashCode => Object.hash(
+      runtimeType,
+      doneCompetition,
+      participateCompetition,
+      startCompetition,
+      dailyTasks,
+      result,
+      detail,
+      patchTournament);
 
   /// Create a copy of CompetitionViewModel
   /// with the given fields replaced by the non-null parameter values.
@@ -1480,11 +1974,14 @@ class _$CompetitionViewModelImpl implements _CompetitionViewModel {
 
 abstract class _CompetitionViewModel implements CompetitionViewModel {
   const factory _CompetitionViewModel(
-      {final GetCompetitionEntity? doneCompetition,
-      final GetCompetitionEntity? participateCompetition,
-      final GetCompetitionEntity? startCompetition,
-      final GetDailyTasks? dailyTasks,
-      final GetResult? result}) = _$CompetitionViewModelImpl;
+          {final GetCompetitionEntity? doneCompetition,
+          final GetCompetitionEntity? participateCompetition,
+          final GetCompetitionEntity? startCompetition,
+          final GetDailyTasks? dailyTasks,
+          final GetResult? result,
+          final GetCompetitionEntity? detail,
+          final PatchTournamentEntity? patchTournament}) =
+      _$CompetitionViewModelImpl;
 
   @override
   GetCompetitionEntity? get doneCompetition;
@@ -1496,6 +1993,10 @@ abstract class _CompetitionViewModel implements CompetitionViewModel {
   GetDailyTasks? get dailyTasks;
   @override
   GetResult? get result;
+  @override
+  GetCompetitionEntity? get detail;
+  @override
+  PatchTournamentEntity? get patchTournament;
 
   /// Create a copy of CompetitionViewModel
   /// with the given fields replaced by the non-null parameter values.

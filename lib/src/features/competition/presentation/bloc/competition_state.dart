@@ -17,5 +17,7 @@ class CompetitionViewModel with _$CompetitionViewModel {
     @Default(null) GetCompetitionEntity? startCompetition,
     @Default(null) GetDailyTasks? dailyTasks,
     @Default(null) GetResult? result,
+    @Default(null) GetCompetitionEntity? detail,
+    @Default(null) PatchTournamentEntity? patchTournament,
   }) = _CompetitionViewModel;
 }

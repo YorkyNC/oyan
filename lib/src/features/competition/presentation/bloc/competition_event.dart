@@ -9,4 +9,8 @@ class CompetitionEvent with _$CompetitionEvent {
   const factory CompetitionEvent.getDailyTasks(GetDailyTasksRequest request) = _GetDailyTasks;
 
   const factory CompetitionEvent.getResult(GetResultRequest request) = _GetResult;
+
+  const factory CompetitionEvent.getDetail(GetResultRequest request) = _GetDetail;
+
+  const factory CompetitionEvent.patchTournament(PatchTournamentRequest request) = _PatchTournament;
 }

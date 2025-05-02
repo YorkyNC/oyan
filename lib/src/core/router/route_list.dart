@@ -294,6 +294,19 @@ List<RouteBase> _routes = [
     },
   ),
   GoRoute(
+    path: RoutePaths.tournamentDetail,
+    pageBuilder: (context, state) {
+      final data = state.extra as Map<String, dynamic>;
+      return getPage(
+        child: TournamentsDetailPage(
+          tournamentId: data['tournamentId'] as int,
+          bookId: data['bookId'] as int,
+        ),
+        state: state,
+      );
+    },
+  ),
+  GoRoute(
     path: RoutePaths.genre,
     pageBuilder: (context, state) {
       return getPage(child: const GenrePage(), state: state);
