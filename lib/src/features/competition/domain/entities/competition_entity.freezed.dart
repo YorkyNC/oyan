@@ -41,6 +41,8 @@ mixin _$Competition {
   DateTime? get createdAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'poster_url')
+  String? get posterUrl => throw _privateConstructorUsedError;
 
   /// Serializes this Competition to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -72,7 +74,8 @@ abstract class $CompetitionCopyWith<$Res> {
       @JsonKey(name: 'tournament_name') String? tournamentName,
       CompetitionStatus? status,
       @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'updated_at') DateTime? updatedAt});
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: 'poster_url') String? posterUrl});
 }
 
 /// @nodoc
@@ -104,6 +107,7 @@ class _$CompetitionCopyWithImpl<$Res, $Val extends Competition>
     Object? status = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? posterUrl = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -162,6 +166,10 @@ class _$CompetitionCopyWithImpl<$Res, $Val extends Competition>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      posterUrl: freezed == posterUrl
+          ? _value.posterUrl
+          : posterUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -188,7 +196,8 @@ abstract class _$$CompetitionImplCopyWith<$Res>
       @JsonKey(name: 'tournament_name') String? tournamentName,
       CompetitionStatus? status,
       @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'updated_at') DateTime? updatedAt});
+      @JsonKey(name: 'updated_at') DateTime? updatedAt,
+      @JsonKey(name: 'poster_url') String? posterUrl});
 }
 
 /// @nodoc
@@ -218,6 +227,7 @@ class __$$CompetitionImplCopyWithImpl<$Res>
     Object? status = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
+    Object? posterUrl = freezed,
   }) {
     return _then(_$CompetitionImpl(
       id: freezed == id
@@ -276,6 +286,10 @@ class __$$CompetitionImplCopyWithImpl<$Res>
           ? _value.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
+      posterUrl: freezed == posterUrl
+          ? _value.posterUrl
+          : posterUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -297,7 +311,8 @@ class _$CompetitionImpl implements _Competition {
       @JsonKey(name: 'tournament_name') this.tournamentName,
       this.status,
       @JsonKey(name: 'created_at') this.createdAt,
-      @JsonKey(name: 'updated_at') this.updatedAt});
+      @JsonKey(name: 'updated_at') this.updatedAt,
+      @JsonKey(name: 'poster_url') this.posterUrl});
 
   factory _$CompetitionImpl.fromJson(Map<String, dynamic> json) =>
       _$$CompetitionImplFromJson(json);
@@ -337,10 +352,13 @@ class _$CompetitionImpl implements _Competition {
   @override
   @JsonKey(name: 'updated_at')
   final DateTime? updatedAt;
+  @override
+  @JsonKey(name: 'poster_url')
+  final String? posterUrl;
 
   @override
   String toString() {
-    return 'Competition(id: $id, book: $book, fromDate: $fromDate, toDate: $toDate, pageFrom: $pageFrom, pageTo: $pageTo, prize: $prize, players: $players, questions: $questions, description: $description, tournamentName: $tournamentName, status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Competition(id: $id, book: $book, fromDate: $fromDate, toDate: $toDate, pageFrom: $pageFrom, pageTo: $pageTo, prize: $prize, players: $players, questions: $questions, description: $description, tournamentName: $tournamentName, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, posterUrl: $posterUrl)';
   }
 
   @override
@@ -368,7 +386,9 @@ class _$CompetitionImpl implements _Competition {
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
+                other.updatedAt == updatedAt) &&
+            (identical(other.posterUrl, posterUrl) ||
+                other.posterUrl == posterUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -388,7 +408,8 @@ class _$CompetitionImpl implements _Competition {
       tournamentName,
       status,
       createdAt,
-      updatedAt);
+      updatedAt,
+      posterUrl);
 
   /// Create a copy of Competition
   /// with the given fields replaced by the non-null parameter values.
@@ -421,7 +442,8 @@ abstract class _Competition implements Competition {
           @JsonKey(name: 'tournament_name') final String? tournamentName,
           final CompetitionStatus? status,
           @JsonKey(name: 'created_at') final DateTime? createdAt,
-          @JsonKey(name: 'updated_at') final DateTime? updatedAt}) =
+          @JsonKey(name: 'updated_at') final DateTime? updatedAt,
+          @JsonKey(name: 'poster_url') final String? posterUrl}) =
       _$CompetitionImpl;
 
   factory _Competition.fromJson(Map<String, dynamic> json) =
@@ -462,6 +484,9 @@ abstract class _Competition implements Competition {
   @override
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt;
+  @override
+  @JsonKey(name: 'poster_url')
+  String? get posterUrl;
 
   /// Create a copy of Competition
   /// with the given fields replaced by the non-null parameter values.

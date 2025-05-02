@@ -299,7 +299,13 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
                               amountColor: const Color(0xff66D48A),
                               buttonText: 'Details',
                               onPressed: () {
-                                // context.push(RoutePaths.tournamentResult);
+                                context.push(
+                                  RoutePaths.tournamentDetail,
+                                  extra: {
+                                    'tournamentId': competition.id,
+                                    'bookId': competition.book,
+                                  },
+                                );
                               },
                             ),
                           ))

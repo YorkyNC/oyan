@@ -21,6 +21,7 @@ class Competition with _$Competition {
     CompetitionStatus? status,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
+    @JsonKey(name: 'poster_url') String? posterUrl,
   }) = _Competition;
 
   factory Competition.fromJson(Map<String, dynamic> json) => _$CompetitionFromJson(json);

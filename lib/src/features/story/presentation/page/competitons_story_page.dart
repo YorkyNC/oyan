@@ -105,7 +105,7 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
 
   Widget _buildLoadedState(CompetitionViewModel viewModel) {
     final tournament = viewModel.participateCompetition?.results?.firstOrNull;
-    // final imageUrl = tournament?.generatedImageUrl ?? widget.imageUrl;
+    final imageUrl = tournament?.posterUrl ?? widget.imageUrl;
 
     return GestureDetector(
       onTapDown: (_) => _controller.stop(),
@@ -118,18 +118,15 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
           ),
           child: Stack(
             children: [
-              // Background image
               Positioned.fill(
                 child: loadImageWithOverlay(
-                  url: widget.imageUrl,
+                  url: imageUrl,
                   fallbackAsset: 'assets/app_images/main4.png',
                   fit: BoxFit.cover,
                   overlayColor: Colors.black,
                   overlayOpacity: 0.6,
                 ),
               ),
-
-              // Progress bar
               Positioned(
                 top: 0,
                 left: 0,
@@ -147,13 +144,10 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
                   ),
                 ),
               ),
-
-              // Content
               SafeArea(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    // Close button
                     Align(
                       alignment: Alignment.topRight,
                       child: Container(
@@ -170,10 +164,6 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
                         ),
                       ),
                     ),
-
-                    // Title badge
-
-                    // Trophy image
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: Transform.rotate(
@@ -205,10 +195,7 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 20),
-
-                    // Date
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -223,10 +210,7 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
                             ),
                           ),
                         ),
-
                         const SizedBox(height: 10),
-
-                        // Title
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           child: Text(
@@ -257,10 +241,7 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
                         ),
                       ],
                     ),
-
                     const Spacer(),
-
-                    // Bottom button
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: ElevatedButton(
