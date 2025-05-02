@@ -5,6 +5,7 @@ import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/features/competition/domain/entities/get_result_entity.dart';
 import 'package:oyan/src/features/competition/domain/requests/get_result_request.dart';
 import 'package:oyan/src/features/competition/presentation/bloc/competition_bloc.dart';
+import 'package:oyan/src/features/competition/presentation/result_page_loading.dart';
 
 class ResultPage extends StatefulWidget {
   final int tournamentId;
@@ -49,7 +50,7 @@ class _ResultPageState extends State<ResultPage> {
         bloc: _competitionBloc,
         builder: (context, state, bloc) {
           return state.maybeWhen(
-            orElse: () => const Center(child: CircularProgressIndicator()),
+            orElse: () => const ResultPageLoading(),
             loaded: (viewModel) {
               final results = viewModel.result?.results ?? [];
               if (results.isEmpty) {
@@ -103,7 +104,6 @@ class _ResultPageState extends State<ResultPage> {
       child: Stack(
         alignment: Alignment.bottomCenter,
         children: [
-          // Base blue line
           Positioned(
             bottom: -10,
             left: 0,
@@ -113,8 +113,6 @@ class _ResultPageState extends State<ResultPage> {
               color: const Color(0xff646CE6),
             ),
           ),
-
-          // Second place (left)
           if (topThree.length >= 2)
             Positioned(
               bottom: 4,
@@ -127,8 +125,6 @@ class _ResultPageState extends State<ResultPage> {
                 color: const Color(0xFFEBF0FF),
               ),
             ),
-
-          // First place (center)
           if (topThree.isNotEmpty)
             Positioned(
               bottom: 4,
@@ -145,8 +141,6 @@ class _ResultPageState extends State<ResultPage> {
                 ),
               ),
             ),
-
-          // Third place (right)
           if (topThree.length >= 3)
             Positioned(
               bottom: 4,
