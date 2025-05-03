@@ -460,10 +460,10 @@ class S {
     );
   }
 
-  /// `Информация об изменении`
+  /// `Изменить данные`
   String get changeInformation {
     return Intl.message(
-      'Информация об изменении',
+      'Изменить данные',
       name: 'changeInformation',
       desc: '',
       args: [],
@@ -1860,10 +1860,10 @@ class S {
     return Intl.message('Предыдущий', name: 'previous', desc: '', args: []);
   }
 
-  /// `политика конфиденциальности`
+  /// `Политика конфиденциальности`
   String get privacyPolicy {
     return Intl.message(
-      'политика конфиденциальности',
+      'Политика конфиденциальности',
       name: 'privacyPolicy',
       desc: '',
       args: [],
@@ -2255,9 +2255,9 @@ class S {
     );
   }
 
-  /// `Подписываться`
+  /// `Подписаться`
   String get subscribe {
-    return Intl.message('Подписываться', name: 'subscribe', desc: '', args: []);
+    return Intl.message('Подписаться', name: 'subscribe', desc: '', args: []);
   }
 
   /// `Суммативные оценивания`
@@ -2570,19 +2570,19 @@ class S {
     );
   }
 
-  /// `Results`
+  /// `Результаты`
   String get results {
-    return Intl.message('Results', name: 'results', desc: '', args: []);
+    return Intl.message('Результаты', name: 'results', desc: '', args: []);
   }
 
-  /// `Result`
+  /// `Результат`
   String get result {
-    return Intl.message('Result', name: 'result', desc: '', args: []);
+    return Intl.message('Результат', name: 'result', desc: '', args: []);
   }
 
-  /// `Details`
+  /// `Подробнее`
   String get details {
-    return Intl.message('Details', name: 'details', desc: '', args: []);
+    return Intl.message('Подробнее', name: 'details', desc: '', args: []);
   }
 
   /// `Участвовать`
@@ -2590,9 +2590,9 @@ class S {
     return Intl.message('Участвовать', name: 'participate', desc: '', args: []);
   }
 
-  /// `Start`
+  /// `Начать`
   String get start {
-    return Intl.message('Start', name: 'start', desc: '', args: []);
+    return Intl.message('Начать', name: 'start', desc: '', args: []);
   }
 
   /// `Overview`
@@ -2660,19 +2660,84 @@ class S {
     return Intl.message('TODAY’s Hit', name: 'todaysHit', desc: '', args: []);
   }
 
-  /// `More detailed`
+  /// `Подробнее`
   String get moreDetailed {
-    return Intl.message(
-      'More detailed',
-      name: 'moreDetailed',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Подробнее', name: 'moreDetailed', desc: '', args: []);
   }
 
   /// `Начать`
   String get getStarted {
     return Intl.message('Начать', name: 'getStarted', desc: '', args: []);
+  }
+
+  /// `На данный момент нет доступных ежедневных заданий`
+  String get noDailyTasksAvailableAtTheMoment {
+    return Intl.message(
+      'На данный момент нет доступных ежедневных заданий',
+      name: 'noDailyTasksAvailableAtTheMoment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `На данный момент активных соревнований нет`
+  String get noActiveCompetitionsAtTheMoment {
+    return Intl.message(
+      'На данный момент активных соревнований нет',
+      name: 'noActiveCompetitionsAtTheMoment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `На данный момент турниров не доступно`
+  String get noTournamentsAvailableAtTheMoment {
+    return Intl.message(
+      'На данный момент турниров не доступно',
+      name: 'noTournamentsAvailableAtTheMoment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Имя пользователя`
+  String get username {
+    return Intl.message(
+      'Имя пользователя',
+      name: 'username',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Расскажите нам немного о себе...`
+  String get tellUsABitAboutYourself {
+    return Intl.message(
+      'Расскажите нам немного о себе...',
+      name: 'tellUsABitAboutYourself',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Вы можете использовать символы от а до я, 0-9 и подчеркивания. Минимальная длина - 5 символов`
+  String get youCanUseTheCharactersAz09AndUnderscoresThe {
+    return Intl.message(
+      'Вы можете использовать символы от а до я, 0-9 и подчеркивания. Минимальная длина - 5 символов',
+      name: 'youCanUseTheCharactersAz09AndUnderscoresThe',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ваше имя`
+  String get yourName {
+    return Intl.message('Ваше имя', name: 'yourName', desc: '', args: []);
+  }
+
+  /// `Скоро`
+  String get comingSoon {
+    return Intl.message('Скоро', name: 'comingSoon', desc: '', args: []);
   }
 }
 

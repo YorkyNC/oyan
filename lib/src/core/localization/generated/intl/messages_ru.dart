@@ -124,7 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "certificate": MessageLookupByLibrary.simpleMessage("Сертификат"),
     "certificates": MessageLookupByLibrary.simpleMessage("Сертификаты"),
     "changeInformation": MessageLookupByLibrary.simpleMessage(
-      "Информация об изменении",
+      "Изменить данные",
     ),
     "changePassword": MessageLookupByLibrary.simpleMessage("Изменить пароль"),
     "chats": MessageLookupByLibrary.simpleMessage("Чаты"),
@@ -155,6 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "clearAll": MessageLookupByLibrary.simpleMessage("Очистить все"),
     "collaboration": MessageLookupByLibrary.simpleMessage("Сотрудничество"),
     "coment": MessageLookupByLibrary.simpleMessage("Комментарий:"),
+    "comingSoon": MessageLookupByLibrary.simpleMessage("Скоро"),
     "commentAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Комментарий успешно добавлен",
     ),
@@ -193,7 +194,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Описание (необязательно)",
     ),
     "detailKpi": MessageLookupByLibrary.simpleMessage("Детали KPI"),
-    "details": MessageLookupByLibrary.simpleMessage("Details"),
+    "details": MessageLookupByLibrary.simpleMessage("Подробнее"),
     "diary": MessageLookupByLibrary.simpleMessage("Дневник"),
     "discoverTheWorldOfBooksAndNewIdeas": MessageLookupByLibrary.simpleMessage(
       "Откройте для себя мир книг и новых идей",
@@ -329,7 +330,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "more": MessageLookupByLibrary.simpleMessage("еще"),
     "moreDetail": MessageLookupByLibrary.simpleMessage("Подробнее"),
-    "moreDetailed": MessageLookupByLibrary.simpleMessage("More detailed"),
+    "moreDetailed": MessageLookupByLibrary.simpleMessage("Подробнее"),
     "myBooks": MessageLookupByLibrary.simpleMessage("Мои книги"),
     "name": MessageLookupByLibrary.simpleMessage("Имя"),
     "networkIssues": MessageLookupByLibrary.simpleMessage("Проблемы с сетью"),
@@ -339,6 +340,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "newPublication": MessageLookupByLibrary.simpleMessage("Новая публикация"),
     "news": MessageLookupByLibrary.simpleMessage("Новости"),
     "next": MessageLookupByLibrary.simpleMessage("Далее"),
+    "noActiveCompetitionsAtTheMoment": MessageLookupByLibrary.simpleMessage(
+      "На данный момент активных соревнований нет",
+    ),
     "noActiveReports": MessageLookupByLibrary.simpleMessage(
       "Нет активных отчетностей",
     ),
@@ -368,6 +372,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "noCoursesAvailable": MessageLookupByLibrary.simpleMessage(
       "Курсы недоступны",
     ),
+    "noDailyTasksAvailableAtTheMoment": MessageLookupByLibrary.simpleMessage(
+      "На данный момент нет доступных ежедневных заданий",
+    ),
     "noData": MessageLookupByLibrary.simpleMessage("Нет данных"),
     "noEventForChecking": MessageLookupByLibrary.simpleMessage(
       "Пока нет событий на проверку",
@@ -384,6 +391,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noStudentsFound": MessageLookupByLibrary.simpleMessage(
       "Студенты не найдены",
+    ),
+    "noTournamentsAvailableAtTheMoment": MessageLookupByLibrary.simpleMessage(
+      "На данный момент турниров не доступно",
     ),
     "noValidGradesFound": MessageLookupByLibrary.simpleMessage(
       "Не найдено действительных оценок",
@@ -454,7 +464,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "previous": MessageLookupByLibrary.simpleMessage("Предыдущий"),
     "privacyPolicy": MessageLookupByLibrary.simpleMessage(
-      "политика конфиденциальности",
+      "Политика конфиденциальности",
     ),
     "processed": MessageLookupByLibrary.simpleMessage("Обработано"),
     "profile": MessageLookupByLibrary.simpleMessage("Профиль"),
@@ -487,8 +497,8 @@ class MessageLookup extends MessageLookupByLibrary {
       "Время ожидания запроса истекло. Пожалуйста, попробуйте еще раз.",
     ),
     "responsibility": MessageLookupByLibrary.simpleMessage("Ответственность"),
-    "result": MessageLookupByLibrary.simpleMessage("Result"),
-    "results": MessageLookupByLibrary.simpleMessage("Results"),
+    "result": MessageLookupByLibrary.simpleMessage("Результат"),
+    "results": MessageLookupByLibrary.simpleMessage("Результаты"),
     "returnToRecord": MessageLookupByLibrary.simpleMessage(
       "Вернуться к записи",
     ),
@@ -536,7 +546,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "sortOptions": MessageLookupByLibrary.simpleMessage("Сортировка"),
     "sorting": MessageLookupByLibrary.simpleMessage("Сортировка"),
     "stable": MessageLookupByLibrary.simpleMessage("Стабильно"),
-    "start": MessageLookupByLibrary.simpleMessage("Start"),
+    "start": MessageLookupByLibrary.simpleMessage("Начать"),
     "student": MessageLookupByLibrary.simpleMessage("Ученик"),
     "studentReport": MessageLookupByLibrary.simpleMessage(
       "Отчетность об ученике",
@@ -546,7 +556,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Шестиугольник предметов",
     ),
     "subjectsJournal": MessageLookupByLibrary.simpleMessage("Журнал предметов"),
-    "subscribe": MessageLookupByLibrary.simpleMessage("Подписываться"),
+    "subscribe": MessageLookupByLibrary.simpleMessage("Подписаться"),
     "summativeAssessments": MessageLookupByLibrary.simpleMessage(
       "Суммативные оценивания",
     ),
@@ -561,6 +571,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Рекомендации и запросы учителей",
     ),
     "techSupport": MessageLookupByLibrary.simpleMessage("Техподдержка"),
+    "tellUsABitAboutYourself": MessageLookupByLibrary.simpleMessage(
+      "Расскажите нам немного о себе...",
+    ),
     "temporaryTechnicalIssues": MessageLookupByLibrary.simpleMessage(
       "Временные технические проблемы",
     ),
@@ -581,6 +594,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "unknownCourse": MessageLookupByLibrary.simpleMessage("Неизвестный курс"),
     "unknownStudent": MessageLookupByLibrary.simpleMessage("Unknown Student"),
     "unpin": MessageLookupByLibrary.simpleMessage("Открепить"),
+    "username": MessageLookupByLibrary.simpleMessage("Имя пользователя"),
     "viewAllSubjects": MessageLookupByLibrary.simpleMessage(
       "Посмотреть все предметы",
     ),
@@ -594,8 +608,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "worsened": MessageLookupByLibrary.simpleMessage("Ухудшились"),
     "you": MessageLookupByLibrary.simpleMessage("Вы"),
+    "youCanUseTheCharactersAz09AndUnderscoresThe":
+        MessageLookupByLibrary.simpleMessage(
+          "Вы можете использовать символы от а до я, 0-9 и подчеркивания. Минимальная длина - 5 символов",
+        ),
     "yourChild": MessageLookupByLibrary.simpleMessage("Ваш ребенок"),
     "yourClass": MessageLookupByLibrary.simpleMessage("Ваш класс"),
     "yourKpi": MessageLookupByLibrary.simpleMessage("Ваш KPI"),
+    "yourName": MessageLookupByLibrary.simpleMessage("Ваше имя"),
   };
 }

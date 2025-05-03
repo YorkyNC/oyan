@@ -349,5 +349,13 @@
   "commentAddedSuccessfully": "Comment added successfully",
   "todaysHit": "TODAY’s Hit",
   "moreDetailed": "More detailed",
-  "getStarted": "Get started"
+  "getStarted": "Get started",
+  "noDailyTasksAvailableAtTheMoment": "No daily tasks available at the moment",
+  "noActiveCompetitionsAtTheMoment": "No active competitions at the moment",
+  "noTournamentsAvailableAtTheMoment": "No tournaments available at the moment",
+  "username": "Username",
+  "tellUsABitAboutYourself": "Tell us a bit about yourself...",
+  "youCanUseTheCharactersAz09AndUnderscoresThe": "You can use the characters a-z, 0-9, and underscores. The minimum length is 5 characters",
+  "yourName": "Your name",
+  "comingSoon": "Coming Soon"
 }

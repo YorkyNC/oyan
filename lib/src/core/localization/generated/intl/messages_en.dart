@@ -145,6 +145,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "clearAll": MessageLookupByLibrary.simpleMessage("Clear everything"),
     "collaboration": MessageLookupByLibrary.simpleMessage("Collaboration"),
     "coment": MessageLookupByLibrary.simpleMessage("Comment:"),
+    "comingSoon": MessageLookupByLibrary.simpleMessage("Coming Soon"),
     "commentAddedSuccessfully": MessageLookupByLibrary.simpleMessage(
       "Comment added successfully",
     ),
@@ -329,6 +330,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "newPublication": MessageLookupByLibrary.simpleMessage("New publication"),
     "news": MessageLookupByLibrary.simpleMessage("News"),
     "next": MessageLookupByLibrary.simpleMessage("Next"),
+    "noActiveCompetitionsAtTheMoment": MessageLookupByLibrary.simpleMessage(
+      "No active competitions at the moment",
+    ),
     "noActiveReports": MessageLookupByLibrary.simpleMessage(
       "No active reports",
     ),
@@ -354,6 +358,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "noCoursesAvailable": MessageLookupByLibrary.simpleMessage(
       "No courses available",
     ),
+    "noDailyTasksAvailableAtTheMoment": MessageLookupByLibrary.simpleMessage(
+      "No daily tasks available at the moment",
+    ),
     "noData": MessageLookupByLibrary.simpleMessage("No Data"),
     "noEventForChecking": MessageLookupByLibrary.simpleMessage(
       "No events for checking yet",
@@ -370,6 +377,9 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "noStudentsFound": MessageLookupByLibrary.simpleMessage(
       "No students found",
+    ),
+    "noTournamentsAvailableAtTheMoment": MessageLookupByLibrary.simpleMessage(
+      "No tournaments available at the moment",
     ),
     "noValidGradesFound": MessageLookupByLibrary.simpleMessage(
       "No valid grades found",
@@ -527,6 +537,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "Teachers recommendations and requests",
     ),
     "techSupport": MessageLookupByLibrary.simpleMessage("Tech Support"),
+    "tellUsABitAboutYourself": MessageLookupByLibrary.simpleMessage(
+      "Tell us a bit about yourself...",
+    ),
     "temporaryTechnicalIssues": MessageLookupByLibrary.simpleMessage(
       "Temporary technical issues",
     ),
@@ -545,6 +558,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "unknownCourse": MessageLookupByLibrary.simpleMessage("Unknown course"),
     "unknownStudent": MessageLookupByLibrary.simpleMessage("Unknown Student"),
     "unpin": MessageLookupByLibrary.simpleMessage("Unpin"),
+    "username": MessageLookupByLibrary.simpleMessage("Username"),
     "viewAllSubjects": MessageLookupByLibrary.simpleMessage(
       "View all subjects",
     ),
@@ -556,8 +570,13 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "worsened": MessageLookupByLibrary.simpleMessage("Worsened"),
     "you": MessageLookupByLibrary.simpleMessage("You"),
+    "youCanUseTheCharactersAz09AndUnderscoresThe":
+        MessageLookupByLibrary.simpleMessage(
+          "You can use the characters a-z, 0-9, and underscores. The minimum length is 5 characters",
+        ),
     "yourChild": MessageLookupByLibrary.simpleMessage("Your child"),
     "yourClass": MessageLookupByLibrary.simpleMessage("Your class"),
     "yourKpi": MessageLookupByLibrary.simpleMessage("Your KPI"),
+    "yourName": MessageLookupByLibrary.simpleMessage("Your name"),
   };
 }
