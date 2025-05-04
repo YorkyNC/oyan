@@ -162,7 +162,7 @@ class _BookCommentsTabState extends State<BookCommentsTab> {
                           return Expanded(
                             child: RatingButton(
                               rating: rating.toDouble(),
-                              isSelected: _selectedRating >= rating,
+                              isSelected: _selectedRating == rating,
                               onPressed: () {
                                 if (_commentController.text.trim().isNotEmpty) {
                                   _onRatingChanged(rating.toDouble());

@@ -1,5 +1,6 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
+import 'package:oyan/src/core/extensions/date_time_extension.dart';
 import 'package:oyan/src/features/comments/domain/entities/get_commets_response.dart';
 
 class ReviewItem extends StatelessWidget {
@@ -13,7 +14,6 @@ class ReviewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(bottom: 16),
       margin: const EdgeInsets.only(bottom: 16),
       decoration: const BoxDecoration(),
       child: Column(
@@ -39,7 +39,7 @@ class ReviewItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                review.createdAt?.toString() ?? '',
+                review.createdAt?.formatDate ?? '',
                 style: GoogleFonts.openSans(
                   fontSize: 15,
                   fontWeight: FontWeight.w400,

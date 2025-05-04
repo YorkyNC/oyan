@@ -36,9 +36,9 @@ _$CommentImpl _$$CommentImplFromJson(Map<String, dynamic> json) =>
       avatar: json['avatar'] as String?,
       content: json['content'] as String?,
       rate: json['rate'] as String?,
-      createdAt: json['createdAt'] == null
+      createdAt: json['created_at'] == null
           ? null
-          : DateTime.parse(json['createdAt'] as String),
+          : DateTime.parse(json['created_at'] as String),
     );
 
 Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
@@ -49,5 +49,5 @@ Map<String, dynamic> _$$CommentImplToJson(_$CommentImpl instance) =>
       'avatar': instance.avatar,
       'content': instance.content,
       'rate': instance.rate,
-      'createdAt': instance.createdAt?.toIso8601String(),
+      'created_at': instance.createdAt?.toIso8601String(),
     };

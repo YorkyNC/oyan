@@ -270,6 +270,7 @@ mixin _$Comment {
   String? get avatar => throw _privateConstructorUsedError;
   String? get content => throw _privateConstructorUsedError;
   String? get rate => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
 
   /// Serializes this Comment to a JSON map.
@@ -293,7 +294,7 @@ abstract class $CommentCopyWith<$Res> {
       String? avatar,
       String? content,
       String? rate,
-      DateTime? createdAt});
+      @JsonKey(name: 'created_at') DateTime? createdAt});
 }
 
 /// @nodoc
@@ -366,7 +367,7 @@ abstract class _$$CommentImplCopyWith<$Res> implements $CommentCopyWith<$Res> {
       String? avatar,
       String? content,
       String? rate,
-      DateTime? createdAt});
+      @JsonKey(name: 'created_at') DateTime? createdAt});
 }
 
 /// @nodoc
@@ -433,7 +434,7 @@ class _$CommentImpl implements _Comment {
       this.avatar,
       this.content,
       this.rate,
-      this.createdAt});
+      @JsonKey(name: 'created_at') this.createdAt});
 
   factory _$CommentImpl.fromJson(Map<String, dynamic> json) =>
       _$$CommentImplFromJson(json);
@@ -451,6 +452,7 @@ class _$CommentImpl implements _Comment {
   @override
   final String? rate;
   @override
+  @JsonKey(name: 'created_at')
   final DateTime? createdAt;
 
   @override
@@ -503,7 +505,7 @@ abstract class _Comment implements Comment {
       final String? avatar,
       final String? content,
       final String? rate,
-      final DateTime? createdAt}) = _$CommentImpl;
+      @JsonKey(name: 'created_at') final DateTime? createdAt}) = _$CommentImpl;
 
   factory _Comment.fromJson(Map<String, dynamic> json) = _$CommentImpl.fromJson;
 
@@ -520,6 +522,7 @@ abstract class _Comment implements Comment {
   @override
   String? get rate;
   @override
+  @JsonKey(name: 'created_at')
   DateTime? get createdAt;
 
   /// Create a copy of Comment

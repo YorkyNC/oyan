@@ -2595,9 +2595,9 @@ class S {
     return Intl.message('Начать', name: 'start', desc: '', args: []);
   }
 
-  /// `Overview`
+  /// `Обзор`
   String get overview {
-    return Intl.message('Overview', name: 'overview', desc: '', args: []);
+    return Intl.message('Обзор', name: 'overview', desc: '', args: []);
   }
 
   /// `Страницы`

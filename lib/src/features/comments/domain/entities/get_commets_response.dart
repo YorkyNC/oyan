@@ -25,7 +25,7 @@ class Comment with _$Comment {
     String? avatar,
     String? content,
     String? rate,
-    DateTime? createdAt,
+    @JsonKey(name: 'created_at') DateTime? createdAt,
   }) = _Comment;
 
   factory Comment.fromJson(Map<String, dynamic> json) => _$CommentFromJson(json);

@@ -420,7 +420,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Общая успеваемость",
     ),
     "overdue": MessageLookupByLibrary.simpleMessage("Просрочено"),
-    "overview": MessageLookupByLibrary.simpleMessage("Overview"),
+    "overview": MessageLookupByLibrary.simpleMessage("Обзор"),
     "pages": MessageLookupByLibrary.simpleMessage("Страницы"),
     "parent": MessageLookupByLibrary.simpleMessage("Родитель"),
     "parentInteraction": MessageLookupByLibrary.simpleMessage(
