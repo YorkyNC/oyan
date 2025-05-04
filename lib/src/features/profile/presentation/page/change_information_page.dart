@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
+import 'package:oyan/src/core/extensions/build_context_extension.dart';
 import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/features/profile/domain/requests/get_profile_request.dart';
@@ -40,7 +41,7 @@ class _ProfileFormScreenState extends State<ChangeInformationPage> {
               backgroundColor: Colors.white,
               iconTheme: const IconThemeData(color: Colors.black),
               centerTitle: false,
-              title: const Text('Change Information'),
+              title: Text(context.loc.changeInformation),
               titleTextStyle: GoogleFonts.openSans(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
@@ -53,9 +54,9 @@ class _ProfileFormScreenState extends State<ChangeInformationPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Name',
-                      style: TextStyle(
+                    Text(
+                      context.loc.name,
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 17,
                         color: Color(0xff323232),
@@ -85,7 +86,7 @@ class _ProfileFormScreenState extends State<ChangeInformationPage> {
                         ),
                         filled: true,
                         fillColor: const Color(0xFFF0F2FA),
-                        hintText: 'Your name',
+                        hintText: context.loc.yourName,
                         hintStyle: GoogleFonts.openSans(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -94,9 +95,9 @@ class _ProfileFormScreenState extends State<ChangeInformationPage> {
                       ),
                     ),
                     const SizedBox(height: 30),
-                    const Text(
-                      'Username',
-                      style: TextStyle(
+                    Text(
+                      context.loc.username,
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 17,
                         color: Color(0xff323232),
@@ -135,17 +136,17 @@ class _ProfileFormScreenState extends State<ChangeInformationPage> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    const Text(
-                      'You can use the characters a-z, 0-9, and underscores. The minimum length is 5 characters',
-                      style: TextStyle(
+                    Text(
+                      context.loc.youCanUseTheCharactersAz09AndUnderscoresThe,
+                      style: const TextStyle(
                         fontSize: 12,
                         color: Colors.grey,
                       ),
                     ),
                     const SizedBox(height: 30),
-                    const Text(
-                      'About me',
-                      style: TextStyle(
+                    Text(
+                      context.loc.aboutMe,
+                      style: const TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 17,
                         color: Color(0xff323232),
@@ -161,7 +162,7 @@ class _ProfileFormScreenState extends State<ChangeInformationPage> {
                       controller: aboutMeController,
                       maxLines: 5,
                       decoration: InputDecoration(
-                        hintText: 'Tell us a bit about yourself...',
+                        hintText: context.loc.tellUsABitAboutYourself,
                         hintStyle: GoogleFonts.openSans(
                           fontSize: 15,
                           fontWeight: FontWeight.w500,
@@ -186,10 +187,8 @@ class _ProfileFormScreenState extends State<ChangeInformationPage> {
                     ),
                     const Spacer(),
                     CustromFilledButton(
-                      text: 'Save',
-                      // In ChangeInformationPage.dart, modify the onPressed function:
+                      text: context.loc.save,
                       onPressed: () async {
-                        // First update the profile
                         context.read<ProfileBloc>().add(
                               ProfileEvent.updateProfile(
                                 UpdateProfileRequest(
@@ -209,7 +208,6 @@ class _ProfileFormScreenState extends State<ChangeInformationPage> {
                               ),
                             );
 
-                        // Pop with result true to indicate profile was updated
                         if (mounted) {
                           context.pop(true);
                         }

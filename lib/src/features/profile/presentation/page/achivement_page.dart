@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
+import 'package:oyan/src/core/extensions/build_context_extension.dart';
 
 class AchievementPage extends StatelessWidget {
   const AchievementPage({Key? key}) : super(key: key);
@@ -11,7 +12,7 @@ class AchievementPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('Achievement'),
+        title: Text(context.loc.achievements),
         iconTheme: const IconThemeData(color: Colors.black),
         centerTitle: false,
         titleTextStyle: GoogleFonts.openSans(
@@ -24,7 +25,7 @@ class AchievementPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32),
           child: Text(
-            'Coming Soon',
+            context.loc.comingSoon,
             textAlign: TextAlign.center,
             style: GoogleFonts.openSans(
               fontSize: 20,

@@ -39,7 +39,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
     print('Book read URL: ${widget.book.readUrl}');
     super.initState();
     _pageController.addListener(_onPageChange);
-    // Start downloading automatically when page opens
+
     _downloadBook();
   }
 
@@ -70,7 +70,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
       final status = await Permission.storage.request();
       return status.isGranted;
     }
-    return true; // iOS doesn't need storage permission for app's own directory
+    return true;
   }
 
   Future<void> _downloadBook() async {
@@ -79,7 +79,6 @@ class _ReadBookPageState extends State<ReadBookPage> {
       return;
     }
 
-    // Request storage permission for Android
     if (!await _requestStoragePermission()) {
       _showErrorDialog('Storage permission is required to download books');
       return;
@@ -111,7 +110,6 @@ class _ReadBookPageState extends State<ReadBookPage> {
         },
       );
 
-      // Verify the file exists and has content
       final file = File(filePath);
       if (!await file.exists()) {
         throw Exception('File was not created');
@@ -129,7 +127,6 @@ class _ReadBookPageState extends State<ReadBookPage> {
         _isDownloading = false;
       });
 
-      // Automatically open the book after successful download
       _openEpubBook();
     } catch (e) {
       print('Download error: $e');
@@ -150,13 +147,11 @@ class _ReadBookPageState extends State<ReadBookPage> {
     try {
       print('Opening EPUB file: $_downloadedFilePath');
 
-      // Verify file exists before trying to open it
       final file = File(_downloadedFilePath!);
       if (!await file.exists()) {
         throw Exception('EPUB file not found');
       }
 
-      // Configure the EPUB viewer
       EpubViewer.setConfig(
         themeColor: Theme.of(context).primaryColor,
         identifier: "iosBook",
@@ -285,7 +280,6 @@ class _ReadBookPageState extends State<ReadBookPage> {
                         ),
                       ),
                     ),
-                    // Second page with book content
                     Container(
                       color: const Color(0xFFFFF3E0),
                       padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -328,9 +322,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
                     ),
                   ],
                 ),
-                // Controls overlay
                 if (_showControls && _currentPage == 0) ...[
-                  // Top app bar
                   Positioned(
                     top: 0,
                     left: 0,
@@ -383,7 +375,6 @@ class _ReadBookPageState extends State<ReadBookPage> {
                     ),
                   ),
                 ],
-                // Page indicator
                 if (_showControls)
                   Positioned(
                     bottom: 16,
@@ -405,7 +396,6 @@ class _ReadBookPageState extends State<ReadBookPage> {
               ],
             ),
           ),
-          // Download progress overlay
           if (_isDownloading)
             Positioned(
               bottom: 0,

@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
+import 'package:oyan/src/core/router/router.dart';
 import 'package:oyan/src/core/services/injectable/injectable_service.dart';
 import 'package:oyan/src/core/widgets/shimmer/shimmer_container.dart';
 import 'package:oyan/src/features/competition/domain/entities/competition_entity.dart';
@@ -126,7 +127,7 @@ class _TournamentsDetailPageState extends State<TournamentsDetailPage> {
                                             const SizedBox(height: 24),
                                             _buildTournamentCountdown(context, tournament),
                                             const SizedBox(height: 32),
-                                            _buildParticipateButton(context),
+                                            _buildParticipateButton(context, tournament),
                                             const SizedBox(height: 32),
                                           ],
                                         ),
@@ -441,21 +442,32 @@ class _TournamentsDetailPageState extends State<TournamentsDetailPage> {
     return '${hours.toString().padLeft(2, '0')}h : ${minutes.toString().padLeft(2, '0')}m : ${seconds.toString().padLeft(2, '0')}s';
   }
 
-  Widget _buildParticipateButton(BuildContext context) {
+  Widget _buildParticipateButton(BuildContext context, Competition tournament) {
+    final now = DateTime.now();
+    final isActive = tournament.fromDate != null &&
+        tournament.toDate != null &&
+        now.isAfter(tournament.fromDate!) &&
+        now.isBefore(tournament.toDate!);
+
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
           HapticFeedback.mediumImpact();
-          _competitionBloc.add(
-            CompetitionEvent.patchTournament(
-              PatchTournamentRequest(
-                tournamentId: widget.tournamentId,
-                status: CompetitionStatus.participate,
+          if (isActive) {
+            context.push(RoutePaths.test, extra: {
+              'tournamentId': widget.tournamentId,
+            });
+          } else {
+            _competitionBloc.add(
+              CompetitionEvent.patchTournament(
+                PatchTournamentRequest(
+                  tournamentId: widget.tournamentId,
+                  status: CompetitionStatus.participate,
+                ),
               ),
-            ),
-          );
-          print('participate');
+            );
+          }
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: context.colors.main,
@@ -466,7 +478,7 @@ class _TournamentsDetailPageState extends State<TournamentsDetailPage> {
           ),
         ),
         child: Text(
-          'Participate',
+          isActive ? context.loc.start : context.loc.participate,
           style: GoogleFonts.openSans(
             fontSize: 17,
             fontWeight: FontWeight.w600,

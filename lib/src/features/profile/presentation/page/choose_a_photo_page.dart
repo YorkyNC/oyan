@@ -17,13 +17,11 @@ class _AvatarSelectionScreenState extends State<ChooseAPhotoPage> {
   int selectedAvatarIndex = 0;
   List<String> avatars = List.generate(15, (index) => 'assets/avatars/avatar_${index + 1}.png');
 
-  // This will be used to save the path to the selected avatar
   String? savedImagePath;
 
   @override
   void initState() {
     super.initState();
-    // Load previously saved avatar if exists
     loadSavedAvatar();
   }
 
@@ -44,15 +42,12 @@ class _AvatarSelectionScreenState extends State<ChooseAPhotoPage> {
 
   Future<void> saveSelectedAvatar() async {
     try {
-      // Get the app's document directory for storage
       final directory = await getApplicationDocumentsDirectory();
       final selectedAvatarAsset = avatars[selectedAvatarIndex];
 
-      // Load the asset as a ByteData
       final ByteData data = await rootBundle.load(selectedAvatarAsset);
       final List<int> bytes = data.buffer.asUint8List();
 
-      // Create and write to the file
       final File file = File('${directory.path}/selected_avatar.png');
       await file.writeAsBytes(bytes);
 
@@ -76,7 +71,7 @@ class _AvatarSelectionScreenState extends State<ChooseAPhotoPage> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text('Choose a photo'),
+        title: Text(context.loc.chooseAPhoto),
         iconTheme: const IconThemeData(color: Colors.black),
         centerTitle: false,
         titleTextStyle: GoogleFonts.openSans(
@@ -98,7 +93,6 @@ class _AvatarSelectionScreenState extends State<ChooseAPhotoPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              // Selected avatar preview
               Container(
                 width: 120,
                 height: 120,
@@ -117,7 +111,6 @@ class _AvatarSelectionScreenState extends State<ChooseAPhotoPage> {
                       ),
               ),
               const SizedBox(height: 30),
-              // Avatar grid
               Expanded(
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -151,7 +144,6 @@ class _AvatarSelectionScreenState extends State<ChooseAPhotoPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              // Save button
               CustromFilledButton(
                 text: context.loc.save,
                 onPressed: () async {

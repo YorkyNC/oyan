@@ -10,7 +10,9 @@ import 'package:oyan/src/features/competition/domain/usecases/get_competition_us
 import 'package:oyan/src/features/competition/domain/usecases/get_daily_tasks_use_case.dart';
 import 'package:oyan/src/features/competition/domain/usecases/get_detail__use_case.dart';
 import 'package:oyan/src/features/competition/domain/usecases/get_result_use_case.dart';
+import 'package:oyan/src/features/competition/domain/usecases/get_test_use_case.dart';
 import 'package:oyan/src/features/competition/domain/usecases/patch_tournament_use_case.dart';
+import 'package:oyan/src/features/competition/domain/usecases/test_add_use_case.dart';
 import 'package:oyan/src/features/competition/presentation/bloc/competition_bloc.dart';
 import 'package:oyan/src/features/genre/domain/usecases/add_genre_use_case.dart';
 import 'package:oyan/src/features/genre/domain/usecases/get_genre_use_case.dart';
@@ -140,6 +142,8 @@ void manualRegisterServices() {
       getIt<GetResultUseCase>(),
       getIt<GetDetailUseCase>(),
       getIt<PatchTournamentUseCase>(),
+      getIt<GetTestUseCase>(),
+      getIt<TestAddUseCase>(),
     ),
   );
   getIt.registerBloc<StoryBloc>(

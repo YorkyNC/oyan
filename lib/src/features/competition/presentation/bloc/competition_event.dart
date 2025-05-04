@@ -13,4 +13,8 @@ class CompetitionEvent with _$CompetitionEvent {
   const factory CompetitionEvent.getDetail(GetResultRequest request) = _GetDetail;
 
   const factory CompetitionEvent.patchTournament(PatchTournamentRequest request) = _PatchTournament;
+
+  const factory CompetitionEvent.getTest(TestRequest request) = _GetTest;
+
+  const factory CompetitionEvent.testAdd(TestAddRequest request) = _TestAdd;
 }

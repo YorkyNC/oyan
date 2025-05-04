@@ -213,7 +213,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
             final tasks = viewModel.dailyTasks?.results ?? [];
             final bookId = viewModel.dailyTasks?.results?.first.id;
             if (tasks.isEmpty) {
-              return _buildEmptyState('No daily tasks available at the moment');
+              return _buildEmptyState(context.loc.noDailyTasksAvailableAtTheMoment);
             }
             return ListView.builder(
               padding: const EdgeInsets.all(16),
@@ -244,7 +244,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
             print(viewModel);
             final tournaments = viewModel.participateCompetition?.results ?? [];
             if (tournaments.isEmpty) {
-              return _buildEmptyState('No tournaments available at the moment');
+              return _buildEmptyState(context.loc.noTournamentsAvailableAtTheMoment);
             }
             return ListView.builder(
               padding: const EdgeInsets.all(16),
@@ -273,7 +273,7 @@ class _CompetitionPageState extends State<CompetitionPage> with SingleTickerProv
             final completed = viewModel.doneCompetition?.results ?? [];
 
             if (participating.isEmpty && completed.isEmpty) {
-              return _buildEmptyState('No active competitions at the moment');
+              return _buildEmptyState(context.loc.noActiveCompetitionsAtTheMoment);
             }
 
             return ListView(

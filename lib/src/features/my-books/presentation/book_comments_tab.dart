@@ -167,7 +167,6 @@ class _BookCommentsTabState extends State<BookCommentsTab> {
                                 if (_commentController.text.trim().isNotEmpty) {
                                   _onRatingChanged(rating.toDouble());
                                 }
-                                //we are not able to change rating if the comment is empty
                               },
                             ),
                           );
@@ -211,7 +210,6 @@ class _BookCommentsTabState extends State<BookCommentsTab> {
                                     _isLoading = false;
                                   });
                                   _showSuccessSnackBar();
-                                  // context.pop();
                                 }
                               : null,
                           child: Padding(

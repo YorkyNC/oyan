@@ -67,7 +67,6 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
           loaded: (viewModel) {
             _currentBook = viewModel.book;
 
-            // Check if book is in favorites or to_read status
             if (_currentBook?.userStatuses != null) {
               isFavourite = _currentBook!.userStatuses!.contains(PersonalBookType.favourite);
               isToRead = _currentBook!.userStatuses!.contains(PersonalBookType.toRead);
@@ -307,7 +306,6 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                   child: Column(
                     children: [
                       const SizedBox(height: 16),
-
                       Container(
                         width: 206.61761474609375,
                         height: 283.0863952636719,
@@ -320,10 +318,7 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                           ),
                         ),
                       ),
-
                       const SizedBox(height: 12),
-
-                      // Book title and author
                       Text(
                         book.title ?? '',
                         style: GoogleFonts.openSans(
@@ -349,15 +344,11 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                           color: const Color(0xffA2ADD0),
                         ),
                       ),
-
                       const SizedBox(height: 20),
-
-                      // Book stats
                       BookStatsWidget(book: book),
                     ],
                   ),
                 ),
-
                 Container(
                   color: Colors.white,
                   child: TabBar(
@@ -382,15 +373,12 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                     ],
                   ),
                 ),
-
-                // Tab content
                 _tabController.index == 0
                     ? BookOverviewTab(book: book)
                     : BookCommentsTab(
                         book: book,
                         onRatingUpdated: _updateBookRating,
                       ),
-
                 const SizedBox(height: 21),
                 Row(
                   children: [
@@ -414,14 +402,6 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                                     ),
                                   ),
                                 );
-                            // Reload book data after adding to to_read
-                            // Future.delayed(const Duration(milliseconds: 500), () {
-                            //   context.read<BookBloc>().add(
-                            //         BookEvent.getBookById(
-                            //           GetBookByIdRequest(bookId: widget.id!),
-                            //         ),
-                            //       );
-                            // });
                           }
                           context.push(RoutePaths.readBook, extra: {'book': book});
                         },

@@ -324,4 +324,17 @@ List<RouteBase> _routes = [
       );
     },
   ),
+  GoRoute(
+    path: RoutePaths.test,
+    pageBuilder: (context, state) {
+      final data = state.extra as Map<String, dynamic>;
+      final tournamentId = data['tournamentId'] as int;
+      // final tournamentId = data['tournamentId'] as int?;
+      return getPage(
+          child: TestPage(
+            tournamentId: tournamentId,
+          ),
+          state: state);
+    },
+  ),
 ];

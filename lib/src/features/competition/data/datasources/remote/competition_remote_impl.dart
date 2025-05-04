@@ -5,11 +5,15 @@ import 'package:oyan/src/core/services/csrf/csrf_service.dart';
 import 'package:oyan/src/features/competition/domain/entities/get_competition_entity.dart';
 import 'package:oyan/src/features/competition/domain/entities/get_daily_tasks_entity.dart';
 import 'package:oyan/src/features/competition/domain/entities/get_result_entity.dart';
+import 'package:oyan/src/features/competition/domain/entities/get_test_entity.dart';
 import 'package:oyan/src/features/competition/domain/entities/patch_tournament_entity.dart';
+import 'package:oyan/src/features/competition/domain/entities/test_add_entity.dart';
 import 'package:oyan/src/features/competition/domain/requests/get_competition_request.dart';
 import 'package:oyan/src/features/competition/domain/requests/get_daily_tasks_request.dart';
 import 'package:oyan/src/features/competition/domain/requests/get_result_request.dart';
 import 'package:oyan/src/features/competition/domain/requests/patch_tournament_requst.dart';
+import 'package:oyan/src/features/competition/domain/requests/test_add_request.dart';
+import 'package:oyan/src/features/competition/domain/requests/test_request.dart';
 
 import '../../../../../core/api/client/endpoints.dart';
 import '../../../../../core/api/client/headers/api_headers.dart';
@@ -196,6 +200,71 @@ class CompetitionRemoteImpl implements ICompetitionRemote {
       );
     } catch (e) {
       Log.e('Exception in patch tournament: $e');
+      return Left(NetworkException(message: 'Network error: $e'));
+    }
+  }
+
+  @override
+  Future<Either<DomainException, GetTestEntity>> getTest(TestRequest request) async {
+    try {
+      final Either<DomainException, Response<dynamic>> response = await client.get(
+        '${EndPoints.baseUrl}/competition/tournaments/${request.tournamentId}/test/',
+        options: ApiHeaders.dioOptions,
+      );
+
+      return response.fold((error) => Left(error), (result) {
+        return Right(GetTestEntity.fromJson(result.data));
+      });
+    } catch (e) {
+      Log.e(e);
+      return Left(UnknownException(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<DomainException, TestAddEntity>> testAdd(TestAddRequest file) async {
+    try {
+      final csrfService = CsrfService(client);
+      final csrfResult = await csrfService.fetchCsrfToken();
+      if (csrfResult.isLeft()) {
+        return Left(csrfResult.getLeft().getOrElse(() => UnknownException()));
+      }
+
+      final csrfToken = st.getCsrfToken();
+      final csrfCookie = st.getCsrfCookie();
+      final sessionId = st.getSessionId();
+
+      if (csrfToken == null || csrfCookie == null || sessionId == null) {
+        return Left(UnknownException(message: 'CSRF token, cookie or session ID not found'));
+      }
+
+      final csrfCookieValue = csrfToken;
+      final sessionIdValue = sessionId.split('=').last.split(';').first;
+
+      final headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrfToken,
+        'Cookie': 'csrftoken=$csrfCookieValue; sessionid=$sessionIdValue',
+      };
+
+      final Either<DomainException, Response<dynamic>> response = await client.post(
+        '${EndPoints.baseUrl}/competition/tournaments/${file.tournamentId}/test/',
+        data: {'score': file.score, 'time': file.time},
+        options: Options(headers: headers),
+      );
+
+      return response.fold(
+        (error) => Left(error),
+        (result) async {
+          if (result.statusCode == 201) {
+            return Right(TestAddEntity.fromJson(result.data));
+          } else {
+            return Left(UnknownException(message: result.statusMessage));
+          }
+        },
+      );
+    } catch (e) {
       return Left(NetworkException(message: 'Network error: $e'));
     }
   }

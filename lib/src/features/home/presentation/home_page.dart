@@ -1,4 +1,3 @@
-// File: lib/src/presentation/pages/home/home_page.dart
 import 'package:flutter/material.dart';
 import 'package:oyan/src/core/base/base_bloc/bloc/base_bloc_widget.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
@@ -86,7 +85,6 @@ class _HomePageState extends State<HomePage> {
                                 ? BookGridWidget(
                                     books: viewModel.recommendedBooks?.results ?? [],
                                     height: 180,
-                                    // showAll: _showAllRecommended,
                                   )
                                 : AudiobookGridWidget(audiobooks: recommendedAudiobooks, height: 180),
                             const SizedBox(height: 24),
@@ -100,7 +98,6 @@ class _HomePageState extends State<HomePage> {
                                 ? BookGridWidget(
                                     books: viewModel.popularBooks?.results ?? [],
                                     height: 180,
-                                    // showAll: _showAllPopular,
                                   )
                                 : AudiobookGridWidget(audiobooks: popularAudiobooks, height: 180),
                             const SizedBox(height: 24),
@@ -114,7 +111,6 @@ class _HomePageState extends State<HomePage> {
                                 ? BookGridWidget(
                                     books: viewModel.newBooks?.results ?? [],
                                     height: 180,
-                                    // showAll: _showAllNew,
                                   )
                                 : AudiobookGridWidget(audiobooks: newAudiobooks, height: 180),
                             const SizedBox(height: 24),

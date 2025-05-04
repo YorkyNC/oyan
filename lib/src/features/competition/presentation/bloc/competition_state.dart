@@ -19,5 +19,7 @@ class CompetitionViewModel with _$CompetitionViewModel {
     @Default(null) GetResult? result,
     @Default(null) GetCompetitionEntity? detail,
     @Default(null) PatchTournamentEntity? patchTournament,
+    @Default(null) GetTestEntity? test,
+    @Default(null) TestAddEntity? testAdd,
   }) = _CompetitionViewModel;
 }

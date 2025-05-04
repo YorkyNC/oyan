@@ -61,11 +61,9 @@ class _CompletedBookItemState extends State<CompletedBookItem> with SingleTicker
       margin: const EdgeInsets.only(bottom: 16),
       child: Column(
         children: [
-          // Always visible content
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Book cover
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
                 child: Container(
@@ -91,7 +89,6 @@ class _CompletedBookItemState extends State<CompletedBookItem> with SingleTicker
                 ),
               ),
               const SizedBox(width: 16),
-              // Book details
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,7 +164,6 @@ class _CompletedBookItemState extends State<CompletedBookItem> with SingleTicker
               ),
             ],
           ),
-
           SizeTransition(
             sizeFactor: _expandAnimation,
             child: Padding(

@@ -15,7 +15,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class ProfileAppBar extends StatefulWidget implements PreferredSizeWidget {
-  ProfileAppBar({
+  const ProfileAppBar({
     super.key,
     required this.savedAvatarPath,
     required this.username,
@@ -120,7 +120,6 @@ class ProfileAppBarState extends State<ProfileAppBar> {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 color: const Color(0xFFEBF0FF),
-                // color: Colors.amber,
                 child: Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(

@@ -14,13 +14,11 @@ class _LanguageSelectorState extends State<LanguageSelector> {
 
   String get _currentLanguage => _languageController.currentLanguage;
 
-  // List of supported languages
   final List<String> _languages = ['en', 'ru'];
 
   @override
   void initState() {
     super.initState();
-    // Listen to changes and update UI
     _languageController.languageNotifier.addListener(_onLanguageChanged);
   }
 

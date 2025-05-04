@@ -30,4 +30,5 @@ class RouteNames {
   static const String seeAll = 'see-all';
   static const String genre = 'genre';
   static const String readBook = 'read-book';
+  static const String test = 'test';
 }
