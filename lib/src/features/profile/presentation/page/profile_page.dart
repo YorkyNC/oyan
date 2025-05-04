@@ -143,6 +143,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 savedAvatarPath: null,
                 username: viewModel.profile?.username ?? '',
                 name: viewModel.profile?.name ?? '',
+                balance: viewModel.profile?.avatar ?? 0,
               ),
               body: RefreshIndicator(
                 key: _refreshIndicatorKey,

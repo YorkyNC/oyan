@@ -20,12 +20,13 @@ class ProfileAppBar extends StatefulWidget implements PreferredSizeWidget {
     required this.savedAvatarPath,
     required this.username,
     required this.name,
+    required this.balance,
   });
 
   final String? savedAvatarPath;
   final String? username;
   final String? name;
-
+  final int balance;
   @override
   State<ProfileAppBar> createState() => ProfileAppBarState();
 
@@ -101,13 +102,26 @@ class ProfileAppBarState extends State<ProfileAppBar> {
                             color: const Color(0xff323232),
                           ),
                         ),
-                        Text(
-                          '@${widget.username}',
-                          style: GoogleFonts.openSans(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
-                            color: const Color(0xffA2ADD0),
-                          ),
+                        Row(
+                          children: [
+                            Text(
+                              '@${widget.username}',
+                              style: GoogleFonts.openSans(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                                color: const Color(0xffA2ADD0),
+                              ),
+                            ),
+                            const SizedBox(width: 14),
+                            Text(
+                              '250 OY',
+                              style: GoogleFonts.openSans(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                                color: const Color(0xffFF8400),
+                              ),
+                            ),
+                          ],
                         )
                       ],
                     ),
