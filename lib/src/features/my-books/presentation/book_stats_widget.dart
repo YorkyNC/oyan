@@ -14,6 +14,7 @@ class BookStatsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      spacing: 5,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         _buildStat(context.loc.pages, book.pageCount.toString(), false),
@@ -40,24 +41,49 @@ class BookStatsWidget extends StatelessWidget {
   Widget _buildStat(String label, String value, bool isMature) {
     if (isMature) {
       final maturityLevel = value.contains('MATURE') ? '18+' : '12+';
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
+      return Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              maturityLevel,
+              style: GoogleFonts.openSans(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Text(
+              label,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: GoogleFonts.openSans(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xffA2ADD0),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return Expanded(
+      child: Column(
         children: [
           Text(
-            maturityLevel,
+            value,
             style: GoogleFonts.openSans(
               fontSize: 20,
               fontWeight: FontWeight.w600,
               color: Colors.black,
             ),
-            textAlign: TextAlign.center,
           ),
           Text(
             label,
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
             style: GoogleFonts.openSans(
               fontSize: 15,
               fontWeight: FontWeight.w500,
@@ -65,28 +91,7 @@ class BookStatsWidget extends StatelessWidget {
             ),
           ),
         ],
-      );
-    }
-
-    return Column(
-      children: [
-        Text(
-          value,
-          style: GoogleFonts.openSans(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
-        ),
-        Text(
-          label,
-          style: GoogleFonts.openSans(
-            fontSize: 15,
-            fontWeight: FontWeight.w500,
-            color: const Color(0xffA2ADD0),
-          ),
-        ),
-      ],
+      ),
     );
   }
 }
