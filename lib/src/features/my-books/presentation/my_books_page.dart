@@ -154,8 +154,9 @@ class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProvide
                                 coverUrl: book.coverImageUrl ?? '',
                                 progress: 0.0,
                                 onContinuePressed: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Continue reading: ${book.title}')),
+                                  context.push(
+                                    RoutePaths.booksDetails,
+                                    extra: {'id': book.id},
                                   );
                                 },
                               ),
@@ -168,8 +169,9 @@ class _BookTrackingPageState extends State<MyBooksPage> with SingleTickerProvide
                                 author: book.author ?? '',
                                 coverUrl: book.coverImageUrl ?? '',
                                 onReadAgainPressed: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text('Read again: ${book.title}')),
+                                  context.push(
+                                    RoutePaths.booksDetails,
+                                    extra: {'id': book.id},
                                   );
                                 },
                               ),
