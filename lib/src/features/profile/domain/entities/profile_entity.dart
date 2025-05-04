@@ -14,6 +14,7 @@ class ProfileData with _$ProfileData {
     String? bio,
     List<int>? preferredGenres,
     String? createdAt,
+    String? balance,
   }) = _ProfileData;
   factory ProfileData.fromJson(Map<String, dynamic> json) => _$ProfileDataFromJson(json);
 }

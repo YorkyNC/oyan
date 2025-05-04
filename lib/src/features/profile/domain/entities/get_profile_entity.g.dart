@@ -34,6 +34,7 @@ _$ProfileDataImpl _$$ProfileDataImplFromJson(Map<String, dynamic> json) =>
           .map((e) => (e as num).toInt())
           .toList(),
       createdAt: json['createdAt'] as String,
+      balance: (json['balance'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$ProfileDataImplToJson(_$ProfileDataImpl instance) =>
@@ -46,4 +47,5 @@ Map<String, dynamic> _$$ProfileDataImplToJson(_$ProfileDataImpl instance) =>
       'bio': instance.bio,
       'preferredGenres': instance.preferredGenres,
       'createdAt': instance.createdAt,
+      'balance': instance.balance,
     };

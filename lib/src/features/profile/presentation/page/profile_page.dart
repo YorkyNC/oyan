@@ -136,6 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           loaded: (viewModel) {
+            print(viewModel.profile?.balance);
             return Scaffold(
               backgroundColor: Colors.white,
               appBar: ProfileAppBar(
@@ -143,7 +144,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 savedAvatarPath: null,
                 username: viewModel.profile?.username ?? '',
                 name: viewModel.profile?.name ?? '',
-                balance: viewModel.profile?.avatar ?? 0,
+                balance: viewModel.profile?.balance ?? '0',
               ),
               body: RefreshIndicator(
                 key: _refreshIndicatorKey,

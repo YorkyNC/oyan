@@ -26,7 +26,7 @@ class ProfileAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? savedAvatarPath;
   final String? username;
   final String? name;
-  final int balance;
+  final String? balance;
   @override
   State<ProfileAppBar> createState() => ProfileAppBarState();
 

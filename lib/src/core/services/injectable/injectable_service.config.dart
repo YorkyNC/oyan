@@ -369,14 +369,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1072.GetCompetitionUseCase>(() =>
         _i1072.GetCompetitionUseCase(gh<_i521.ICompetitionRepository>(
             instanceName: 'CompetitionRepositoryImpl')));
+    gh.lazySingleton<_i317.GetTestUseCase>(() => _i317.GetTestUseCase(
+        gh<_i521.ICompetitionRepository>(
+            instanceName: 'CompetitionRepositoryImpl')));
     gh.lazySingleton<_i817.GetResultUseCase>(() => _i817.GetResultUseCase(
         gh<_i521.ICompetitionRepository>(
             instanceName: 'CompetitionRepositoryImpl')));
     gh.lazySingleton<_i369.PatchTournamentUseCase>(() =>
         _i369.PatchTournamentUseCase(gh<_i521.ICompetitionRepository>(
-            instanceName: 'CompetitionRepositoryImpl')));
-    gh.lazySingleton<_i317.GetTestUseCase>(() => _i317.GetTestUseCase(
-        gh<_i521.ICompetitionRepository>(
             instanceName: 'CompetitionRepositoryImpl')));
     gh.lazySingleton<_i766.TestAddUseCase>(() => _i766.TestAddUseCase(
         gh<_i521.ICompetitionRepository>(

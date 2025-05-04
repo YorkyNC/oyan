@@ -28,6 +28,7 @@ mixin _$ProfileData {
   String? get bio => throw _privateConstructorUsedError;
   List<int>? get preferredGenres => throw _privateConstructorUsedError;
   String? get createdAt => throw _privateConstructorUsedError;
+  String? get balance => throw _privateConstructorUsedError;
 
   /// Serializes this ProfileData to a JSON map.
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -53,7 +54,8 @@ abstract class $ProfileDataCopyWith<$Res> {
       String? dateOfBirth,
       String? bio,
       List<int>? preferredGenres,
-      String? createdAt});
+      String? createdAt,
+      String? balance});
 }
 
 /// @nodoc
@@ -79,6 +81,7 @@ class _$ProfileDataCopyWithImpl<$Res, $Val extends ProfileData>
     Object? bio = freezed,
     Object? preferredGenres = freezed,
     Object? createdAt = freezed,
+    Object? balance = freezed,
   }) {
     return _then(_value.copyWith(
       username: freezed == username
@@ -113,6 +116,10 @@ class _$ProfileDataCopyWithImpl<$Res, $Val extends ProfileData>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String?,
+      balance: freezed == balance
+          ? _value.balance
+          : balance // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -133,7 +140,8 @@ abstract class _$$ProfileDataImplCopyWith<$Res>
       String? dateOfBirth,
       String? bio,
       List<int>? preferredGenres,
-      String? createdAt});
+      String? createdAt,
+      String? balance});
 }
 
 /// @nodoc
@@ -157,6 +165,7 @@ class __$$ProfileDataImplCopyWithImpl<$Res>
     Object? bio = freezed,
     Object? preferredGenres = freezed,
     Object? createdAt = freezed,
+    Object? balance = freezed,
   }) {
     return _then(_$ProfileDataImpl(
       username: freezed == username
@@ -191,6 +200,10 @@ class __$$ProfileDataImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as String?,
+      balance: freezed == balance
+          ? _value.balance
+          : balance // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -206,7 +219,8 @@ class _$ProfileDataImpl implements _ProfileData {
       this.dateOfBirth,
       this.bio,
       final List<int>? preferredGenres,
-      this.createdAt})
+      this.createdAt,
+      this.balance})
       : _preferredGenres = preferredGenres;
 
   factory _$ProfileDataImpl.fromJson(Map<String, dynamic> json) =>
@@ -236,10 +250,12 @@ class _$ProfileDataImpl implements _ProfileData {
 
   @override
   final String? createdAt;
+  @override
+  final String? balance;
 
   @override
   String toString() {
-    return 'ProfileData(username: $username, name: $name, email: $email, avatar: $avatar, dateOfBirth: $dateOfBirth, bio: $bio, preferredGenres: $preferredGenres, createdAt: $createdAt)';
+    return 'ProfileData(username: $username, name: $name, email: $email, avatar: $avatar, dateOfBirth: $dateOfBirth, bio: $bio, preferredGenres: $preferredGenres, createdAt: $createdAt, balance: $balance)';
   }
 
   @override
@@ -258,7 +274,8 @@ class _$ProfileDataImpl implements _ProfileData {
             const DeepCollectionEquality()
                 .equals(other._preferredGenres, _preferredGenres) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.balance, balance) || other.balance == balance));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -272,7 +289,8 @@ class _$ProfileDataImpl implements _ProfileData {
       dateOfBirth,
       bio,
       const DeepCollectionEquality().hash(_preferredGenres),
-      createdAt);
+      createdAt,
+      balance);
 
   /// Create a copy of ProfileData
   /// with the given fields replaced by the non-null parameter values.
@@ -299,7 +317,8 @@ abstract class _ProfileData implements ProfileData {
       final String? dateOfBirth,
       final String? bio,
       final List<int>? preferredGenres,
-      final String? createdAt}) = _$ProfileDataImpl;
+      final String? createdAt,
+      final String? balance}) = _$ProfileDataImpl;
 
   factory _ProfileData.fromJson(Map<String, dynamic> json) =
       _$ProfileDataImpl.fromJson;
@@ -320,6 +339,8 @@ abstract class _ProfileData implements ProfileData {
   List<int>? get preferredGenres;
   @override
   String? get createdAt;
+  @override
+  String? get balance;
 
   /// Create a copy of ProfileData
   /// with the given fields replaced by the non-null parameter values.
