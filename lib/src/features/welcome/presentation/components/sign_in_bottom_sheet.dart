@@ -10,6 +10,7 @@ import 'package:oyan/src/features/login/presentation/components/email_text_form_
 import 'package:oyan/src/features/login/presentation/components/password_text_form_field.dart';
 import 'package:oyan/src/features/welcome/presentation/components/forgot_password_bottom_sheet.dart';
 import 'package:oyan/src/features/welcome/presentation/components/sign_up_bottom_sheet.dart';
+import 'package:oyan/src/features/welcome/presentation/welcome_page.dart';
 
 class SignInBottomSheet extends StatefulWidget {
   const SignInBottomSheet({super.key});
@@ -22,6 +23,8 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool isPasswordVisible = false;
+  bool hasError = false;
+  bool _isShowingSnackbar = false;
   final authBloc = getIt<AuthBloc>();
 
   @override
@@ -32,6 +35,23 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
   }
 
   Future<void> _handleSignIn() async {
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
+      setState(() {
+        hasError = true;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please enter both email and password'),
+          backgroundColor: Colors.red,
+        ),
+      );
+      return;
+    }
+
+    // First get CSRF token
+    authBloc.add(const AuthEvent.getCsrfToken());
+
+    // Then login after CSRF token is received
     authBloc.add(
       AuthEvent.login(
         username: emailController.text,
@@ -67,12 +87,30 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
           error: (message) {
             // Show error message to the user
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(message),
-                  backgroundColor: Colors.red,
-                ),
-              );
+              // Clear text fields
+              emailController.clear();
+              passwordController.clear();
+              // Set error state
+              setState(() {
+                hasError = true;
+              });
+              // Show error message only if not already showing
+              if (!_isShowingSnackbar) {
+                _isShowingSnackbar = true;
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(
+                      CustomSnackBar.show(
+                        context: context,
+                        title: 'Invalid email or password',
+                        seconds: 3,
+                        color: Colors.red,
+                      ),
+                    )
+                    .closed
+                    .then((_) {
+                  _isShowingSnackbar = false;
+                });
+              }
             });
             return _buildLoginForm(context);
           },
@@ -102,6 +140,14 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
                 EmailTextFormField(
                   emailController: emailController,
                   enabled: !isLoading,
+                  hasError: hasError,
+                  onChanged: (_) {
+                    if (hasError) {
+                      setState(() {
+                        hasError = false;
+                      });
+                    }
+                  },
                 ),
                 const SizedBox(height: 20),
                 PasswordTextFormField(
@@ -113,6 +159,14 @@ class _SignInBottomSheetState extends State<SignInBottomSheet> {
                     });
                   },
                   enabled: !isLoading,
+                  hasError: hasError,
+                  onChanged: (_) {
+                    if (hasError) {
+                      setState(() {
+                        hasError = false;
+                      });
+                    }
+                  },
                 ),
                 const SizedBox(height: 20),
                 _buildForgotPasswordButton(context),

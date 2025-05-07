@@ -30,14 +30,7 @@ class WelcomePage extends StatelessWidget {
             }
           },
           loading: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              CustomSnackBar.show(
-                title: 'Wait please...',
-                seconds: 3,
-                context: context,
-                color: context.colors.success500,
-              ),
-            );
+            // Remove the snackbar as we now show a proper loading state
           },
           error: (error) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -52,11 +45,6 @@ class WelcomePage extends StatelessWidget {
         );
       },
       builder: (context, state, bloc) {
-        final bool isLoading = state.maybeMap(
-          loading: (_) => true,
-          orElse: () => false,
-        );
-
         return Scaffold(
           backgroundColor: Colors.white,
           body: Center(
@@ -84,19 +72,16 @@ class WelcomePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 40),
-                  if (isLoading)
-                    const CircularProgressIndicator()
-                  else
-                    FilledButton(
-                      onPressed: () => _handleGettingCSRF(context),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
-                        child: Text(
-                          context.loc.getStarted,
-                          style: const TextStyle(fontSize: 16),
-                        ),
+                  FilledButton(
+                    onPressed: () => _showLoginOptionsBottomSheet(context),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 24.0),
+                      child: Text(
+                        context.loc.getStarted,
+                        style: const TextStyle(fontSize: 16),
                       ),
-                    )
+                    ),
+                  )
                 ],
               ),
             ),
@@ -114,10 +99,6 @@ class WelcomePage extends StatelessWidget {
       context: context,
       builder: (context) => const LoginOptionsBottomSheet(),
     );
-  }
-
-  Future<void> _handleGettingCSRF(BuildContext context) async {
-    authBloc.add(const AuthEvent.getCsrfToken());
   }
 }
 

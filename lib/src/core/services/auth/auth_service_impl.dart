@@ -229,6 +229,10 @@ class AuthServiceImpl implements IAuthService {
               print('Login response data: ${result.data}');
               print('Parsed sign in response: $signInResponse');
 
+              // Clear existing tokens before setting new ones
+              await st.deleteToken();
+              await st.deleteRefreshToken();
+
               // Handle tokens from response
               if (result.data['token'] != null) {
                 await st.setToken(result.data['token']);

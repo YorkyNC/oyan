@@ -2,71 +2,69 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/core/extensions/build_context_extension.dart';
 
-class PasswordTextFormField extends StatefulWidget {
-  PasswordTextFormField({
+class PasswordTextFormField extends StatelessWidget {
+  const PasswordTextFormField({
     super.key,
     required this.passwordController,
     required this.isPasswordVisible,
-    this.onPasswordVisibilityChanged,
-    this.errorText = 'Пожалуйста, введите пароль',
-    this.confirm = false,
+    required this.onPasswordVisibilityChanged,
     this.enabled = true,
+    this.labelText = 'Password',
+    this.validator,
+    this.confirm = false,
+    this.hasError = false,
+    this.onChanged,
   });
 
   final TextEditingController passwordController;
   final bool isPasswordVisible;
-  final VoidCallback? onPasswordVisibilityChanged;
-  final bool? confirm;
-  final String? errorText;
+  final VoidCallback onPasswordVisibilityChanged;
   final bool enabled;
+  final String labelText;
+  final String? Function(String?)? validator;
+  final bool confirm;
+  final bool hasError;
+  final void Function(String)? onChanged;
 
-  @override
-  State<PasswordTextFormField> createState() => _PasswordTextFormFieldState();
-}
-
-class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      enabled: widget.enabled,
-      keyboardType: TextInputType.visiblePassword,
-      controller: widget.passwordController,
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return widget.errorText;
-        }
-        return null;
-      },
-      cursorHeight: 24,
       style: GoogleFonts.openSans(
         fontSize: 17,
         fontWeight: FontWeight.w400,
         color: const Color(0xff323232),
       ),
-      obscureText: !widget.isPasswordVisible,
-      obscuringCharacter: '*',
       cursorColor: context.colors.main,
+      controller: passwordController,
+      obscureText: !isPasswordVisible,
+      enabled: enabled,
+      validator: validator,
+      onChanged: onChanged,
       decoration: InputDecoration(
-        errorStyle: GoogleFonts.openSans(fontSize: 17, fontWeight: FontWeight.w400, color: Colors.red),
-        labelText: widget.confirm! ? 'Repeate Password' : 'Password',
+        labelText: confirm ? 'Confirm Password' : labelText,
         labelStyle: GoogleFonts.openSans(
           fontSize: 17,
           fontWeight: FontWeight.w400,
-          color: const Color(0xffA2ADD0),
+          color: hasError ? Colors.red : const Color(0xffA2ADD0),
+        ),
+        errorStyle: GoogleFonts.openSans(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: Colors.red,
         ),
         floatingLabelBehavior: FloatingLabelBehavior.auto,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+          borderSide: BorderSide(color: hasError ? Colors.red : const Color(0xFFE2E8F0)),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+          borderSide: BorderSide(color: hasError ? Colors.red : const Color(0xFFE2E8F0)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8),
           borderSide: BorderSide(
-            color: context.colors.main,
+            color: hasError ? Colors.red : context.colors.main,
           ),
         ),
         errorBorder: OutlineInputBorder(
@@ -75,12 +73,10 @@ class _PasswordTextFormFieldState extends State<PasswordTextFormField> {
         ),
         suffixIcon: IconButton(
           icon: Icon(
-            widget.isPasswordVisible ? Icons.visibility_off : Icons.visibility,
-            color: const Color(0xFF64748B),
+            isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+            color: hasError ? Colors.red : const Color(0xffA2ADD0),
           ),
-          onPressed: () {
-            widget.onPasswordVisibilityChanged?.call();
-          },
+          onPressed: onPasswordVisibilityChanged,
         ),
       ),
     );

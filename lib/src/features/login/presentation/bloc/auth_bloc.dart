@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:oyan/main_prod.dart';
 import 'package:oyan/src/core/services/auth/entities/user_entity.dart';
 import 'package:oyan/src/core/services/auth/models/forgot_password_response.dart';
 import 'package:oyan/src/core/services/auth/models/refresh_token_response.dart';
@@ -83,20 +82,23 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
   }
 
   Future<void> _login(_Login event, Emitter<AuthState> emit) async {
-    emit(const _Loading());
+    // Check if we have a valid CSRF token
+    final csrfToken = _viewModel.csrfToken;
+    if (csrfToken.isEmpty) {
+      // If no CSRF token, get it first
+      final csrfResult = await _csrfTokenUseCase.call();
+      if (!csrfResult.isSuccessful) {
+        return emit(const _Error("Failed to get CSRF token"));
+      }
+    }
 
+    emit(const _Loading());
     final SignInRequest request = SignInRequest(login: event.username, password: event.password);
     final result = await _loginUseCase.call(request);
     if (result.isSuccessful) {
       final updatedViewModel = _viewModel.copyWith(signInResponse: result.data);
-
-      return emit(
-        AuthState.loaded(
-          viewModel: updatedViewModel,
-        ),
-      );
+      return emit(AuthState.loaded(viewModel: updatedViewModel));
     }
-
     return emit(const AuthState.error('Введенные данные неверны, попробуйте снова'));
   }
 
@@ -104,9 +106,9 @@ class AuthBloc extends BaseBloc<AuthEvent, AuthState> {
     emit(const AuthState.loading());
     final Result<CsrfTokenResponse, DomainException> result = await _csrfTokenUseCase.call();
     if (result.isSuccessful) {
-      return emit(_Loaded(viewModel: _viewModel.copyWith(csrfToken: result.data?.csrfToken ?? '')));
+      final updatedViewModel = _viewModel.copyWith(csrfToken: result.data?.csrfToken ?? '');
+      return emit(_Loaded(viewModel: updatedViewModel));
     }
-
     return emit(const _Error("Failed to get CSRF token"));
   }
 
