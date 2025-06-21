@@ -56,17 +56,19 @@ class HomePageLoading extends StatelessWidget {
 
   Widget _buildCategoryTabsLoading() {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: List.generate(
         3,
-        (index) => Container(
-          padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 38),
-          decoration: const BoxDecoration(color: Color(0xffEAEAEA)),
-          child: const Center(
-            child: Icon(
-              Icons.image_outlined,
-              size: 39,
-              color: Color(0xff808080),
+        (index) => Expanded(
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            padding: const EdgeInsets.symmetric(vertical: 30, horizontal: 20),
+            decoration: const BoxDecoration(color: Color(0xffEAEAEA)),
+            child: const Center(
+              child: Icon(
+                Icons.image_outlined,
+                size: 39,
+                color: Color(0xff808080),
+              ),
             ),
           ),
         ),
@@ -86,17 +88,19 @@ class HomePageLoading extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: List.generate(
             3,
-            (index) => Container(
-              padding: const EdgeInsets.symmetric(vertical: 54, horizontal: 38),
-              decoration: const BoxDecoration(color: Color(0xffEAEAEA)),
-              child: const Center(
-                child: Icon(
-                  Icons.image_outlined,
-                  size: 39,
-                  color: Color(0xff808080),
+            (index) => Expanded(
+              child: Container(
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                padding: const EdgeInsets.symmetric(vertical: 54, horizontal: 20),
+                decoration: const BoxDecoration(color: Color(0xffEAEAEA)),
+                child: const Center(
+                  child: Icon(
+                    Icons.image_outlined,
+                    size: 39,
+                    color: Color(0xff808080),
+                  ),
                 ),
               ),
             ),

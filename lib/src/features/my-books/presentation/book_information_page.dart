@@ -125,25 +125,28 @@ class _BookInformationPageState extends State<BookInformationPage> with SingleTi
                         SizedBox(height: 12),
                         ShimmerContainer(width: 100, height: 24),
                         SizedBox(height: 20),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            ShimmerContainer(width: 68, height: 48),
-                            SizedBox(width: 6),
-                            ShimmerContainer(width: 68, height: 48),
-                            SizedBox(width: 6),
-                            ShimmerContainer(width: 68, height: 48),
-                            SizedBox(width: 6),
-                            ShimmerContainer(width: 68, height: 48),
-                          ],
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ShimmerContainer(width: 60, height: 48),
+                              SizedBox(width: 6),
+                              ShimmerContainer(width: 60, height: 48),
+                              SizedBox(width: 6),
+                              ShimmerContainer(width: 60, height: 48),
+                              SizedBox(width: 6),
+                              ShimmerContainer(width: 60, height: 48),
+                            ],
+                          ),
                         ),
                         SizedBox(height: 20),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            ShimmerContainer(width: 100, height: 12),
+                            ShimmerContainer(width: 80, height: 12),
                             SizedBox(width: 12),
-                            ShimmerContainer(width: 100, height: 12),
+                            ShimmerContainer(width: 80, height: 12),
                           ],
                         ),
                         SizedBox(height: 20),

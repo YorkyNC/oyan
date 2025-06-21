@@ -60,7 +60,16 @@ class ProfileBloc extends BaseBloc<ProfileEvent, ProfileState> {
       return emit(ProfileState.error(result.failure!.message));
     }
 
-    _viewModel = _viewModel.copyWith(updateProfile: result.data);
+    // After successful update, fetch the updated profile data
+    final profileResult = await getProfileUseCase.call(GetProfileRequest(username: event.request.username));
+    if (profileResult.failure != null) {
+      return emit(ProfileState.error(profileResult.failure!.message));
+    }
+
+    // Only update the profile data, don't store the update response message
+    _viewModel = _viewModel.copyWith(
+      profile: profileResult.data,
+    );
 
     return emit(ProfileState.loaded(viewModel: _viewModel));
   }

@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:epub_viewer/epub_viewer.dart';
+import 'package:epub_view/epub_view.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:oyan/src/app/imports.dart';
 import 'package:oyan/src/features/home/domain/entities/book.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:popover/popover.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ReadBookPage extends StatefulWidget {
@@ -28,11 +30,26 @@ class ReadBookPage extends StatefulWidget {
 
 class _ReadBookPageState extends State<ReadBookPage> {
   final PageController _pageController = PageController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _showControls = true;
   int _currentPage = 0;
   bool _isDownloading = false;
   double _downloadProgress = 0.0;
   String? _downloadedFilePath;
+  bool _showReader = false;
+  EpubController? _epubController;
+  double _fontSize = 18.0;
+  final double _lineHeight = 1.3;
+  Color _readerBackgroundColor = const Color(0xFFFFE9CF);
+  TextStyle Function({TextStyle? textStyle}) _selectedFont = GoogleFonts.openSans;
+  String _selectedFontName = 'Open Sans';
+
+  final Map<String, TextStyle Function({TextStyle? textStyle})> _availableFonts = {
+    'Open Sans': GoogleFonts.openSans,
+    'Roboto': GoogleFonts.roboto,
+    'Lato': GoogleFonts.lato,
+    'Merriweather': GoogleFonts.merriweather,
+  };
 
   @override
   void initState() {
@@ -47,6 +64,7 @@ class _ReadBookPageState extends State<ReadBookPage> {
   void dispose() {
     _pageController.removeListener(_onPageChange);
     _pageController.dispose();
+    _epubController?.dispose();
     super.dispose();
   }
 
@@ -125,6 +143,9 @@ class _ReadBookPageState extends State<ReadBookPage> {
       setState(() {
         _downloadedFilePath = filePath;
         _isDownloading = false;
+        _epubController = EpubController(
+          document: EpubReader.readBook(File(filePath).readAsBytesSync()),
+        );
       });
 
       _openEpubBook();
@@ -139,43 +160,13 @@ class _ReadBookPageState extends State<ReadBookPage> {
   }
 
   void _openEpubBook() async {
-    if (_downloadedFilePath == null) {
-      print('No file path available');
+    if (_downloadedFilePath == null || _epubController == null) {
+      print('No file path or controller available');
       return;
     }
-
-    try {
-      print('Opening EPUB file: $_downloadedFilePath');
-
-      final file = File(_downloadedFilePath!);
-      if (!await file.exists()) {
-        throw Exception('EPUB file not found');
-      }
-
-      EpubViewer.setConfig(
-        themeColor: Theme.of(context).primaryColor,
-        identifier: "iosBook",
-        scrollDirection: EpubScrollDirection.ALLDIRECTIONS,
-        allowSharing: true,
-        enableTts: true,
-        nightMode: false,
-      );
-
-      print('Opening EPUB viewer...');
-      EpubViewer.open(
-        _downloadedFilePath!,
-        lastLocation: EpubLocator.fromJson({
-          "bookId": widget.book.id?.toString() ?? '',
-          "href": "/OEBPS/chapter1.xhtml",
-          "created": DateTime.now().millisecondsSinceEpoch,
-          "locations": {"cfi": "epubcfi(/0!/4/4[simple_book]/2/2/6)"}
-        }),
-      );
-      print('EPUB viewer opened successfully');
-    } catch (e) {
-      print('Error opening EPUB: $e');
-      _showErrorDialog('Error opening book: $e');
-    }
+    setState(() {
+      _showReader = true;
+    });
   }
 
   void _showSuccessDialog(String message, {bool openBook = false}) {
@@ -199,6 +190,122 @@ class _ReadBookPageState extends State<ReadBookPage> {
     );
   }
 
+  void _showTextStylePopover(BuildContext context) {
+    showPopover(
+      context: context,
+      bodyBuilder: (context) => _buildPopoverContent(),
+      direction: PopoverDirection.top,
+      backgroundColor: Colors.white,
+      arrowHeight: 15,
+      arrowWidth: 30,
+      width: 280,
+    );
+  }
+
+  Widget _buildPopoverContent() {
+    return StatefulBuilder(
+      builder: (BuildContext context, StateSetter popoverSetState) {
+        final List<Color> colorPalette = [
+          Colors.white,
+          const Color(0xFFFFE9CF),
+          const Color(0xFFC0C0C0),
+          const Color(0xFF323232),
+        ];
+
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DropdownButton<String>(
+                    dropdownColor: Colors.white,
+                    value: _selectedFontName,
+                    items: _availableFonts.keys.map((String fontName) {
+                      return DropdownMenuItem<String>(
+                        value: fontName,
+                        child: Text(fontName,
+                            style: _availableFonts[fontName]!(
+                                textStyle: const TextStyle(fontSize: 16, color: Colors.black))),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      if (newValue != null) {
+                        setState(() {
+                          _selectedFontName = newValue;
+                          _selectedFont = _availableFonts[newValue]!;
+                        });
+                        popoverSetState(() {});
+                      }
+                    },
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Font Size',
+                      style: _selectedFont(textStyle: const TextStyle(fontSize: 16, color: Colors.black))),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.remove),
+                        onPressed: () => setState(() => _fontSize = (_fontSize - 1).clamp(12.0, 28.0)),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: () => setState(() => _fontSize = (_fontSize + 1).clamp(12.0, 28.0)),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: colorPalette.map((color) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _readerBackgroundColor = color;
+                      });
+                      popoverSetState(() {});
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: color,
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: _readerBackgroundColor == color ? Colors.blue : Colors.grey.shade300,
+                          width: 2,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.format_align_left)),
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.format_line_spacing)),
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.format_align_center)),
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.format_align_justify)),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
@@ -217,6 +324,82 @@ class _ReadBookPageState extends State<ReadBookPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (_showReader && _epubController != null) {
+      return Scaffold(
+        key: _scaffoldKey,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () => setState(() => _showReader = false),
+          ),
+        ),
+        drawer: Drawer(
+          child: EpubViewTableOfContents(
+            controller: _epubController!,
+          ),
+        ),
+        backgroundColor: _readerBackgroundColor,
+        body: SafeArea(
+          child: Stack(
+            children: [
+              EpubView(
+                controller: _epubController!,
+                builders: EpubViewBuilders<DefaultBuilderOptions>(
+                  options: DefaultBuilderOptions(
+                    textStyle: _selectedFont(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: _fontSize,
+                        height: _lineHeight,
+                        color: const Color(0xFF323232),
+                      ),
+                    ),
+                  ),
+                  chapterDividerBuilder: (chapter) => const SizedBox(height: 10),
+                ),
+              ),
+              // Positioned(
+              //   top: 10,
+              //   left: 10,
+              //   child: IconButton(
+              //     icon: const Icon(Icons.arrow_back),
+              //     onPressed: () => setState(() => _showReader = false),
+              //   ),
+              // )
+            ],
+          ),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.white,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.list),
+                onPressed: () {
+                  _scaffoldKey.currentState?.openDrawer();
+                },
+              ),
+              Builder(
+                builder: (context) {
+                  return IconButton(
+                    icon: const Icon(Icons.text_fields),
+                    onPressed: () => _showTextStylePopover(context),
+                  );
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.search),
+                onPressed: () {
+                  // TODO: Implement Search
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(

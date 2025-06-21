@@ -84,6 +84,8 @@ class BookStatsWidget extends StatelessWidget {
           ),
           Text(
             label,
+            textAlign: TextAlign.center,
+            maxLines: 1,
             style: GoogleFonts.openSans(
               fontSize: 15,
               fontWeight: FontWeight.w500,

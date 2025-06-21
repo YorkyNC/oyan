@@ -20,19 +20,34 @@ class _ProfileFormScreenState extends State<ChangeInformationPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController aboutMeController = TextEditingController();
+  late final ProfileBloc _profileBloc;
+  final bool _isInitialized = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _profileBloc = getIt<ProfileBloc>();
+    // Initialize the bloc and fetch current profile data first
+    _profileBloc.add(
+      ProfileEvent.getProfile(
+        GetProfileRequest(username: st.getUsername() ?? ''),
+      ),
+    );
+  }
 
   @override
   void dispose() {
     nameController.dispose();
     usernameController.dispose();
     aboutMeController.dispose();
+    _profileBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<ProfileBloc>(),
+    return BlocProvider.value(
+      value: _profileBloc,
       child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           return Scaffold(
@@ -189,10 +204,11 @@ class _ProfileFormScreenState extends State<ChangeInformationPage> {
                     CustromFilledButton(
                       text: context.loc.save,
                       onPressed: () async {
+                        final currentUsername = st.getUsername() ?? '';
                         context.read<ProfileBloc>().add(
                               ProfileEvent.updateProfile(
                                 UpdateProfileRequest(
-                                  username: st.getUsername() ?? '',
+                                  username: currentUsername,
                                   name: nameController.text,
                                   bio: aboutMeController.text,
                                   avatar: 1,
@@ -200,13 +216,13 @@ class _ProfileFormScreenState extends State<ChangeInformationPage> {
                               ),
                             );
 
-                        await Future.delayed(const Duration(milliseconds: 500));
+                        // await Future.delayed(const Duration(milliseconds: 500));
 
-                        context.read<ProfileBloc>().add(
-                              ProfileEvent.getProfile(
-                                GetProfileRequest(username: st.getUsername() ?? ''),
-                              ),
-                            );
+                        // context.read<ProfileBloc>().add(
+                        //       ProfileEvent.getProfile(
+                        //         GetProfileRequest(username: st.getUsername() ?? ''),
+                        //       ),
+                        //     );
 
                         if (mounted) {
                           context.pop(true);

@@ -23,12 +23,14 @@ class SectionHeaderWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          title,
-          style: GoogleFonts.openSans(
-            fontSize: 17,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
+        Expanded(
+          child: Text(
+            title,
+            style: GoogleFonts.openSans(
+              fontSize: 17,
+              fontWeight: FontWeight.w600,
+              color: Colors.black,
+            ),
           ),
         ),
         if (showSeeAll)
