@@ -176,8 +176,7 @@ class ChatClient {
     if (_isDisposed) return;
 
     try {
-      subscription =
-          _client.getSubscription(channel) ??
+      subscription = _client.getSubscription(channel) ??
           _client.newSubscription(
             channel,
             SubscriptionConfig(token: st.getToken()!, recoverable: true, positioned: true, joinLeave: true),

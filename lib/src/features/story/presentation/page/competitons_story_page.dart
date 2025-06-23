@@ -34,10 +34,14 @@ class CompetitionStoryPage extends StatefulWidget {
 
 class _CompetitionStoryPageState extends State<CompetitionStoryPage> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Timer _timer;
+  Timer? _timer;
   double _progress = 0.0;
   final Duration _storyDuration = const Duration(seconds: 5);
   String? _lastImageUrl;
+  bool _isPaused = false;
+  DateTime? _pauseStartTime;
+  double _pauseProgress = 0.0;
+  Duration _remainingTime = const Duration(seconds: 5);
 
   @override
   void initState() {
@@ -46,32 +50,64 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
       vsync: this,
       duration: _storyDuration,
     )..addListener(() {
-        setState(() {
-          _progress = _controller.value;
-        });
+        if (!_isPaused) {
+          setState(() {
+            _progress = _controller.value;
+          });
+        }
       });
     _startTimer();
   }
 
   void _startTimer() {
     _controller.forward();
-    _timer = Timer(_storyDuration, () {
+    _timer?.cancel();
+    _timer = Timer(_remainingTime, () {
       if (mounted) {
         Navigator.of(context).pop();
       }
     });
   }
 
+  void _pauseTimer() {
+    if (!_isPaused) {
+      setState(() {
+        _isPaused = true;
+        _pauseStartTime = DateTime.now();
+        _pauseProgress = _progress;
+      });
+      _controller.stop();
+      _timer?.cancel();
+
+      // Calculate remaining time based on progress
+      final elapsedTime = (_storyDuration.inMilliseconds * _progress).round();
+      final remainingMilliseconds = _storyDuration.inMilliseconds - elapsedTime;
+      _remainingTime = Duration(milliseconds: remainingMilliseconds);
+    }
+  }
+
+  void _resumeTimer() {
+    if (_isPaused) {
+      setState(() {
+        _isPaused = false;
+        _pauseStartTime = null;
+      });
+      _controller.forward();
+      _startTimer();
+    }
+  }
+
   void _resetTimer() {
-    _timer.cancel();
+    _timer?.cancel();
     _controller.reset();
+    _remainingTime = _storyDuration;
     _startTimer();
   }
 
   @override
   void dispose() {
     _controller.dispose();
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -117,6 +153,8 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
     }
 
     return GestureDetector(
+      onLongPressStart: (_) => _pauseTimer(),
+      onLongPressEnd: (_) => _resumeTimer(),
       onTapDown: (_) => _controller.stop(),
       onTapUp: (_) => _controller.forward(),
       onTapCancel: () => _controller.forward(),
@@ -136,6 +174,8 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
                   overlayOpacity: 0.6,
                 ),
               ),
+              // Pause indicator overlay
+
               Positioned(
                 top: 0,
                 left: 0,
@@ -147,7 +187,7 @@ class _CompetitionStoryPageState extends State<CompetitionStoryPage> with Single
                     child: LinearProgressIndicator(
                       value: _progress,
                       backgroundColor: Colors.white.withOpacity(0.3),
-                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                      valueColor: AlwaysStoppedAnimation<Color>(_isPaused ? Colors.orange : Colors.white),
                       minHeight: 2,
                     ),
                   ),

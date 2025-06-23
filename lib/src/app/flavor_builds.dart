@@ -2,6 +2,50 @@ part of 'application.dart';
 
 enum AppFlavor { development, staging, production }
 
+// Custom MaterialLocalizations delegate that handles Kazakh fallback
+class CustomMaterialLocalizationsDelegate extends LocalizationsDelegate<MaterialLocalizations> {
+  const CustomMaterialLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) {
+    return ['en', 'ru', 'kz'].contains(locale.languageCode);
+  }
+
+  @override
+  Future<MaterialLocalizations> load(Locale locale) async {
+    // For Kazakh, fallback to Russian MaterialLocalizations
+    if (locale.languageCode == 'kz') {
+      return GlobalMaterialLocalizations.delegate.load(const Locale('ru'));
+    }
+    return GlobalMaterialLocalizations.delegate.load(locale);
+  }
+
+  @override
+  bool shouldReload(CustomMaterialLocalizationsDelegate old) => false;
+}
+
+// Custom CupertinoLocalizations delegate that handles Kazakh fallback
+class CustomCupertinoLocalizationsDelegate extends LocalizationsDelegate<CupertinoLocalizations> {
+  const CustomCupertinoLocalizationsDelegate();
+
+  @override
+  bool isSupported(Locale locale) {
+    return ['en', 'ru', 'kz'].contains(locale.languageCode);
+  }
+
+  @override
+  Future<CupertinoLocalizations> load(Locale locale) async {
+    // For Kazakh, fallback to Russian CupertinoLocalizations
+    if (locale.languageCode == 'kz') {
+      return GlobalCupertinoLocalizations.delegate.load(const Locale('ru'));
+    }
+    return GlobalCupertinoLocalizations.delegate.load(locale);
+  }
+
+  @override
+  bool shouldReload(CustomCupertinoLocalizationsDelegate old) => false;
+}
+
 MaterialApp _buildApp(AppFlavor flavor, GoRouter router, String languageCode) {
   switch (flavor) {
     case AppFlavor.development:
@@ -18,9 +62,9 @@ MaterialApp development(GoRouter router, String languageCode) => MaterialApp.rou
       // Localization
       localizationsDelegates: const [
         S.delegate,
-        GlobalMaterialLocalizations.delegate,
+        CustomMaterialLocalizationsDelegate(),
         GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+        CustomCupertinoLocalizationsDelegate(),
       ],
       supportedLocales: S.delegate.supportedLocales,
       locale: Locale(languageCode),
@@ -50,9 +94,9 @@ MaterialApp staging(GoRouter router, String languageCode) => MaterialApp.router(
       // Localization
       localizationsDelegates: const [
         S.delegate,
-        GlobalMaterialLocalizations.delegate,
+        CustomMaterialLocalizationsDelegate(),
         GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+        CustomCupertinoLocalizationsDelegate(),
       ],
       supportedLocales: S.delegate.supportedLocales,
       locale: Locale(languageCode),
@@ -83,9 +127,9 @@ MaterialApp production(GoRouter router, String languageCode) => MaterialApp.rout
       // Localization
       localizationsDelegates: const [
         S.delegate,
-        GlobalMaterialLocalizations.delegate,
+        CustomMaterialLocalizationsDelegate(),
         GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
+        CustomCupertinoLocalizationsDelegate(),
       ],
 
       supportedLocales: S.delegate.supportedLocales,

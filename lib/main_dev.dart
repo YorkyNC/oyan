@@ -3,7 +3,6 @@ import 'package:provider/provider.dart' as p;
 
 import 'src/app/imports.dart';
 import 'src/core/services/auth/role_notifier.dart';
-import 'src/core/services/centrifuge/chat_service.dart';
 import 'src/core/services/injectable/injectable_service.dart';
 import 'src/core/services/storage/storage_service_impl.dart';
 
@@ -17,9 +16,7 @@ void main() async {
 
   await configureDependencies();
 
-  // Initialize chat service
-  await ChatService.initializeChat();
-
+  // Initialize chat servic
   UIHelpers.statusBarTheme();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 

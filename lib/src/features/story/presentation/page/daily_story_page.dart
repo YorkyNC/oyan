@@ -28,9 +28,13 @@ class DailyStoryPage extends StatefulWidget {
 
 class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Timer _timer;
+  Timer? _timer;
   double _progress = 0.0;
   final Duration _storyDuration = const Duration(seconds: 5);
+  bool _isPaused = false;
+  DateTime? _pauseStartTime;
+  double _pauseProgress = 0.0;
+  Duration _remainingTime = const Duration(seconds: 5);
 
   @override
   void initState() {
@@ -39,30 +43,64 @@ class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProvid
       vsync: this,
       duration: _storyDuration,
     )..addListener(() {
-        setState(() {
-          _progress = _controller.value;
-        });
+        if (!_isPaused) {
+          setState(() {
+            _progress = _controller.value;
+          });
+        }
       });
     _startTimer();
   }
 
   void _startTimer() {
     _controller.forward();
-    _timer = Timer(_storyDuration, () {
-      Navigator.of(context).pop();
+    _timer?.cancel();
+    _timer = Timer(_remainingTime, () {
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
     });
   }
 
+  void _pauseTimer() {
+    if (!_isPaused) {
+      setState(() {
+        _isPaused = true;
+        _pauseStartTime = DateTime.now();
+        _pauseProgress = _progress;
+      });
+      _controller.stop();
+      _timer?.cancel();
+
+      // Calculate remaining time based on progress
+      final elapsedTime = (_storyDuration.inMilliseconds * _progress).round();
+      final remainingMilliseconds = _storyDuration.inMilliseconds - elapsedTime;
+      _remainingTime = Duration(milliseconds: remainingMilliseconds);
+    }
+  }
+
+  void _resumeTimer() {
+    if (_isPaused) {
+      setState(() {
+        _isPaused = false;
+        _pauseStartTime = null;
+      });
+      _controller.forward();
+      _startTimer();
+    }
+  }
+
   void _resetTimer() {
-    _timer.cancel();
+    _timer?.cancel();
     _controller.reset();
+    _remainingTime = _storyDuration;
     _startTimer();
   }
 
   @override
   void dispose() {
     _controller.dispose();
-    _timer.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -100,6 +138,8 @@ class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProvid
     final imageUrl = dailyExcerpt?.generatedImageUrl ?? widget.imageUrl;
 
     return GestureDetector(
+      onLongPressStart: (_) => _pauseTimer(),
+      onLongPressEnd: (_) => _resumeTimer(),
       onTapDown: (_) => _controller.stop(),
       onTapUp: (_) => _controller.forward(),
       onTapCancel: () => _controller.forward(),
@@ -154,7 +194,7 @@ class _DailyStoryPageState extends State<DailyStoryPage> with SingleTickerProvid
                     child: LinearProgressIndicator(
                       value: _progress,
                       backgroundColor: Colors.white.withOpacity(0.3),
-                      valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                      valueColor: AlwaysStoppedAnimation<Color>(_isPaused ? Colors.orange : Colors.white),
                       minHeight: 2,
                     ),
                   ),

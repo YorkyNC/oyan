@@ -34,6 +34,9 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
   final double _progress = 0.0;
   int _currentStoryIndex = 0;
   final List<double> _storyProgress = List.generate(9, (index) => 0.0);
+  bool _isPaused = false;
+  DateTime? _pauseStartTime;
+  double _pauseProgress = 0.0;
 
   @override
   void initState() {
@@ -53,27 +56,40 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
     final progressIncrement = 1.0 / totalUpdates;
 
     _timer = Timer.periodic(const Duration(milliseconds: updateInterval), (timer) {
-      setState(() {
-        _storyProgress[_currentStoryIndex] += progressIncrement;
-        if (_storyProgress[_currentStoryIndex] >= 1.0) {
-          if (_currentStoryIndex < 8) {
-            _currentStoryIndex++;
-            _storyProgress[_currentStoryIndex] = 0.0;
-          } else {
-            _timer.cancel();
-            context.pop();
+      if (!_isPaused) {
+        setState(() {
+          _storyProgress[_currentStoryIndex] += progressIncrement;
+          if (_storyProgress[_currentStoryIndex] >= 1.0) {
+            if (_currentStoryIndex < 8) {
+              _currentStoryIndex++;
+              _storyProgress[_currentStoryIndex] = 0.0;
+            } else {
+              _timer.cancel();
+              context.pop();
+            }
           }
-        }
-      });
+        });
+      }
     });
   }
 
   void _pauseTimer() {
-    _timer.cancel();
+    if (!_isPaused) {
+      setState(() {
+        _isPaused = true;
+        _pauseStartTime = DateTime.now();
+        _pauseProgress = _storyProgress[_currentStoryIndex];
+      });
+    }
   }
 
   void _resumeTimer() {
-    _startTimer();
+    if (_isPaused) {
+      setState(() {
+        _isPaused = false;
+        _pauseStartTime = null;
+      });
+    }
   }
 
   void _nextStory() {
@@ -142,8 +158,8 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
 
     return Scaffold(
       body: GestureDetector(
-        onLongPress: _pauseTimer,
-        onLongPressUp: _resumeTimer,
+        onLongPressStart: (_) => _pauseTimer(),
+        onLongPressEnd: (_) => _resumeTimer(),
         onTapDown: (details) {
           final screenWidth = MediaQuery.of(context).size.width;
           if (details.localPosition.dx < screenWidth / 3) {
@@ -186,7 +202,7 @@ class _NewHitsStoryPageState extends State<NewHitsStoryPage> {
                               child: LinearProgressIndicator(
                                 value: _storyProgress[index],
                                 backgroundColor: Colors.white.withOpacity(0.3),
-                                color: Colors.white,
+                                color: _isPaused ? Colors.orange : Colors.white,
                                 minHeight: 2,
                               ),
                             ),

@@ -14,7 +14,7 @@ class _LanguageSelectorState extends State<LanguageSelector> {
 
   String get _currentLanguage => _languageController.currentLanguage;
 
-  final List<String> _languages = ['en', 'ru'];
+  final List<String> _languages = ['en', 'ru', 'kz'];
 
   @override
   void initState() {
@@ -42,6 +42,8 @@ class _LanguageSelectorState extends State<LanguageSelector> {
         return 'English';
       case 'ru':
         return 'Русский';
+      case 'kz':
+        return 'Қазақша';
       default:
         return 'English';
     }
@@ -53,6 +55,8 @@ class _LanguageSelectorState extends State<LanguageSelector> {
         return 'EN';
       case 'ru':
         return 'RU';
+      case 'kz':
+        return 'KZ';
       default:
         return 'EN';
     }

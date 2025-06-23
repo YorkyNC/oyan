@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:oyan/src/core/localization/localization_controller.dart';
 import 'package:oyan/src/core/network/presentation/network_aware_widget.dart';
@@ -12,7 +13,7 @@ import 'imports.dart';
 part 'flavor_builds.dart';
 
 class MainApp extends StatefulWidget {
-  MainApp({
+  const MainApp({
     required this.flavor,
     super.key,
   });

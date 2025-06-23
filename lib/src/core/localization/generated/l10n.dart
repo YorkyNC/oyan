@@ -18,17 +18,20 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -41,8 +44,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -52,22 +57,12 @@ class S {
 
   /// `О ребенке`
   String get aboutChild {
-    return Intl.message(
-      'О ребенке',
-      name: 'aboutChild',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('О ребенке', name: 'aboutChild', desc: '', args: []);
   }
 
   /// `Обо мне`
   String get aboutMe {
-    return Intl.message(
-      'Обо мне',
-      name: 'aboutMe',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Обо мне', name: 'aboutMe', desc: '', args: []);
   }
 
   /// `Академические достижения`
@@ -122,22 +117,12 @@ class S {
 
   /// `Принято`
   String get accepted {
-    return Intl.message(
-      'Принято',
-      name: 'accepted',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Принято', name: 'accepted', desc: '', args: []);
   }
 
   /// `Аккаунт`
   String get account {
-    return Intl.message(
-      'Аккаунт',
-      name: 'account',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Аккаунт', name: 'account', desc: '', args: []);
   }
 
   /// `Настройки аккаунта`
@@ -152,42 +137,22 @@ class S {
 
   /// `Достижение`
   String get achievement {
-    return Intl.message(
-      'Достижение',
-      name: 'achievement',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Достижение', name: 'achievement', desc: '', args: []);
   }
 
   /// `Достижения`
   String get achievements {
-    return Intl.message(
-      'Достижения',
-      name: 'achievements',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Достижения', name: 'achievements', desc: '', args: []);
   }
 
   /// `Активный`
   String get active {
-    return Intl.message(
-      'Активный',
-      name: 'active',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Активный', name: 'active', desc: '', args: []);
   }
 
   /// `Факт`
   String get actual {
-    return Intl.message(
-      'Факт',
-      name: 'actual',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Факт', name: 'actual', desc: '', args: []);
   }
 
   /// `Добавить изображение сертификата`
@@ -232,32 +197,17 @@ class S {
 
   /// `Добавить еще`
   String get addMore {
-    return Intl.message(
-      'Добавить еще',
-      name: 'addMore',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Добавить еще', name: 'addMore', desc: '', args: []);
   }
 
   /// `Все`
   String get all {
-    return Intl.message(
-      'Все',
-      name: 'all',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Все', name: 'all', desc: '', args: []);
   }
 
   /// `Все события`
   String get allEvents {
-    return Intl.message(
-      'Все события',
-      name: 'allEvents',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Все события', name: 'allEvents', desc: '', args: []);
   }
 
   /// `Все поля обязательны`
@@ -272,22 +222,12 @@ class S {
 
   /// `Аналитика`
   String get analytics {
-    return Intl.message(
-      'Аналитика',
-      name: 'analytics',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Аналитика', name: 'analytics', desc: '', args: []);
   }
 
   /// `Анализировать`
   String get analyze {
-    return Intl.message(
-      'Анализировать',
-      name: 'analyze',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Анализировать', name: 'analyze', desc: '', args: []);
   }
 
   /// `Повторно проанализировать`
@@ -312,12 +252,7 @@ class S {
 
   /// `Апрель`
   String get april {
-    return Intl.message(
-      'Апрель',
-      name: 'april',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Апрель', name: 'april', desc: '', args: []);
   }
 
   /// `Вы уверены, что хотите открепить это сообщение?`
@@ -332,32 +267,17 @@ class S {
 
   /// `Прилежание`
   String get assiduity {
-    return Intl.message(
-      'Прилежание',
-      name: 'assiduity',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Прилежание', name: 'assiduity', desc: '', args: []);
   }
 
   /// `Посещ.`
   String get attendance {
-    return Intl.message(
-      'Посещ.',
-      name: 'attendance',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Посещ.', name: 'attendance', desc: '', args: []);
   }
 
   /// `Аудио`
   String get audio {
-    return Intl.message(
-      'Аудио',
-      name: 'audio',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Аудио', name: 'audio', desc: '', args: []);
   }
 
   /// `Аудиозапись о студенте`
@@ -372,12 +292,7 @@ class S {
 
   /// `Август`
   String get august {
-    return Intl.message(
-      'Август',
-      name: 'august',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Август', name: 'august', desc: '', args: []);
   }
 
   /// `Доступные классы`
@@ -412,32 +327,17 @@ class S {
 
   /// `Повед.`
   String get behavior {
-    return Intl.message(
-      'Повед.',
-      name: 'behavior',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Повед.', name: 'behavior', desc: '', args: []);
   }
 
   /// `Поведение`
   String get behaviorNotes {
-    return Intl.message(
-      'Поведение',
-      name: 'behaviorNotes',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Поведение', name: 'behaviorNotes', desc: '', args: []);
   }
 
   /// `Книга`
   String get book {
-    return Intl.message(
-      'Книга',
-      name: 'book',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Книга', name: 'book', desc: '', args: []);
   }
 
   /// `Оба списка статистики должны содержать ровно 6 значений`
@@ -472,12 +372,7 @@ class S {
 
   /// `По алфавиту`
   String get byAlphabet {
-    return Intl.message(
-      'По алфавиту',
-      name: 'byAlphabet',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('По алфавиту', name: 'byAlphabet', desc: '', args: []);
   }
 
   /// `По посещаемости`
@@ -492,12 +387,7 @@ class S {
 
   /// `По дате`
   String get byDate {
-    return Intl.message(
-      'По дате',
-      name: 'byDate',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('По дате', name: 'byDate', desc: '', args: []);
   }
 
   /// `По успеваемости`
@@ -512,42 +402,22 @@ class S {
 
   /// `По типу`
   String get byType {
-    return Intl.message(
-      'По типу',
-      name: 'byType',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('По типу', name: 'byType', desc: '', args: []);
   }
 
   /// `Календарь`
   String get calendar {
-    return Intl.message(
-      'Календарь',
-      name: 'calendar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Календарь', name: 'calendar', desc: '', args: []);
   }
 
   /// `Камеры`
   String get cameras {
-    return Intl.message(
-      'Камеры',
-      name: 'cameras',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Камеры', name: 'cameras', desc: '', args: []);
   }
 
   /// `Отмена`
   String get cancel {
-    return Intl.message(
-      'Отмена',
-      name: 'cancel',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Отмена', name: 'cancel', desc: '', args: []);
   }
 
   /// `Завершено`
@@ -562,12 +432,7 @@ class S {
 
   /// `Категория`
   String get category {
-    return Intl.message(
-      'Категория',
-      name: 'category',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Категория', name: 'category', desc: '', args: []);
   }
 
   /// `Обновление категории`
@@ -582,12 +447,7 @@ class S {
 
   /// `Сертификат`
   String get certificate {
-    return Intl.message(
-      'Сертификат',
-      name: 'certificate',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Сертификат', name: 'certificate', desc: '', args: []);
   }
 
   /// `Сертификаты`
@@ -622,22 +482,12 @@ class S {
 
   /// `Чаты`
   String get chats {
-    return Intl.message(
-      'Чаты',
-      name: 'chats',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Чаты', name: 'chats', desc: '', args: []);
   }
 
   /// `Списывание`
   String get cheating {
-    return Intl.message(
-      'Списывание',
-      name: 'cheating',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Списывание', name: 'cheating', desc: '', args: []);
   }
 
   /// `Проверка соединения...`
@@ -662,12 +512,7 @@ class S {
 
   /// `Дети`
   String get children {
-    return Intl.message(
-      'Дети',
-      name: 'children',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Дети', name: 'children', desc: '', args: []);
   }
 
   /// `Выберите фотографию`
@@ -712,22 +557,12 @@ class S {
 
   /// `Класс`
   String get class_ {
-    return Intl.message(
-      'Класс',
-      name: 'class_',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Класс', name: 'class_', desc: '', args: []);
   }
 
   /// `Классы`
   String get classes {
-    return Intl.message(
-      'Классы',
-      name: 'classes',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Классы', name: 'classes', desc: '', args: []);
   }
 
   /// `Классный руководитель`
@@ -742,22 +577,12 @@ class S {
 
   /// `Класс`
   String get classs {
-    return Intl.message(
-      'Класс',
-      name: 'classs',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Класс', name: 'classs', desc: '', args: []);
   }
 
   /// `Очистить все`
   String get clearAll {
-    return Intl.message(
-      'Очистить все',
-      name: 'clearAll',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Очистить все', name: 'clearAll', desc: '', args: []);
   }
 
   /// `Сотрудничество`
@@ -772,22 +597,12 @@ class S {
 
   /// `Комментарий:`
   String get coment {
-    return Intl.message(
-      'Комментарий:',
-      name: 'coment',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Комментарий:', name: 'coment', desc: '', args: []);
   }
 
   /// `комментарии`
   String get comments {
-    return Intl.message(
-      'комментарии',
-      name: 'comments',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('комментарии', name: 'comments', desc: '', args: []);
   }
 
   /// `Соревнование`
@@ -802,22 +617,12 @@ class S {
 
   /// `Завершено`
   String get complete {
-    return Intl.message(
-      'Завершено',
-      name: 'complete',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Завершено', name: 'complete', desc: '', args: []);
   }
 
   /// `завершено`
   String get completed {
-    return Intl.message(
-      'завершено',
-      name: 'completed',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('завершено', name: 'completed', desc: '', args: []);
   }
 
   /// `Завершено`
@@ -832,22 +637,12 @@ class S {
 
   /// `Конфликт`
   String get conflict {
-    return Intl.message(
-      'Конфликт',
-      name: 'conflict',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Конфликт', name: 'conflict', desc: '', args: []);
   }
 
   /// `Конфликты`
   String get conflicts {
-    return Intl.message(
-      'Конфликты',
-      name: 'conflicts',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Конфликты', name: 'conflicts', desc: '', args: []);
   }
 
   /// `Подключение восстановлено`
@@ -912,12 +707,7 @@ class S {
 
   /// `Креативность`
   String get creativity {
-    return Intl.message(
-      'Креативность',
-      name: 'creativity',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Креативность', name: 'creativity', desc: '', args: []);
   }
 
   /// `Дата не указана`
@@ -932,42 +722,22 @@ class S {
 
   /// `Дата выдачи`
   String get dateOfIssue {
-    return Intl.message(
-      'Дата выдачи',
-      name: 'dateOfIssue',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Дата выдачи', name: 'dateOfIssue', desc: '', args: []);
   }
 
   /// `Декабрь`
   String get december {
-    return Intl.message(
-      'Декабрь',
-      name: 'december',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Декабрь', name: 'december', desc: '', args: []);
   }
 
   /// `Отклонено:`
   String get declined {
-    return Intl.message(
-      'Отклонено:',
-      name: 'declined',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Отклонено:', name: 'declined', desc: '', args: []);
   }
 
   /// `Описание`
   String get description {
-    return Intl.message(
-      'Описание',
-      name: 'description',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Описание', name: 'description', desc: '', args: []);
   }
 
   /// `Описание (необязательно)`
@@ -982,22 +752,12 @@ class S {
 
   /// `Детали KPI`
   String get detailKpi {
-    return Intl.message(
-      'Детали KPI',
-      name: 'detailKpi',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Детали KPI', name: 'detailKpi', desc: '', args: []);
   }
 
   /// `Дневник`
   String get diary {
-    return Intl.message(
-      'Дневник',
-      name: 'diary',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Дневник', name: 'diary', desc: '', args: []);
   }
 
   /// `Вы хотите скачать отчет по ключевым показателям эффективности (KPI)?`
@@ -1012,32 +772,17 @@ class S {
 
   /// `Документ`
   String get document {
-    return Intl.message(
-      'Документ',
-      name: 'document',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Документ', name: 'document', desc: '', args: []);
   }
 
   /// `Выполнено`
   String get done {
-    return Intl.message(
-      'Выполнено',
-      name: 'done',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Выполнено', name: 'done', desc: '', args: []);
   }
 
   /// `Скачать`
   String get download {
-    return Intl.message(
-      'Скачать',
-      name: 'download',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Скачать', name: 'download', desc: '', args: []);
   }
 
   /// `Скачать отчет KPI`
@@ -1052,12 +797,7 @@ class S {
 
   /// `Скачать PDF`
   String get downloadPdf {
-    return Intl.message(
-      'Скачать PDF',
-      name: 'downloadPdf',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Скачать PDF', name: 'downloadPdf', desc: '', args: []);
   }
 
   /// `Скачать отчет`
@@ -1082,12 +822,7 @@ class S {
 
   /// `Ободрено`
   String get encouraged {
-    return Intl.message(
-      'Ободрено',
-      name: 'encouraged',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ободрено', name: 'encouraged', desc: '', args: []);
   }
 
   /// `Вовлеченность`
@@ -1122,12 +857,7 @@ class S {
 
   /// `Ошибка`
   String get error {
-    return Intl.message(
-      'Ошибка',
-      name: 'error',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ошибка', name: 'error', desc: '', args: []);
   }
 
   /// `Оцените отчетность учителя`
@@ -1142,42 +872,22 @@ class S {
 
   /// `События`
   String get events {
-    return Intl.message(
-      'События',
-      name: 'events',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('События', name: 'events', desc: '', args: []);
   }
 
   /// `Новые`
   String get eventsNew {
-    return Intl.message(
-      'Новые',
-      name: 'eventsNew',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Новые', name: 'eventsNew', desc: '', args: []);
   }
 
   /// `Старые`
   String get eventsOld {
-    return Intl.message(
-      'Старые',
-      name: 'eventsOld',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Старые', name: 'eventsOld', desc: '', args: []);
   }
 
   /// `Срочные`
   String get eventsUrgent {
-    return Intl.message(
-      'Срочные',
-      name: 'eventsUrgent',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Срочные', name: 'eventsUrgent', desc: '', args: []);
   }
 
   /// `Отличная посещаемость, почти без пропусков`
@@ -1202,12 +912,7 @@ class S {
 
   /// `факт`
   String get fact {
-    return Intl.message(
-      'факт',
-      name: 'fact',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('факт', name: 'fact', desc: '', args: []);
   }
 
   /// `Не удалось сохранить метрики`
@@ -1222,22 +927,12 @@ class S {
 
   /// `Избранное`
   String get favorite {
-    return Intl.message(
-      'Избранное',
-      name: 'favorite',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Избранное', name: 'favorite', desc: '', args: []);
   }
 
   /// `Избранное`
   String get favorites {
-    return Intl.message(
-      'Избранное',
-      name: 'favorites',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Избранное', name: 'favorites', desc: '', args: []);
   }
 
   /// `Рекомендуемые аудиокниги`
@@ -1252,22 +947,12 @@ class S {
 
   /// `Февраль`
   String get february {
-    return Intl.message(
-      'Февраль',
-      name: 'february',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Февраль', name: 'february', desc: '', args: []);
   }
 
   /// `Фильтры`
   String get filters {
-    return Intl.message(
-      'Фильтры',
-      name: 'filters',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Фильтры', name: 'filters', desc: '', args: []);
   }
 
   /// `Итоговые оценки`
@@ -1282,42 +967,22 @@ class S {
 
   /// `На проверку`
   String get forChecking {
-    return Intl.message(
-      'На проверку',
-      name: 'forChecking',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('На проверку', name: 'forChecking', desc: '', args: []);
   }
 
   /// `За день`
   String get forDay {
-    return Intl.message(
-      'За день',
-      name: 'forDay',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('За день', name: 'forDay', desc: '', args: []);
   }
 
   /// `За месяц`
   String get forMonth {
-    return Intl.message(
-      'За месяц',
-      name: 'forMonth',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('За месяц', name: 'forMonth', desc: '', args: []);
   }
 
   /// `За период`
   String get forPeriod {
-    return Intl.message(
-      'За период',
-      name: 'forPeriod',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('За период', name: 'forPeriod', desc: '', args: []);
   }
 
   /// `На обработку`
@@ -1332,22 +997,12 @@ class S {
 
   /// `За неделю`
   String get forWeek {
-    return Intl.message(
-      'За неделю',
-      name: 'forWeek',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('За неделю', name: 'forWeek', desc: '', args: []);
   }
 
   /// `для`
   String get forr {
-    return Intl.message(
-      'для',
-      name: 'forr',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('для', name: 'forr', desc: '', args: []);
   }
 
   /// `Forward tapped`
@@ -1392,12 +1047,7 @@ class S {
 
   /// `Галерея`
   String get gallery {
-    return Intl.message(
-      'Галерея',
-      name: 'gallery',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Галерея', name: 'gallery', desc: '', args: []);
   }
 
   /// `Начните с добавления Вашего первого сертификата!`
@@ -1412,22 +1062,12 @@ class S {
 
   /// `Перейти`
   String get goTo {
-    return Intl.message(
-      'Перейти',
-      name: 'goTo',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Перейти', name: 'goTo', desc: '', args: []);
   }
 
   /// `цель`
   String get goal {
-    return Intl.message(
-      'цель',
-      name: 'goal',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('цель', name: 'goal', desc: '', args: []);
   }
 
   /// `Хорошая посещаемость, редкие пропуски`
@@ -1442,22 +1082,12 @@ class S {
 
   /// `Оценки`
   String get grades {
-    return Intl.message(
-      'Оценки',
-      name: 'grades',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Оценки', name: 'grades', desc: '', args: []);
   }
 
   /// `Оценки за:`
   String get gradesFor {
-    return Intl.message(
-      'Оценки за:',
-      name: 'gradesFor',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Оценки за:', name: 'gradesFor', desc: '', args: []);
   }
 
   /// `Журнал оценок`
@@ -1492,42 +1122,22 @@ class S {
 
   /// `Опекун`
   String get guardian {
-    return Intl.message(
-      'Опекун',
-      name: 'guardian',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Опекун', name: 'guardian', desc: '', args: []);
   }
 
   /// `Главная`
   String get home {
-    return Intl.message(
-      'Главная',
-      name: 'home',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Главная', name: 'home', desc: '', args: []);
   }
 
   /// `Горячие точки`
   String get hotspots {
-    return Intl.message(
-      'Горячие точки',
-      name: 'hotspots',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Горячие точки', name: 'hotspots', desc: '', args: []);
   }
 
   /// `{hours} ч`
   String hours(Object hours) {
-    return Intl.message(
-      '$hours ч',
-      name: 'hours',
-      desc: '',
-      args: [hours],
-    );
+    return Intl.message('$hours ч', name: 'hours', desc: '', args: [hours]);
   }
 
   /// `Важные темы этой четверти`
@@ -1542,42 +1152,22 @@ class S {
 
   /// `Улучшились`
   String get improved {
-    return Intl.message(
-      'Улучшились',
-      name: 'improved',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Улучшились', name: 'improved', desc: '', args: []);
   }
 
   /// `В процессе`
   String get inProgress {
-    return Intl.message(
-      'В процессе',
-      name: 'inProgress',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('В процессе', name: 'inProgress', desc: '', args: []);
   }
 
   /// `Показатели`
   String get indicators {
-    return Intl.message(
-      'Показатели',
-      name: 'indicators',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Показатели', name: 'indicators', desc: '', args: []);
   }
 
   /// `Инсайты`
   String get insights {
-    return Intl.message(
-      'Инсайты',
-      name: 'insights',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Инсайты', name: 'insights', desc: '', args: []);
   }
 
   /// `Взаимодействие с родителями`
@@ -1592,62 +1182,32 @@ class S {
 
   /// `Интерфейс`
   String get interface {
-    return Intl.message(
-      'Интерфейс',
-      name: 'interface',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Интерфейс', name: 'interface', desc: '', args: []);
   }
 
   /// `Январь`
   String get january {
-    return Intl.message(
-      'Январь',
-      name: 'january',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Январь', name: 'january', desc: '', args: []);
   }
 
   /// `Журнал`
   String get journal {
-    return Intl.message(
-      'Журнал',
-      name: 'journal',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Журнал', name: 'journal', desc: '', args: []);
   }
 
   /// `Июль`
   String get july {
-    return Intl.message(
-      'Июль',
-      name: 'july',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Июль', name: 'july', desc: '', args: []);
   }
 
   /// `Июнь`
   String get june {
-    return Intl.message(
-      'Июнь',
-      name: 'june',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Июнь', name: 'june', desc: '', args: []);
   }
 
   /// `Язык`
   String get language {
-    return Intl.message(
-      'Язык',
-      name: 'language',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Язык', name: 'language', desc: '', args: []);
   }
 
   /// `Лидерские качества`
@@ -1662,12 +1222,7 @@ class S {
 
   /// `Осталось`
   String get left {
-    return Intl.message(
-      'Осталось',
-      name: 'left',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Осталось', name: 'left', desc: '', args: []);
   }
 
   /// `Список учеников`
@@ -1682,12 +1237,7 @@ class S {
 
   /// `Загрузка...`
   String get loading {
-    return Intl.message(
-      'Загрузка...',
-      name: 'loading',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Загрузка...', name: 'loading', desc: '', args: []);
   }
 
   /// `Загрузка класса...`
@@ -1722,22 +1272,12 @@ class S {
 
   /// `Готово`
   String get made {
-    return Intl.message(
-      'Готово',
-      name: 'made',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Готово', name: 'made', desc: '', args: []);
   }
 
   /// `Почта`
   String get mail {
-    return Intl.message(
-      'Почта',
-      name: 'mail',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Почта', name: 'mail', desc: '', args: []);
   }
 
   /// `Главные моменты`
@@ -1762,42 +1302,22 @@ class S {
 
   /// `Управление`
   String get management {
-    return Intl.message(
-      'Управление',
-      name: 'management',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Управление', name: 'management', desc: '', args: []);
   }
 
   /// `Март`
   String get march {
-    return Intl.message(
-      'Март',
-      name: 'march',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Март', name: 'march', desc: '', args: []);
   }
 
   /// `Май`
   String get may {
-    return Intl.message(
-      'Май',
-      name: 'may',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Май', name: 'may', desc: '', args: []);
   }
 
   /// `Сообщение`
   String get message {
-    return Intl.message(
-      'Сообщение',
-      name: 'message',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Сообщение', name: 'message', desc: '', args: []);
   }
 
   /// `Сообщение скопировано`
@@ -1832,42 +1352,22 @@ class S {
 
   /// `еще`
   String get more {
-    return Intl.message(
-      'еще',
-      name: 'more',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('еще', name: 'more', desc: '', args: []);
   }
 
   /// `Подробнее`
   String get moreDetail {
-    return Intl.message(
-      'Подробнее',
-      name: 'moreDetail',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Подробнее', name: 'moreDetail', desc: '', args: []);
   }
 
   /// `Мои книги`
   String get myBooks {
-    return Intl.message(
-      'Мои книги',
-      name: 'myBooks',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Мои книги', name: 'myBooks', desc: '', args: []);
   }
 
   /// `Имя`
   String get name {
-    return Intl.message(
-      'Имя',
-      name: 'name',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Имя', name: 'name', desc: '', args: []);
   }
 
   /// `Проблемы с сетью`
@@ -1902,12 +1402,7 @@ class S {
 
   /// `Новые книги`
   String get newBooks {
-    return Intl.message(
-      'Новые книги',
-      name: 'newBooks',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Новые книги', name: 'newBooks', desc: '', args: []);
   }
 
   /// `Новая публикация`
@@ -1922,22 +1417,12 @@ class S {
 
   /// `Новости`
   String get news {
-    return Intl.message(
-      'Новости',
-      name: 'news',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Новости', name: 'news', desc: '', args: []);
   }
 
   /// `Далее`
   String get next {
-    return Intl.message(
-      'Далее',
-      name: 'next',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Далее', name: 'next', desc: '', args: []);
   }
 
   /// `Нет активных отчетностей`
@@ -2052,12 +1537,7 @@ class S {
 
   /// `Нет данных`
   String get noData {
-    return Intl.message(
-      'Нет данных',
-      name: 'noData',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Нет данных', name: 'noData', desc: '', args: []);
   }
 
   /// `Пока нет событий на проверку`
@@ -2132,12 +1612,7 @@ class S {
 
   /// `Не выполнено`
   String get notDone {
-    return Intl.message(
-      'Не выполнено',
-      name: 'notDone',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Не выполнено', name: 'notDone', desc: '', args: []);
   }
 
   /// `Здесь пока ничего нет`
@@ -2192,42 +1667,22 @@ class S {
 
   /// `Ноябрь`
   String get november {
-    return Intl.message(
-      'Ноябрь',
-      name: 'november',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ноябрь', name: 'november', desc: '', args: []);
   }
 
   /// `Октябрь`
   String get october {
-    return Intl.message(
-      'Октябрь',
-      name: 'october',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Октябрь', name: 'october', desc: '', args: []);
   }
 
   /// `Oк`
   String get ok {
-    return Intl.message(
-      'Oк',
-      name: 'ok',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Oк', name: 'ok', desc: '', args: []);
   }
 
   /// `Другое`
   String get other {
-    return Intl.message(
-      'Другое',
-      name: 'other',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Другое', name: 'other', desc: '', args: []);
   }
 
   /// `Другие комментарии`
@@ -2252,22 +1707,12 @@ class S {
 
   /// `Просрочено`
   String get overdue {
-    return Intl.message(
-      'Просрочено',
-      name: 'overdue',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Просрочено', name: 'overdue', desc: '', args: []);
   }
 
   /// `Родитель`
   String get parent {
-    return Intl.message(
-      'Родитель',
-      name: 'parent',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Родитель', name: 'parent', desc: '', args: []);
   }
 
   /// `Взаимодействие с родителями`
@@ -2282,42 +1727,22 @@ class S {
 
   /// `Сдано`
   String get passed {
-    return Intl.message(
-      'Сдано',
-      name: 'passed',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Сдано', name: 'passed', desc: '', args: []);
   }
 
   /// `Пропусков`
   String get passes {
-    return Intl.message(
-      'Пропусков',
-      name: 'passes',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Пропусков', name: 'passes', desc: '', args: []);
   }
 
   /// `Пароль`
   String get password {
-    return Intl.message(
-      'Пароль',
-      name: 'password',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Пароль', name: 'password', desc: '', args: []);
   }
 
   /// `Усп.`
   String get performance {
-    return Intl.message(
-      'Усп.',
-      name: 'performance',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Усп.', name: 'performance', desc: '', args: []);
   }
 
   /// `Персональные достижения`
@@ -2432,12 +1857,7 @@ class S {
 
   /// `Предыдущий`
   String get previous {
-    return Intl.message(
-      'Предыдущий',
-      name: 'previous',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Предыдущий', name: 'previous', desc: '', args: []);
   }
 
   /// `Политика конфиденциальности`
@@ -2452,22 +1872,12 @@ class S {
 
   /// `Обработано`
   String get processed {
-    return Intl.message(
-      'Обработано',
-      name: 'processed',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Обработано', name: 'processed', desc: '', args: []);
   }
 
   /// `Профиль`
   String get profile {
-    return Intl.message(
-      'Профиль',
-      name: 'profile',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Профиль', name: 'profile', desc: '', args: []);
   }
 
   /// `Профильный предмет`
@@ -2502,32 +1912,17 @@ class S {
 
   /// `Журнал оценок`
   String get ratingLog {
-    return Intl.message(
-      'Журнал оценок',
-      name: 'ratingLog',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Журнал оценок', name: 'ratingLog', desc: '', args: []);
   }
 
   /// `Читать далее`
   String get readMore {
-    return Intl.message(
-      'Читать далее',
-      name: 'readMore',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Читать далее', name: 'readMore', desc: '', args: []);
   }
 
   /// `Чтение`
   String get reading {
-    return Intl.message(
-      'Чтение',
-      name: 'reading',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Чтение', name: 'reading', desc: '', args: []);
   }
 
   /// `Рекомендация`
@@ -2552,42 +1947,22 @@ class S {
 
   /// `Отклонено`
   String get rejected {
-    return Intl.message(
-      'Отклонено',
-      name: 'rejected',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Отклонено', name: 'rejected', desc: '', args: []);
   }
 
   /// `Замечаний`
   String get remarks {
-    return Intl.message(
-      'Замечаний',
-      name: 'remarks',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Замечаний', name: 'remarks', desc: '', args: []);
   }
 
   /// `Replying to:`
   String get replyingTo {
-    return Intl.message(
-      'Replying to:',
-      name: 'replyingTo',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Replying to:', name: 'replyingTo', desc: '', args: []);
   }
 
   /// `Отчетности`
   String get report {
-    return Intl.message(
-      'Отчетности',
-      name: 'report',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Отчетности', name: 'report', desc: '', args: []);
   }
 
   /// `Отчетность по`
@@ -2632,12 +2007,7 @@ class S {
 
   /// `Обзор`
   String get review {
-    return Intl.message(
-      'Обзор',
-      name: 'review',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Обзор', name: 'review', desc: '', args: []);
   }
 
   /// `Удовлетворительная посещаемость, есть пропуски`
@@ -2652,32 +2022,17 @@ class S {
 
   /// `Сохранить`
   String get save {
-    return Intl.message(
-      'Сохранить',
-      name: 'save',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Сохранить', name: 'save', desc: '', args: []);
   }
 
   /// `Школа`
   String get school {
-    return Intl.message(
-      'Школа',
-      name: 'school',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Школа', name: 'school', desc: '', args: []);
   }
 
   /// `Найти`
   String get search {
-    return Intl.message(
-      'Найти',
-      name: 'search',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Найти', name: 'search', desc: '', args: []);
   }
 
   /// `Поиск аудиокниги или читателя`
@@ -2702,22 +2057,12 @@ class S {
 
   /// `СОР`
   String get sectionAssessment {
-    return Intl.message(
-      'СОР',
-      name: 'sectionAssessment',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('СОР', name: 'sectionAssessment', desc: '', args: []);
   }
 
   /// `Смотреть все`
   String get seeAll {
-    return Intl.message(
-      'Смотреть все',
-      name: 'seeAll',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Смотреть все', name: 'seeAll', desc: '', args: []);
   }
 
   /// `Выбрать период`
@@ -2742,12 +2087,7 @@ class S {
 
   /// `Выбрано`
   String get selected {
-    return Intl.message(
-      'Выбрано',
-      name: 'selected',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Выбрано', name: 'selected', desc: '', args: []);
   }
 
   /// `Самостоятельность`
@@ -2762,12 +2102,7 @@ class S {
 
   /// `Отправлено`
   String get sent {
-    return Intl.message(
-      'Отправлено',
-      name: 'sent',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Отправлено', name: 'sent', desc: '', args: []);
   }
 
   /// `Отправлено с опозданием`
@@ -2782,32 +2117,17 @@ class S {
 
   /// `Сентябрь`
   String get september {
-    return Intl.message(
-      'Сентябрь',
-      name: 'september',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Сентябрь', name: 'september', desc: '', args: []);
   }
 
   /// `Сервисы`
   String get services {
-    return Intl.message(
-      'Сервисы',
-      name: 'services',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Сервисы', name: 'services', desc: '', args: []);
   }
 
   /// `Поделиться`
   String get share {
-    return Intl.message(
-      'Поделиться',
-      name: 'share',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Поделиться', name: 'share', desc: '', args: []);
   }
 
   /// `Показать сначала`
@@ -2862,12 +2182,7 @@ class S {
 
   /// `Курение`
   String get smoking {
-    return Intl.message(
-      'Курение',
-      name: 'smoking',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Курение', name: 'smoking', desc: '', args: []);
   }
 
   /// `Социальная информация`
@@ -2882,52 +2197,27 @@ class S {
 
   /// `Сортировка`
   String get sort {
-    return Intl.message(
-      'Сортировка',
-      name: 'sort',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Сортировка', name: 'sort', desc: '', args: []);
   }
 
   /// `Сортировка`
   String get sortOptions {
-    return Intl.message(
-      'Сортировка',
-      name: 'sortOptions',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Сортировка', name: 'sortOptions', desc: '', args: []);
   }
 
   /// `Сортировка`
   String get sorting {
-    return Intl.message(
-      'Сортировка',
-      name: 'sorting',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Сортировка', name: 'sorting', desc: '', args: []);
   }
 
   /// `Стабильно`
   String get stable {
-    return Intl.message(
-      'Стабильно',
-      name: 'stable',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Стабильно', name: 'stable', desc: '', args: []);
   }
 
   /// `Ученик`
   String get student {
-    return Intl.message(
-      'Ученик',
-      name: 'student',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ученик', name: 'student', desc: '', args: []);
   }
 
   /// `Отчетность об ученике`
@@ -2942,12 +2232,7 @@ class S {
 
   /// `Ученики`
   String get students {
-    return Intl.message(
-      'Ученики',
-      name: 'students',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ученики', name: 'students', desc: '', args: []);
   }
 
   /// `Шестиугольник предметов`
@@ -2972,12 +2257,7 @@ class S {
 
   /// `Подписаться`
   String get subscribe {
-    return Intl.message(
-      'Подписаться',
-      name: 'subscribe',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Подписаться', name: 'subscribe', desc: '', args: []);
   }
 
   /// `Суммативные оценивания`
@@ -2992,32 +2272,17 @@ class S {
 
   /// `Поддержка`
   String get support {
-    return Intl.message(
-      'Поддержка',
-      name: 'support',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Поддержка', name: 'support', desc: '', args: []);
   }
 
   /// `Теги`
   String get tags {
-    return Intl.message(
-      'Теги',
-      name: 'tags',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Теги', name: 'tags', desc: '', args: []);
   }
 
   /// `Учитель`
   String get teacher {
-    return Intl.message(
-      'Учитель',
-      name: 'teacher',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Учитель', name: 'teacher', desc: '', args: []);
   }
 
   /// `Комментарии преподавателей`
@@ -3062,52 +2327,27 @@ class S {
 
   /// `ЧЕТВЕРТЬ`
   String get term {
-    return Intl.message(
-      'ЧЕТВЕРТЬ',
-      name: 'term',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('ЧЕТВЕРТЬ', name: 'term', desc: '', args: []);
   }
 
   /// `СОЧ`
   String get termAssessment {
-    return Intl.message(
-      'СОЧ',
-      name: 'termAssessment',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('СОЧ', name: 'termAssessment', desc: '', args: []);
   }
 
   /// `Срок истек`
   String get timeOut {
-    return Intl.message(
-      'Срок истек',
-      name: 'timeOut',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Срок истек', name: 'timeOut', desc: '', args: []);
   }
 
   /// `Название`
   String get title {
-    return Intl.message(
-      'Название',
-      name: 'title',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Название', name: 'title', desc: '', args: []);
   }
 
   /// `Читать`
   String get toRead {
-    return Intl.message(
-      'Читать',
-      name: 'toRead',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Читать', name: 'toRead', desc: '', args: []);
   }
 
   /// `Всего: {count}`
@@ -3122,12 +2362,7 @@ class S {
 
   /// `Обучение`
   String get training {
-    return Intl.message(
-      'Обучение',
-      name: 'training',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Обучение', name: 'training', desc: '', args: []);
   }
 
   /// `Проблемный класс`
@@ -3142,12 +2377,7 @@ class S {
 
   /// `Повторить`
   String get tryAgain {
-    return Intl.message(
-      'Повторить',
-      name: 'tryAgain',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Повторить', name: 'tryAgain', desc: '', args: []);
   }
 
   /// `Попробуйте снова позже`
@@ -3182,12 +2412,7 @@ class S {
 
   /// `Открепить`
   String get unpin {
-    return Intl.message(
-      'Открепить',
-      name: 'unpin',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Открепить', name: 'unpin', desc: '', args: []);
   }
 
   /// `Посмотреть все предметы`
@@ -3212,12 +2437,7 @@ class S {
 
   /// `вес`
   String get weight {
-    return Intl.message(
-      'вес',
-      name: 'weight',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('вес', name: 'weight', desc: '', args: []);
   }
 
   /// `Какие у вас впечатления от отчета`
@@ -3232,62 +2452,32 @@ class S {
 
   /// `Ухудшились`
   String get worsened {
-    return Intl.message(
-      'Ухудшились',
-      name: 'worsened',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ухудшились', name: 'worsened', desc: '', args: []);
   }
 
   /// `Вы`
   String get you {
-    return Intl.message(
-      'Вы',
-      name: 'you',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Вы', name: 'you', desc: '', args: []);
   }
 
   /// `Ваш ребенок`
   String get yourChild {
-    return Intl.message(
-      'Ваш ребенок',
-      name: 'yourChild',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ваш ребенок', name: 'yourChild', desc: '', args: []);
   }
 
   /// `Ваш класс`
   String get yourClass {
-    return Intl.message(
-      'Ваш класс',
-      name: 'yourClass',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ваш класс', name: 'yourClass', desc: '', args: []);
   }
 
   /// `Ваш KPI`
   String get yourKpi {
-    return Intl.message(
-      'Ваш KPI',
-      name: 'yourKpi',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ваш KPI', name: 'yourKpi', desc: '', args: []);
   }
 
   /// `Читать`
   String get read {
-    return Intl.message(
-      'Читать',
-      name: 'read',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Читать', name: 'read', desc: '', args: []);
   }
 
   /// `Добро пожаловать в OYAN!`
@@ -3312,12 +2502,7 @@ class S {
 
   /// `Продолжать`
   String get continue1 {
-    return Intl.message(
-      'Продолжать',
-      name: 'continue1',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Продолжать', name: 'continue1', desc: '', args: []);
   }
 
   /// `Завершенные книги`
@@ -3372,12 +2557,7 @@ class S {
 
   /// `Турниры`
   String get tournaments {
-    return Intl.message(
-      'Турниры',
-      name: 'tournaments',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Турниры', name: 'tournaments', desc: '', args: []);
   }
 
   /// `Принимающий участие`
@@ -3392,72 +2572,37 @@ class S {
 
   /// `Результаты`
   String get results {
-    return Intl.message(
-      'Результаты',
-      name: 'results',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Результаты', name: 'results', desc: '', args: []);
   }
 
   /// `Результат`
   String get result {
-    return Intl.message(
-      'Результат',
-      name: 'result',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Результат', name: 'result', desc: '', args: []);
   }
 
   /// `Подробнее`
   String get details {
-    return Intl.message(
-      'Подробнее',
-      name: 'details',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Подробнее', name: 'details', desc: '', args: []);
   }
 
   /// `Участвовать`
   String get participate {
-    return Intl.message(
-      'Участвовать',
-      name: 'participate',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Участвовать', name: 'participate', desc: '', args: []);
   }
 
   /// `Начать`
   String get start {
-    return Intl.message(
-      'Начать',
-      name: 'start',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Начать', name: 'start', desc: '', args: []);
   }
 
   /// `Обзор`
   String get overview {
-    return Intl.message(
-      'Обзор',
-      name: 'overview',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Обзор', name: 'overview', desc: '', args: []);
   }
 
   /// `Страницы`
   String get pages {
-    return Intl.message(
-      'Страницы',
-      name: 'pages',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Страницы', name: 'pages', desc: '', args: []);
   }
 
   /// `Возрастное ограничение`
@@ -3472,12 +2617,7 @@ class S {
 
   /// `Оценка`
   String get rating {
-    return Intl.message(
-      'Оценка',
-      name: 'rating',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Оценка', name: 'rating', desc: '', args: []);
   }
 
   /// `Оставить комментарий`
@@ -3492,12 +2632,7 @@ class S {
 
   /// `Отправить`
   String get send {
-    return Intl.message(
-      'Отправить',
-      name: 'send',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Отправить', name: 'send', desc: '', args: []);
   }
 
   /// `Рейтинги и отзывы`
@@ -3522,32 +2657,17 @@ class S {
 
   /// `TODAY’s Hit`
   String get todaysHit {
-    return Intl.message(
-      'TODAY’s Hit',
-      name: 'todaysHit',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('TODAY’s Hit', name: 'todaysHit', desc: '', args: []);
   }
 
   /// `Подробнее`
   String get moreDetailed {
-    return Intl.message(
-      'Подробнее',
-      name: 'moreDetailed',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Подробнее', name: 'moreDetailed', desc: '', args: []);
   }
 
   /// `Начать`
   String get getStarted {
-    return Intl.message(
-      'Начать',
-      name: 'getStarted',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Начать', name: 'getStarted', desc: '', args: []);
   }
 
   /// `На данный момент нет доступных ежедневных заданий`
@@ -3612,22 +2732,12 @@ class S {
 
   /// `Ваше имя`
   String get yourName {
-    return Intl.message(
-      'Ваше имя',
-      name: 'yourName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Ваше имя', name: 'yourName', desc: '', args: []);
   }
 
   /// `Скоро`
   String get comingSoon {
-    return Intl.message(
-      'Скоро',
-      name: 'comingSoon',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Скоро', name: 'comingSoon', desc: '', args: []);
   }
 }
 
@@ -3638,6 +2748,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'ru'),
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'kz'),
     ];
   }
 
